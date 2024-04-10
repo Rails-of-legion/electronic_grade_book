@@ -51,8 +51,6 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem "rubocop-rspec", require: false
-
-  gem 'rspec-rails'
 end
 
 group :development do
@@ -72,4 +70,6 @@ group :test do
   gem "selenium-webdriver"
 
   gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'main'
+
+  gem 'rspec-rails'
 end
