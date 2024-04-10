@@ -7,3 +7,16 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+Role.create(name: 'admin')
+Role.create(name: 'teacher')
+Role.create(name: 'student')
+
+admin = User.create(name: 'admin', email: 'admin@localhost', password: 'admin', status: true, date_of_birth: Date.new(2000, 1, 1))
+admin.add_role(:admin)
+
+teacher = User.create(name: 'teacher', email: 'teacher@localhost', password: 'teacher', status: true, date_of_birth: Date.new(2000, 1, 1))
+teacher.add_role(:teacher)
+
+student = User.create(name: 'student', email: 'student@localhost', password: 'student', status: true, date_of_birth: Date.new(2000, 1, 1))
+student.add_role(:student)
