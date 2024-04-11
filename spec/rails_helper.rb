@@ -3,9 +3,9 @@ require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
-require "shoulda/matchers"
+require 'shoulda/matchers'
 require 'factory_bot_rails'
 
 Shoulda::Matchers.configure do |config|
@@ -46,11 +46,9 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
-
   config.include Shoulda::Matchers::ActiveRecord, type: :model
 
   config.include FactoryBot::Syntax::Methods
-
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
