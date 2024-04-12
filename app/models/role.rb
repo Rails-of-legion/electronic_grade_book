@@ -11,5 +11,6 @@ class Role < ApplicationRecord
             allow_nil: true
 
   scopify
+  validates :name, presence: true
   # rubocop:enable Style/HasAndBelongsToMany
 end
