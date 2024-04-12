@@ -1,0 +1,11 @@
+<h1>Welcome to the Home Page</h1>
+<p>This is a static page with information about our application.</p>
+
+<% if user_signed_in? %>
+  <h3>Welcome <%= current_user.name %></h3> 
+  <h3>your email is <%= current_user.email %></h3>
+  <h3>your role is <%= current_user.roles.first.name %></h3>
+  <%= button_to 'Выход', destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= button_to 'Вход', new_user_session_path %>
+<% end %>
