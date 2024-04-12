@@ -56,8 +56,6 @@ group :development, :test do
 
   gem 'byebug'
 
-  gem 'lefthook'
-
 end
 
 group :development do

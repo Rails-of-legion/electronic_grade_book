@@ -13,6 +13,8 @@ AllCops:
     - "config/**/*"
     - "Gemfile"
 
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
 
 Layout/LineLength:
   Max: 120
