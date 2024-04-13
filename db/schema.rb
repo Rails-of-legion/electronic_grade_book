@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_13_174440) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_13_174931) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,10 +33,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_174440) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
-  create_table "specializations", force: :cascade do |t|
-    t.string "name"
+  create_table "semesters", force: :cascade do |t|
+    t.string "name", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "semester_id", null: false
+    t.text "assessment_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["semester_id"], name: "index_subjects_on_semester_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -62,5 +74,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_174440) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  add_foreign_key "groups", "users", column: "curator_id"
+  add_foreign_key "subjects", "semesters"
 end
