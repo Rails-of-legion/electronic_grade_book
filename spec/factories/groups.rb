@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :group do
     name { Faker::Lorem.word }
-    association :curator, factory: :user
+    curator factory: %i[user]
   end
 end
-
