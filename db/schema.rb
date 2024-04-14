@@ -25,20 +25,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_175605) do
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
-    t.string "resource_type"
-    t.bigint "resource_id"
+    t.bigint "curator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
-    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+    t.index ["curator_id"], name: "index_groups_on_curator"
+    t.index ["curator_id"], name: "index_groups_on_curator_id"
   end
 
-  create_table "semesters", force: :cascade do |t|
-    t.string "name", null: false
-    t.date "start_date", null: false
-    t.date "end_date", null: false
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.bigint "curator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["curator_id"], name: "index_groups_on_curator"
+    t.index ["curator_id"], name: "index_groups_on_curator_id"
   end
 
   create_table "specializations", force: :cascade do |t|
@@ -60,12 +60,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_175605) do
 
   create_table "subjects", force: :cascade do |t|
     t.string "name"
-    t.text "description"
-    t.bigint "semester_id", null: false
-    t.text "assessment_type"
+    t.string "resource_type"
+    t.bigint "resource_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["semester_id"], name: "index_subjects_on_semester_id"
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
   create_table "users", force: :cascade do |t|
