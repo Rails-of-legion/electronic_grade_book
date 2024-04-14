@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_13_175605) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_14_105012) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_175605) do
     t.datetime "updated_at", null: false
     t.index ["curator_id"], name: "index_groups_on_curator"
     t.index ["curator_id"], name: "index_groups_on_curator_id"
+  end
+
+  create_table "intermediate_attestations", force: :cascade do |t|
+    t.bigint "subject_id", null: false
+    t.string "name"
+    t.date "date"
+    t.integer "max_grade"
+    t.string "assessment_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_intermediate_attestations_on_subject_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -92,6 +103,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_175605) do
   end
 
   add_foreign_key "groups", "users", column: "curator_id"
+  add_foreign_key "intermediate_attestations", "subjects"
   add_foreign_key "students", "groups"
   add_foreign_key "students", "specializations"
   add_foreign_key "students", "users"
