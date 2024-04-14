@@ -10,46 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_14_105012) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_13_174931) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "groups", force: :cascade do |t|
+  create_table "roles", force: :cascade do |t|
     t.string "name"
     t.bigint "curator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["curator_id"], name: "index_groups_on_curator"
     t.index ["curator_id"], name: "index_groups_on_curator_id"
-  end
-
-  create_table "intermediate_attestations", force: :cascade do |t|
-    t.bigint "subject_id", null: false
-    t.string "name"
-    t.date "date"
-    t.integer "max_grade"
-    t.string "assessment_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["subject_id"], name: "index_intermediate_attestations_on_subject_id"
-  end
-
-  create_table "roles", force: :cascade do |t|
-    t.string "name"
-    t.string "resource_type"
-    t.bigint "resource_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
-    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
-  end
-
-  create_table "semesters", force: :cascade do |t|
-    t.string "name", null: false
-    t.date "start_date", null: false
-    t.date "end_date", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "specializations", force: :cascade do |t|
@@ -67,6 +38,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_14_105012) do
     t.index ["group_id"], name: "index_students_on_group_id"
     t.index ["specialization_id"], name: "index_students_on_specialization_id"
     t.index ["user_id"], name: "index_students_on_user_id"
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
+  create_table "semesters", force: :cascade do |t|
+    t.string "name", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -102,10 +91,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_14_105012) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  add_foreign_key "groups", "users", column: "curator_id"
-  add_foreign_key "intermediate_attestations", "subjects"
-  add_foreign_key "students", "groups"
-  add_foreign_key "students", "specializations"
-  add_foreign_key "students", "users"
   add_foreign_key "subjects", "semesters"
 end
