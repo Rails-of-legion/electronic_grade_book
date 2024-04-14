@@ -14,6 +14,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_174931) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.bigint "curator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["curator_id"], name: "index_groups_on_curator"
+    t.index ["curator_id"], name: "index_groups_on_curator_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
