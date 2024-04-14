@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :student do
-    user { nil }
-    speciality { nil }
-    group { nil }
+    association :user, strategy: :build 
+    association :specialization, strategy: :build
+    association :group, strategy: :build
   end
 end
