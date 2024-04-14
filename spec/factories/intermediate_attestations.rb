@@ -7,4 +7,3 @@ FactoryBot.define do
     assessment_type { Faker::Lorem.word }
   end
 end
-
