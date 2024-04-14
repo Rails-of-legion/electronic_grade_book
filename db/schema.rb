@@ -10,11 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_13_174931) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_13_154139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.bigint "curator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["curator_id"], name: "index_groups_on_curator"
+    t.index ["curator_id"], name: "index_groups_on_curator_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
     t.string "name"
     t.bigint "curator_id"
     t.datetime "created_at", null: false
@@ -31,24 +40,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_174931) do
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
-  end
-
-  create_table "semesters", force: :cascade do |t|
-    t.string "name", null: false
-    t.date "start_date", null: false
-    t.date "end_date", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "subjects", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.bigint "semester_id", null: false
-    t.text "assessment_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["semester_id"], name: "index_subjects_on_semester_id"
   end
 
   create_table "users", force: :cascade do |t|
