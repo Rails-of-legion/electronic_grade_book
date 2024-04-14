@@ -10,7 +10,7 @@ RSpec.describe Subject do
 
   describe 'Factory' do
     context 'when creating a subject' do
-      let(:subject) { create(:subject) } 
+      let(:subject) { create(:subject) }
 
       it 'creates subject with related semester that is of type Semester' do
         expect(subject.semester).to be_a(Semester)
