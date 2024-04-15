@@ -87,3 +87,5 @@ gem "devise", "~> 4.9"
 gem "rolify"
 
 gem 'cancancan'
+
+gem 'kaminari'
