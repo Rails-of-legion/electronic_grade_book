@@ -9,6 +9,9 @@ class User < ApplicationRecord
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :date_of_birth, presence: true
   validates :status, inclusion: { in: [true, false] }
+  validates_associated :groups
 
   scope :by_role, ->(role_name) { joins(:roles).where(roles: { name: role_name }) }
+  has_many :curated_groups, class_name: 'Group', foreign_key: 'curator_id', dependent: :destroy
+  has_many :groups
 end

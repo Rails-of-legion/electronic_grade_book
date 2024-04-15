@@ -25,6 +25,32 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_14_091232) do
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
+    t.bigint "curator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["curator_id"], name: "index_groups_on_curator"
+    t.index ["curator_id"], name: "index_groups_on_curator_id"
+  end
+
+  create_table "specializations", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "specialization_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_students_on_group_id"
+    t.index ["specialization_id"], name: "index_students_on_specialization_id"
+    t.index ["user_id"], name: "index_students_on_user_id"
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string "name"
     t.string "resource_type"
     t.bigint "resource_id"
     t.datetime "created_at", null: false
