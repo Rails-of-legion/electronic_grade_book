@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_15_134231) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_15_160918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_134231) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["subject_id"], name: "index_intermediate_attestations_on_subject_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "message"
+    t.datetime "date"
+    t.string "read_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "record_books", force: :cascade do |t|
@@ -144,6 +154,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_134231) do
   add_foreign_key "grades", "record_books"
   add_foreign_key "groups", "users", column: "curator_id"
   add_foreign_key "intermediate_attestations", "subjects"
+  add_foreign_key "notifications", "users"
   add_foreign_key "record_books", "intermediate_attestations"
   add_foreign_key "record_books", "students"
   add_foreign_key "record_books", "subjects"
