@@ -15,5 +15,9 @@ FactoryBot.define do
     transient do
       role_name { 'student' }
     end
+
+    trait :as_teacher do
+      role_name { 'teacher' }
+    end
   end
 end

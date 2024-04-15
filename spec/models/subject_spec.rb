@@ -1,20 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe Subject do
-  describe 'Validations' do
+  describe 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:description) }
     it { is_expected.to validate_presence_of(:assessment_type) }
-    it { is_expected.to belong_to(:semester) }
   end
 
-  describe 'Associations' do
+  describe 'associations' do
     it { is_expected.to have_many(:intermediate_attestations) }
     it { is_expected.to have_many(:teachers_subjects) }
     it { is_expected.to have_many(:teachers).through(:teachers_subjects) }
+    it { is_expected.to have_many(:record_books) }
+    it { is_expected.to belong_to(:semester) }
   end
 
-  describe 'Factory' do
+  describe 'factory' do
     context 'when creating a subject' do
       let(:subject) { create(:subject) }
 
