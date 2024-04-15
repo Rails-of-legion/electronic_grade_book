@@ -1,7 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe User do
+RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_length_of(:name).is_at_least(3).is_at_most(50) }
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_uniqueness_of(:email).ignoring_case_sensitivity }
   it { is_expected.to validate_presence_of(:date_of_birth) }
@@ -25,5 +26,10 @@ RSpec.describe User do
       create(:user, role_name: 'student')
       expect(described_class.by_role('teacher')).to eq([teacher])
     end
+  end
+
+  describe 'Associations' do
+    it { is_expected.to have_many(:teachers_subjects).with_foreign_key(:teacher_id) }
+    it { is_expected.to have_many(:subjects).through(:teachers_subjects) }
   end
 end

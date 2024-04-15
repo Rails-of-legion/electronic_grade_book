@@ -8,6 +8,12 @@ RSpec.describe Subject do
     it { is_expected.to belong_to(:semester) }
   end
 
+  describe 'Associations' do
+    it { is_expected.to have_many(:intermediate_attestations) }
+    it { is_expected.to have_many(:teachers_subjects) }
+    it { is_expected.to have_many(:teachers).through(:teachers_subjects) }
+  end
+  
   describe 'Factory' do
     context 'when creating a subject' do
       let(:subject) { create(:subject) }
