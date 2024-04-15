@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :notification do
-    user { nil }
-    message { "MyText" }
-    date { "2024-04-15 19:09:18" }
-    read_status { "MyString" }
+    user
+    message { Faker::Lorem.sentence }
+    date { Faker::Time.between(from: DateTime.now - 1, to: DateTime.now) }
+    read_status { Faker::Lorem.sentence }
   end
 end

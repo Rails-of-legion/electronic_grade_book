@@ -1,6 +1,7 @@
 class Notification < ApplicationRecord
   belongs_to :user
 
-validates :user_id, presence: true
-validates :message, presence: true
+  validates :message, presence: true, length: { maximum: 255 }
+  validates :date, presence: true
+  validates :read_status, presence: true
 end
