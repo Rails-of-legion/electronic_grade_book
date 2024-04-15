@@ -6,6 +6,7 @@ RSpec.describe RecordBook do
     it { is_expected.to belong_to(:student) }
     it { is_expected.to belong_to(:teacher).class_name('User') }
     it { is_expected.to belong_to(:intermediate_attestation) }
+    it { is_expected.to have_many(:grades) }
   end
 
   it 'creates a record book with associations' do
