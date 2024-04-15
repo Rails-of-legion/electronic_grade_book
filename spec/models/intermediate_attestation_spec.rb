@@ -1,12 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe IntermediateAttestation do
-  it { is_expected.to belong_to(:subject).required }
-  it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_presence_of(:date) }
-  it { is_expected.to validate_presence_of(:assessment_type) }
-  it { is_expected.to validate_presence_of(:max_grade) }
-  it { is_expected.to validate_numericality_of(:max_grade) }
+  describe 'validations' do
+    it { is_expected.to belong_to(:subject).required }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:date) }
+    it { is_expected.to validate_presence_of(:assessment_type) }
+    it { is_expected.to validate_presence_of(:max_grade) }
+    it { is_expected.to validate_numericality_of(:max_grade) }
+    it { is_expected.to have_many(:record_books) }
+  end
 
   describe 'max_grade validation' do
     let(:attestation) { build(:intermediate_attestation) }

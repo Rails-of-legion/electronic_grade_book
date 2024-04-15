@@ -31,3 +31,19 @@ end
 3.times do
     TeachersSubject.create(teacher_id: rand(1..3), subject_id: rand(1..3))  
 end
+
+3.times do
+  IntermediateAttestation.create(subject_id: rand(1..3), name: "Name #{rand(1..10)}", date: "2020-04-10", max_grade: rand(1..10), assessment_type: "assessment_type #{rand(1..10)}")
+end
+
+3.times do
+  Group.create(name: "Group #{rand(1..10)}", curator_id: 3)
+end
+
+3.times do
+  Specialization.create(name: "Specialization #{rand(1..10)}")
+end
+
+Student.create(user_id: 3, specialization_id: rand(1..3), group_id: rand(1..3))
+
+RecordBook.create(subject_id: 1, student_id: 1, teacher_id: 2, intermediate_attestation_id: 1)

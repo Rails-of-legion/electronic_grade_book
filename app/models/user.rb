@@ -16,4 +16,5 @@ class User < ApplicationRecord
   has_many :groups
   has_many :teachers_subjects, foreign_key: :teacher_id
   has_many :subjects, through: :teachers_subjects
+  has_many :record_books, foreign_key: :teacher_id, dependent: :destroy
 end
