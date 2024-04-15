@@ -19,3 +19,15 @@ teacher = User.create(name: "teacher", email: "teacher@localhost", password: "12
 teacher.add_role(:teacher)
 student = User.create(name: "student", email: "student@localhost", password: "12345678", password_confirmation: "12345678", status: true, date_of_birth: "2020-04-10")
 student.add_role(:student)
+
+3.times do
+    Semester.create(name: "Semester #{rand(1..10)}", start_date: "2020-04-10", end_date: "2020-04-10")
+end
+
+3.times do
+    Subject.create(name: "Subject #{rand(1..10)}", description: "Description #{rand(1..10)}", assessment_type: "assessment_type #{rand(1..10)}", semester_id: rand(1..3))
+end
+
+3.times do
+    TeachersSubject.create(teacher_id: rand(1..3), subject_id: rand(1..3))  
+end
