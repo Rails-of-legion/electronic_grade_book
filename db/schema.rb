@@ -65,6 +65,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_151341) do
     t.index ["subject_id"], name: "index_intermediate_attestations_on_subject_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "message"
+    t.datetime "date"
+    t.string "read_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "record_books", force: :cascade do |t|
     t.bigint "subject_id", null: false
     t.bigint "student_id", null: false
@@ -91,7 +101,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_151341) do
   create_table "semesters", force: :cascade do |t|
     t.string "name", null: false
     t.date "start_date", null: false
-    t.date "end_date", null: false
+    t.date "end_date", null: false 
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -133,7 +143,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_151341) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "login"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "middle_name"
+    t.string "phone_number"
     t.date "date_of_birth"
     t.boolean "status"
     t.string "email", default: "", null: false
@@ -158,6 +172,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_151341) do
   add_foreign_key "grades", "record_books"
   add_foreign_key "groups", "users", column: "curator_id"
   add_foreign_key "intermediate_attestations", "subjects"
+  add_foreign_key "notifications", "users"
   add_foreign_key "record_books", "intermediate_attestations"
   add_foreign_key "record_books", "students"
   add_foreign_key "record_books", "subjects"
