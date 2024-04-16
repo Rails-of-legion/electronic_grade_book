@@ -82,6 +82,8 @@ group :test do
   gem 'shoulda-matchers'
 end
 
+gem 'simple_form'
+
 gem "devise", "~> 4.9"
 
 gem "rolify"

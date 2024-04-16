@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#home"
+  resources :users, only: %i[index show] 
+  resources :semesters
+  resources :subjects
   get 'about', to: 'home#about', as: :about
 end
 

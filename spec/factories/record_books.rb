@@ -3,7 +3,7 @@ FactoryBot.define do
     trait :with_associations do
       subject { association :subject }
       student { association :student }
-      teacher { association :user, :as_teacher } # Предполагая, что у User есть trait :as_teacher
+      teacher { association :user, :as_teacher }
       intermediate_attestation { association :intermediate_attestation }
     end
   end
