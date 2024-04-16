@@ -1,5 +1,5 @@
 class SpecializationsController < ApplicationController
-  before_action :set_specialization, only: [:show, :edit, :update, :destroy]
+  before_action :set_specialization, only: %i[show edit update destroy]
 
   # GET /specializations
   def index
@@ -7,8 +7,7 @@ class SpecializationsController < ApplicationController
   end
 
   # GET /specializations/1
-  def show
-  end
+  def show; end
 
   # GET /specializations/new
   def new
@@ -16,8 +15,7 @@ class SpecializationsController < ApplicationController
   end
 
   # GET /specializations/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /specializations
   def create
@@ -46,13 +44,14 @@ class SpecializationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_specialization
-      @specialization = Specialization.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def specialization_params
-      params.require(:specialization).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_specialization
+    @specialization = Specialization.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def specialization_params
+    params.require(:specialization).permit(:name)
+  end
 end
