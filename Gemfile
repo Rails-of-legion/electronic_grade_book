@@ -82,10 +82,18 @@ group :test do
   gem 'shoulda-matchers'
 end
 
+gem 'simple_form'
+
 gem "devise", "~> 4.9"
 
 gem "rolify"
 
 gem 'cancancan'
 
+<<<<<<< HEAD
 gem 'kaminari'
+=======
+gem "cssbundling-rails", "~> 1.4"
+
+gem "jsbundling-rails", "~> 1.3"
+>>>>>>> afd35ea2d19afdc6e282e47c23dcc3f3a5d9bb0d

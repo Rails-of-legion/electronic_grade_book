@@ -10,17 +10,86 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_13_174931) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_15_160918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "roles", force: :cascade do |t|
+  create_table "attendances", force: :cascade do |t|
+    t.integer "subject_id", null: false
+    t.integer "student_id", null: false
+    t.date "date", null: false
+    t.string "attendance_status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "grades", force: :cascade do |t|
+    t.bigint "record_book_id", null: false
+    t.integer "grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_book_id"], name: "index_grades_on_record_book_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
     t.string "name"
     t.bigint "curator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["curator_id"], name: "index_groups_on_curator"
     t.index ["curator_id"], name: "index_groups_on_curator_id"
+  end
+
+  create_table "intermediate_attestations", force: :cascade do |t|
+    t.bigint "subject_id", null: false
+    t.string "name"
+    t.date "date"
+    t.integer "max_grade"
+    t.string "assessment_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_intermediate_attestations_on_subject_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "message"
+    t.datetime "date"
+    t.string "read_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "record_books", force: :cascade do |t|
+    t.bigint "subject_id", null: false
+    t.bigint "student_id", null: false
+    t.bigint "teacher_id", null: false
+    t.bigint "intermediate_attestation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["intermediate_attestation_id"], name: "index_record_books_on_intermediate_attestation_id"
+    t.index ["student_id"], name: "index_record_books_on_student_id"
+    t.index ["subject_id"], name: "index_record_books_on_subject_id"
+    t.index ["teacher_id"], name: "index_record_books_on_teacher_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
+  create_table "semesters", force: :cascade do |t|
+    t.string "name", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false 
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "specializations", force: :cascade do |t|
@@ -42,24 +111,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_174931) do
 
   create_table "subjects", force: :cascade do |t|
     t.string "name"
-    t.string "resource_type"
-    t.bigint "resource_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
-    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
-  end
-
-  create_table "semesters", force: :cascade do |t|
-    t.string "name", null: false
-    t.date "start_date", null: false
-    t.date "end_date", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "subjects", force: :cascade do |t|
-    t.string "name"
     t.text "description"
     t.bigint "semester_id", null: false
     t.text "assessment_type"
@@ -68,8 +119,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_174931) do
     t.index ["semester_id"], name: "index_subjects_on_semester_id"
   end
 
+  create_table "teachers_subjects", force: :cascade do |t|
+    t.bigint "teacher_id"
+    t.bigint "subject_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_teachers_subjects_on_subject_id"
+    t.index ["teacher_id"], name: "index_teachers_subjects_on_teacher_id"
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "login"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "middle_name"
+    t.string "phone_number"
     t.date "date_of_birth"
     t.boolean "status"
     t.string "email", default: "", null: false
@@ -91,5 +155,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_174931) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "grades", "record_books"
+  add_foreign_key "groups", "users", column: "curator_id"
+  add_foreign_key "intermediate_attestations", "subjects"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "record_books", "intermediate_attestations"
+  add_foreign_key "record_books", "students"
+  add_foreign_key "record_books", "subjects"
+  add_foreign_key "record_books", "users", column: "teacher_id"
+  add_foreign_key "students", "groups"
+  add_foreign_key "students", "specializations"
+  add_foreign_key "students", "users"
   add_foreign_key "subjects", "semesters"
+  add_foreign_key "teachers_subjects", "subjects"
+  add_foreign_key "teachers_subjects", "users", column: "teacher_id"
 end

@@ -1,13 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Student do
-  # Ассоциации
-  it { is_expected.to belong_to(:user).required }
-  it { is_expected.to belong_to(:specialization).required }
-  it { is_expected.to belong_to(:group).required }
-
-  # Тест наличия связанных объектов
   describe 'associations' do
+    it { is_expected.to belong_to(:user).required }
+    it { is_expected.to belong_to(:specialization).required }
+    it { is_expected.to belong_to(:group).required }
+    it { is_expected.to have_one(:record_book) }
+  end
+
+  describe 'validations' do
     it 'is invalid without a user' do
       student = build(:student, user: nil)
       expect(student).not_to be_valid
