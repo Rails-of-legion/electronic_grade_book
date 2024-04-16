@@ -5,12 +5,13 @@ class SemestersController < ApplicationController
     @semesters = Semester.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @semester = Semester.new
   end
+
+  def edit; end
 
   def create
     @semester = Semester.new(semester_params)
@@ -20,9 +21,6 @@ class SemestersController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def edit
   end
 
   def update
