@@ -9,5 +9,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#home"
   get 'about', to: 'home#about', as: :about
+
+  resources :students
 end
 
