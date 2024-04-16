@@ -1,0 +1,9 @@
+<% if @notification.errors.any? %>
+  alert('Errors prohibited this notification from being saved:');
+  <% @notification.errors.full_messages.each do |message| %>
+    alert('<%= message %>');
+  <% end %>
+<% else %>
+  alert('Notification <%= action_name == 'create' ? 'created' : 'updated' %> successfully.');
+  location.reload();
+<% end %>

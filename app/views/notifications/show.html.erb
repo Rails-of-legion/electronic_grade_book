@@ -1,0 +1,10 @@
+<h1><%= @notification.message %></h1>
+
+<p>Date: <%= @notification.date %></p>
+<p>Read Status: <%= @notification.read_status %></p>
+<p>User: <%= @notification.user.name if @notification.user %></p>
+
+<p>
+  <%= link_to 'Edit', edit_notification_path(@notification) %> |
+  <%= link_to 'Back', notifications_path %>
+</p>
