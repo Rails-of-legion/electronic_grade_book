@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe User do
   describe 'validations' do
-    it { should validate_presence_of(:first_name) }
-    it { should validate_presence_of(:last_name) }
-    it { should validate_presence_of(:middle_name) }
-    it { should validate_presence_of(:phone_number) } 
+    it { is_expected.to validate_presence_of(:first_name) }
+    it { is_expected.to validate_presence_of(:last_name) }
+    it { is_expected.to validate_presence_of(:middle_name) }
+    it { is_expected.to validate_presence_of(:phone_number) }
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_uniqueness_of(:email).ignoring_case_sensitivity }
     it { is_expected.to validate_presence_of(:date_of_birth) }
