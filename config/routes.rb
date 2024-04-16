@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   resources :subjects
   resources :attendances
   resources :groups
+  resources :intermediate_attestations
   get 'about', to: 'home#about', as: :about
 end
