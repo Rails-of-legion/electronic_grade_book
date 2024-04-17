@@ -1,0 +1,10 @@
+<% if @semester.present? %>
+  <h1>Semester Details</h1>
+  <p>Name: <%= @semester.name %></p>
+  <p>Start Date: <%= @semester.start_date %></p>
+  <p>End Date: <%= @semester.end_date %></p>
+  <%= link_to 'Edit', edit_semester_path(@semester), class: 'btn btn-outline-primary' %> |
+  <%= button_to 'Destroy', semester_path(@semester), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+<% else %>
+  <p>No semester found.</p>
+<% end %>
