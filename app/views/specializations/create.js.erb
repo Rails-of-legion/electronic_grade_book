@@ -1,9 +1,0 @@
-<% if @specialization.errors.any? %>
-  alert('Errors prohibited this specialization from being saved:');
-  <% @specialization.errors.full_messages.each do |message| %>
-    alert('<%= message %>');
-  <% end %>
-<% else %>
-  alert('Specialization <%= action_name == 'create' ? 'created' : 'updated' %> successfully.');
-  location.reload();
-<% end %>
