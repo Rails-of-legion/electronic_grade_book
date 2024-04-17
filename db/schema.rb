@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema[7.1].define(version: 2024_04_15_160918) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_16_061412) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -100,7 +99,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_160918) do
   create_table "semesters", force: :cascade do |t|
     t.string "name", null: false
     t.date "start_date", null: false
-    t.date "end_date", null: false 
+    t.date "end_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -142,11 +141,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_160918) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "login"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "middle_name"
-    t.string "phone_number"
+    t.string "name"
     t.date "date_of_birth"
     t.boolean "status"
     t.string "email", default: "", null: false
