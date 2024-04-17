@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema[7.1].define(version: 2024_04_15_160918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +73,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_160918) do
     t.index ["student_id"], name: "index_record_books_on_student_id"
     t.index ["subject_id"], name: "index_record_books_on_subject_id"
     t.index ["teacher_id"], name: "index_record_books_on_teacher_id"
+  end
+
+  create_table "retakes", force: :cascade do |t|
+    t.bigint "subject_id", null: false
+    t.bigint "student_id", null: false
+    t.date "date"
+    t.bigint "grade_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grade_id"], name: "index_retakes_on_grade_id"
+    t.index ["student_id"], name: "index_retakes_on_student_id"
+    t.index ["subject_id"], name: "index_retakes_on_subject_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -163,6 +176,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_160918) do
   add_foreign_key "record_books", "students"
   add_foreign_key "record_books", "subjects"
   add_foreign_key "record_books", "users", column: "teacher_id"
+  add_foreign_key "retakes", "grades"
+  add_foreign_key "retakes", "students"
+  add_foreign_key "retakes", "subjects"
   add_foreign_key "students", "groups"
   add_foreign_key "students", "specializations"
   add_foreign_key "students", "users"
