@@ -1,0 +1,34 @@
+<h1>Ведомости</h1>
+
+<% if @record_books.present? %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Студент</th>
+        <th>Предмет</th>
+        <th>Преподаватель</th>
+        <th>Аттестация</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @record_books.each do |record_book| %>
+        <tr>
+          <td><%= record_book.student.user.name %></td>
+          <td><%= record_book.subject.name %></td>
+          <td><%= record_book.teacher.name %></td>
+          <td><%= record_book.intermediate_attestation.name %></td>
+          <td>
+            <%= link_to 'Показать', record_book_path(record_book), class: 'btn btn-sm btn-outline-primary' %>
+            <%= link_to 'Редактировать', edit_record_book_path(record_book), class: 'btn btn-sm btn-outline-secondary' %>
+            <%= button_to 'Удалить', record_book_path(record_book), method: :delete, data: { confirm: 'Вы уверены?' }, class: 'btn btn-sm btn-outline-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Ведомости не найдены.</p>
+<% end %>
+
+<%= link_to 'Создать новую ведомость', new_record_book_path, class: 'btn btn-primary' %>

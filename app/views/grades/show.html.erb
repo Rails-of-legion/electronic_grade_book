@@ -1,0 +1,7 @@
+<h1>Оценка</h1>
+
+<p>Ведомость: <%= @grade.record_book.subject.name %> (<%= @grade.record_book.student.user.name %>) </p>
+<p>Оценка: <%= @grade.grade %></p>
+
+<%= link_to 'Редактировать', edit_grade_path(@grade), class: 'btn btn-default' %>
+<%= link_to 'Назад', grades_path, class: 'btn btn-secondary' %>

@@ -1,0 +1,26 @@
+<h1>Оценки</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Ведомость</th>
+      <th>Оценка</th>
+      <th>Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @grades.each do |grade| %>
+      <tr>
+        <td><%= grade.record_book.subject.name %> (<%= grade.record_book.student.user.name %>)</td>
+        <td><%= grade.grade %></td>
+        <td>
+          <%= link_to 'Показать', grade, class: 'btn btn-default' %>
+          <%= link_to 'Редактировать', edit_grade_path(grade), class: 'btn btn-default' %>
+          <%= button_to 'Удалить', grade, method: :delete, data: { confirm: 'Вы уверены?' }, class: 'btn btn-default' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Создать новую оценку', new_grade_path, class: 'btn btn-primary' %>

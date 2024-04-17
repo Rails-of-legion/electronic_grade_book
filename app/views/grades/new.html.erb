@@ -1,0 +1,9 @@
+<h1>Новая Оценка</h1>
+
+<%= simple_form_for @grade, html: { class: 'form-horizontal' } do |f| %>
+  <%= f.association :record_book, label: 'Ведомость', required: true, wrapper: :horizontal_form, input_html: { class: 'form-control' } %>
+  <%= f.input :grade, label: 'Оценка', required: true, wrapper: :horizontal_form, input_html: { class: 'form-control' } %>
+  <%= f.button :submit, 'Создать Оценку', class: 'btn btn-primary mt-3' %>
+<% end %>
+
+<%= link_to 'Назад', grades_path, class: 'btn btn-secondary mt-3' %>

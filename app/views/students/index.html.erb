@@ -1,0 +1,32 @@
+<h1>Студенты</h1>
+
+<% if @students.present? %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ФИО</th>
+        <th>Специальность</th>
+        <th>Группа</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @students.each do |student| %>
+        <tr>
+          <td><%= student.user.name %></td>
+          <td><%= student.specialization.name %></td>
+          <td><%= student.group.name %></td>
+          <td>
+            <%= link_to 'Просмотреть', student_path(student), class: 'btn btn-sm btn-outline-primary' %>
+            <%= link_to 'Редактировать', edit_student_path(student), class: 'btn btn-sm btn-outline-secondary' %>
+            <%= button_to 'Удалить', student_path(student), method: :delete, data: { confirm: 'Вы уверены?' }, class: 'btn btn-sm btn-outline-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Студентов не найдено.</p>
+<% end %>
+
+<%= link_to 'Добавить студента', new_student_path, class: 'btn btn-primary' %>
