@@ -18,9 +18,7 @@ class Ability
 
   def define_guest_abilities
     def define_guest_abilities
-      can :manage, Home
-      can :manage, :user_session 
-      can :manage, :new_user_registration
+      can :read, :all
     end
   end
   def define_admin_abilities
