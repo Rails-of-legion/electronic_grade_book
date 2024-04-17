@@ -18,7 +18,6 @@ ActiveAdmin.register User do
     actions
   end
 
-
   # New/Create
   form do |f|
     f.inputs do
@@ -42,7 +41,7 @@ ActiveAdmin.register User do
       @user = User.find(params[:id])
       authorize! :update, @user
       if @user.update(permitted_params[:user])
-        redirect_to admin_user_path(@user), notice: "Пользователь обновлен."
+        redirect_to admin_user_path(@user), notice: 'Пользователь обновлен.'
       else
         render :edit
       end
@@ -52,7 +51,7 @@ ActiveAdmin.register User do
       @user = User.new(permitted_params[:user])
       authorize! :create, @user
       if @user.save
-        redirect_to admin_user_path(@user), notice: "Пользователь создан."
+        redirect_to admin_user_path(@user), notice: 'Пользователь создан.'
       else
         render :new
       end

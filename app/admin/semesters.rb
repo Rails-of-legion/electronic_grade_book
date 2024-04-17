@@ -7,5 +7,3 @@ ActiveAdmin.register Semester do
 
   actions :all
 end
-
-

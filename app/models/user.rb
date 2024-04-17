@@ -2,7 +2,7 @@ class User < ApplicationRecord
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, 
+  devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
 
   validates :first_name, presence: true, length: { minimum: 3, maximum: 50 }
@@ -23,15 +23,15 @@ class User < ApplicationRecord
   has_many :subjects, through: :teachers_subjects
   has_many :record_books, foreign_key: :teacher_id, dependent: :destroy
 
-  def self.ransackable_attributes(auth_object = nil)
-    [
-      "created_at", 
-      "date_of_birth", 
-      "email", 
-      "first_name", 
-      "last_name", 
-      "middle_name", 
-      "status"
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      created_at
+      date_of_birth
+      email
+      first_name
+      last_name
+      middle_name
+      status
     ]
   end
 
