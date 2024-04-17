@@ -23,7 +23,31 @@ class User < ApplicationRecord
   has_many :subjects, through: :teachers_subjects
   has_many :record_books, foreign_key: :teacher_id, dependent: :destroy
 
-  # def name
-  #  "#{first_name} #{last_name} #{middle_name}"
-  # end
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "created_at", 
+      "date_of_birth", 
+      "email", 
+      "first_name", 
+      "last_name", 
+      "middle_name", 
+      "status"
+    ]
+  end
+
+  def has_no_roles?
+    roles.empty?
+  end
+
+  def admin?
+    has_role?(:admin)
+  end
+
+  def teacher?
+    has_role?(:teacher)
+  end
+
+  def student?
+    has_role?(:student)
+  end
 end

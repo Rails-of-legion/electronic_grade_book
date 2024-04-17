@@ -13,7 +13,7 @@ Role.create(name: "admin")
 Role.create(name: "teacher")
 Role.create(name: "student")
 
-admin = User.create(login: "adm", first_name: "admin", last_name: "admin", middle_name: "admin", phone_number: "12345678",  email: "admin@localhost", password: "12345678", password_confirmation: "12345678", status: true, date_of_birth: "2020-04-10")
+admin = User.create(login: "admin", first_name: "admin", last_name: "admin", middle_name: "admin", phone_number: "12345678",  email: "admin@localhost", password: "12345678", password_confirmation: "12345678", status: true, date_of_birth: "2020-04-10")
 admin.add_role(:admin)
 teacher = User.create(login: "teach", first_name: "teacher", last_name: "teacher", middle_name: "teacher", phone_number: "12345678", email: "teacher@localhost", password: "12345678", password_confirmation: "12345678", status: true, date_of_birth: "2020-04-10")
 teacher.add_role(:teacher)
@@ -49,4 +49,3 @@ Student.create(user_id: 3, specialization_id: rand(1..3), group_id: rand(1..3))
 RecordBook.create(subject_id: 1, student_id: 1, teacher_id: 2, intermediate_attestation_id: 1)
 
 Grade.create(record_book_id: 1, grade: rand(1..10))
-User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
