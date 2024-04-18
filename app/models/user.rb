@@ -23,7 +23,7 @@ class User < ApplicationRecord
   has_many :subjects, through: :teachers_subjects
   has_many :record_books, foreign_key: :teacher_id, dependent: :destroy
 
-  # def name
-  #  "#{first_name} #{last_name} #{middle_name}"
-  # end
+  def name
+    "#{first_name} #{last_name} #{middle_name}"
+  end
 end

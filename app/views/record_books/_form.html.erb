@@ -1,23 +1,23 @@
-<%= form_with(model: record_book, local: true) do |form| %> 
-    <div class="mb-3">
-      <%= form.label :student_id, "Студент" %>
-      <%= form.collection_select :student_id, Student.all, :id, :user_name, {}, { class: 'form-control' } %>
-    </div>
-  
-    <div class="mb-3">
-      <%= form.label :subject_id, "Предмет" %>
-      <%= form.collection_select :subject_id, Subject.all, :id, :name, {}, { class: 'form-control' } %> 
-    </div>
-  
-    <div class="mb-3">
-    <%= form.label :teacher_id, "Преподаватель" %>
+<%= form_with(model: record_book, local: true) do |form| %>
+  <div class="mb-3">
+    <%= form.label :student_id, "Student" %>
+    <%= form.collection_select :student_id, Student.all, :id, :user.name, {}, { class: 'form-control' } %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :subject_id, "Subject" %>
+    <%= form.collection_select :subject_id, Subject.all, :id, :name, {}, { class: 'form-control' } %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :teacher_id, "Teacher" %>
     <%= form.collection_select :teacher_id, User.with_role(:teacher), :id, :name, {}, { class: 'form-control' } %>
   </div>
-  
-    <div class="mb-3">
-      <%= form.label :intermediate_attestation_id, "Аттестация" %>
-      <%= form.collection_select :intermediate_attestation_id, IntermediateAttestation.all, :id, :name, {}, { class: 'form-control' } %> 
-    </div>
-  
-    <%= form.submit 'Сохранить ведомость', class: 'btn btn-primary' %>
-  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :intermediate_attestation_id, "Attestation" %>
+    <%= form.collection_select :intermediate_attestation_id, IntermediateAttestation.all, :id, :name, {}, { class: 'form-control' } %>
+  </div>
+
+  <%= form.submit 'Save Record Book', class: 'btn btn-primary' %>
+<% end %>

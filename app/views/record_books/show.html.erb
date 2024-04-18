@@ -1,35 +1,31 @@
-<h1>Ведомость</h1>
-
+<h1>Record Book</h1>
 <p>
-  <strong>Студент:</strong>
+  <strong>Student:</strong>
   <%= @record_book.student.user.name %>
 </p>
-
 <p>
-  <strong>Предмет:</strong>
+  <strong>Subject:</strong>
   <%= @record_book.subject.name %>
 </p>
-
 <p>
-  <strong>Преподаватель:</strong>
+  <strong>Teacher:</strong>
   <%= @record_book.teacher.name %>
 </p>
-
 <p>
-  <strong>Аттестация:</strong>
+  <strong>Attestation:</strong>
   <%= @record_book.intermediate_attestation.name %>
 </p>
 
-<h2>Оценки</h2>
+<h2>Grades</h2>
 <% if @record_book.grades.any? %>
   <ul>
     <% @record_book.grades.each do |grade| %>
-      <li><%= grade.value %></li>
+      <li><%= grade.grade %></li>
     <% end %>
   </ul>
 <% else %>
-  <p>Оценок пока нет.</p>
+  <p>No grades yet.</p>
 <% end %>
 
-<%= link_to 'Редактировать', edit_record_book_path(@record_book), class: 'btn btn-secondary' %>
-<%= link_to 'Назад', record_books_path, class: 'btn btn-light' %>
+<%= link_to 'Edit', edit_record_book_path(@record_book), class: 'btn btn-secondary' %>
+<%= link_to 'Back', record_books_path, class: 'btn btn-light' %>

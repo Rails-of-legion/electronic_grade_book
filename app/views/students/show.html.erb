@@ -1,22 +1,25 @@
-<h1>Студент: <%= @student.user.name %></h1>
+<h1>Student: <%= @student.user.name %></h1>
 
 <dl class="row">
-  <dt class="col-sm-3">ФИО</dt>
+  <dt class="col-sm-3">Full Name</dt> 
   <dd class="col-sm-9"><%= @student.user.name %></dd>
 
-  <dt class="col-sm-3">Специальность</dt>
+  <dt class="col-sm-3">Specialization</dt>
   <dd class="col-sm-9"><%= @student.specialization.name %></dd>
 
-  <dt class="col-sm-3">Группа</dt>
+  <dt class="col-sm-3">Group</dt>
   <dd class="col-sm-9"><%= @student.group.name %></dd>
 </dl>
 
-<h2>Ведомость</h2>
-<% if @student.record_book %>
-  <%= render @student.record_book %> 
-<% else %>
-  <p>Ведомость не найдена.</p> 
+<h2>Record book</h2>
+
+<% if @student.record_book.present? %>
+  <% if @student.record_book %>
+  <%= render "record_books/record_book", record_book: @student.record_book %>
+  <% else %>
+    <p>Record book not found.</p>
+  <% end %>
 <% end %>
 
-<%= link_to 'Редактировать', edit_student_path(@student), class: 'btn btn-secondary' %>
-<%= link_to 'Назад', students_path, class: 'btn btn-light' %>
+<%= link_to 'Edit', edit_student_path(@student), class: 'btn btn-secondary' %>
+<%= link_to 'Back', students_path, class: 'btn btn-light' %>

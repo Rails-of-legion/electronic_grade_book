@@ -1,14 +1,14 @@
-<h1>Ведомости</h1>
+Record Books
 
 <% if @record_books.present? %>
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Студент</th>
-        <th>Предмет</th>
-        <th>Преподаватель</th>
-        <th>Аттестация</th>
-        <th>Действия</th>
+        <th>Student</th>
+        <th>Subject</th>
+        <th>Teacher</th>
+        <th>Attestation</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -19,16 +19,16 @@
           <td><%= record_book.teacher.name %></td>
           <td><%= record_book.intermediate_attestation.name %></td>
           <td>
-            <%= link_to 'Показать', record_book_path(record_book), class: 'btn btn-sm btn-outline-primary' %>
-            <%= link_to 'Редактировать', edit_record_book_path(record_book), class: 'btn btn-sm btn-outline-secondary' %>
-            <%= button_to 'Удалить', record_book_path(record_book), method: :delete, data: { confirm: 'Вы уверены?' }, class: 'btn btn-sm btn-outline-danger' %>
+            <%= link_to 'Show', record_book_path(record_book), class: 'btn btn-sm btn-outline-primary' %>
+            <%= link_to 'Edit', edit_record_book_path(record_book), class: 'btn btn-sm btn-outline-secondary' %>
+            <%= button_to 'Delete', record_book_path(record_book), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 <% else %>
-  <p>Ведомости не найдены.</p>
+  <p>No record books found.</p>
 <% end %>
 
-<%= link_to 'Создать новую ведомость', new_record_book_path, class: 'btn btn-primary' %>
+<%= link_to 'Create New Record Book', new_record_book_path, class: 'btn btn-primary' %>
