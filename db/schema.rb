@@ -141,7 +141,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_061412) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "login"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "middle_name"
+    t.string "phone_number"
     t.date "date_of_birth"
     t.boolean "status"
     t.string "email", default: "", null: false
