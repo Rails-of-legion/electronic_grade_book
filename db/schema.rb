@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_15_160918) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_16_061412) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,6 +74,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_160918) do
     t.index ["teacher_id"], name: "index_record_books_on_teacher_id"
   end
 
+  create_table "retakes", force: :cascade do |t|
+    t.bigint "subject_id", null: false
+    t.bigint "student_id", null: false
+    t.date "date"
+    t.bigint "grade_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grade_id"], name: "index_retakes_on_grade_id"
+    t.index ["student_id"], name: "index_retakes_on_student_id"
+    t.index ["subject_id"], name: "index_retakes_on_subject_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -87,7 +99,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_160918) do
   create_table "semesters", force: :cascade do |t|
     t.string "name", null: false
     t.date "start_date", null: false
-    t.date "end_date", null: false 
+    t.date "end_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -129,11 +141,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_160918) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "login"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "middle_name"
-    t.string "phone_number"
+    t.string "name"
     t.date "date_of_birth"
     t.boolean "status"
     t.string "email", default: "", null: false
@@ -163,6 +171,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_160918) do
   add_foreign_key "record_books", "students"
   add_foreign_key "record_books", "subjects"
   add_foreign_key "record_books", "users", column: "teacher_id"
+  add_foreign_key "retakes", "grades"
+  add_foreign_key "retakes", "students"
+  add_foreign_key "retakes", "subjects"
   add_foreign_key "students", "groups"
   add_foreign_key "students", "specializations"
   add_foreign_key "students", "users"
