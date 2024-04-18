@@ -12,6 +12,7 @@
 Role.create(name: "admin")
 Role.create(name: "teacher")
 Role.create(name: "student")
+Role.create(name: "guest")
 
 admin = User.create(login: "admin", first_name: "admin", last_name: "admin", middle_name: "admin", phone_number: "12345678",  email: "admin@localhost", password: "12345678", password_confirmation: "12345678", status: true, date_of_birth: "2020-04-10") if Rails.env.development?
 admin.add_role(:admin)
