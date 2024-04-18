@@ -10,6 +10,6 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe IntermediateAttestationsHelper, type: :helper do
+RSpec.describe IntermediateAttestationsHelper do
   pending "add some examples to (or delete) #{__FILE__}"
 end
