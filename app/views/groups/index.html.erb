@@ -1,0 +1,25 @@
+<h1>List of Groups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Curator</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @groups.each do |group| %>
+      <tr>
+        <td><%= group.name %></td>
+        <td><% if group.curator %> <%= group.curator.name %> <% else %> Unassigned <% end %></td>  <td>
+          <%= link_to "Show", group_path(group), class: "btn btn-primary" %>
+          <%= link_to "Edit", edit_group_path(group), class: "btn btn-warning" %>
+          <%= button_to "Destroy", group_path(group), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "New Group", new_group_path, class: "btn btn-success" %>
