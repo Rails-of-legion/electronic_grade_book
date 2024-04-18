@@ -6,6 +6,8 @@ ActiveAdmin.setup do |config|
   #
   config.site_title = "Electronic Grade Book"
 
+  config.logout_link_path = :destroy_user_session_path
+  config.logout_link_method = :delete
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #

@@ -12,6 +12,7 @@ class Ability
   end
 
   private
+
   def clear_abilities
     @rules = []
   end
@@ -21,6 +22,7 @@ class Ability
       can :read, :all
     end
   end
+
   def define_admin_abilities
     can :manage, :all
   end
