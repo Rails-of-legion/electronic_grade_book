@@ -1,45 +1,37 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
   def initialize(user)
-    clear_aliased_actions
-    assign_permissions_by_role(user)
+    clear_abilities
+
+    return define_guest_abilities unless user
+
+    define_admin_abilities if user.has_role?(:admin)
+    define_teacher_abilities if user.has_role?(:teacher)
+    define_student_abilities if user.has_role?(:student)
   end
 
   private
 
-  def clear_aliased_actions
-    CanCan::Ability.aliased_actions.clear
+  def clear_abilities
+    @rules = []
   end
 
-  def assign_permissions_by_role(user)
-    case user.try(:role)
-    when 'admin' then assign_admin_permissions(user)
-    when 'teacher' then assign_teacher_permissions(user)
-    when 'student' then assign_student_permissions(user)
-    else assign_guest_permissions(user) if user.has_no_roles?
+  def define_guest_abilities
+    def define_guest_abilities
+      can :read, :all
     end
   end
 
-  def assign_admin_permissions(user)
-    assign_permissions(user, :admin, :manage)
+  def define_admin_abilities
+    can :manage, :all
   end
 
-  def assign_teacher_permissions(user)
-    # assign_permissions(user, :teacher, :update, Article, :read, Comment)
+  def define_teacher_abilities
+    can :manage, :all
   end
 
-  def assign_student_permissions(user)
-    # assign_permissions(user, :student, :update, Article, :read, Comment)
-  end
-
-  def assign_guest_permissions(user)
-    # assign_permissions(user, nil, :read, :all) if user.has_no_roles?
-  end
-
-  def assign_permissions(user, role, *args)
-    can(*args) if user.has_role?(role)
+  def define_student_abilities
+    can :manage, :all
   end
 end

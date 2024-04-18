@@ -14,9 +14,9 @@
     <% @retakes.each do |retake| %>
       <tr>
         <td><%= retake.subject.name %></td>
-        <td><%= retake.student.name %></td>
+        <td><%= retake.student.user_id %></td>
         <td><%= retake.date %></td>
-        <td><%= retake.grade.name if retake.grade %></td>
+        <td><%= retake.grade.grade if retake.grade %></td>
         <td><%= link_to 'Show', retake %></td>
         <td><%= link_to 'Edit', edit_retake_path(retake) %></td>
         <td><%= button_to 'Destroy', retake, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -26,4 +26,3 @@
 </table>
 
 <%= link_to 'New Retake', new_retake_path %>
-
