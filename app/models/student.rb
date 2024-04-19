@@ -8,4 +8,8 @@ class Student < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     ["created_at", "group_id", "id", "id_value", "specialization_id", "updated_at", "user_id"]
   end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["group", "record_book", "retakes", "specialization", "user"]
+  end
 end
