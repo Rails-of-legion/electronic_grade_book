@@ -1,0 +1,26 @@
+<h3>Record Book for <%= record_book.student.user.name %></h3>
+
+<% if record_book.grades.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Grade</th>
+        <th>Semester</th>
+        <th>Teacher</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% record_book.grades.each do |grade| %>
+        <tr>
+          <td><%= grade.subject.name %></td>
+          <td><%= grade.grade %></td>
+          <td><%= grade.semester.name %></td>
+          <td><%= grade.teacher.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No grades found for this record book.</p>
+<% end %>

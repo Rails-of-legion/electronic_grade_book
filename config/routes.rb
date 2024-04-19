@@ -18,4 +18,10 @@ Rails.application.routes.draw do
   resources :retakes
   resources :intermediate_attestations
   get 'about', to: 'home#about', as: :about
+
+  resources :students
+
+  resources :grades
+
+  resources :record_books
 end
