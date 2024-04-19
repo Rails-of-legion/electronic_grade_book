@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_15_151341) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_16_061412) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,6 +65,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_151341) do
     t.index ["subject_id"], name: "index_intermediate_attestations_on_subject_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "message"
+    t.datetime "date"
+    t.string "read_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "record_books", force: :cascade do |t|
     t.bigint "subject_id", null: false
     t.bigint "student_id", null: false
@@ -76,6 +86,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_151341) do
     t.index ["student_id"], name: "index_record_books_on_student_id"
     t.index ["subject_id"], name: "index_record_books_on_subject_id"
     t.index ["teacher_id"], name: "index_record_books_on_teacher_id"
+  end
+
+  create_table "retakes", force: :cascade do |t|
+    t.bigint "subject_id", null: false
+    t.bigint "student_id", null: false
+    t.date "date"
+    t.bigint "grade_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grade_id"], name: "index_retakes_on_grade_id"
+    t.index ["student_id"], name: "index_retakes_on_student_id"
+    t.index ["subject_id"], name: "index_retakes_on_subject_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -133,7 +155,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_151341) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "login"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "middle_name"
+    t.string "phone_number"
     t.date "date_of_birth"
     t.boolean "status"
     t.string "email", default: "", null: false
@@ -158,10 +184,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_151341) do
   add_foreign_key "grades", "record_books"
   add_foreign_key "groups", "users", column: "curator_id"
   add_foreign_key "intermediate_attestations", "subjects"
+  add_foreign_key "notifications", "users"
   add_foreign_key "record_books", "intermediate_attestations"
   add_foreign_key "record_books", "students"
   add_foreign_key "record_books", "subjects"
   add_foreign_key "record_books", "users", column: "teacher_id"
+  add_foreign_key "retakes", "grades"
+  add_foreign_key "retakes", "students"
+  add_foreign_key "retakes", "subjects"
   add_foreign_key "students", "groups"
   add_foreign_key "students", "specializations"
   add_foreign_key "students", "users"

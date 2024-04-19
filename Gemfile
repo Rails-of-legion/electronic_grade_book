@@ -82,7 +82,11 @@ group :test do
   gem 'shoulda-matchers'
 end
 
+gem 'sassc-rails'
+
 gem 'activeadmin'
+
+gem 'simple_form'
 
 gem "devise", "~> 4.9"
 

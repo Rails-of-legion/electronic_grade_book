@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
+  devise_for :users
+  ActiveAdmin.routes(self) do
+    devise_for :admin_users, ActiveAdmin::Devise.config
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -9,6 +11,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#home"
+  resources :users, only: %i[index show] 
+  resources :semesters
+  resources :subjects
+  resources :specializations
+  resources :notifications
+  resources :retakes
   get 'about', to: 'home#about', as: :about
 end
 
