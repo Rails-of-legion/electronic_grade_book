@@ -25,4 +25,3 @@ ActiveAdmin.register Student do
       f.actions
     end
 end
-  
