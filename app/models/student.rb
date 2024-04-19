@@ -4,9 +4,9 @@ class Student < ApplicationRecord
   belongs_to :group, optional: false
   has_one :record_book, dependent: :destroy
   has_many :retakes, dependent: :destroy
-  
-  def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "group_id", "id", "id_value", "specialization_id", "updated_at", "user_id"]
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[created_at group_id id id_value specialization_id updated_at user_id]
   end
 
   def self.ransackable_associations(auth_object = nil)
