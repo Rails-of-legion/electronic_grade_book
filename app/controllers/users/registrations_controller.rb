@@ -28,7 +28,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       phone_number: params[:user][:phone_number],
       date_of_birth: date_of_birth
     )
-    serach_user(@user)
+    serach_user
   end
 
   # GET /resource/edit
@@ -55,8 +55,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def serach_user(user)
-    if user && user[:status].blank?
+  def serach_user
+    if @user && @user[:status].blank?
       render :set_password_and_email, status: :unprocessable_entity
     else
       flash[:alert] = 'User not found'
