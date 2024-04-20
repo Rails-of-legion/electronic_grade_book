@@ -1,9 +1,9 @@
 <!-- app/views/retakes/show.html.erb -->
 <h1>Retake Details</h1>
 <p><strong>Subject:</strong> <%= @retake.subject.name %></p>
-<p><strong>Student:</strong> <%= @retake.student.name %></p>
+<p><strong>Student:</strong> <%= @retake.student.user_id %></p>
 <p><strong>Date:</strong> <%= @retake.date %></p>
-<p><strong>Grade:</strong> <%= @retake.grade.name %></p>
+<p><strong>Grade:</strong> <%= @retake.grade.grade %></p>
 
 <%= link_to 'Edit', edit_retake_path(@retake) %> |
 <%= link_to 'Back', retakes_path %>

@@ -82,6 +82,10 @@ group :test do
   gem 'shoulda-matchers'
 end
 
+gem 'sassc-rails'
+
+gem 'activeadmin'
+
 gem 'simple_form'
 
 gem "devise", "~> 4.9"
@@ -93,3 +97,5 @@ gem 'cancancan'
 gem "cssbundling-rails", "~> 1.4"
 
 gem "jsbundling-rails", "~> 1.3"
+
+gem 'sass-rails'

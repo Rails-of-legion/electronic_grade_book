@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
+  ActiveAdmin.routes(self) do
+    devise_for :admin_users, ActiveAdmin::Devise.config
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -17,11 +20,8 @@ Rails.application.routes.draw do
   resources :notifications
   resources :retakes
   resources :intermediate_attestations
-  get 'about', to: 'home#about', as: :about
-
   resources :students
-
   resources :grades
-
   resources :record_books
+  get 'about', to: 'home#about', as: :about
 end
