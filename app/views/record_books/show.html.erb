@@ -1,0 +1,31 @@
+<h1>Record Book</h1>
+<p>
+  <strong>Student:</strong>
+  <%= @record_book.student.user.name %>
+</p>
+<p>
+  <strong>Subject:</strong>
+  <%= @record_book.subject.name %>
+</p>
+<p>
+  <strong>Teacher:</strong>
+  <%= @record_book.teacher.name %>
+</p>
+<p>
+  <strong>Attestation:</strong>
+  <%= @record_book.intermediate_attestation.name %>
+</p>
+
+<h2>Grades</h2>
+<% if @record_book.grades.any? %>
+  <ul>
+    <% @record_book.grades.each do |grade| %>
+      <li><%= grade.grade %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No grades yet.</p>
+<% end %>
+
+<%= link_to 'Edit', edit_record_book_path(@record_book), class: 'btn btn-secondary' %>
+<%= link_to 'Back', record_books_path, class: 'btn btn-light' %>
