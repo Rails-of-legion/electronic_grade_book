@@ -3,7 +3,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-  after_action :serach_user, only: [:find_user, :update]
 
   # # GET /resource/sign_up
   # def new
@@ -11,14 +10,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
+  def create; end
 
-  end
-
-
-  def search
-
-  end
+  def search; end
 
   def find_user
     date_of_birth = Date.new(
@@ -34,10 +28,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       phone_number: params[:user][:phone_number],
       date_of_birth: date_of_birth
     )
+    serach_user(@user)
   end
-
-  def 
-
 
   # GET /resource/edit
   # def edit
@@ -49,12 +41,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = find_user
   end
 
-
   def set_password_and_email
+    byebug
     @user = User.find(params[:user].delete(:id))
+    @user[:status] = true
     if @user.update(user_params)
       sign_in(@user)
-      redirect_to root_path, notice: "Registration was successfully"
+      redirect_to root_path, notice: 'Registration was successfully'
     else
       render :set_password_and_email
     end
@@ -62,16 +55,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def serach_user
-    if @user
-      render :set_password_and_email, status: 422
+  def serach_user(user)
+    if user && user[:status].blank?
+      render :set_password_and_email, status: :unprocessable_entity
     else
-      flash[:alert] = "User not found"
-      redirect_to new_user_registration_path
+      flash[:alert] = 'User not found'
+      redirect_to users_find_user_path
     end
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:email, :password, :password_confirmation, :status)
   end
 end
