@@ -42,7 +42,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def set_password_and_email
-    byebug
     @user = User.find(params[:user].delete(:id))
     @user[:status] = true
     if @user.update(user_params)
