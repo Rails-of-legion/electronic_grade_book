@@ -46,6 +46,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.find(params[:user].delete(:id))
     @user[:status] = true
     if @user.update(user_params)
+      UserMailer.registration_confirmation(@user).deliver_later
       sign_in(@user)
       redirect_to root_path, notice: 'Registration was successfully'
     else
