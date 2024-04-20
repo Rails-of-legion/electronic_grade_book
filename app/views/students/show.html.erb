@@ -1,4 +1,4 @@
-<h1>Student: <%= @student.user.name %></h1>
+<h1>Personal Account</h1>
 
 <dl class="row">
   <dt class="col-sm-3">Full Name</dt> 
@@ -11,15 +11,6 @@
   <dd class="col-sm-9"><%= @student.group.name %></dd>
 </dl>
 
-<h2>Record book</h2>
-
-<% if @student.record_book.present? %>
-  <% if @student.record_book %>
-  <%= render "record_books/record_book", record_book: @student.record_book %>
-  <% else %>
-    <p>Record book not found.</p>
-  <% end %>
-<% end %>
 
 <%= link_to 'Edit', edit_student_path(@student), class: 'btn btn-secondary' %>
 <%= link_to 'Back', students_path, class: 'btn btn-light' %>

@@ -1,11 +1,14 @@
 class StudentsController < ApplicationController
+  #before_action :authenticate_student!, only: %i[show edit update destroy]
   before_action :set_student, only: %i[show edit update destroy]
 
   def index
     @students = Student.all
   end
 
-  def show; end
+  def show
+
+  end
 
   def new
     @student = Student.new
@@ -45,4 +48,8 @@ class StudentsController < ApplicationController
   def set_student
     @student = Student.find(params[:id])
   end
+
+  #def authenticate_student!
+  #  redirect_to root_path unless current_user.student?
+  #end
 end

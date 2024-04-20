@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
     elsif resource.teacher?
       semesters_path
     elsif resource.student?
-      notifications_path
+      student = resource.student
+      student_path(student)
     end
   end
 end
