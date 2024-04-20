@@ -23,6 +23,7 @@ class User < ApplicationRecord
   has_many :subjects, through: :teachers_subjects
   has_many :record_books, foreign_key: :teacher_id, dependent: :destroy
 
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[
       created_at
