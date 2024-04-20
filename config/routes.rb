@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+
+  devise_scope :user do  
+    get 'users/search', to: 'users/registrations#search'
+    post 'users/find_user', to: 'users/registrations#find_user'
+    put 'users/set_password_and_email', to: 'users/registrations#set_password_and_email' 
+
+  end
+
+
   ActiveAdmin.routes(self) do
     devise_for :admin_users, ActiveAdmin::Devise.config
   end

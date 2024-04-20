@@ -5,7 +5,8 @@
   <h3>Welcome <%= name(current_user)%></h3> 
   <h3>your email is <%= current_user.email %></h3>
   <h3>your role is <%= current_user.roles.first.name %></h3>
-  <%= button_to 'Выход', destroy_user_session_path, method: :delete %>
+  <%= button_to 'sign out', destroy_user_session_path, method: :delete %>
 <% else %>
-  <%= button_to 'Вход', new_user_session_path %>
+  <%= link_to 'sing in', new_user_session_path %>
+  <%= link_to 'sign up', users_search_path %>
 <% end %>
