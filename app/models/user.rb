@@ -2,7 +2,7 @@ class User < ApplicationRecord
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
 
   validates :first_name, presence: true, length: { minimum: 3, maximum: 50 }
@@ -48,5 +48,9 @@ class User < ApplicationRecord
 
   def student?
     has_role?(:student)
+  end
+
+  def name
+    "#{first_name} #{middle_name} #{last_name}".strip.presence || login
   end
 end

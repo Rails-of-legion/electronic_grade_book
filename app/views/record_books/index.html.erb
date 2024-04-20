@@ -1,0 +1,34 @@
+Record Books
+
+<% if @record_books.present? %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Subject</th>
+        <th>Teacher</th>
+        <th>Attestation</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @record_books.each do |record_book| %>
+        <tr>
+          <td><%= record_book.student.user.name %></td>
+          <td><%= record_book.subject.name %></td>
+          <td><%= record_book.teacher.name %></td>
+          <td><%= record_book.intermediate_attestation.name %></td>
+          <td>
+            <%= link_to 'Show', record_book_path(record_book), class: 'btn btn-sm btn-outline-primary' %>
+            <%= link_to 'Edit', edit_record_book_path(record_book), class: 'btn btn-sm btn-outline-secondary' %>
+            <%= button_to 'Delete', record_book_path(record_book), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No record books found.</p>
+<% end %>
+
+<%= link_to 'Create New Record Book', new_record_book_path, class: 'btn btn-primary' %>
