@@ -16,7 +16,7 @@ Role.create(name: "guest")
 
 admin = User.create(login: "admin", first_name: "admin", last_name: "admin", middle_name: "admin", phone_number: "12345678",  email: "admin@localhost", password: "12345678", password_confirmation: "12345678", status: true, date_of_birth: "2020-04-10") if Rails.env.development?
 admin.add_role(:admin)
-teacher = User.create(login: "teach", first_name: "teacher", last_name: "teacher", middle_name: "teacher", phone_number: "12345678", email: "teacher@localhost", password: "12345678", password_confirmation: "12345678", status: true, date_of_birth: "2020-04-10")
+teacher = User.create(login: "teach", first_name: "teacher", last_name: "teacher", middle_name: "teacher", phone_number: "12345678", email: "teacher@localhost", password: "12345678", password_confirmation: "12345678", status: false, date_of_birth: "2020-04-10")
 teacher.add_role(:teacher)
 student = User.create(login: "stud", first_name: "student", last_name: "student", middle_name: "student", phone_number: "12345678", email: "student@localhost", password: "12345678", password_confirmation: "12345678", status: true, date_of_birth: "2020-04-10")
 student.add_role(:student)

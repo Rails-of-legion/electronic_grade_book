@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+
+  devise_scope :user do  
+    get 'users/search', to: 'users/registrations#search'
+    post 'users/find_user', to: 'users/registrations#find_user'
+    put 'users/set_password_and_email', to: 'users/registrations#set_password_and_email' 
+
+  end
+
+
   ActiveAdmin.routes(self) do
     devise_for :admin_users, ActiveAdmin::Devise.config
   end
@@ -11,7 +23,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#home"
-  resources :users, only: %i[index show]
+  get "users/:id/edit_password", to: "users#edit_password", as: :edit_password
+  get "users/:id/edit_email", to: "users#edit_email", as: :edit_email
+  post "users/:id/update_password", to: "users#update_password", as: :update_password
+  post "users/:id/update_email", to: "users#update_email",as: :update_email
+  resources :users, only: %i[index show update edit ]
   resources :semesters
   resources :subjects
   resources :attendances

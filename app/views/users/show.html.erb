@@ -1,8 +1,20 @@
+<h1>Personal Account</h1>
 <div class="container">
-  <h1><%= @user.first_name %> <%= @user.last_name %></h1> <div class="row">
+  <h1><%= @user.name %></h1> <div class="row">
     <div class="col-sm-9">
       <ul class="list-group">
         <li class="list-group-item"><strong>Email:</strong> <%= @user.email %></li>
+
+        <% if @user.has_role? :student %>
+        <% if @user.student %>
+          <li class="list-group-item"><strong>Specialization:</strong> <%= @user.student.specialization.name %></li>
+          <li class="list-group-item"><strong>Group:</strong> <%= @user.student.group.name %></li>
+        <% else %>
+          <li class="list-group-item"><strong>Specialization:</strong> Not assigned</li>
+          <li class="list-group-item"><strong>Group:</strong> Not assigned</li>
+        <% end %>
+      <% end %>
+
         <li class="list-group-item"><strong>Status:</strong> <%= @user.status %></li>
         <li class="list-group-item"><strong>Date of Birth:</strong> <%= @user.date_of_birth %></li>
         <li class="list-group-item"><strong>Roles:</strong>
@@ -14,3 +26,7 @@
     </div>
   </div>
 </div>
+
+
+<%= link_to "Сhange your password", edit_password_path %>
+<%= link_to "Сhange your email", edit_email_path %>

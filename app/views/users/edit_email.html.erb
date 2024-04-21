@@ -1,0 +1,15 @@
+<h2>Change your email</h2>
+<%= simple_form_for :user, url: update_email_path do |f| %>
+  <div class="form-inputs">
+    <%= f.input :email,
+                label: "Новый email",
+                required: true,
+                autofocus: true,
+                input_html: { type: "email" } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Изменить email" %>
+    <%= link_to "Назад", user_path(@user) %>
+  </div>
+<% end %>
