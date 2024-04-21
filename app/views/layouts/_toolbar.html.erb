@@ -2,6 +2,11 @@
   <ul>
     <li><%= link_to "Home", root_path %></li>
     <li><%= link_to "About", about_path %></li>
+    
+    <% if current_user %>
+    <% if current_user.has_role?(:student) %>
+    <% else %>
+
     <li><%= link_to "Users", users_path %></li>
     <li><%= link_to "Semesters", semesters_path %></li>
     <li><%= link_to "Subjects", subjects_path %></li>
@@ -15,5 +20,7 @@
     <li><%= link_to "Specializations", specializations_path %></li>
     <li><%= link_to "Retake", retakes_path %></li>
     <li><%= link_to "Admin", new_user_session_path %></li>
+    <% end %>
+    <% end %>
   </ul>
 </nav>
