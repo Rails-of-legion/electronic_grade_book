@@ -7,7 +7,8 @@ class Subject < ApplicationRecord
   has_many :intermediate_attestations, dependent: :destroy
   has_many :teachers_subjects, dependent: :destroy
   has_many :teachers, through: :teachers_subjects, source: :teacher, dependent: :destroy
-  has_many :record_books, dependent: :destroy
+  has_many :subject_record_books, dependent: :destroy
+  has_many :record_books, through: :subject_record_books, dependent: :destroy
   has_many :retakes, dependent: :destroy
   has_many :attendance, dependent: :destroy
 end

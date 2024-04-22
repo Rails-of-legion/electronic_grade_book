@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_16_061412) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_22_005421) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -135,6 +135,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_061412) do
     t.index ["user_id"], name: "index_students_on_user_id"
   end
 
+  create_table "subject_record_books", force: :cascade do |t|
+    t.bigint "subject_id", null: false
+    t.bigint "record_book_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_book_id"], name: "index_subject_record_books_on_record_book_id"
+    t.index ["subject_id", "record_book_id"], name: "index_subject_record_books_on_subject_id_and_record_book_id", unique: true
+    t.index ["subject_id"], name: "index_subject_record_books_on_subject_id"
+  end
+
   create_table "subjects", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -195,6 +205,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_061412) do
   add_foreign_key "students", "groups"
   add_foreign_key "students", "specializations"
   add_foreign_key "students", "users"
+  add_foreign_key "subject_record_books", "record_books"
+  add_foreign_key "subject_record_books", "subjects"
   add_foreign_key "subjects", "semesters"
   add_foreign_key "teachers_subjects", "subjects"
   add_foreign_key "teachers_subjects", "users", column: "teacher_id"
