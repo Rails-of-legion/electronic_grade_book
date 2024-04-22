@@ -12,4 +12,6 @@ class Student < ApplicationRecord
   def self.ransackable_associations(_auth_object = nil)
     %w[group record_book retakes specialization user]
   end
+
+  delegate :name, to: :user
 end
