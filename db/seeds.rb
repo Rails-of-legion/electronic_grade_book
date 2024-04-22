@@ -47,6 +47,9 @@ end
 
 Student.create(user_id: 3, specialization_id: rand(1..3), group_id: rand(1..3))
 
-RecordBook.create(subject_id: 1, student_id: 1, teacher_id: 2, intermediate_attestation_id: 1)
+record_book = RecordBook.create(student_id: 1, teacher_id: 2, intermediate_attestation_id: 1)
+
+SubjectsRecordBook.create(subject_id: 1, record_book_id: record_book.id)
+
 
 Grade.create(record_book_id: 1, grade: rand(1..10))
