@@ -50,8 +50,6 @@ class User < ApplicationRecord
     has_role?(:student)
   end
 
-  scope :by_role, ->(role_name) { joins(:roles).where(roles: { name: role_name }) }
-
   def name
     "#{last_name} #{first_name} #{middle_name}".strip.presence || login
   end

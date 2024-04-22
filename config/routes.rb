@@ -39,5 +39,6 @@ Rails.application.routes.draw do
   resources :students
   resources :grades
   resources :record_books
+  resources :subject_record_books
   get 'about', to: 'home#about', as: :about
 end
