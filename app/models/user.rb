@@ -50,7 +50,6 @@ class User < ApplicationRecord
     has_role?(:student)
   end
 
-
   def name
     "#{first_name} #{middle_name} #{last_name}".strip.presence || login
   end
