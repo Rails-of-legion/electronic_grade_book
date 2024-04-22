@@ -11,4 +11,8 @@ class Student < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     ["group", "record_book", "retakes", "specialization", "user"]
   end
+
+  def name
+    user.name
+  end  
 end
