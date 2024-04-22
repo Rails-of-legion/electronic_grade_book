@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe SubjectsRecordBook, type: :model do
+RSpec.describe SubjectsRecordBook do
   pending "add some examples to (or delete) #{__FILE__}"
 end
