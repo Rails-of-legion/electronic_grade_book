@@ -14,4 +14,9 @@ class RecordBook < ApplicationRecord
     %w[created_at id id_value intermediate_attestation_id student_id teacher_id
        updated_at]
   end
+
+  def subjects_list
+    subjects.map(&:name).join(', ')
+  end  
+
 end
