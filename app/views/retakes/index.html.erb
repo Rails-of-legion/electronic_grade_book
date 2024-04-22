@@ -1,28 +1,29 @@
-<!-- app/views/retakes/index.html.erb -->
-<h1>Retakes</h1>
-<table>
+<h1 class="mb-4">Retakes</h1>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Subject</th>
-      <th>Student</th>
-      <th>Date</th>
-      <th>Grade</th>
-      <th colspan="3"></th>
+      <th scope="col">Subject</th>
+      <th scope="col">Students with Retakes</th>
+      <th scope="col">Date</th>
+      <th scope="col">Grade</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     <% @retakes.each do |retake| %>
       <tr>
         <td><%= retake.subject.name %></td>
-        <td><%= retake.student.user_id %></td>
+        <td><%= retake.record_books.map { |record_book| record_book.student }.uniq.count %></td>
         <td><%= retake.date %></td>
-        <td><%= retake.grade.grade if retake.grade %></td>
-        <td><%= link_to 'Show', retake %></td>
-        <td><%= link_to 'Edit', edit_retake_path(retake) %></td>
-        <td><%= button_to 'Destroy', retake, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= retake.grade %></td>
+        <td>
+          <%= link_to 'Show', retake, class: 'btn btn-info' %>
+          <%= link_to 'Edit', edit_retake_path(retake), class: 'btn btn-primary' %>
+          <%= button_to 'Destroy', retake, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'New Retake', new_retake_path %>
+<%= link_to 'New Retake', new_retake_path, class: 'btn btn-success' %>

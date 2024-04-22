@@ -27,5 +27,16 @@
   <p>No grades yet.</p>
 <% end %>
 
+<h2>Retakes</h2>
+<% if @record_book.retakes.any? %>
+  <ul>
+    <% @record_book.retakes.each do |retake| %>
+      <li><%= retake.subject.name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No retakes yet.</p>
+<% end %>
+
 <%= link_to 'Edit', edit_record_book_path(@record_book), class: 'btn btn-secondary' %>
 <%= link_to 'Back', record_books_path, class: 'btn btn-light' %>
