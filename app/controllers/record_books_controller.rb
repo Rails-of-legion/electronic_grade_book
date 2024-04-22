@@ -5,7 +5,10 @@ class RecordBooksController < ApplicationController
     @record_books = RecordBook.all
   end
 
-  def show; end
+  def show
+     @month = params[:month] || Date.today.month
+     @subjects = Subject.where(id: @record_book.subject_id)
+  end
 
   def new
     @record_book = RecordBook.new
