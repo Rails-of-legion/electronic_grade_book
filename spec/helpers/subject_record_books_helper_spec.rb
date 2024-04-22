@@ -10,6 +10,6 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe SubjectRecordBooksHelper, type: :helper do
+RSpec.describe SubjectRecordBooksHelper do
   pending "add some examples to (or delete) #{__FILE__}"
 end

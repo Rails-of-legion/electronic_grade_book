@@ -46,5 +46,4 @@ class SubjectRecordBooksController < ApplicationController
     def subject_record_book_params
       params.require(:subject_record_book).permit(:subject_id, :record_book_id)
     end
-  end
-  
+end
