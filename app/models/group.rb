@@ -4,7 +4,7 @@ class Group < ApplicationRecord
   validates :name, presence: true, length: { minimum: 2 }
 
   def self.ransackable_associations(_auth_object = nil)
-    ['curator']
+    %w[curator record_books]
   end
 
   def self.ransackable_attributes(_auth_object = nil)

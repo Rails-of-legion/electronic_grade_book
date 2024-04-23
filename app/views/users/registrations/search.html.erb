@@ -6,7 +6,7 @@
   <%= f.input :first_name %>
   <%= f.input :middle_name %>
   <%= f.input :last_name %>
-  <%= f.input :date_of_birth, as: :date %>
+  <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 12 %>
   <%= f.input :phone_number %>
 </div>
 
