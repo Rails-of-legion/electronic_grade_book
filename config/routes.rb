@@ -32,7 +32,6 @@ Rails.application.routes.draw do
   resources :notifications
   resources :retakes
   resources :intermediate_attestations
-  resources :students
   resources :grades
   resources :record_books
   get 'about', to: 'home#about', as: :about

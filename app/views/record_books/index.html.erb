@@ -14,7 +14,7 @@ Record Books
     <tbody>
       <% @record_books.each do |record_book| %>
         <tr>
-          <td><%= record_book.student.user.name %></td>
+          <td><%= record_book.user.name %></td>
           <td><%= record_book.subject.name %></td>
           <td><%= record_book.teacher.name %></td>
           <td><%= record_book.intermediate_attestation.name %></td>

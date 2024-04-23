@@ -6,7 +6,7 @@ class IntermediateAttestationsController < ApplicationController
   end
 
   def show
-    @record_books = @intermediate_attestation.record_books.includes(:student)
+    @record_books = @intermediate_attestation.record_books
   end
 
   def new
