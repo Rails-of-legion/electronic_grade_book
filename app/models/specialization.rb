@@ -1,6 +1,6 @@
 class Specialization < ApplicationRecord
   has_many :students, dependent: :destroy
-  has_many :specialities_subjects, dependent: :destroy
+  has_many :specialities_subjects, class_name: 'SpecialitiesSubject', dependent: :destroy
   has_many :subjects, through: :specialities_subjects
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
