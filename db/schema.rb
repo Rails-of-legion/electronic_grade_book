@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +43,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
     t.integer "grade"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "date"
     t.index ["record_book_id"], name: "index_grades_on_record_book_id"
   end
 
@@ -76,7 +78,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
   end
 
   create_table "record_books", force: :cascade do |t|
-    t.bigint "subject_id", null: false
     t.bigint "user_id", null: false
     t.bigint "specialization_id", null: false
     t.bigint "group_id", null: false
@@ -86,7 +87,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
     t.index ["group_id"], name: "index_record_books_on_group_id"
     t.index ["intermediate_attestation_id"], name: "index_record_books_on_intermediate_attestation_id"
     t.index ["specialization_id"], name: "index_record_books_on_specialization_id"
-    t.index ["subject_id"], name: "index_record_books_on_subject_id"
     t.index ["user_id"], name: "index_record_books_on_user_id"
   end
 
@@ -152,6 +152,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
     t.index ["semester_id"], name: "index_subjects_on_semester_id"
   end
 
+  create_table "subjects_record_books", force: :cascade do |t|
+    t.bigint "subject_id", null: false
+    t.bigint "record_book_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_book_id"], name: "index_subjects_record_books_on_record_book_id"
+    t.index ["subject_id"], name: "index_subjects_record_books_on_subject_id"
+  end
+
   create_table "teachers_subjects", force: :cascade do |t|
     t.bigint "teacher_id"
     t.bigint "subject_id"
@@ -194,9 +203,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
   add_foreign_key "notifications", "users"
   add_foreign_key "record_books", "groups"
   add_foreign_key "record_books", "intermediate_attestations"
+  add_foreign_key "record_books", "students"
+  add_foreign_key "record_books", "users", column: "teacher_id"
   add_foreign_key "record_books", "specializations"
   add_foreign_key "record_books", "subjects"
-  add_foreign_key "record_books", "users"
   add_foreign_key "retakes", "grades"
   add_foreign_key "retakes", "subjects"
   add_foreign_key "retakes_record_books", "record_books"
@@ -207,6 +217,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
   add_foreign_key "students", "specializations"
   add_foreign_key "students", "users"
   add_foreign_key "subjects", "semesters"
+  add_foreign_key "subjects_record_books", "record_books"
+  add_foreign_key "subjects_record_books", "subjects"
   add_foreign_key "teachers_subjects", "subjects"
   add_foreign_key "teachers_subjects", "users", column: "teacher_id"
 end
