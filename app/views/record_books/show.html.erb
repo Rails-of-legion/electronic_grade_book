@@ -10,11 +10,47 @@
 
 <h2>Grades</h2>
 <% if @record_book.grades.any? %>
-  <ul>
-    <% @record_book.grades.each do |grade| %>
-      <li><%= grade.grade %></li>
-    <% end %>
-  </ul>
+
+<%= simple_form_for :grade, url: record_book_path(@record_book), method: :get, html: { class: 'form-inline' } do |f| %>
+  <%= f.input :selected_month, collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, prompt: 'Выберите месяц', input_html: { onchange: 'this.form.submit();', name: 'month', class: 'form-control' } %>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>MECЯЦ</th>
+      <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
+        <th><%= day %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @record_book.subject.name %></td>
+      <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
+        <td>
+          <% grade = @record_book.grades.find { |g| g.created_at.day == day && g.created_at.month == @month.to_i } %>
+          <% if grade %>
+            <%= grade.grade %>
+            <%= simple_form_for grade, url: {action: "update"}, method: :post do |f| %>
+              <%= f.input :day, as: :hidden, input_html: { value: day } %>
+              <%= f.input :subject_id, as: :hidden, input_html: { value: @record_book.subject_id } %>
+              <%= f.input :grade, collection: (1..5), prompt: 'Выберите оценку', input_html: { onchange: 'this.form.submit();', class: 'form-control' } %>
+            <% end %>
+          <% else %>
+            <%= simple_form_for Grade.new, url: {controller: "grades", action: "create"}, method: :post do |f| %>
+              <%= f.input :day, as: :hidden, input_html: { value: day } %>
+              <%= f.input :subject_id, as: :hidden, input_html: { value: @record_book.subject_id } %>
+              <%= f.input :record_book_id, as: :hidden, input_html: { value: @record_book.id } %>
+              <%= f.input :grade, collection: (1..5), prompt: 'Добавить оценку', input_html: { onchange: 'this.form.submit();', class: 'form-control' } %>
+            <% end %>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
 <% else %>
   <p>No grades yet.</p>
 <% end %>
