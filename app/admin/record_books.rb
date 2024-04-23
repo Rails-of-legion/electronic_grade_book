@@ -1,13 +1,12 @@
 ActiveAdmin.register RecordBook do
-  permit_params :subject_id, :student_id, :teacher_id, :intermediate_attestation_id, retake_ids: []
+  permit_params :user_id, :specialization_id, :group_id, :intermediate_attestation_id, retake_ids: []
 
   index do
     selectable_column
     id_column
-    column :subject
-    column :student
-    column :teacher
-    column :intermediate_attestation
+    column :user
+    column :specialization
+    column :group
     column 'Retakes' do |record_book|
       record_book.retakes.count
     end
@@ -17,10 +16,9 @@ ActiveAdmin.register RecordBook do
 
   show do
     attributes_table do
-      row :subject
-      row :teacher
-      row :intermediate_attestation
-      row :date
+      row :user
+      row :specialization
+      row :group
       row 'Retakes' do |record_book|
         record_book.retakes.count
       end
@@ -28,18 +26,16 @@ ActiveAdmin.register RecordBook do
     active_admin_comments
   end
 
-  filter :subject
-  filter :student
-  filter :teacher
-  filter :intermediate_attestation
+  filter :user
+  filter :specialization
+  filter :group
   filter :created_at
 
   form do |f|
     f.inputs do
-      f.input :subject
-      f.input :student
-      f.input :teacher
-      f.input :intermediate_attestation
+      f.input :user
+      f.input :specialization
+      f.input :group
       f.input :retakes, as: :check_boxes
     end
     f.actions
