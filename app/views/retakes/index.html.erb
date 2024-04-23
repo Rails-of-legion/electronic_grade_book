@@ -13,7 +13,7 @@
     <% @retakes.each do |retake| %>
       <tr>
         <td><%= retake.subject.name %></td>
-        <td><%= retake.record_books.map { |record_book| record_book.student }.uniq.count %></td>
+        <td><%= retake.record_books.map { |record_book| record_book }.uniq.count %></td>
         <td><%= retake.date %></td>
         <td><%= retake.grade %></td>
         <td>

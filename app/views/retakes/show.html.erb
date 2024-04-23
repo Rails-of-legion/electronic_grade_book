@@ -3,7 +3,7 @@
   <strong>Subject:</strong> <%= @retake.subject.name %>
 </div>
 <div class="mb-3">
-  <strong>Count students:</strong> <%= @retake.record_books.select(:student_id).distinct.count %>
+  <strong>Count students:</strong> <%= @retake.record_books.select(:record_book_id).distinct.count %>
 </div>
 <div class="mb-3">
   <strong>Date start:</strong> <%= @retake.date %>

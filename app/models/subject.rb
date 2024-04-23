@@ -10,4 +10,6 @@ class Subject < ApplicationRecord
   has_many :record_books, dependent: :destroy
   has_many :retakes, dependent: :destroy
   has_many :attendance, dependent: :destroy
+  has_many :specialities_subjects, dependent: :destroy
+  has_many :specializations, through: :specialities_subjects
 end
