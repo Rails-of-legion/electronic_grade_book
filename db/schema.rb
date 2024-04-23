@@ -80,7 +80,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_214410) do
     t.bigint "user_id", null: false
     t.bigint "specialization_id", null: false
     t.bigint "group_id", null: false
-    t.bigint "teacher_id", null: false
     t.bigint "intermediate_attestation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -88,7 +87,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_214410) do
     t.index ["intermediate_attestation_id"], name: "index_record_books_on_intermediate_attestation_id"
     t.index ["specialization_id"], name: "index_record_books_on_specialization_id"
     t.index ["subject_id"], name: "index_record_books_on_subject_id"
-    t.index ["teacher_id"], name: "index_record_books_on_teacher_id"
     t.index ["user_id"], name: "index_record_books_on_user_id"
   end
 
@@ -190,7 +188,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_214410) do
   add_foreign_key "record_books", "specializations"
   add_foreign_key "record_books", "subjects"
   add_foreign_key "record_books", "users"
-  add_foreign_key "record_books", "users", column: "teacher_id"
   add_foreign_key "retakes", "grades"
   add_foreign_key "retakes", "subjects"
   add_foreign_key "retakes_record_books", "record_books"

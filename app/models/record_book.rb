@@ -1,6 +1,5 @@
 class RecordBook < ApplicationRecord
   belongs_to :subject
-  belongs_to :teacher, class_name: 'User'
   belongs_to :user, optional: false
   belongs_to :specialization, optional: false
   belongs_to :group, optional: false
@@ -8,7 +7,6 @@ class RecordBook < ApplicationRecord
   has_many :grades, dependent: :destroy
   has_many :retakes_record_books, dependent: :destroy
   has_many :retakes, through: :retakes_record_books
-  
 
   def self.ransackable_associations(_auth_object = nil)
     %w[grades intermediate_attestation subject teacher retakes]
