@@ -30,7 +30,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer "subject_id", null: false
-    t.integer "student_id", null: false
+    t.integer "record_book_id", null: false
     t.date "date", null: false
     t.string "attendance_status", null: false
     t.datetime "created_at", null: false
@@ -77,26 +77,26 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
 
   create_table "record_books", force: :cascade do |t|
     t.bigint "subject_id", null: false
-    t.bigint "student_id", null: false
-    t.bigint "teacher_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "specialization_id", null: false
+    t.bigint "group_id", null: false
     t.bigint "intermediate_attestation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_record_books_on_group_id"
     t.index ["intermediate_attestation_id"], name: "index_record_books_on_intermediate_attestation_id"
-    t.index ["student_id"], name: "index_record_books_on_student_id"
+    t.index ["specialization_id"], name: "index_record_books_on_specialization_id"
     t.index ["subject_id"], name: "index_record_books_on_subject_id"
-    t.index ["teacher_id"], name: "index_record_books_on_teacher_id"
+    t.index ["user_id"], name: "index_record_books_on_user_id"
   end
 
   create_table "retakes", force: :cascade do |t|
     t.bigint "subject_id", null: false
-    t.bigint "student_id", null: false
     t.date "date"
     t.bigint "grade_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["grade_id"], name: "index_retakes_on_grade_id"
-    t.index ["student_id"], name: "index_retakes_on_student_id"
     t.index ["subject_id"], name: "index_retakes_on_subject_id"
   end
 
@@ -140,17 +140,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "students", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "specialization_id", null: false
-    t.bigint "group_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_students_on_group_id"
-    t.index ["specialization_id"], name: "index_students_on_specialization_id"
-    t.index ["user_id"], name: "index_students_on_user_id"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -203,12 +192,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
   add_foreign_key "groups", "users", column: "curator_id"
   add_foreign_key "intermediate_attestations", "subjects"
   add_foreign_key "notifications", "users"
+  add_foreign_key "record_books", "groups"
   add_foreign_key "record_books", "intermediate_attestations"
-  add_foreign_key "record_books", "students"
+  add_foreign_key "record_books", "specializations"
   add_foreign_key "record_books", "subjects"
-  add_foreign_key "record_books", "users", column: "teacher_id"
+  add_foreign_key "record_books", "users"
   add_foreign_key "retakes", "grades"
-  add_foreign_key "retakes", "students"
   add_foreign_key "retakes", "subjects"
   add_foreign_key "retakes_record_books", "record_books"
   add_foreign_key "retakes_record_books", "retakes"

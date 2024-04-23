@@ -43,6 +43,6 @@ class RetakesController < ApplicationController
   end
 
   def retake_params
-    params.require(:retake).permit(:subject_id, :student_id, :date, :grade_id, :date)
+    params.require(:retake).permit(:subject_id, :record_book_id, :date, :grade_id, :date)
   end
 end

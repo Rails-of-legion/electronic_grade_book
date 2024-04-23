@@ -10,7 +10,7 @@
   <tbody>
     <% @grades.each do |grade| %>
       <tr>
-        <td><%= grade.record_book.subject.name %> (<%= grade.record_book.student.user.name %>)</td>
+        <td><%= grade.record_book.subject.name %> (<%= grade.record_book.user.name %>)</td>
         <td><%= grade.grade %></td>
         <td>
           <%= link_to 'Show', grade, class: 'btn btn-default' %>

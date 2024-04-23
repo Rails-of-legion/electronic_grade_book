@@ -3,13 +3,13 @@ class Attendance < ApplicationRecord
   validates :attendance_status, presence: true
 
   belongs_to :subject
-  belongs_to :student
+  belongs_to :record_book
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[student subject]
+    %w[record_book subject]
   end
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[attendance_status created_at date id id_value student_id subject_id updated_at]
+    %w[attendance_status created_at date id id_value record_book_id subject_id updated_at]
   end
 end
