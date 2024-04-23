@@ -7,4 +7,16 @@ ActiveAdmin.register Specialization do
     column :name
     actions
   end
+
+  show do
+    attributes_table do
+      row :name
+    end
+    panel "Subjects" do
+      table_for specialization.subjects do
+        column :name
+      end
+    end
+  end
 end
+
