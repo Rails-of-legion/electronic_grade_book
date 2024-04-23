@@ -1,0 +1,2 @@
+module SpecialitiesSubjectsHelper
+end
