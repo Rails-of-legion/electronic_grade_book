@@ -7,6 +7,6 @@ class CreateSpecialitiesSubjects < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    add_index :specialities_subjects, [:specialization_id, :subject_id], unique: true
+    add_index :specialities_subjects, %i[specialization_id subject_id], unique: true
   end
 end

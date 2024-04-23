@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe SpecialitiesSubject, type: :model do
+RSpec.describe SpecialitiesSubject do
   pending "add some examples to (or delete) #{__FILE__}"
 end
