@@ -50,3 +50,5 @@ Student.create(user_id: 3, specialization_id: rand(1..3), group_id: rand(1..3))
 RecordBook.create(subject_id: 1, student_id: 1, teacher_id: 2, intermediate_attestation_id: 1)
 
 Grade.create(record_book_id: 1, grade: rand(1..10))
+
+Retake.create(subject_id: 1, student_id: 1, date: "2020-04-10", grade_id: 1)

@@ -1,8 +1,7 @@
-<!-- app/views/retakes/_form.html.erb -->
-<%= form_for @retake do |f| %>
+<%= form_for @retake, html: { class: 'needs-validation', novalidate: true } do |f| %>
   <% if @retake.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@retake.errors.count, 'error') %> prohibited this retake from being saved:</h2>
+    <div class="alert alert-danger">
+      <h4 class="alert-heading"><%= pluralize(@retake.errors.count, 'error') %> prohibited this retake from being saved:</h4>
       <ul>
         <% @retake.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -11,24 +10,22 @@
     </div>
   <% end %>
 
-  <!-- Add form fields here (e.g., subject, student, date, grade) -->
-  <p>
-    <%= f.label :subject_id %><br>
-    <%= f.collection_select :subject_id, Subject.all, :id, :name %>
-  </p>
-  <p>
-    <%= f.label :student_id %><br>
-    <%= f.collection_select :student_id, Student.all, :id, :user_id  %>
-  </p>
-  <p>
-    <%= f.label :date %><br>
-    <%= f.date_field :date %>
-  </p>
-  <p>
-    <%= f.label :grade_id %><br>
-    <%= f.collection_select :grade_id, Grade.all, :id, :grade %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
+  <div class="form-group">
+    <%= f.label :subject_id %>
+    <%= f.collection_select :subject_id, Subject.all, :id, :name, {}, { class: 'form-control' } %>
+  </div>
+  <div class="form-group">
+    <%= f.label :student_id %>
+    <%= f.collection_select :student_id, Student.all, :id, :user_id, {}, { class: 'form-control' } %>
+  </div>
+  <div class="form-group">
+    <%= f.label :date %>
+    <%= f.date_field :date, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :grade_id %>
+    <%= f.collection_select :grade_id, Grade.all, :id, :grade, {}, { class: 'form-control' } %>
+  </div>
+
+  <%= f.submit 'Save', class: 'btn btn-primary' %>
 <% end %>
