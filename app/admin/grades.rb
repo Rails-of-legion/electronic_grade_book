@@ -1,5 +1,5 @@
 ActiveAdmin.register Grade do
-  permit_params :record_book_id, :grade, :date  # Добавляем :date в список разрешенных параметров
+  permit_params :record_book_id, :grade, :date
 
   index do
     selectable_column
@@ -13,7 +13,7 @@ ActiveAdmin.register Grade do
 
   filter :record_book
   filter :grade
-  filter :date 
+  filter :date
   filter :created_at
 
   form do |f|
