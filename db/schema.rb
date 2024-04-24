@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_23_235310) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_24_002705) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_235310) do
     t.index ["intermediate_attestation_id"], name: "index_record_books_on_intermediate_attestation_id"
     t.index ["specialization_id"], name: "index_record_books_on_specialization_id"
     t.index ["user_id"], name: "index_record_books_on_user_id"
+  end
+
+  create_table "record_books_intermediate_attestations", force: :cascade do |t|
+    t.bigint "record_book_id", null: false
+    t.bigint "intermediate_attestation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["intermediate_attestation_id"], name: "idx_on_intermediate_attestation_id_4b30864746"
+    t.index ["record_book_id"], name: "index_record_books_intermediate_attestations_on_record_book_id"
   end
 
   create_table "retakes", force: :cascade do |t|
@@ -205,6 +214,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_235310) do
   add_foreign_key "record_books", "intermediate_attestations"
   add_foreign_key "record_books", "specializations"
   add_foreign_key "record_books", "users"
+  add_foreign_key "record_books_intermediate_attestations", "intermediate_attestations"
+  add_foreign_key "record_books_intermediate_attestations", "record_books"
   add_foreign_key "retakes", "grades"
   add_foreign_key "retakes", "subjects"
   add_foreign_key "retakes_record_books", "record_books"
