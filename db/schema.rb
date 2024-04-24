@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_24_002705) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_24_143329) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,11 +80,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_002705) do
     t.bigint "user_id", null: false
     t.bigint "specialization_id", null: false
     t.bigint "group_id", null: false
-    t.bigint "intermediate_attestation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_record_books_on_group_id"
-    t.index ["intermediate_attestation_id"], name: "index_record_books_on_intermediate_attestation_id"
     t.index ["specialization_id"], name: "index_record_books_on_specialization_id"
     t.index ["user_id"], name: "index_record_books_on_user_id"
   end
@@ -156,6 +154,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_002705) do
     t.bigint "semester_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "grade_id"
+    t.index ["grade_id"], name: "index_subjects_on_grade_id"
     t.index ["semester_id"], name: "index_subjects_on_semester_id"
   end
 
@@ -210,7 +210,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_002705) do
   add_foreign_key "intermediate_attestations", "subjects"
   add_foreign_key "notifications", "users"
   add_foreign_key "record_books", "groups"
-  add_foreign_key "record_books", "intermediate_attestations"
   add_foreign_key "record_books", "specializations"
   add_foreign_key "record_books", "users"
   add_foreign_key "record_books_intermediate_attestations", "intermediate_attestations"
@@ -221,6 +220,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_002705) do
   add_foreign_key "retakes_record_books", "retakes"
   add_foreign_key "specialities_subjects", "specializations"
   add_foreign_key "specialities_subjects", "subjects"
+  add_foreign_key "subjects", "grades"
   add_foreign_key "subjects", "semesters"
   add_foreign_key "subjects_record_books", "record_books"
   add_foreign_key "subjects_record_books", "subjects"
