@@ -48,11 +48,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_190613) do
 
   create_table "grades", force: :cascade do |t|
     t.bigint "record_book_id", null: false
+    t.bigint "subject_id", null: false
     t.integer "grade"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date"
     t.index ["record_book_id"], name: "index_grades_on_record_book_id"
+    t.index ["subject_id"], name: "index_grades_on_subject_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -224,6 +226,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_190613) do
   add_foreign_key "attendances_record_books", "attendances"
   add_foreign_key "attendances_record_books", "record_books"
   add_foreign_key "grades", "record_books"
+  add_foreign_key "grades", "subjects"
   add_foreign_key "groups", "users", column: "curator_id"
   add_foreign_key "intermediate_attestations", "subjects"
   add_foreign_key "notifications_users", "notifications"
