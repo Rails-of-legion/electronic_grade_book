@@ -1,7 +1,6 @@
 class Subject < ApplicationRecord
   validates :name, presence: true, length: { minimum: 3 }
   validates :description, presence: true
-  validates :assessment_type, presence: true
 
   belongs_to :semester
   has_many :intermediate_attestations, dependent: :destroy
@@ -15,6 +14,6 @@ class Subject < ApplicationRecord
   has_many :specializations, through: :specialities_subjects
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[assessment_type created_at description id name semester_id updated_at]
+    %w[created_at description id name semester_id updated_at]
   end
 end

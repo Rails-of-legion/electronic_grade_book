@@ -154,7 +154,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_002705) do
     t.string "name"
     t.text "description"
     t.bigint "semester_id", null: false
-    t.text "assessment_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["semester_id"], name: "index_subjects_on_semester_id"

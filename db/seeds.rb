@@ -80,7 +80,6 @@ subjects_list.each do |subject_name|
   subject = Subject.create!(
     name: subject_name,
     description: Faker::Lorem.paragraph,
-    assessment_type: ["Exam", "Project", "Essay"].sample,
     semester: Semester.all.sample
   )
   puts "Created subject: #{subject.name}"

@@ -4,7 +4,6 @@ class CreateSubjects < ActiveRecord::Migration[7.1]
       t.string :name
       t.text :description
       t.references :semester, null: false, foreign_key: true
-      t.text :assessment_type
 
       t.timestamps
     end
