@@ -140,9 +140,3 @@ subjects_list.each do |subject_name|
     puts "Created attestation: #{attestation.name} for subject #{attestation.subject.name}"
   end
 end
- 
-
-# Create retakes and associate with record books (example for one retake) 
-retake = Retake.create!(subject: Subject.first, date: Date.today + 1.week, grade: Grade.first) 
-RetakesRecordBook.create!(retake: retake, record_book: RecordBook.first) 
-puts "Created retake for subject #{retake.subject.name} and associated with record book ID: #{RecordBook.first.id}"

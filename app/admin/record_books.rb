@@ -1,5 +1,5 @@
 ActiveAdmin.register RecordBook do
-  permit_params :user_id, :specialization_id, :group_id, :intermediate_attestation_id, retake_ids: []
+  permit_params :user_id, :specialization_id, :group_id, :intermediate_attestation_id
 
   index do
     selectable_column
@@ -7,9 +7,6 @@ ActiveAdmin.register RecordBook do
     column :user
     column :specialization
     column :group
-    column 'Retakes' do |record_book|
-      record_book.retakes.count
-    end
     column :created_at
     actions
   end
@@ -19,9 +16,6 @@ ActiveAdmin.register RecordBook do
       row :user
       row :specialization
       row :group
-      row 'Retakes' do |record_book|
-        record_book.retakes.count
-      end
     end
     active_admin_comments
   end
@@ -36,7 +30,6 @@ ActiveAdmin.register RecordBook do
       f.input :user
       f.input :specialization
       f.input :group
-      f.input :retakes, as: :check_boxes
     end
     f.actions
   end

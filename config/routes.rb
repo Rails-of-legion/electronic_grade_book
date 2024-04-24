@@ -30,7 +30,6 @@ Rails.application.routes.draw do
   resources :groups
   resources :specializations
   resources :notifications
-  resources :retakes
   resources :intermediate_attestations
   resources :grades
   resources :record_books
