@@ -18,9 +18,13 @@ class User < ApplicationRecord
   has_many :groups
   has_many :teachers_subjects, foreign_key: :teacher_id
   has_many :subjects, through: :teachers_subjects
-  has_many :record_books, foreign_key: :teacher_id, dependent: :destroy
+  has_many :record_books, dependent: :destroy
 
   scope :by_role, ->(role_name) { joins(:roles).where(roles: { name: role_name }) }
+
+  def self.ransackable_associations(auth_object = nil)
+    super & ['record_books']
+  end
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[

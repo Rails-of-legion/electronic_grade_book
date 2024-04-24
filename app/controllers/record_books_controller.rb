@@ -6,8 +6,8 @@ class RecordBooksController < ApplicationController
   end
 
   def show
-     @month = params[:month] || Date.today.month
-     @subjects = Subject.where(id: @record_book.subject_id)
+    @month = params[:month] || Time.zone.today.month
+    @subjects = Subject.where(id: @record_book.subject_id)
   end
 
   def new
@@ -42,7 +42,8 @@ class RecordBooksController < ApplicationController
   private
 
   def record_book_params
-    params.require(:record_book).permit(:subject_id, :student_id, :teacher_id, :intermediate_attestation_id)
+    params.require(:record_book).permit(:subject_id, :record_book_id, :teacher_id, :intermediate_attestation_id,
+                                        retake_ids: [])
   end
 
   def set_record_book

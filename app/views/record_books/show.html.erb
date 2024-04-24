@@ -1,4 +1,14 @@
 <h1>Record Book</h1>
+<p>
+  <strong>Student:</strong>
+  <%= @record_book.user.name %>
+</p>
+<p>
+  <strong>Attestation:</strong>
+  <%= @record_book.intermediate_attestation.name %>
+</p>
+
+<h2>Grades</h2>
 <% if @record_book.grades.any? %>
 
 <%= simple_form_for :grade, url: record_book_path(@record_book), method: :get, html: { class: 'form-inline' } do |f| %>
@@ -43,6 +53,17 @@
 
 <% else %>
   <p>No grades yet.</p>
+<% end %>
+
+<h2>Retakes</h2>
+<% if @record_book.retakes.any? %>
+  <ul>
+    <% @record_book.retakes.each do |retake| %>
+      <li><%= retake.subject.name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No retakes yet.</p>
 <% end %>
 
 <%= link_to 'Edit', edit_record_book_path(@record_book), class: 'btn btn-secondary' %>

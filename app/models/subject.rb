@@ -11,8 +11,10 @@ class Subject < ApplicationRecord
   has_many :record_books, through: :subjects_record_books, dependent: :destroy
   has_many :retakes, dependent: :destroy
   has_many :attendance, dependent: :destroy
+  has_many :specialities_subjects, dependent: :destroy
+  has_many :specializations, through: :specialities_subjects
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["assessment_type", "created_at", "description", "id", "name", "semester_id", "updated_at"]
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[assessment_type created_at description id name semester_id updated_at]
   end
 end
