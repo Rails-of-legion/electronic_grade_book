@@ -70,7 +70,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_190613) do
     t.bigint "subject_id", null: false
     t.string "name"
     t.date "date"
-    t.integer "max_grade"
     t.string "assessment_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

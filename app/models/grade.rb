@@ -1,6 +1,7 @@
 class Grade < ApplicationRecord
   belongs_to :record_book
   belongs_to :subject
+  
   validates :grade, presence: true
 
   def self.ransackable_associations(_auth_object = nil)
