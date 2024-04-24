@@ -1,0 +1,2 @@
+module RecordBooksIntermediateAttestationsHelper
+end

@@ -6,5 +6,7 @@ class CreateSubjectsRecordBooks < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+
+    add_index :subjects_record_books, [:subject_id, :record_book_id], unique: true
   end
 end

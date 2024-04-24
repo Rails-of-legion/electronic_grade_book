@@ -24,7 +24,8 @@ admin = User.create!(
 )
 admin.add_role(:admin)
 
-puts "Created admin user: #{admin.login}"
+puts "Created admin user: #{admin.email}"
+puts "Created admin user: #{admin.password}"
 
 # Create teachers
 2.times do |i|
@@ -138,17 +139,19 @@ end
   puts "Created student: #{student.login}"
 
   # Find a valid teacher for the subject
-  subject = Subject.all.sample
-  teacher = subject.teachers.sample
-
   record_book = RecordBook.create!( 
     user: student, 
     specialization: Specialization.all.sample, 
     group: Group.all.sample, 
-    subject: subject, 
     intermediate_attestation: IntermediateAttestation.all.sample 
   ) 
-  puts "Created record book for student #{student.login} in subject #{subject.name}" 
+  puts "Created record book for student #{student.login}"
+
+  subject = Subject.all.sample
+  teacher = subject.teachers.sample
+
+  SubjectsRecordBook.create!(subject: subject, record_book: record_book)  # Create association
+  puts "Associated subject #{subject.name} with record book for student #{student.login}" 
 end 
  
 # Create grades 

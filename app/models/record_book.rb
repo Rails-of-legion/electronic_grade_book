@@ -7,6 +7,8 @@ class RecordBook < ApplicationRecord
   has_many :grades, dependent: :destroy
   has_many :retakes_record_books, dependent: :destroy
   has_many :retakes, through: :retakes_record_books
+  has_many :record_books_intermediate_attestations, dependent: :destroy
+  has_many :intermediate_attestations, through: :record_books_intermediate_attestations
 
   def self.ransackable_associations(_auth_object = nil)
     %w[grades intermediate_attestation user retakes group specialization]
@@ -18,6 +20,5 @@ class RecordBook < ApplicationRecord
 
   def subjects_list
     subjects.map(&:name).join(', ')
-  end  
-
+  end
 end
