@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
-
+ActiveRecord::Schema[7.1].define(version: 2024_04_23_235310) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -158,6 +157,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["record_book_id"], name: "index_subjects_record_books_on_record_book_id"
+    t.index ["subject_id", "record_book_id"], name: "index_subjects_record_books_on_subject_id_and_record_book_id", unique: true
     t.index ["subject_id"], name: "index_subjects_record_books_on_subject_id"
   end
 
@@ -203,19 +203,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_171733) do
   add_foreign_key "notifications", "users"
   add_foreign_key "record_books", "groups"
   add_foreign_key "record_books", "intermediate_attestations"
-  add_foreign_key "record_books", "students"
-  add_foreign_key "record_books", "users", column: "teacher_id"
   add_foreign_key "record_books", "specializations"
-  add_foreign_key "record_books", "subjects"
+  add_foreign_key "record_books", "users"
   add_foreign_key "retakes", "grades"
   add_foreign_key "retakes", "subjects"
   add_foreign_key "retakes_record_books", "record_books"
   add_foreign_key "retakes_record_books", "retakes"
   add_foreign_key "specialities_subjects", "specializations"
   add_foreign_key "specialities_subjects", "subjects"
-  add_foreign_key "students", "groups"
-  add_foreign_key "students", "specializations"
-  add_foreign_key "students", "users"
   add_foreign_key "subjects", "semesters"
   add_foreign_key "subjects_record_books", "record_books"
   add_foreign_key "subjects_record_books", "subjects"
