@@ -1,7 +1,7 @@
 class Notification < ApplicationRecord
   has_many :notifications_users
   has_many :users, through: :notifications_users
-  
+
   validates :message, presence: true, length: { maximum: 255 }
   validates :date, presence: true
   validates :read_status, presence: true

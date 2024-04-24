@@ -11,7 +11,6 @@ puts "Created roles: #{Role.pluck(:name)}"
 
 # Create users with roles and Faker
 admin = User.create!(
-  login: "admin",
   first_name: Faker::Name.first_name,
   last_name: Faker::Name.last_name,
   middle_name: Faker::Name.middle_name,
@@ -30,7 +29,6 @@ puts "Created admin user: #{admin.password}"
 # Create teachers
 2.times do |i|
   teacher = User.create!(
-    login: "teacher#{i+1}",
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     middle_name: Faker::Name.middle_name,
@@ -42,12 +40,11 @@ puts "Created admin user: #{admin.password}"
     date_of_birth: Faker::Date.birthday(min_age: 25, max_age: 40)
   )
   teacher.add_role(:teacher)
-  puts "Created teacher: #{teacher.login}"
+  puts "Created teacher: #{teacher.email}"
 end
 
 # Create curator (also a teacher)
 curator = User.create!(
-  login: "curator",
   first_name: Faker::Name.first_name,
   last_name: Faker::Name.last_name,
   middle_name: Faker::Name.middle_name,
@@ -59,7 +56,7 @@ curator = User.create!(
   date_of_birth: Faker::Date.birthday(min_age: 30, max_age: 45)
 )
 curator.add_role(:teacher)
-puts "Created curator: #{curator.login}"
+puts "Created curator: #{curator.email}"
 
 # Create semesters
 3.times do |i|
@@ -90,7 +87,6 @@ end
 # Create students and record books 
 20.times do |i|
   student = User.create!(
-    login: Faker::Internet.username,
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     middle_name: Faker::Name.middle_name,
@@ -102,14 +98,14 @@ end
     date_of_birth: Faker::Date.birthday(min_age: 17, max_age: 23)
   )
   student.add_role(:student)
-  puts "Created student: #{student.login}"
+  puts "Created student: #{student.email}"
 
   record_book = RecordBook.create!(
     user: student,
     specialization: Specialization.all.sample,
     group: Group.all.sample,
   )
-  puts "Created record book for student #{student.login}"
+  puts "Created record book for student #{student.email}"
   
   grade = Grade.create!(record_book: record_book, grade: rand(60..100))
   puts "Added grade #{grade.grade} to record book ID: #{record_book.id}"
