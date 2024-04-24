@@ -2,8 +2,8 @@ class RecordBook < ApplicationRecord
   belongs_to :user, optional: false
   belongs_to :specialization, optional: false
   belongs_to :group, optional: false
-  belongs_to :intermediate_attestation
   has_many :subjects_record_books, dependent: :destroy
+  has_many :subjects, through: :subjects_record_books
   has_many :grades, dependent: :destroy
   has_many :retakes_record_books, dependent: :destroy
   has_many :retakes, through: :retakes_record_books

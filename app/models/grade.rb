@@ -1,5 +1,6 @@
 class Grade < ApplicationRecord
   belongs_to :record_book
+  has_many :subjects, dependent: :destroy
   validates :grade, presence: true
 
   def self.ransackable_associations(_auth_object = nil)

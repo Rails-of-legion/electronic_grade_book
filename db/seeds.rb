@@ -71,40 +71,6 @@ puts "Created curator: #{curator.login}"
   puts "Created semester: #{semester.name}"
 end
 
-# Create subjects
-subjects_list = [
-  "Mathematics", "Physics", "Chemistry", "Biology", "History", "Geography",
-  "Literature", "Computer Science", "Foreign Language", "Art"
-]
-subjects_list.each do |subject_name|
-  subject = Subject.create!(
-    name: subject_name,
-    description: Faker::Lorem.paragraph,
-    assessment_type: ["Exam", "Project", "Essay"].sample,
-    semester: Semester.all.sample
-  )
-  puts "Created subject: #{subject.name}"
-end
-
-# Assign teachers to subjects (ensure each subject has at least one teacher)
-Subject.all.each do |subject|
-  teacher = User.with_role(:teacher).sample
-  TeachersSubject.create!(teacher: teacher, subject: subject)
-  puts "Assigned teacher #{teacher.login} to subject #{subject.name}"
-end
-
-# Create intermediate attestations 
-3.times do |i|
-  attestation = IntermediateAttestation.create!(
-    subject: Subject.all.sample,
-    name: ["Midterm", "Final Exam", "Project Presentation", "Quiz"].sample,
-    date: Faker::Date.between(from: 3.months.ago, to: Date.today),
-    max_grade: rand(1..10),
-    assessment_type: ["Written", "Oral", "Practical"].sample
-  )
-  puts "Created attestation: #{attestation.name} for subject #{attestation.subject.name}"
-end
-
 # Create groups with curator 
 3.times do |i|
   group = Group.find_or_create_by(
@@ -138,28 +104,45 @@ end
   student.add_role(:student)
   puts "Created student: #{student.login}"
 
-  # Find a valid teacher for the subject
-  record_book = RecordBook.create!( 
-    user: student, 
-    specialization: Specialization.all.sample, 
-    group: Group.all.sample, 
-    intermediate_attestation: IntermediateAttestation.all.sample 
-  ) 
+  record_book = RecordBook.create!(
+    user: student,
+    specialization: Specialization.all.sample,
+    group: Group.all.sample,
+  )
   puts "Created record book for student #{student.login}"
-
-  subject = Subject.all.sample
-  teacher = subject.teachers.sample
-
-  SubjectsRecordBook.create!(subject: subject, record_book: record_book)  # Create association
-  puts "Associated subject #{subject.name} with record book for student #{student.login}" 
-end 
- 
-# Create grades 
-RecordBook.all.each do |record_book| 
+  
   grade = Grade.create!(record_book: record_book, grade: rand(60..100))
   puts "Added grade #{grade.grade} to record book ID: #{record_book.id}"
-end 
+end
+
+# Создание предметов
+subjects_list = [
+  "Mathematics", "Physics", "Chemistry", "Biology", "History", "Geography",
+  "Literature", "Computer Science", "Foreign Language", "Art"
+]
+subjects_list.each do |subject_name|
+  subject = Subject.create!(
+    name: subject_name,
+    description: Faker::Lorem.paragraph,
+    assessment_type: ["Exam", "Project", "Essay"].sample,
+    semester: Semester.all.sample,
+    grade: Grade.all.sample,
+  )
+  puts "Created subject: #{subject.name}"
+
+  3.times do |i|
+    attestation = IntermediateAttestation.create!(
+      subject: subject,
+      name: ["Midterm", "Final Exam", "Project Presentation", "Quiz"].sample,
+      date: Faker::Date.between(from: 3.months.ago, to: Date.today),
+      max_grade: rand(1..10),
+      assessment_type: ["Written", "Oral", "Practical"].sample
+    )
+    puts "Created attestation: #{attestation.name} for subject #{attestation.subject.name}"
+  end
+end
  
+
 # Create retakes and associate with record books (example for one retake) 
 retake = Retake.create!(subject: Subject.first, date: Date.today + 1.week, grade: Grade.first) 
 RetakesRecordBook.create!(retake: retake, record_book: RecordBook.first) 
