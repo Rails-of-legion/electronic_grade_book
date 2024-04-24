@@ -14,11 +14,12 @@ class User < ApplicationRecord
   validates :status, inclusion: { in: [true, false] }
 
   has_many :curated_groups, class_name: 'Group', foreign_key: 'curator_id', dependent: :destroy
-  has_many :notifications
+  has_many :notifications_users
+  has_many :notifications, through: :notifications_users
   has_many :groups
   has_many :teachers_subjects, foreign_key: :teacher_id
   has_many :subjects, through: :teachers_subjects
-  has_many :record_books, dependent: :destroy
+  has_one :record_books, dependent: :destroy
 
   scope :by_role, ->(role_name) { joins(:roles).where(roles: { name: role_name }) }
 

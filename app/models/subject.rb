@@ -3,13 +3,12 @@ class Subject < ApplicationRecord
   validates :description, presence: true
 
   belongs_to :semester
-  belongs_to :grade
+  has_many :grades, dependent: :destroy
   has_many :intermediate_attestations, dependent: :destroy
   has_many :teachers_subjects, dependent: :destroy
   has_many :teachers, through: :teachers_subjects, source: :teacher, dependent: :destroy
   has_many :subjects_record_books, dependent: :destroy
   has_many :record_books, through: :subjects_record_books, dependent: :destroy
-  has_many :retakes, dependent: :destroy
   has_many :attendance, dependent: :destroy
   has_many :specialities_subjects, dependent: :destroy
   has_many :specializations, through: :specialities_subjects

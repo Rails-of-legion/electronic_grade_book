@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_24_143329) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_24_190613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,21 +29,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_143329) do
   end
 
   create_table "attendances", force: :cascade do |t|
-    t.integer "subject_id", null: false
-    t.integer "record_book_id", null: false
+    t.bigint "subject_id", null: false
     t.date "date", null: false
     t.string "attendance_status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_attendances_on_subject_id"
+  end
+
+  create_table "attendances_record_books", force: :cascade do |t|
+    t.bigint "attendance_id", null: false
+    t.bigint "record_book_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attendance_id"], name: "index_attendances_record_books_on_attendance_id"
+    t.index ["record_book_id"], name: "index_attendances_record_books_on_record_book_id"
   end
 
   create_table "grades", force: :cascade do |t|
-    t.bigint "record_book_id", null: false
+    t.bigint "subject_id", null: false
     t.integer "grade"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date"
-    t.index ["record_book_id"], name: "index_grades_on_record_book_id"
+    t.index ["subject_id"], name: "index_grades_on_subject_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -59,7 +68,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_143329) do
     t.bigint "subject_id", null: false
     t.string "name"
     t.date "date"
-    t.integer "max_grade"
     t.string "assessment_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -67,13 +75,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_143329) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.text "message"
     t.datetime "date"
     t.string "read_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "notifications_users", force: :cascade do |t|
+    t.bigint "notification_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notification_id"], name: "index_notifications_users_on_notification_id"
+    t.index ["user_id"], name: "index_notifications_users_on_user_id"
   end
 
   create_table "record_books", force: :cascade do |t|
@@ -94,25 +109,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_143329) do
     t.datetime "updated_at", null: false
     t.index ["intermediate_attestation_id"], name: "idx_on_intermediate_attestation_id_4b30864746"
     t.index ["record_book_id"], name: "index_record_books_intermediate_attestations_on_record_book_id"
-  end
-
-  create_table "retakes", force: :cascade do |t|
-    t.bigint "subject_id", null: false
-    t.date "date"
-    t.bigint "grade_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["grade_id"], name: "index_retakes_on_grade_id"
-    t.index ["subject_id"], name: "index_retakes_on_subject_id"
-  end
-
-  create_table "retakes_record_books", force: :cascade do |t|
-    t.bigint "retake_id", null: false
-    t.bigint "record_book_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["record_book_id"], name: "index_retakes_record_books_on_record_book_id"
-    t.index ["retake_id"], name: "index_retakes_record_books_on_retake_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -179,7 +175,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_143329) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "login"
     t.string "first_name"
     t.string "last_name"
     t.string "middle_name"
@@ -205,19 +200,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_143329) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  add_foreign_key "grades", "record_books"
+  add_foreign_key "attendances", "subjects"
+  add_foreign_key "attendances_record_books", "attendances"
+  add_foreign_key "attendances_record_books", "record_books"
+  add_foreign_key "grades", "subjects"
   add_foreign_key "groups", "users", column: "curator_id"
   add_foreign_key "intermediate_attestations", "subjects"
-  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications_users", "notifications"
+  add_foreign_key "notifications_users", "users"
   add_foreign_key "record_books", "groups"
   add_foreign_key "record_books", "specializations"
   add_foreign_key "record_books", "users"
   add_foreign_key "record_books_intermediate_attestations", "intermediate_attestations"
   add_foreign_key "record_books_intermediate_attestations", "record_books"
-  add_foreign_key "retakes", "grades"
-  add_foreign_key "retakes", "subjects"
-  add_foreign_key "retakes_record_books", "record_books"
-  add_foreign_key "retakes_record_books", "retakes"
   add_foreign_key "specialities_subjects", "specializations"
   add_foreign_key "specialities_subjects", "subjects"
   add_foreign_key "subjects", "grades"
