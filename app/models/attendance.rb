@@ -3,7 +3,8 @@ class Attendance < ApplicationRecord
   validates :attendance_status, presence: true
 
   belongs_to :subject
-  belongs_to :record_book
+  has_many :attendances_record_books, dependent: :destroy
+  has_many :record_books, through: :attendances_record_books
 
   def self.ransackable_associations(_auth_object = nil)
     %w[record_book subject]
