@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_24_190613) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_25_174752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,7 +71,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_190613) do
     t.string "assessment_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "teacher_id"
     t.index ["subject_id"], name: "index_intermediate_attestations_on_subject_id"
+    t.index ["teacher_id"], name: "index_intermediate_attestations_on_teacher_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -206,6 +208,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_190613) do
   add_foreign_key "grades", "subjects"
   add_foreign_key "groups", "users", column: "curator_id"
   add_foreign_key "intermediate_attestations", "subjects"
+  add_foreign_key "intermediate_attestations", "users", column: "teacher_id"
   add_foreign_key "notifications_users", "notifications"
   add_foreign_key "notifications_users", "users"
   add_foreign_key "record_books", "groups"
