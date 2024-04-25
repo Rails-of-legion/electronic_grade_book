@@ -1,5 +1,4 @@
 class Specialization < ApplicationRecord
-  has_many :students, dependent: :destroy
   has_many :specialities_subjects, class_name: 'SpecialitiesSubject', dependent: :destroy
   has_many :subjects, through: :specialities_subjects
   has_many :record_books, dependent: :destroy

@@ -113,25 +113,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_174752) do
     t.index ["record_book_id"], name: "index_record_books_intermediate_attestations_on_record_book_id"
   end
 
-  create_table "retakes", force: :cascade do |t|
-    t.bigint "subject_id", null: false
-    t.date "date"
-    t.bigint "grade_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["grade_id"], name: "index_retakes_on_grade_id"
-    t.index ["subject_id"], name: "index_retakes_on_subject_id"
-  end
-
-  create_table "retakes_record_books", force: :cascade do |t|
-    t.bigint "retake_id", null: false
-    t.bigint "record_book_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["record_book_id"], name: "index_retakes_record_books_on_record_book_id"
-    t.index ["retake_id"], name: "index_retakes_record_books_on_retake_id"
-  end
-
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -171,8 +152,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_174752) do
     t.bigint "semester_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "grade_id"
-    t.index ["grade_id"], name: "index_subjects_on_grade_id"
     t.index ["semester_id"], name: "index_subjects_on_semester_id"
   end
 
@@ -235,13 +214,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_174752) do
   add_foreign_key "record_books", "users"
   add_foreign_key "record_books_intermediate_attestations", "intermediate_attestations"
   add_foreign_key "record_books_intermediate_attestations", "record_books"
-  add_foreign_key "retakes", "grades"
-  add_foreign_key "retakes", "subjects"
-  add_foreign_key "retakes_record_books", "record_books"
-  add_foreign_key "retakes_record_books", "retakes"
   add_foreign_key "specialities_subjects", "specializations"
   add_foreign_key "specialities_subjects", "subjects"
-  add_foreign_key "subjects", "grades"
   add_foreign_key "subjects", "semesters"
   add_foreign_key "subjects_record_books", "record_books"
   add_foreign_key "subjects_record_books", "subjects"
