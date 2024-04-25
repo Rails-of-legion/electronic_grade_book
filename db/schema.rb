@@ -152,8 +152,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_174752) do
     t.bigint "semester_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "grade_id"
-    t.index ["grade_id"], name: "index_subjects_on_grade_id"
     t.index ["semester_id"], name: "index_subjects_on_semester_id"
   end
 
@@ -218,7 +216,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_174752) do
   add_foreign_key "record_books_intermediate_attestations", "record_books"
   add_foreign_key "specialities_subjects", "specializations"
   add_foreign_key "specialities_subjects", "subjects"
-  add_foreign_key "subjects", "grades"
   add_foreign_key "subjects", "semesters"
   add_foreign_key "subjects_record_books", "record_books"
   add_foreign_key "subjects_record_books", "subjects"
