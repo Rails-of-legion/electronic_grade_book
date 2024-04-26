@@ -4,8 +4,25 @@
   <b>Name:</b> <%= @group.name %>
 </p>
 <p>
-  <b>Curator:</b> <% if @group.curator %> <%= @group.curator.name %> <% else %> Unassigned <% end %>
+  <b>Curator:</b> <%= @group.try(:curator).try(:name) || 'Unassigned' %>
 </p>
+
+<h2>Record Books</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Student</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @group.record_books.each do |record_book| %>
+      <tr>
+        <td><%= record_book.user.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to "Edit", edit_group_path(@group), class: "btn btn-primary" %>
 <%= link_to "Back", groups_path, class: "btn btn-secondary" %>
+
