@@ -19,8 +19,8 @@ class User < ApplicationRecord
   has_many :groups
   has_many :teachers_subjects, foreign_key: :teacher_id
   has_many :subjects, through: :teachers_subjects
-  has_one :record_books, dependent: :destroy
-  has_many :intermediate_attestation, foreign_key: :teacher_id
+  has_one :record_book, dependent: :destroy
+  has_many :intermediate_attestation, foreign_key: :teacher_id, dependent: :destroy
 
   scope :by_role, ->(role_name) { joins(:roles).where(roles: { name: role_name }) }
 
