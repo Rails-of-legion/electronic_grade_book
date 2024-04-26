@@ -100,7 +100,7 @@ end
   student.add_role(:student)
   Rails.logger.debug { "Created student: #{student.email}" }
 
-  RecordBook.create!(
+  rb = RecordBook.create!(
     user: student,
     specialization: Specialization.all.sample,
     group: Group.all.sample
@@ -119,7 +119,7 @@ end
     )
     Rails.logger.debug { "Created subject: #{subject.name}" }
 
-
+    SubjectsRecordBook.create!(record_book: rb, subject: subject)
 
     3.times do |_i|
       teacher = User.last
@@ -134,7 +134,7 @@ end
     end
 
     subject = Subject.all.sample
-    grade = Grade.create!(subject_id: subject.id, grade: rand(60..100))
+    grade = Grade.create!(subject_id: subject.id, grade: rand(60..100), date: Time.zone.today)
     Rails.logger.debug { "Added grade #{grade.grade} for subject ID: #{subject.id}" }
   end
 end
