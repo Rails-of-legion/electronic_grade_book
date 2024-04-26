@@ -19,8 +19,7 @@ class GradesController < ApplicationController
     @grade = Grade.new(grade_params)
 
     if @grade.save
-      byebug
-      redirect_to redirect_to record_book_path(@grade.subject.record_books)
+      redirect_to record_book_path(@grade.record_book)
     else
       render :new, status: :unprocessable_entity
     end
@@ -42,7 +41,7 @@ class GradesController < ApplicationController
   private
 
   def grade_params
-    params.require(:grade).permit(:date, :subject_id, :grade)
+    params.require(:grade).permit(:date, :subject_id, :grade, :record_book_id)
   end
 
   def set_grade

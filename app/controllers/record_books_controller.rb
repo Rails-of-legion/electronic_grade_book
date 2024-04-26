@@ -41,8 +41,7 @@ class RecordBooksController < ApplicationController
   private
 
   def record_book_params
-    params.require(:record_book).permit(:record_book_id, :teacher_id, :intermediate_attestation_id,
-                                        retake_ids: [])
+    params.require(:record_book).permit(:record_book_id, :intermediate_attestation_id)
   end
 
   def set_record_book

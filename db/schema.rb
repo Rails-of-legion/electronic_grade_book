@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_25_174752) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_26_151430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_174752) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date"
+    t.bigint "record_book_id"
+    t.index ["record_book_id"], name: "index_grades_on_record_book_id"
     t.index ["subject_id"], name: "index_grades_on_subject_id"
   end
 
@@ -203,6 +205,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_174752) do
   add_foreign_key "attendances", "subjects"
   add_foreign_key "attendances_record_books", "attendances"
   add_foreign_key "attendances_record_books", "record_books"
+  add_foreign_key "grades", "record_books"
   add_foreign_key "grades", "subjects"
   add_foreign_key "groups", "users", column: "curator_id"
   add_foreign_key "intermediate_attestations", "subjects"
