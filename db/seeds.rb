@@ -129,5 +129,4 @@ grade = Grade.create!(
 )
 
 Rails.logger.debug { "Создана оценка #{grade.grade} для студента #{student.email} по предмету #{subject.name}" }
-
 end
