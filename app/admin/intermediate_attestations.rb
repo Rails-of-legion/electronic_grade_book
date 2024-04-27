@@ -1,24 +1,29 @@
+# app/admin/intermediate_attestation.rb
 ActiveAdmin.register IntermediateAttestation do
-  permit_params :subject_id, :name, :date, :max_grade, :assessment_type
+  permit_params :name, :date, :assessment_type, :subject_id, :teacher_id
 
   index do
     selectable_column
     id_column
-    column :subject
     column :name
     column :date
-    column :max_grade
     column :assessment_type
+    column :subject
     actions
   end
 
+  filter :name
+  filter :date
+  filter :assessment_type
+  filter :subject
+
   form do |f|
     f.inputs 'Intermediate Attestation Details' do
-      f.input :subject
       f.input :name
-      f.input :date, as: :datepicker
-      f.input :max_grade
-      f.input :assessment_type, as: :select, collection: ['экзамен', 'зачет', 'контрольная работа'] # выпадающий список с типами аттестации
+      f.input :date
+      f.input :assessment_type
+      f.input :subject
+      f.input :teacher, as: :select, collection: User.with_role(:teacher)
     end
     f.actions
   end
