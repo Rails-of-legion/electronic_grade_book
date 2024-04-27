@@ -132,9 +132,10 @@ end
       )
       Rails.logger.debug { "Created attestation: #{attestation.name} for subject #{attestation.subject.name}" }
     end
-
-    subject = Subject.all.sample
-    grade = Grade.create!(subject_id: subject.id, grade: rand(60..100), record_book_id: RecordBook.all.sample)
-    Rails.logger.debug { "Added grade #{grade.grade} for subject ID: #{subject.id}" }
   end
 end
+
+subject = Subject.all.sample
+rb =  RecordBook.all.sample
+grade = Grade.create!(subject_id: subject.id, grade: rand(60..100), record_book_id: rb.id)
+Rails.logger.debug { "Added grade #{grade.grade} for subject ID: #{subject.id}" }
