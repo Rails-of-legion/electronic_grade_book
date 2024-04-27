@@ -5,13 +5,17 @@ class GroupsController < ApplicationController
     @groups = Group.all
   end
 
-  def show; end
+  def show
+    @month =  @month = params[:month] || Time.zone.today.month
+    @record_books = @group.record_books
+  end
 
   def new
     @group = Group.new
   end
 
-  def edit; end
+  def edit
+  end
 
   def create
     @group = Group.new(group_params)
