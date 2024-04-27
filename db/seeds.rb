@@ -1,55 +1,161 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+require 'faker'
 
+Faker::UniqueGenerator.clear # Reset Faker's unique generator
 
-Role.create(name: "admin")
-Role.create(name: "teacher")
-Role.create(name: "student")
-Role.create(name: "guest")
+# Create roles
+Role.create(name: 'admin')
+Role.create(name: 'teacher')
+Role.create(name: 'student')
 
-admin = User.create(login: "admin", first_name: "admin", last_name: "admin", middle_name: "admin", phone_number: "12345678",  email: "admin@localhost", password: "12345678", password_confirmation: "12345678", status: true, date_of_birth: "2020-04-10") if Rails.env.development?
+Rails.logger.debug { "Created roles: #{Role.pluck(:name)}" }
+
+# Create users with roles and Faker
+admin = User.create!(
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  middle_name: Faker::Name.middle_name,
+  phone_number: Faker::PhoneNumber.cell_phone,
+  email: Faker::Internet.unique.email,
+  password: 'password',
+  password_confirmation: 'password',
+  status: true,
+  date_of_birth: Faker::Date.birthday(min_age: 30, max_age: 50)
+)
 admin.add_role(:admin)
-teacher = User.create(login: "teach", first_name: "teacher", last_name: "teacher", middle_name: "teacher", phone_number: "12345678", email: "teacher@localhost", password: "12345678", password_confirmation: "12345678", status: false, date_of_birth: "2020-04-10")
-teacher.add_role(:teacher)
-student = User.create(login: "stud", first_name: "student", last_name: "student", middle_name: "student", phone_number: "12345678", email: "student@localhost", password: "12345678", password_confirmation: "12345678", status: true, date_of_birth: "2020-04-10")
-student.add_role(:student)
 
-3.times do
-    Semester.create(name: "Semester #{rand(1..10)}", start_date: "2020-04-10", end_date: "2020-04-10")
+Rails.logger.debug { "Created admin user: #{admin.email}" }
+Rails.logger.debug { "Created admin user: #{admin.password}" }
+
+# Create teachers
+2.times do |_i|
+  teacher = User.create!(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    middle_name: Faker::Name.middle_name,
+    phone_number: Faker::PhoneNumber.cell_phone,
+    email: Faker::Internet.unique.email,
+    password: 'password',
+    password_confirmation: 'password',
+    status: true,
+    date_of_birth: Faker::Date.birthday(min_age: 25, max_age: 40)
+  )
+  teacher.add_role(:teacher)
+  Rails.logger.debug { "Created teacher: #{teacher.email}" }
 end
 
-3.times do
-    Subject.create(name: "Subject #{rand(1..10)}", description: "Description #{rand(1..10)}", assessment_type: "assessment_type #{rand(1..10)}", semester_id: rand(1..3))
+# Create curator (also a teacher)
+curator = User.create!(
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  middle_name: Faker::Name.middle_name,
+  phone_number: Faker::PhoneNumber.cell_phone,
+  email: Faker::Internet.unique.email,
+  password: 'password',
+  password_confirmation: 'password',
+  status: true,
+  date_of_birth: Faker::Date.birthday(min_age: 30, max_age: 45)
+)
+curator.add_role(:teacher)
+Rails.logger.debug { "Created curator: #{curator.email}" }
+
+# Create semesters
+3.times do |i|
+  semester = Semester.create!(
+    name: "Semester #{i + 1}",
+    start_date: Faker::Date.between(from: 2.years.ago, to: Time.zone.today),
+    end_date: Faker::Date.between(from: Time.zone.today, to: 2.years.from_now)
+  )
+  Rails.logger.debug { "Created semester: #{semester.name}" }
 end
 
-3.times do
-    TeachersSubject.create(teacher_id: rand(1..3), subject_id: rand(1..3))
+# Create groups with curator
+3.times do |i|
+  group = Group.find_or_create_by(
+    name: "Group #{i + 1}",
+    curator_id: curator.id
+  )
+  Rails.logger.debug { "Created group: #{group.name}" }
 end
 
-3.times do
-  IntermediateAttestation.create(subject_id: rand(1..3), name: "Name #{rand(1..10)}", date: "2020-04-10", max_grade: rand(1..10), assessment_type: "assessment_type #{rand(1..10)}")
+# Create specializations with unique names
+specialization_list = ['Computer Science', 'Engineering', 'Business', 'Arts', 'Humanities']
+specialization_list.shuffle.each do |name|
+  specialization = Specialization.find_or_create_by!(name: name)
+  Rails.logger.debug { "Created specialization: #{specialization.name}" }
 end
 
-3.times do
-  Group.create(name: "Group #{rand(1..10)}", curator_id: 3)
+# Create students and record books
+20.times do |_i|
+  student = User.create!(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    middle_name: Faker::Name.middle_name,
+    phone_number: Faker::PhoneNumber.cell_phone,
+    email: Faker::Internet.unique.email,
+    password: 'password',
+    password_confirmation: 'password',
+    status: [true, false].sample,
+    date_of_birth: Faker::Date.birthday(min_age: 17, max_age: 23)
+  )
+  student.add_role(:student)
+  Rails.logger.debug { "Created student: #{student.email}" }
+
+  # Создаем зачетную книжку для студента
+  record_book = RecordBook.create!(
+    user: student,
+    specialization: Specialization.all.sample,
+    group: Group.all.sample
+  )
+  Rails.logger.debug { "Created record book for student #{student.email}" }
+
+  # ... (код для создания предметов, промежуточных аттестаций и оценок)
+
+  # Добавляем оценки в зачетную книжку студента
+  subjects_list.each do |subject_name| 
+    # ... (код для создания предмета) 
+    # ... (код для создания промежуточных аттестаций)
+
+    # Создаем оценки для предмета 
+    3.times do |_i|
+      grade = Grade.create!(
+        subject: subject,
+        record_book: record_book, 
+        grade: rand(60..100),
+        date: Faker::Date.between(from: 3.months.ago, to: Time.zone.today)
+      )
+      Rails.logger.debug { "Added grade #{grade.grade} for subject: #{subject.name} in record book ID: #{record_book.id}" }
+    end 
+  end
 end
 
-3.times do
-  Specialization.create(name: "Specialization #{rand(1..10)}")
-end
+  subjects_list = [
+    'Mathematics', 'Physics', 'Chemistry', 'Biology', 'History', 'Geography',
+    'Literature', 'Computer Science', 'Foreign Language', 'Art'
+  ]
+  subjects_list.each do |subject_name|
+    subject = Subject.create!(
+      name: subject_name,
+      description: Faker::Lorem.paragraph,
+      semester: Semester.all.sample
+    )
+    Rails.logger.debug { "Created subject: #{subject.name}" }
 
-Student.create(user_id: 3, specialization_id: rand(1..3), group_id: rand(1..3))
+    SubjectsRecordBook.create!(record_book: rb, subject: subject)
 
-record_book = RecordBook.create(student_id: 1, teacher_id: 2, intermediate_attestation_id: 1)
+    3.times do |_i|
+      teacher = User.last
+      attestation = IntermediateAttestation.create!(
+        subject: subject,
+        teacher: teacher,
+        name: ['Midterm', 'Final Exam', 'Project Presentation', 'Quiz'].sample,
+        date: Faker::Date.between(from: 3.months.ago, to: Time.zone.today),
+        assessment_type: %w[Written Oral Practical].sample
+      )
+      Rails.logger.debug { "Created attestation: #{attestation.name} for subject #{attestation.subject.name}" }
+    end
 
-SubjectsRecordBook.create(subject_id: 1, record_book_id: record_book.id)
+    subject = Subject.all.sample
+   # grade = Grade.create!(subject_id: subject.id, grade: rand(60..100), record_book_id: RecordBook.all.sample)
+   # Rails.logger.debug { "Added grade #{grade.grade} for subject ID: #{subject.id}" }
+  end
 
-
-Grade.create(record_book_id: 1, grade: rand(1..10))

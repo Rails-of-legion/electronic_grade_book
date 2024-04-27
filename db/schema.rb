@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_22_173813) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_26_151430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,20 +29,32 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_173813) do
   end
 
   create_table "attendances", force: :cascade do |t|
-    t.integer "subject_id", null: false
-    t.integer "student_id", null: false
+    t.bigint "subject_id", null: false
     t.date "date", null: false
     t.string "attendance_status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_attendances_on_subject_id"
+  end
+
+  create_table "attendances_record_books", force: :cascade do |t|
+    t.bigint "attendance_id", null: false
+    t.bigint "record_book_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attendance_id"], name: "index_attendances_record_books_on_attendance_id"
+    t.index ["record_book_id"], name: "index_attendances_record_books_on_record_book_id"
   end
 
   create_table "grades", force: :cascade do |t|
-    t.bigint "record_book_id", null: false
+    t.bigint "subject_id", null: false
     t.integer "grade"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "date"
+    t.bigint "record_book_id"
     t.index ["record_book_id"], name: "index_grades_on_record_book_id"
+    t.index ["subject_id"], name: "index_grades_on_subject_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -58,44 +70,49 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_173813) do
     t.bigint "subject_id", null: false
     t.string "name"
     t.date "date"
-    t.integer "max_grade"
     t.string "assessment_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "teacher_id"
     t.index ["subject_id"], name: "index_intermediate_attestations_on_subject_id"
+    t.index ["teacher_id"], name: "index_intermediate_attestations_on_teacher_id"
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.text "message"
     t.datetime "date"
     t.string "read_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "notifications_users", force: :cascade do |t|
+    t.bigint "notification_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notification_id"], name: "index_notifications_users_on_notification_id"
+    t.index ["user_id"], name: "index_notifications_users_on_user_id"
   end
 
   create_table "record_books", force: :cascade do |t|
-    t.bigint "student_id", null: false
-    t.bigint "teacher_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "specialization_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_record_books_on_group_id"
+    t.index ["specialization_id"], name: "index_record_books_on_specialization_id"
+    t.index ["user_id"], name: "index_record_books_on_user_id"
+  end
+
+  create_table "record_books_intermediate_attestations", force: :cascade do |t|
+    t.bigint "record_book_id", null: false
     t.bigint "intermediate_attestation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["intermediate_attestation_id"], name: "index_record_books_on_intermediate_attestation_id"
-    t.index ["student_id"], name: "index_record_books_on_student_id"
-    t.index ["teacher_id"], name: "index_record_books_on_teacher_id"
-  end
-
-  create_table "retakes", force: :cascade do |t|
-    t.bigint "subject_id", null: false
-    t.bigint "student_id", null: false
-    t.date "date"
-    t.bigint "grade_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["grade_id"], name: "index_retakes_on_grade_id"
-    t.index ["student_id"], name: "index_retakes_on_student_id"
-    t.index ["subject_id"], name: "index_retakes_on_subject_id"
+    t.index ["intermediate_attestation_id"], name: "idx_on_intermediate_attestation_id_4b30864746"
+    t.index ["record_book_id"], name: "index_record_books_intermediate_attestations_on_record_book_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -116,28 +133,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_173813) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "specialities_subjects", force: :cascade do |t|
+    t.bigint "specialization_id", null: false
+    t.bigint "subject_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["specialization_id"], name: "index_specialities_subjects_on_specialization_id"
+    t.index ["subject_id"], name: "index_specialities_subjects_on_subject_id"
+  end
+
   create_table "specializations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "students", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "specialization_id", null: false
-    t.bigint "group_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_students_on_group_id"
-    t.index ["specialization_id"], name: "index_students_on_specialization_id"
-    t.index ["user_id"], name: "index_students_on_user_id"
-  end
-
   create_table "subjects", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.bigint "semester_id", null: false
-    t.text "assessment_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["semester_id"], name: "index_subjects_on_semester_id"
@@ -149,6 +163,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_173813) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["record_book_id"], name: "index_subjects_record_books_on_record_book_id"
+    t.index ["subject_id", "record_book_id"], name: "index_subjects_record_books_on_subject_id_and_record_book_id", unique: true
     t.index ["subject_id"], name: "index_subjects_record_books_on_subject_id"
   end
 
@@ -162,7 +177,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_173813) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "login"
     t.string "first_name"
     t.string "last_name"
     t.string "middle_name"
@@ -188,19 +202,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_173813) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "attendances", "subjects"
+  add_foreign_key "attendances_record_books", "attendances"
+  add_foreign_key "attendances_record_books", "record_books"
   add_foreign_key "grades", "record_books"
+  add_foreign_key "grades", "subjects"
   add_foreign_key "groups", "users", column: "curator_id"
   add_foreign_key "intermediate_attestations", "subjects"
-  add_foreign_key "notifications", "users"
-  add_foreign_key "record_books", "intermediate_attestations"
-  add_foreign_key "record_books", "students"
-  add_foreign_key "record_books", "users", column: "teacher_id"
-  add_foreign_key "retakes", "grades"
-  add_foreign_key "retakes", "students"
-  add_foreign_key "retakes", "subjects"
-  add_foreign_key "students", "groups"
-  add_foreign_key "students", "specializations"
-  add_foreign_key "students", "users"
+  add_foreign_key "intermediate_attestations", "users", column: "teacher_id"
+  add_foreign_key "notifications_users", "notifications"
+  add_foreign_key "notifications_users", "users"
+  add_foreign_key "record_books", "groups"
+  add_foreign_key "record_books", "specializations"
+  add_foreign_key "record_books", "users"
+  add_foreign_key "record_books_intermediate_attestations", "intermediate_attestations"
+  add_foreign_key "record_books_intermediate_attestations", "record_books"
+  add_foreign_key "specialities_subjects", "specializations"
+  add_foreign_key "specialities_subjects", "subjects"
   add_foreign_key "subjects", "semesters"
   add_foreign_key "subjects_record_books", "record_books"
   add_foreign_key "subjects_record_books", "subjects"

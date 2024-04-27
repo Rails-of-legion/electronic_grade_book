@@ -14,13 +14,18 @@ class User < ApplicationRecord
   validates :status, inclusion: { in: [true, false] }
 
   has_many :curated_groups, class_name: 'Group', foreign_key: 'curator_id', dependent: :destroy
-  has_many :notifications
+  has_many :notifications_users
+  has_many :notifications, through: :notifications_users
   has_many :groups
   has_many :teachers_subjects, foreign_key: :teacher_id
   has_many :subjects, through: :teachers_subjects
-  has_many :record_books, foreign_key: :teacher_id, dependent: :destroy
-  has_one :student, dependent: :destroy 
+  has_one :record_books, dependent: :destroy
+  has_many :intermediate_attestation, foreign_key: :teacher_id
 
+
+  def self.ransackable_associations(auth_object = nil)
+    super & ['record_books']
+  end
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[

@@ -1,8 +1,9 @@
 <h1>Grades</h1>
+
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Record Book</th>
+      <th>Subject</th>
       <th>Grade</th>
       <th>Actions</th>
     </tr>
@@ -10,15 +11,17 @@
   <tbody>
     <% @grades.each do |grade| %>
       <tr>
-        <td><%= grade.record_book.subject.name %> (<%= grade.record_book.student.user.name %>)</td>
+        <td><%= grade.subject.name %></td>
         <td><%= grade.grade %></td>
         <td>
-          <%= link_to 'Show', grade, class: 'btn btn-default' %>
-          <%= link_to 'Edit', edit_grade_path(grade), class: 'btn btn-default' %>
-          <%= button_to 'Delete', grade, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
+          <%= link_to 'Show', grade_path(grade), class: 'btn btn-sm btn-outline-primary' %>
+          <%= link_to 'Edit', edit_grade_path(grade), class: 'btn btn-sm btn-outline-secondary' %>
+          <%= button_to 'Delete', grade_path(grade), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
 <%= link_to 'Create New Grade', new_grade_path, class: 'btn btn-primary' %>
+

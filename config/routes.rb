@@ -34,9 +34,7 @@ Rails.application.routes.draw do
   resources :groups
   resources :specializations
   resources :notifications
-  resources :retakes
   resources :intermediate_attestations
-  resources :students
   resources :grades
   resources :record_books
   resources :subject_record_books

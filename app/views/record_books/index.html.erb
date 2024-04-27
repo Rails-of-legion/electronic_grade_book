@@ -5,19 +5,13 @@ Record Books
     <thead>
       <tr>
         <th>Student</th>
-        <th>Subject</th>
-        <th>Teacher</th>
-        <th>Attestation</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <% @record_books.each do |record_book| %>
         <tr>
-          <td><%= record_book.student.user.name %></td>
-          <td><%= record_book.subject.name %></td>
-          <td><%= record_book.teacher.name %></td>
-          <td><%= record_book.intermediate_attestation.name %></td>
+          <td><%= record_book.user.name %></td>
           <td>
             <%= link_to 'Show', record_book_path(record_book), class: 'btn btn-sm btn-outline-primary' %>
             <%= link_to 'Edit', edit_record_book_path(record_book), class: 'btn btn-sm btn-outline-secondary' %>
