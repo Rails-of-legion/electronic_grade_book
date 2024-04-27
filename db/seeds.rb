@@ -100,33 +100,12 @@ end
   student.add_role(:student)
   Rails.logger.debug { "Created student: #{student.email}" }
 
-  # Создаем зачетную книжку для студента
-  record_book = RecordBook.create!(
+  rb = RecordBook.create!(
     user: student,
     specialization: Specialization.all.sample,
     group: Group.all.sample
   )
   Rails.logger.debug { "Created record book for student #{student.email}" }
-
-  # ... (код для создания предметов, промежуточных аттестаций и оценок)
-
-  # Добавляем оценки в зачетную книжку студента
-  subjects_list.each do |subject_name| 
-    # ... (код для создания предмета) 
-    # ... (код для создания промежуточных аттестаций)
-
-    # Создаем оценки для предмета 
-    3.times do |_i|
-      grade = Grade.create!(
-        subject: subject,
-        record_book: record_book, 
-        grade: rand(60..100),
-        date: Faker::Date.between(from: 3.months.ago, to: Time.zone.today)
-      )
-      Rails.logger.debug { "Added grade #{grade.grade} for subject: #{subject.name} in record book ID: #{record_book.id}" }
-    end 
-  end
-end
 
   subjects_list = [
     'Mathematics', 'Physics', 'Chemistry', 'Biology', 'History', 'Geography',
@@ -153,9 +132,10 @@ end
       )
       Rails.logger.debug { "Created attestation: #{attestation.name} for subject #{attestation.subject.name}" }
     end
-
-    subject = Subject.all.sample
-   # grade = Grade.create!(subject_id: subject.id, grade: rand(60..100), record_book_id: RecordBook.all.sample)
-   # Rails.logger.debug { "Added grade #{grade.grade} for subject ID: #{subject.id}" }
   end
+end
 
+subject = Subject.all.sample
+rb =  RecordBook.all.sample
+grade = Grade.create!(subject_id: subject.id, grade: rand(60..100), record_book_id: rb.id)
+Rails.logger.debug { "Added grade #{grade.grade} for subject ID: #{subject.id}" }
