@@ -3,68 +3,52 @@
   <strong>Student:</strong>
   <%= @record_book.user.name %>
 </p>
-<p>
-  <strong>Attestation:</strong>
-  <%= @record_book.intermediate_attestation.name %>
-</p>
 
-<h2>Grades</h2>
-<% if @record_book.grades.any? %>
+  <%= simple_form_for :grade, url: record_book_path(@record_book, month: params[:month]), method: :get, html: { class: 'form-inline' } do |f| %>
+    <%= f.input :selected_month, collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, prompt: 'Выберите месяц', input_html: { onchange: 'this.form.submit();', name: 'month', class: 'form-control' } %>
+    <%= hidden_field_tag :year, Time.now.year %>
+  <% end %>
 
-<%= simple_form_for :grade, url: record_book_path(@record_book), method: :get, html: { class: 'form-inline' } do |f| %>
-  <%= f.input :selected_month, collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, prompt: 'Выберите месяц', input_html: { onchange: 'this.form.submit();', name: 'month', class: 'form-control' } %>
-<% end %>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>MECЯЦ</th>
-      <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
-        <th><%= day %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><%= @record_book.subject.name %></td>
-      <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
-        <td>
-          <% grade = @record_book.grades.find { |g| g.created_at.day == day && g.created_at.month == @month.to_i } %>
-          <% if grade %>
-            <%= grade.grade %>
-            <%= simple_form_for grade, url: {action: "update"}, method: :post do |f| %>
-              <%= f.input :day, as: :hidden, input_html: { value: day } %>
-              <%= f.input :subject_id, as: :hidden, input_html: { value: @record_book.subject_id } %>
-              <%= f.input :grade, collection: (1..5), prompt: 'Выберите оценку', input_html: { onchange: 'this.form.submit();', class: 'form-control' } %>
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th><%= Date::MONTHNAMES[@month.to_i] %></th>
+        <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
+          <th><%= day %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @record_book.subjects.each do |subject| %>
+      <tr>
+        <td><%= subject.name %></td>
+        <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
+          <td>
+            <% date = Date.new(Time.current.year, @month.to_i, day) %>
+            <% grade = subject.grades.find { |g| g.date == date } %>
+            <% if grade %>
+              <%= grade.grade %>
             <% end %>
-          <% else %>
-            <%= simple_form_for Grade.new, url: {controller: "grades", action: "create"}, method: :post do |f| %>
-              <%= f.input :day, as: :hidden, input_html: { value: day } %>
-              <%= f.input :subject_id, as: :hidden, input_html: { value: @record_book.subject_id } %>
-              <%= f.input :record_book_id, as: :hidden, input_html: { value: @record_book.id } %>
-              <%= f.input :grade, collection: (1..5), prompt: 'Добавить оценку', input_html: { onchange: 'this.form.submit();', class: 'form-control' } %>
-            <% end %>
-          <% end %>
-        </td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
-
-<% else %>
-  <p>No grades yet.</p>
-<% end %>
-
-<h2>Retakes</h2>
-<% if @record_book.retakes.any? %>
-  <ul>
-    <% @record_book.retakes.each do |retake| %>
-      <li><%= retake.subject.name %></li>
+          </td>
+        <% end %>
+      </tr>
     <% end %>
-  </ul>
-<% else %>
-  <p>No retakes yet.</p>
-<% end %>
+  </table>
+    
+    
+    </tbody>
+  </table>
+
+  <%= simple_form_for Grade.new, url: {controller: "grades", action: "create"}, method: :post do |f| %>
+  <%= f.input :date, collection: (1..Time.days_in_month(@month.to_i)), prompt: 'Выберите день', input_html: { class: 'form-control' } %>
+  <%= f.input :subject_id, collection: @record_book.subjects.map { |subject| [subject.name, subject.id] }, prompt: 'Выберите предмет', input_html: { class: 'form-control' } %>
+  <%= f.input :grade, collection: (1..5), prompt: 'Добавить оценку', input_html: { class: 'form-control' } %>
+  <%= f.input :record_book_id, collection: RecordBook.all.map { |record_book| [record_book.user.name, record_book.id] }, prompt: 'Выберите студента', input_html: { class: 'form-control' } %>
+
+  <%= hidden_field_tag :month, @month %>
+  <%= hidden_field_tag :year, Time.now.year %>
+  <%= f.button :submit, 'Добавить оценку', class: 'btn btn-primary' %>
+  <% end %> 
 
 <%= link_to 'Edit', edit_record_book_path(@record_book), class: 'btn btn-secondary' %>
 <%= link_to 'Back', record_books_path, class: 'btn btn-light' %>

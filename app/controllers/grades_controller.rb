@@ -14,10 +14,12 @@ class GradesController < ApplicationController
   def edit; end
 
   def create
+    date_grade = Date.new(Time.now.year, params[:month].to_i, params[:grade][:date].to_i)
+    params[:grade][:date] = date_grade
     @grade = Grade.new(grade_params)
 
     if @grade.save
-      redirect_to @grade, notice: 'Оценка успешно создана!'
+      redirect_to record_book_path(@grade.record_book)
     else
       render :new, status: :unprocessable_entity
     end
@@ -39,7 +41,7 @@ class GradesController < ApplicationController
   private
 
   def grade_params
-    params.require(:grade).permit(:record_book_id, :grade)
+    params.require(:grade).permit(:date, :subject_id, :grade, :record_book_id)
   end
 
   def set_grade
