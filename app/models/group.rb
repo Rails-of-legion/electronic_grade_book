@@ -11,4 +11,12 @@ class Group < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     %w[created_at curator_id id id_value name updated_at]
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "curator_id", "id", "id_value", "name", "specialization_id", "updated_at"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["curator", "record_books", "specialization"]
+  end
 end

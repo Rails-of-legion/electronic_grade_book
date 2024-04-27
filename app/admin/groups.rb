@@ -1,19 +1,24 @@
 ActiveAdmin.register Group do
-  permit_params :name, :curator_id
+  permit_params :name, :curator_id, :specialization_id
 
   index do
     selectable_column
     id_column
     column :name
     column :curator
-    column :created_at
+    column :specialization
     actions
   end
+
+  filter :name
+  filter :curator
+  filter :specialization
 
   form do |f|
     f.inputs 'Group Details' do
       f.input :name
-      f.input :curator, as: :select
+      f.input :curator
+      f.input :specialization
     end
     f.actions
   end
