@@ -1,25 +1,33 @@
 ActiveAdmin.register Notification do
-  # Позволяет редактировать и удалять записи
-  permit_params :title, :content, :user_ids
+  permit_params :message, :date, :status, user_ids: []
 
   # Отображаемые поля в списке
   index do
     selectable_column
     id_column
-    column :title
-    column :content
-    column :created_at
+    column :message
+    column :date
+    column :status
     actions
   end
 
-  # Отображаемые поля в форме
-  form do |f|
-    f.inputs "Notification Details" do
-      f.input :title
-      f.input :content
+
+  show do
+    attributes_table do
+      row :message
+      row :date
+      row :status
+      row :users, as: :check_boxes, collection: User.all
     end
-    f.inputs "Users" do
-      f.input :users, as: :check_boxes
+    active_admin_comments
+  end
+
+  form do |f|
+    f.inputs 'Notification Details' do
+      f.input :message
+      f.input :date
+      f.input :status
+      f.input :users, as: :check_boxes, collection: User.all
     end
     f.actions
   end

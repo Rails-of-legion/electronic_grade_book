@@ -3,7 +3,7 @@ class CreateNotifications < ActiveRecord::Migration[7.1]
     create_table :notifications do |t|
       t.text :message
       t.datetime :date
-      t.string :read_status
+      t.boolean :status
 
       t.timestamps
     end
