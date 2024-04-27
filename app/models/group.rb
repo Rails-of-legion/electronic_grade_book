@@ -1,5 +1,6 @@
 class Group < ApplicationRecord
   belongs_to :curator, class_name: 'User', optional: true
+  belongs_to :specialization
   has_many :record_books, dependent: :destroy
   validates :name, presence: true, length: { minimum: 2 }
 
