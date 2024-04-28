@@ -22,8 +22,6 @@ class User < ApplicationRecord
   has_one :record_book, dependent: :destroy
   has_many :intermediate_attestation, foreign_key: :teacher_id
 
-  scope :by_role, ->(role_name) { joins(:roles).where(roles: { name: role_name }) }
-
   def self.ransackable_associations(auth_object = nil)
     super & ['record_books']
   end
@@ -57,6 +55,6 @@ class User < ApplicationRecord
   end
 
   def name
-    "#{first_name} #{middle_name} #{last_name}".strip.presence || login
+    "#{last_name} #{first_name} #{middle_name}".strip.presence || login
   end
 end

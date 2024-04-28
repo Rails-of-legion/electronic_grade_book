@@ -13,10 +13,10 @@
     <tbody>
       <% record_book.grades.each do |grade| %>
         <tr>
-          <td><%= grade.subject.name %></td>
-          <td><%= grade.grade %></td>
-          <td><%= grade.semester.name %></td>
-          <td><%= grade.teacher.name %></td>
+        <td><%= grade.record_book.subject.name %></td>  
+        <td><%= grade.grade %></td>
+        <td><%= grade.record_book.subject.semester.name %></td> 
+        <td><%= grade.record_book.subject.teachers.first.name %></td> 
         </tr>
       <% end %>
     </tbody>
