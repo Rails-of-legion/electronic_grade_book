@@ -1,0 +1,26 @@
+<table class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+      <% subject = Subject.find(params[:subject_id]) %>
+      <th><%= Date::MONTHNAMES[@month.to_i] %> / <%= subject.name %></th>
+      <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
+        <th><%= day %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @record_books.each do |record_book| %>
+    <tr>
+      <td><%= record_book.user.name %></td>
+      <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
+        <td>
+          <% date = Date.new(Time.current.year, @month.to_i, day) %>
+          <% grade = record_book.grades.find_by(date: date, subject_id: params[:subject_id]) %>
+          <% if grade %>
+            <%= grade.grade %>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
