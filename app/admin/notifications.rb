@@ -1,22 +1,32 @@
-# app/admin/notification.rb
 ActiveAdmin.register Notification do
-  permit_params :message, :date, :read_status, :user_id
+  permit_params :message, :date, :status, user_ids: []
 
+  # Отображаемые поля в списке
   index do
     selectable_column
     id_column
     column :message
     column :date
-    column :read_status
+    column :status
     actions
+  end
+
+  show do
+    attributes_table do
+      row :message
+      row :date
+      row :status
+      row :users, as: :check_boxes, collection: User.all
+    end
+    active_admin_comments
   end
 
   form do |f|
     f.inputs 'Notification Details' do
       f.input :message
       f.input :date
-      f.input :read_status
-      f.input :user
+      f.input :status
+      f.input :users, as: :check_boxes, collection: User.all
     end
     f.actions
   end

@@ -14,7 +14,7 @@ class GradesController < ApplicationController
   def edit; end
 
   def create
-    date_grade = Date.new(Time.now.year, params[:month].to_i, params[:grade][:date].to_i)
+    date_grade = Date.new(Time.zone.now.year, params[:month].to_i, params[:grade][:date].to_i)
     params[:grade][:date] = date_grade
     @grade = Grade.new(grade_params)
 

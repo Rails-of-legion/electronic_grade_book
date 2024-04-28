@@ -5,6 +5,7 @@ class CreateRecordBooks < ActiveRecord::Migration[7.1]
       t.references :specialization, null: false, foreign_key: true
       t.references :group, null: false, foreign_key: true
       t.references :intermediate_attestation, null: false, foreign_key: true
+      t.string :custom_number, null: false
 
       t.timestamps
     end

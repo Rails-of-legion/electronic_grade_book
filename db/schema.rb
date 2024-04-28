@@ -83,7 +83,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
   create_table "notifications", force: :cascade do |t|
     t.text "message"
     t.datetime "date"
-    t.string "read_status"
+    t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -101,6 +101,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
     t.bigint "user_id", null: false
     t.bigint "specialization_id", null: false
     t.bigint "group_id", null: false
+    t.string "custom_number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_record_books_on_group_id"

@@ -50,6 +50,6 @@ class IntermediateAttestationsController < ApplicationController
   end
 
   def intermediate_attestation_params
-    params.require(:intermediate_attestation).permit(:name, :date, :assessment_type, :max_grade, :subject_id)
+    params.require(:intermediate_attestation).permit(:name, :date, :assessment_type, :subject_id)
   end
 end
