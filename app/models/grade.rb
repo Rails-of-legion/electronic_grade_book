@@ -4,11 +4,11 @@ class Grade < ApplicationRecord
 
   validates :grade, presence: true
 
-  def self.ransackable_associations(_auth_object = nil)
-    ['record_book']
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[created_at date grade id id_value record_book_id subject_id updated_at]
   end
 
-  def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at grade id id_value record_book_id updated_at]
+  def self.ransackable_associations(_auth_object = nil)
+    %w[record_book subject]
   end
 end

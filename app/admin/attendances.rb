@@ -1,20 +1,24 @@
 ActiveAdmin.register Attendance do
-  permit_params :subject_id, :date, :attendance_status
+  permit_params :date, :attendance_status, :subject_id
 
   index do
     selectable_column
     id_column
-    column :subject
     column :date
     column :attendance_status
+    column :subject
     actions
   end
 
+  filter :date
+  filter :attendance_status
+  filter :subject
+
   form do |f|
-    f.inputs 'Attendance Details' do
+    f.inputs 'Детали посещаемости' do
+      f.input :date
+      f.input :attendance_status
       f.input :subject
-      f.input :date, as: :datepicker
-      f.input :attendance_status, as: :select, collection: %w[присутствовал отсутствовал опоздал] # выпадающий список со статусами посещаемости
     end
     f.actions
   end

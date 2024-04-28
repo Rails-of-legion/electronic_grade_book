@@ -103,6 +103,7 @@ groups = 5.times.map { create_group_with_specialization_and_subjects }
   Rails.logger.debug { "Создан студент: #{student.email}" }
 
   rb = RecordBook.create!(
+    custom_number: Faker::Code.npi,
     user: student,
     specialization: group.specialization, 
     group: group

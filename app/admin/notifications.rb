@@ -11,7 +11,6 @@ ActiveAdmin.register Notification do
     actions
   end
 
-
   show do
     attributes_table do
       row :message

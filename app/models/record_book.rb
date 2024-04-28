@@ -8,12 +8,14 @@ class RecordBook < ApplicationRecord
   has_many :attendances, through: :attendances_record_books
   has_many :grades, dependent: :destroy
 
+  validates :custom_number, presence: true
+
   def self.ransackable_associations(_auth_object = nil)
     %w[grades intermediate_attestation user group specialization]
   end
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at user_id id intermediate_attestation_id updated_at]
+    %w[created_at user_id id intermediate_attestation_id updated_at custom_number]
   end
 
   def subjects_list
