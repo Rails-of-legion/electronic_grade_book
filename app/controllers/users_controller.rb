@@ -7,17 +7,16 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def edit 
+  def edit
     @user = User.find(params[:id])
   end
 
-  def update 
+  def update
     @user = User.find(params[:id])
   end
 
   def edit_password
     @user = User.find(params[:id])
-
   end
 
   def edit_email
@@ -26,9 +25,9 @@ class UsersController < ApplicationController
 
   def update_password
     @user = User.find(params[:id])
-    if @user.update(edit_password_params) 
+    if @user.update(edit_password_params)
       redirect_to user_path(@user), notice: 'password updated'
-    else 
+    else
       render :edit_password
     end
   end

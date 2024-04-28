@@ -22,7 +22,6 @@ class User < ApplicationRecord
   has_one :record_book, dependent: :destroy
   has_many :intermediate_attestation, foreign_key: :teacher_id
 
-
   def self.ransackable_associations(auth_object = nil)
     super & ['record_books']
   end
