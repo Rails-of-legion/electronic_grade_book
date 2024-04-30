@@ -3,44 +3,62 @@ class SpecializationsController < ApplicationController
 
   # GET /specializations
   def index
+    authorize! :read, Specialization
     @specializations = Specialization.all
   end
 
   # GET /specializations/1
-  def show; end
+  def show
+    authorize! :read, @specialization
+  end
 
   # GET /specializations/new
   def new
+    authorize! :create, Specialization
     @specialization = Specialization.new
   end
 
   # GET /specializations/1/edit
-  def edit; end
+  def edit
+    authorize! :update, @specialization
+  end
 
   # POST /specializations
   def create
+    authorize! :create, Specialization
     @specialization = Specialization.new(specialization_params)
 
     if @specialization.save
-      redirect_to @specialization, notice: 'Specialization was successfully created.'
+      flash[:notice] = 'Specialization was successfully created.'
+      render :show
     else
+      flash.now[:alert] = 'Failed to create specialization.'
       render :new
     end
   end
 
   # PATCH/PUT /specializations/1
   def update
+    authorize! :update, @specialization
     if @specialization.update(specialization_params)
-      redirect_to @specialization, notice: 'Specialization was successfully updated.'
+      flash[:notice] = 'Specialization was successfully updated.'
+      render :show
     else
+      flash.now[:alert] = 'Failed to update specialization.'
       render :edit
     end
   end
 
   # DELETE /specializations/1
   def destroy
-    @specialization.destroy
-    redirect_to specializations_url, notice: 'Specialization was successfully destroyed.'
+    authorize! :destroy, @specialization
+    if @specialization.destroy
+      flash[:notice] = 'Specialization was successfully destroyed.'
+      redirect_to specializations_url
+    else
+      flash[:alert] = 'Failed to destroy specialization.'
+      redirect_to @specialization
+    end
   end
 
   private
