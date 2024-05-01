@@ -58,6 +58,7 @@ def create_group_with_specialization_and_subjects
 
   group = Group.create!(
     name: Faker::Educator.unique.secondary_school,
+    form_of_education: 'Очная',
     curator: User.with_role(:teacher).sample,
     specialization: specialization
   )
