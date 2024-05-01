@@ -28,24 +28,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
   end
 
-  create_table "attendances", force: :cascade do |t|
-    t.bigint "subject_id", null: false
-    t.date "date", null: false
-    t.string "attendance_status", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["subject_id"], name: "index_attendances_on_subject_id"
-  end
-
-  create_table "attendances_record_books", force: :cascade do |t|
-    t.bigint "attendance_id", null: false
-    t.bigint "record_book_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["attendance_id"], name: "index_attendances_record_books_on_attendance_id"
-    t.index ["record_book_id"], name: "index_attendances_record_books_on_record_book_id"
-  end
-
   create_table "grades", force: :cascade do |t|
     t.bigint "subject_id", null: false
     t.integer "grade"
@@ -112,6 +94,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
   create_table "record_books_intermediate_attestations", force: :cascade do |t|
     t.bigint "record_book_id", null: false
     t.bigint "intermediate_attestation_id", null: false
+    t.boolean "status_attendances"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["intermediate_attestation_id"], name: "idx_on_intermediate_attestation_id_4b30864746"
@@ -195,9 +178,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  add_foreign_key "attendances", "subjects"
-  add_foreign_key "attendances_record_books", "attendances"
-  add_foreign_key "attendances_record_books", "record_books"
   add_foreign_key "grades", "record_books"
   add_foreign_key "grades", "subjects"
   add_foreign_key "groups", "specializations"
