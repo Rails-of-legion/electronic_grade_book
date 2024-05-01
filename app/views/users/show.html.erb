@@ -19,5 +19,6 @@
   <div class="mt-3">    
     <%= link_to "Change Password", edit_password_path(@user), class: "btn btn-primary" %>    
     <%= link_to "Change Email", edit_email_path(@user), class: "btn btn-secondary" %>  
+    <%= link_to "Скачать PDF", user_path(@user, format: "pdf"), class: 'btn btn-primary' %>
   </div>
 </div>

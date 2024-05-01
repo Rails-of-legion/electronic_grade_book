@@ -99,3 +99,6 @@ gem "cssbundling-rails", "~> 1.4"
 gem "jsbundling-rails", "~> 1.3"
 
 gem 'sass-rails'
+
+gem 'prawn'
+gem 'prawn-rails'
