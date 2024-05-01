@@ -14,6 +14,5 @@ prawn_document title: 'User Report' do |pdf|
   if @user.roles.include? Role.find_by(name: 'student')
     pdf.start_new_page
     pdf.text "Student Reports"
-    pdf.text "Attendances: #{@user.attendances.map { |a| "#{a.date}: #{a.attendance_status}" }.join("\n")}"
   end
 end

@@ -4,8 +4,6 @@ class RecordBook < ApplicationRecord
   belongs_to :group, optional: false
   has_many :record_books_intermediate_attestations, dependent: :destroy
   has_many :intermediate_attestations, through: :record_books_intermediate_attestations
-  has_many :attendances_record_books
-  has_many :attendances, through: :attendances_record_books
   has_many :grades, dependent: :destroy
 
   validates :custom_number, presence: true

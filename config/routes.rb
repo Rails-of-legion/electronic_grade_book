@@ -30,7 +30,6 @@ Rails.application.routes.draw do
   resources :users, only: %i[index show update edit ]
   resources :semesters
   resources :subjects
-  resources :attendances
   resources :groups
   resources :specializations
   resources :notifications
