@@ -7,6 +7,15 @@ class IntermediateAttestationsController < ApplicationController
 
   def show
     @record_books = @intermediate_attestation.record_books
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        headers["Content-Disposition"] = "attachment; filename=\"intermediate_attestation_report.pdf\""
+        render :pdf => "intermediate_attestation_report"
+      end
+    end
+
   end
 
   def new

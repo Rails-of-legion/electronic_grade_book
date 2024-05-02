@@ -10,9 +10,6 @@
   <b>Assessment Type:</b> <%= @intermediate_attestation.assessment_type %>
 </p>
 <p>
-  <b>Max Grade:</b> <%= @intermediate_attestation.max_grade %>
-</p>
-<p>
   <b>Subject:</b> <%= @intermediate_attestation.subject.try(:name) %>
 </p>
 
@@ -37,4 +34,5 @@
 
 <%= link_to "Edit", edit_intermediate_attestation_path(@intermediate_attestation), class: "btn btn-primary" %>
 <%= link_to "Back", intermediate_attestations_path, class: "btn btn-secondary" %>
+<%= link_to "Скачать PDF", intermediate_attestation_path(@intermediate_attestation, format: "pdf"), class: 'btn btn-primary' %>
 
