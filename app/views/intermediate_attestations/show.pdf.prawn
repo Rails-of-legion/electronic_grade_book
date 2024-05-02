@@ -15,21 +15,9 @@ pdf.font_families.update("TimesNewRoman" => {
   pdf.text "Всего часов и зачетных единиц по учебной дисциплине, модулю  1"
   pdf.text "Преподаватель #{@intermediate_attestation.teacher.name}"
 
-  record_book = @intermediate_attestation.record_books.first
-
-  if record_book.present?
-  student_name = record_book.user.name
-  pdf.text "Студент: #{student_name}"
-  else
-  pdf.text "Информация о студенте недоступна"
-  end
-
-  students = @intermediate_attestation.record_books
   table_data = [['№ пп', 'Фамилия, собственное имя, отчество слушателя', 'Отметка', 'Подпись преподавателя']]
 
-  students.each do |student|
-  pdf.text "#{intermediate_attestation.record_book.user.name}"
-  end
+  pdf.text "Студент: #{@intermediate_attestation.record_books.users.name.first}"
 
   pdf.table table_data
 
