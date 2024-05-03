@@ -1,24 +1,25 @@
-<nav>
-  <ul>
-    <li><%= link_to "Home", root_path %></li>
-    <li><%= link_to "About", about_path %></li>
-    
-    <% if current_user %>
-    <% if current_user.has_role?(:student) %>
-    <% else %>
-
-    <li><%= link_to "Users", users_path %></li>
-    <li><%= link_to "Semesters", semesters_path %></li>
-    <li><%= link_to "Subjects", subjects_path %></li>
-    <li><%= link_to "Grades", grades_path %></li>
-    <li><%= link_to "Record Book", record_books_path %></li>
-    <li><%= link_to "Interim certifications", intermediate_attestations_path, class: "btn btn-info" %></li>
-    <li><%= link_to "Groups", groups_path, class: "btn btn-secondary" %></li>
-    <li><%= link_to "Attendance", attendances_path, class: "btn btn-primary" %></li>
-    <li><%= link_to "Notifications", notifications_path %></li>
-    <li><%= link_to "Specializations", specializations_path %></li>
-    <li><%= link_to "Admin", new_user_session_path %></li>
-    <% end %>
-    <% end %>
-  </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <%= link_to "Home", root_path, class: "navbar-brand" %>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item"><%= link_to "About", about_path, class: "nav-link" %></li>
+      <% if user_signed_in? %>
+        <% if current_user.has_role?(:student) %>
+          <li class="nav-item"><%= link_to "Profile", user_path(current_user), class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Subjects", subjects_path, class: "nav-link"  %></li>
+        <% elsif current_user.has_role?(:teacher) %>
+          <li class="nav-item"><%= link_to "Users", users_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Semesters", semesters_path, class: "nav-link"  %></li>
+          <li class="nav-item"><%= link_to "Grades", grades_path, class: "nav-link"  %></li>
+          <li class="nav-item"><%= link_to "Record Books", record_books_path, class: "nav-link"  %></li>
+          <li class="nav-item"><%= link_to "Interim certifications", intermediate_attestations_path, class: "nav-link"  %></li>
+          <li class="nav-item"><%= link_to "Groups", groups_path, class: "nav-link"  %></li>
+          <li class="nav-item"><%= link_to "Specializations", specializations_path, class: "nav-link"  %></li>
+        <% elsif current_user.has_role?(:admin) %>
+          <li class="nav-item"><%= link_to "Users", users_path, class: "nav-link" %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
 </nav>
+
