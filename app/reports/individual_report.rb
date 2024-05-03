@@ -53,8 +53,9 @@ class IndividualReport
         text "(дата)                                     (подпись)                               (Фамилия, инициалы слушателя)", align: :left, size: 11
         move_down 10
         text "Декан факультета повышения                                                 ", align: :left, size: 11
-        text "квалификации и переподготовки кадров                                        Ю.Ю.Королев", align: :left, size: 11
+        text "квалификации и переподготовки кадров                      _________________               <u>Ю.Ю.Королев<u>", align: :left,inline_format: true, size: 11
       end
+    
     end.render 
   end
 
