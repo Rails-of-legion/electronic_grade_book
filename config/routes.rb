@@ -27,7 +27,11 @@ Rails.application.routes.draw do
   get "users/:id/edit_email", to: "users#edit_email", as: :edit_email
   post "users/:id/update_password", to: "users#update_password", as: :update_password
   post "users/:id/update_email", to: "users#update_email",as: :update_email
-  resources :users, only: %i[index show update edit ]
+  resources :users, only: %i[index show update edit ] do
+    member do
+        get :show, defaults: { format: :pdf }
+    end
+  end
   resources :semesters
   resources :subjects
   resources :groups
