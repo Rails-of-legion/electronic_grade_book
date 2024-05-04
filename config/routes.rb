@@ -33,7 +33,11 @@ Rails.application.routes.draw do
   resources :attendances
   resources :groups
   resources :specializations
-  resources :notifications
+  resources :notifications do
+    member do
+      patch :mark_as_read
+    end
+  end
   resources :intermediate_attestations
   resources :grades
   resources :record_books

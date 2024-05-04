@@ -32,6 +32,13 @@ class NotificationsController < ApplicationController
     redirect_to notifications_url, notice: 'Notification was successfully destroyed.'
   end
 
+  def mark_as_read
+    @notification_user = NotificationsUser.find(params[:id])
+    @notification_user.update(status: true)
+  
+    redirect_to user_path(current_user), notice: 'Уведомление отмечено как прочитанное.' 
+  end
+
   private
   def set_notification_user
     @notification_user = NotificationsUser.find_by(notification_id: params[:id], user_id: current_user.id)

@@ -22,10 +22,13 @@
       <div id="notifications">
         <% @notificationsUser.each do |notification| %>
           <div class="<%= 'read' if notification.status %>">
-            <%= Notification.find(notification.notification_id).message %>
-            <%= check_box_tag 'status', notification.id, notification.status, class: 'notification-checkbox' %>
-            <%= button_to 'Ознакомлен', notification_path(notification), method: :patch, remote: true, class: 'notification-button' %>
-          </div>
+          <%= Notification.find(notification.notification_id).message %>
+          <% if notification.status %>
+            <span>Прочитано</span>
+          <% else %>
+            <%= button_to 'Ознакомлен', mark_as_read_notification_path(notification), method: :patch %>
+          <% end %>
+        </div>
         <% end %>
       </div>
       <div class="mt-3">    
