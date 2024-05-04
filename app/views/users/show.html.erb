@@ -16,9 +16,21 @@
             <li class="list-group-item"><strong>Date of birth:</strong> <%= @user.date_of_birth %></li>      
           </ul>    
         </div>  
+      </div>
+      <div>
       </div>  
+      <div id="notifications">
+        <% @notificationsUser.each do |notification| %>
+          <div class="<%= 'read' if notification.status %>">
+            <%= Notification.find(notification.notification_id).message %>
+            <%= check_box_tag 'status', notification.id, notification.status, class: 'notification-checkbox' %>
+            <%= button_to 'Ознакомлен', notification_path(notification), method: :patch, remote: true, class: 'notification-button' %>
+          </div>
+        <% end %>
+      </div>
       <div class="mt-3">    
-        <%= link_to "Изменить пароль", edit_password_path(@user), class: "btn btn-primary" %>    
+        <%= link_to "Показать уведомления", edit_password_path(@user), class: "btn btn-primary" %> 
+        <%= link_to "Изменить пароль", edit_password_path(@user), class: "btn btn-primary" %>   
         <%= link_to "Изменить Email", edit_email_path(@user), class: "btn btn-secondary" %>  
       </div>
     </div>
