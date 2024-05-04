@@ -25,8 +25,7 @@
   <tbody>
     <% @record_books.each do |record_book| %>
       <tr>
-        <td><%= record_book.name %></td>
-        <td><%= record_book.marks %></td>
+        <td><%= record_book.user.name %></td>
       </tr>
     <% end %>
   </tbody>
