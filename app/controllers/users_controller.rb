@@ -3,16 +3,33 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show
-    @user = User.find(params[:id])
+  # def show
+  #   @user = User.find(params[:id])
   
+  #   respond_to do |format|
+  #     format.html
+  #     format.pdf do
+  #       headers["Content-Disposition"] = "attachment; filename=\"user_report-#{@user.id}.pdf\""
+  #       render :pdf => "user_report"
+  #     end
+  #   end
+  # end
+
+    def show
+    @student = User.last
+
     respond_to do |format|
       format.html
       format.pdf do
-        headers["Content-Disposition"] = "attachment; filename=\"user_report-#{@user.id}.pdf\""
-        render :pdf => "user_report"
+        send_data generate_pdf(@student),
+                  filename: "student_report_#{@student.id}.pdf",
+                  type: "application/pdf"
       end
     end
+  end
+
+  def generate_pdf(student)
+    IndividualReport.new(student).generate_report
   end
   
   def edit
