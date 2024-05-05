@@ -26,11 +26,15 @@ pdf.font_families.update("TimesNewRoman" => {
   pdf.text "Преподаватель #{@intermediate_attestation.teacher.name}", align: :justify
 
   table_data = [['№ пп', 'Фамилия, собственное имя, отчество слушателя', 'Отметка', 'Подпись преподавателя']]
-        RecordBook.all.each_with_index do |record_book, index|
-          table_data << [index + 1, record_book.user.name, '', '']
-        end
-        pdf.table(table_data, header: true)
-        pdf.move_down 10
+
+RecordBook.all.each_with_index do |record_book, index|
+  grades = record_book.grades.map(&:grade).join(', ') # Получаем оценки из связанных объектов Grade и объединяем их в строку
+  table_data << [index + 1, record_book.user.name, grades, '']
+end
+
+pdf.table(table_data, header: true)
+pdf.move_down 10
+
 
   pdf.text "Количество слушателей, присутствовавших на аттестации  "
   pdf.text "Количество слушателей, получивших отметки:"

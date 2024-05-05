@@ -20,7 +20,9 @@ class IntermediateAttestationsController < ApplicationController
 
   def new
     @intermediate_attestation = IntermediateAttestation.new
+    @groups = Group.all
     @subjects = Subject.all
+    @teachers = User.with_role(:teacher)
   end
 
   def edit
@@ -29,8 +31,10 @@ class IntermediateAttestationsController < ApplicationController
 
   def create
     @intermediate_attestation = IntermediateAttestation.new(intermediate_attestation_params)
-
+  
     if @intermediate_attestation.save
+      @intermediate_attestation.associate_students_to_attestation
+      
       redirect_to @intermediate_attestation, notice: 'Intermediate attestation was successfully created.'
     else
       @subjects = Subject.all

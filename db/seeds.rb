@@ -131,4 +131,17 @@ grade = Grade.create!(
 )
 
 Rails.logger.debug { "Создана оценка #{grade.grade} для студента #{student.email} по предмету #{subject.name}" }
+
+10.times do
+  intermediate_attestation = IntermediateAttestation.create!(
+    name: Faker::Educator.course_name,
+    date: Faker::Date.between(from: 1.month.ago, to: Time.zone.today),
+    assessment_type: ["Тестирование", "Экзамен", "Контрольная работа"].sample,
+    subject: Subject.all.sample,
+    teacher: User.with_role(:teacher).sample,
+    group: Group.all.sample
+  )
+  Rails.logger.debug { "Создана промежуточная аттестация: #{intermediate_attestation.name}" }
+end
+
 end
