@@ -1,0 +1,17 @@
+<!-- app/views/individual_reports/new.html.erb -->
+<h1>Создать отчет</h1>
+
+<%= form_tag generate_report_individual_reports_path(format: :pdf), method: :post do %>
+
+  <div>
+    <%= label_tag :intermediate_attestation_id, "Промежуточная аттестация" %>
+    <%= select_tag :intermediate_attestation_id, options_for_select(@intermediate_attestations.map{ |ia| [ia.name, ia.id] }) %>
+  </div>
+
+  <div>
+    <%= label_tag :record_book_id, "Студент" %>
+    <%= select_tag :record_book_id, options_for_select(@record_books.map{ |rb| [rb.user.name, rb.id] }) %>
+  </div>
+
+  <%= submit_tag "Сгенерировать PDF" %>
+<% end %>

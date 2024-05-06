@@ -40,5 +40,12 @@ Rails.application.routes.draw do
   resources :intermediate_attestations
   resources :grades
   resources :record_books
+
+  Rails.application.routes.draw do
+    resources :individual_reports, only: [:new] do
+      post 'generate_report', on: :collection
+    end
+  end
+  
   get 'about', to: 'home#about', as: :about
 end
