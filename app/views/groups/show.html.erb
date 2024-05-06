@@ -1,6 +1,8 @@
 <h1>Group Details</h1>
 <p>  <b>Name:</b> <%= @group.name %></p>
 <p>  <b>Curator:</b> <%= @group.try(:curator).try(:name) || 'Unassigned' %></p>
+<p>  <b>Specialization:</b> <%= @group.specialization.name %></p>
+ 
 
 <h1>Record Books</h1>
 <%= simple_form_for :grade, url: group_path(month: params[:month]), method: :get, html: { class: 'form-inline' } do |f| %>

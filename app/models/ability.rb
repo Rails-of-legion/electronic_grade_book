@@ -28,7 +28,8 @@ class Ability
   end
 
   def define_teacher_abilities
-    can :manage, :all
+    can :read, Group
+    can :read, Specialization
   end
 
   def define_student_abilities

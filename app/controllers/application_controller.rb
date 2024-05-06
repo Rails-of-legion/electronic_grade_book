@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     if resource.admin?
       admin_root_path
     elsif resource.teacher?
-      semesters_path
+      user_path(resource)
     elsif resource.student?
       user_path(resource)
     end
