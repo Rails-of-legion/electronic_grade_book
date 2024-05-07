@@ -83,7 +83,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
   create_table "notifications", force: :cascade do |t|
     t.text "message"
     t.datetime "date"
-    t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -91,6 +90,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
   create_table "notifications_users", force: :cascade do |t|
     t.bigint "notification_id", null: false
     t.bigint "user_id", null: false
+    t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["notification_id"], name: "index_notifications_users_on_notification_id"
