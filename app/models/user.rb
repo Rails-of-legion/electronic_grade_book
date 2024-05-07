@@ -23,7 +23,7 @@ class User < ApplicationRecord
   has_many :intermediate_attestation, foreign_key: :teacher_id
 
   def self.ransackable_associations(auth_object = nil)
-    super & ['record_books']
+    super + ['record_book']
   end
 
   def self.ransackable_attributes(_auth_object = nil)
@@ -32,8 +32,8 @@ class User < ApplicationRecord
       date_of_birth
       email
       first_name
-      last_name
       middle_name
+      last_name
       status
     ]
   end

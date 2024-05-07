@@ -5,10 +5,18 @@ ActiveAdmin.register User do
 
   filter :email
   filter :role, collection: -> { Role.all }
+  filter :first_name
+  filter :middle_name
+  filter :last_name
+  filter :record_book_custom_number, as: :string, label: "Record book number", joins: :record_book
+  filter :date_of_birth
+  filter :group, collection: -> { Group.all }
+  filter :record_book_specialization_id_eq, as: :select, collection: -> { Specialization.all }, label: "Education program", joins: :record_book
   # Index (Read)
   index do
     selectable_column
     id_column
+    column :name
     column :email
     column :roles do |user|
       user.roles.pluck(:name).join(', ')
@@ -35,13 +43,54 @@ ActiveAdmin.register User do
     f.actions
   end
 
+  show do
+    attributes_table do
+      row :name
+      row :email
+      row :status
+      row :date_of_birth
+      row :phone_number
+      row :roles do |user|
+        user.roles.pluck(:name).join(', ')
+      end
+      if user.record_book
+        row "Record book number" do |user|
+          user.record_book&.custom_number
+        end
+        row :group do |user|
+          user.record_book&.group&.name
+        end
+        row "Specialization" do |user|
+          user.record_book&.specialization&.name
+        end
+        row "Subjects of the current semester" do |user|
+          user.record_book&.specialization&.subjects
+        end
+        row "Grades" do |user|
+          subjects = user.record_book&.specialization&.subjects
+          table_for subjects do 
+            column "Subject" do |subject|
+              subject.name
+            end
+            column "Grades" do |subject|
+              grades = subject.grades
+              grades.pluck(:grade).join(", ")
+            end
+          end
+        end
+      end
+    end
+    active_admin_comments
+end
+
+
   # Edit/Update and Create
   controller do
     def update
       @user = User.find(params[:id])
       authorize! :update, @user
       if @user.update(permitted_params[:user])
-        redirect_to admin_user_path(@user), notice: 'Пользователь обновлен.'
+        redirect_to admin_user_path(@user), notice: 'User updated.'
       else
         render :edit
       end
@@ -51,7 +100,7 @@ ActiveAdmin.register User do
       @user = User.new(permitted_params[:user])
       authorize! :create, @user
       if @user.save
-        redirect_to admin_user_path(@user), notice: 'Пользователь создан.'
+        redirect_to admin_user_path(@user), notice: 'User created.'
       else
         render :new
       end
