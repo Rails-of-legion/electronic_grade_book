@@ -6,7 +6,6 @@
     <tr>
       <th>Name</th>
       <th>Semester</th>
-      <th>Assessment Type</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -15,7 +14,6 @@
       <tr>
         <td><%= subject.name %></td>
         <td><%= subject.semester.name %></td>
-        <td><%= subject.assessment_type %></td>
         <td>
           <%= link_to 'Show', subject, class: 'btn btn-sm btn-info' %>
           <%= link_to 'Edit', edit_subject_path(subject), class: 'btn btn-sm btn-secondary' %>

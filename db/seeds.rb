@@ -131,3 +131,28 @@ grade = Grade.create!(
 
 Rails.logger.debug { "Создана оценка #{grade.grade} для студента #{student.email} по предмету #{subject.name}" }
 end
+
+notification_data = [
+  { message: "Добро пожаловать в приложение!", date: Time.zone.now },
+  { message: "Доступны новые функции!", date: 1.day.ago },
+  { message: "Не забудьте обновить профиль!", date: 2.days.ago }
+]
+
+notification_data.each do |data|
+  Notification.create!(data)
+end
+
+users = User.all
+notifications = Notification.all
+
+notifications.each do |notification|
+  users.each do |user|
+    NotificationsUser.create!(
+      notification: notification,
+      user: user,
+      status: false
+    )
+  end
+end
+
+puts "Сиды успешно созданы!"
