@@ -3,29 +3,9 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  # def show
-  #   @user = User.find(params[:id])
-  
-  #   respond_to do |format|
-  #     format.html
-  #     format.pdf do
-  #       headers["Content-Disposition"] = "attachment; filename=\"user_report-#{@user.id}.pdf\""
-  #       render :pdf => "user_report"
-  #     end
-  #   end
-  # end
-
-    def show
-    @student = User.last
-
-    respond_to do |format|
-      format.html
-      format.pdf do
-        send_data generate_pdf(@student),
-                  filename: "student_report_#{@student.id}.pdf",
-                  type: "application/pdf"
-      end
-    end
+  def show
+    @user = User.find(params[:id])
+    @notificationsUser = NotificationsUser.where(user_id: @user.id)
   end
 
   def generate_pdf(student)
@@ -67,6 +47,9 @@ class UsersController < ApplicationController
   end
 
   private
+  def set_notification_user
+    @notification_user = NotificationsUser.find_by(notification_id: params[:id], user_id: current_user.id)
+  end
 
   def user_params
     params.require(:user).permit(

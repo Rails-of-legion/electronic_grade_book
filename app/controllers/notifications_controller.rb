@@ -7,7 +7,9 @@ class NotificationsController < ApplicationController
   end
 
   # GET /notifications/1
-  def show; end
+  def show
+
+  end
 
   # GET /notifications/new
   def new
@@ -17,24 +19,11 @@ class NotificationsController < ApplicationController
   # GET /notifications/1/edit
   def edit; end
 
-  # POST /notifications
-  def create
-    @notification = Notification.new(notification_params)
-
-    if @notification.save
-      redirect_to @notification, notice: 'Notification was successfully created.'
-    else
-      render :new
-    end
-  end
 
   # PATCH/PUT /notifications/1
   def update
-    if @notification.update(notification_params)
-      redirect_to @notification, notice: 'Notification was successfully updated.'
-    else
-      render :edit
-    end
+    @notification_user.update(status: true)
+    redirect_to notifications_path, notice: 'Уведомление было отмечено как прочитанное.'
   end
 
   # DELETE /notifications/1
@@ -43,8 +32,17 @@ class NotificationsController < ApplicationController
     redirect_to notifications_url, notice: 'Notification was successfully destroyed.'
   end
 
-  private
+  def mark_as_read
+    @notification_user = NotificationsUser.find(params[:id])
+    @notification_user.update(status: true)
+  
+    redirect_to user_path(current_user), notice: 'Уведомление отмечено как прочитанное.' 
+  end
 
+  private
+  def set_notification_user
+    @notification_user = NotificationsUser.find_by(notification_id: params[:id], user_id: current_user.id)
+  end
   # Use callbacks to share common setup or constraints between actions.
   def set_notification
     @notification = Notification.find(params[:id])
