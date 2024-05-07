@@ -7,10 +7,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @notificationsUser = NotificationsUser.where(user_id: @user.id)
   end
-
-  def generate_pdf(student)
-    IndividualReport.new(student).generate_report
-  end
   
   def edit
     @user = User.find(params[:id])

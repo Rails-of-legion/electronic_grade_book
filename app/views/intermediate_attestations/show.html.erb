@@ -13,24 +13,6 @@
   <b>Subject:</b> <%= @intermediate_attestation.subject.try(:name) %>
 </p>
 
-<h2>Record Books</h2>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Student</th>
-      <th>Marks</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @record_books.each do |record_book| %>
-      <tr>
-        <td><%= record_book.user.name %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
 <%= link_to "Edit", edit_intermediate_attestation_path(@intermediate_attestation), class: "btn btn-primary" %>
 <%= link_to "Back", intermediate_attestations_path, class: "btn btn-secondary" %>
 <%= link_to "Скачать PDF", intermediate_attestation_path(@intermediate_attestation, format: "pdf"), class: 'btn btn-primary' %>
