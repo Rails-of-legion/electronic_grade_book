@@ -11,6 +11,6 @@ class Subject < ApplicationRecord
   has_many :specializations, through: :specialities_subjects
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at description id name semester_id updated_at]
+    %w[created_at description id name updated_at]
   end
 end
