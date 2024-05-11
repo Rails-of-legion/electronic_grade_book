@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_08_170843) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -136,6 +136,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "semesters_subjects", id: false, force: :cascade do |t|
+    t.bigint "semester_id", null: false
+    t.bigint "subject_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["semester_id"], name: "index_semesters_subjects_on_semester_id"
+    t.index ["subject_id"], name: "index_semesters_subjects_on_subject_id"
+  end
+
   create_table "specialities_subjects", force: :cascade do |t|
     t.bigint "specialization_id", null: false
     t.bigint "subject_id", null: false
@@ -154,10 +163,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
   create_table "subjects", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.bigint "semester_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["semester_id"], name: "index_subjects_on_semester_id"
   end
 
   create_table "teachers_subjects", force: :cascade do |t|
@@ -211,9 +218,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
   add_foreign_key "record_books", "users"
   add_foreign_key "record_books_intermediate_attestations", "intermediate_attestations"
   add_foreign_key "record_books_intermediate_attestations", "record_books"
+  add_foreign_key "semesters_subjects", "semesters"
+  add_foreign_key "semesters_subjects", "subjects"
   add_foreign_key "specialities_subjects", "specializations"
   add_foreign_key "specialities_subjects", "subjects"
-  add_foreign_key "subjects", "semesters"
   add_foreign_key "teachers_subjects", "subjects"
   add_foreign_key "teachers_subjects", "users", column: "teacher_id"
 end

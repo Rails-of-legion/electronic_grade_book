@@ -6,22 +6,27 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @notificationsUser = NotificationsUser.where(user_id: @user.id)
+    authorize! :read, @user
   end
 
   def edit
     @user = User.find(params[:id])
+    authorize! :update, @user
   end
 
   def update
     @user = User.find(params[:id])
+    authorize! :update, @user
   end
 
   def edit_password
     @user = User.find(params[:id])
+    authorize! :update, @user
   end
 
   def edit_email
     @user = User.find(params[:id])
+    authorize! :update, @user
   end
 
   def update_password
