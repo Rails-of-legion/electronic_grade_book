@@ -36,8 +36,27 @@ pdf.table(table_data, header: true)
 pdf.move_down 10
 
 
-  pdf.text "Количество слушателей, присутствовавших на аттестации  "
-  pdf.text "Количество слушателей, получивших отметки:"
+pdf.move_down 10
+
+# Получаем количество студентов с оценками для данной промежуточной аттестации
+students_with_grades_count = RecordBook.joins(:grades)
+                                      .where(grades: { subject_id: @intermediate_attestation.subject_id })
+                                      .distinct.count
+                                      
+# Получаем общее количество студентов в группе
+total_students_count = RecordBook.joins(:group)
+                                  .where(groups: { id: @intermediate_attestation.group_id })
+                                  .count
+
+students_with_grades_count = RecordBook.joins(:grades)
+                                      .where(grades: { subject_id: @intermediate_attestation.subject_id })
+                                      .distinct.count                                  
+
+# Получаем количество студентов без оценок
+students_without_grades_count = total_students_count - students_with_grades_count
+
+  pdf.text "Количество студентов, присутствовавших на аттестации: #{students_with_grades_count}"
+  pdf.text "Количество слушателей, получивших отметки: #{students_with_grades_count}"
   table_grades = [['10','','9','','8','','7',''],
                     ['6','','5','','4','','3',''],
                     ['2','','1','','','','',''],
@@ -47,7 +66,7 @@ pdf.move_down 10
   cells.style(width: pdf.bounds.width / table_grades[0].size)
   end
   pdf.move_down 10
-  pdf.text "Количество слушателей, не явившихся на аттестацию"
+  pdf.text "Количество студентов, не явившихся на аттестацию: #{students_without_grades_count}"
   pdf.move_down 10
 
   pdf.text_box "Подпись преподавателя",
