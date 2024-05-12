@@ -30,6 +30,8 @@ class Ability
   def define_teacher_abilities
     can :read, Group
     can :read, Specialization
+    can :read, User
+    can :read, RecordBook
   end
 
   def define_student_abilities
