@@ -2,7 +2,7 @@ class IntermediateAttestation < ApplicationRecord
   belongs_to :subject, optional: false
   belongs_to :teacher, class_name: 'User'
   has_many :record_books_intermediate_attestations, dependent: :destroy
-  has_many :record_books, through: :record_books_intermediate_attestations
+  has_many :record_books, through: :record_books_intermediate_attestations, dependent: :destroy
 
   validates :name, :date, :assessment_type, presence: true
 
