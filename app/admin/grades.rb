@@ -15,7 +15,7 @@ ActiveAdmin.register Grade do
     actions
   end
 
-  filter :record_book_user_first_name, as: :string, filters: [:cont], label: 'Student Name'
+  filter :record_book_user_first_name, as: :string, filters: [:cont], label: 'Student first name'
   filter :subject
   filter :grade
   filter :date
