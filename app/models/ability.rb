@@ -31,6 +31,7 @@ class Ability
     can :read, Group
     can :read, Specialization
     can :read, User
+    can :read, IntermediateAttestation
   end
 
   def define_student_abilities

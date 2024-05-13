@@ -13,17 +13,22 @@
   <tbody>
     <% @intermediate_attestations.each do |intermediate_attestation| %>
       <tr>
-        <td><%= intermediate_attestation.name %></td>
-        <td><%= intermediate_attestation.date %></td>
-        <td><%= intermediate_attestation.assessment_type %></td>
-        <td><%= intermediate_attestation.subject.try(:name) %></td>  <td>
+        <td>
+          <%= intermediate_attestation.name %>
+        </td>
+        <td>
+          <%= intermediate_attestation.date %>
+        </td>
+        <td>
+          <%= intermediate_attestation.assessment_type %>
+        </td>
+        <td>
+          <%= intermediate_attestation.subject.try(:name) %>
+        </td>
+        <td>
           <%= link_to "Show", intermediate_attestation_path(intermediate_attestation), class: "btn btn-primary" %>
-          <%= link_to "Edit", edit_intermediate_attestation_path(intermediate_attestation), class: "btn btn-warning" %>
-          <%= button_to "Destroy", intermediate_attestation_path(intermediate_attestation), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to "New Intermediate Attestation", new_intermediate_attestation_path, class: "btn btn-success" %>
