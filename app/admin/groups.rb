@@ -11,7 +11,7 @@ ActiveAdmin.register Group do
   end
 
   filter :name
-  filter :curator, as: :select, collection: User.with_role(:teacher).map { |u| [u.name, u.id] }
+  filter :curator, as: :select, collection: User.with_role(:teacher)
   filter :specialization
 
   form do |f|
