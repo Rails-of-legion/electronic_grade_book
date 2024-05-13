@@ -92,12 +92,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_170843) do
   end
 
   create_table "record_books_intermediate_attestations", force: :cascade do |t|
-    t.bigint "record_book_id", null: false
+    t.bigint "group_id", null: false
     t.bigint "intermediate_attestation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_record_books_intermediate_attestations_on_group_id"
     t.index ["intermediate_attestation_id"], name: "idx_on_intermediate_attestation_id_4b30864746"
-    t.index ["record_book_id"], name: "index_record_books_intermediate_attestations_on_record_book_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -195,8 +195,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_170843) do
   add_foreign_key "record_books", "groups"
   add_foreign_key "record_books", "specializations"
   add_foreign_key "record_books", "users"
+  add_foreign_key "record_books_intermediate_attestations", "groups"
   add_foreign_key "record_books_intermediate_attestations", "intermediate_attestations"
-  add_foreign_key "record_books_intermediate_attestations", "record_books"
   add_foreign_key "semesters_subjects", "semesters"
   add_foreign_key "semesters_subjects", "subjects"
   add_foreign_key "specialities_subjects", "specializations"
