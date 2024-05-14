@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: %i[show edit update destroy]
-
+  load_and_authorize_resource
+  
   # GET /groups
   def index
     @groups = Group.all
@@ -14,18 +15,15 @@ class GroupsController < ApplicationController
 
   # GET /groups/new
   def new
-    authorize! :create, Group
     @group = Group.new
   end
 
   # GET /groups/1/edit
   def edit
-    authorize! :update, @group
   end
 
   # POST /groups
   def create
-    authorize! :create, Group
     @group = Group.new(group_params)
 
     if @group.save
@@ -37,7 +35,6 @@ class GroupsController < ApplicationController
 
   # PATCH/PUT /groups/1
   def update
-    authorize! :update, @group
     if @group.update(group_params)
       redirect_to @group, notice: 'Group was successfully updated.'
     else
@@ -47,7 +44,6 @@ class GroupsController < ApplicationController
 
   # DELETE /groups/1
   def destroy
-    authorize! :destroy, @group
     @group.destroy
     redirect_to groups_url, notice: 'Group was successfully destroyed.'
   end

@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   def index
     @users = User.all
+    authorize! :read, User
+    if current_user.has_role?(:student)
+      @users = @users.with_role(:teacher)
+    end
   end
 
   def show

@@ -1,6 +1,6 @@
 class IntermediateAttestationsController < ApplicationController
   before_action :set_intermediate_attestation, only: %i[show edit update destroy]
-
+  load_and_authorize_resource
   def index
     @intermediate_attestations = IntermediateAttestation.all
   end
@@ -10,18 +10,15 @@ class IntermediateAttestationsController < ApplicationController
   end
 
   def new
-    authorize! :create, IntermediateAttestation
     @intermediate_attestation = IntermediateAttestation.new
     @subjects = Subject.all
   end
 
   def edit
-    authorize! :update, @intermediate_attestation
     @subjects = Subject.all
   end
 
   def create
-    authorize! :create, IntermediateAttestation
     @intermediate_attestation = IntermediateAttestation.new(intermediate_attestation_params)
 
     if @intermediate_attestation.save
@@ -33,7 +30,6 @@ class IntermediateAttestationsController < ApplicationController
   end
 
   def update
-    authorize! :update, @intermediate_attestation
     if @intermediate_attestation.update(intermediate_attestation_params)
       redirect_to @intermediate_attestation, notice: 'Intermediate attestation was successfully updated.'
     else
@@ -43,7 +39,6 @@ class IntermediateAttestationsController < ApplicationController
   end
 
   def destroy
-    authorize! :destroy, @intermediate_attestation
     @intermediate_attestation.destroy
     redirect_to intermediate_attestations_url, notice: 'Intermediate attestation was successfully destroyed.'
   end
