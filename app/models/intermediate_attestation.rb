@@ -6,15 +6,15 @@ class IntermediateAttestation < ApplicationRecord
 
   validates :name, :assessment_type, presence: true
 
-  def self.ransackable_attributes(auth_object = nil)
-    [
-      "assessment_type", "created_at", "id", "id_value", "name", 
-      "subject_id", "teacher_id", "updated_at", "group_id",
-      "intermediate_attestation_id"
-    ] 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      assessment_type created_at id id_value name
+      subject_id teacher_id updated_at group_id
+      intermediate_attestation_id
+    ]
   end
 
-  def self.ransackable_associations(auth_object = nil)
-    ["groups", "groups_intermediate_attestations", "subject", "teacher"]
+  def self.ransackable_associations(_auth_object = nil)
+    %w[groups groups_intermediate_attestations subject teacher]
   end
 end

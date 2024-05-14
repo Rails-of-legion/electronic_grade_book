@@ -8,9 +8,11 @@ ActiveAdmin.register User do
   filter :first_name
   filter :middle_name
   filter :last_name
-  filter :record_book_custom_number, as: :string, label: "Record book number", joins: :record_book
+  filter :record_book_custom_number, as: :string, label: 'Record book number', joins: :record_book
   filter :group, collection: -> { Group.all }
-  filter :record_book_specialization_id_eq, as: :select, collection: -> { Specialization.all }, label: "Education program", joins: :record_book
+  filter :record_book_specialization_id_eq, as: :select, collection: lambda {
+                                                                       Specialization.all
+                                                                     }, label: 'Education program', joins: :record_book
   # Index (Read)
   index do
     selectable_column
@@ -53,35 +55,32 @@ ActiveAdmin.register User do
         user.roles.pluck(:name).join(', ')
       end
       if user.record_book
-        row "Record book number" do |user|
+        row 'Record book number' do |user|
           user.record_book&.custom_number
         end
         row :group do |user|
           user.record_book&.group&.name
         end
-        row "Specialization" do |user|
+        row 'Specialization' do |user|
           user.record_book&.specialization&.name
         end
-        row "Subjects of the current semester" do |user|
+        row 'Subjects of the current semester' do |user|
           user.record_book&.specialization&.subjects
         end
-        row "Grades" do |user|
+        row 'Grades' do |user|
           subjects = user.record_book&.specialization&.subjects
-          table_for subjects do 
-            column "Subject" do |subject|
-              subject.name
-            end
-            column "Grades" do |subject|
+          table_for subjects do
+            column 'Subject', &:name
+            column 'Grades' do |subject|
               grades = subject.grades
-              grades.pluck(:grade).join(", ")
+              grades.pluck(:grade).join(', ')
             end
           end
         end
       end
     end
     active_admin_comments
-end
-
+  end
 
   # Edit/Update and Create
   controller do

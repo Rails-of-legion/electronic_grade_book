@@ -23,14 +23,15 @@ ActiveAdmin.register Grade do
 
   form do |f|
     f.inputs do
-      f.input :record_book, as: :select, collection: RecordBook.joins(:user).where(users: { id: User.with_role(:student).pluck(:id) }), label: 'Студент', member_label: Proc.new { |rb| rb.user.name }
+      f.input :record_book, as: :select, collection: RecordBook.joins(:user).where(users: { id: User.with_role(:student).select(:id) }), label: 'Студент', member_label: proc { |rb|
+                                                                                                                                                                           rb.user.name
+                                                                                                                                                                         }
       f.input :subject
       f.input :grade
       f.input :date
     end
     f.actions
   end
-  
 
   controller do
     def create
