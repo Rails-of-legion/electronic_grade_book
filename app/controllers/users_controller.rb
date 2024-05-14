@@ -21,12 +21,10 @@ class UsersController < ApplicationController
 
   def edit_password
     @user = User.find(params[:id])
-    authorize! :update, @user
   end
 
   def edit_email
     @user = User.find(params[:id])
-    authorize! :update, @user
   end
 
   def update_password
