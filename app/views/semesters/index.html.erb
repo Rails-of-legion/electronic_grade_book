@@ -21,8 +21,6 @@
               <div class="btn-group" role="group">
                 <% if semester.persisted? %>
                   <%= link_to 'Show', semester, class: 'btn btn-default' %>
-                  <%= link_to 'Edit', edit_semester_path(semester), class: 'btn btn-default' %>
-                  <%= button_to 'Delete', semester, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
                 <% end %>
               </div>
             </td>
@@ -34,8 +32,5 @@
     <p>No semesters found.</p>
   <% end %>
 
-  <% if @semesters.present? %>
-    <%= link_to 'Create New Semester', new_semester_path, class: 'btn btn-primary' %>
-  <% end %>
 </div>
 

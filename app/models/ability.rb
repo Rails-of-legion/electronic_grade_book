@@ -34,6 +34,7 @@ class Ability
     can :read, IntermediateAttestation
     can :read, RecordBook
     can :manage, Grade
+    can :read, Semester
   end
 
   def define_student_abilities
