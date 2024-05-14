@@ -6,7 +6,7 @@ class IntermediateAttestationsController < ApplicationController
   end
 
   def show
-    @record_books = @intermediate_attestation.record_books
+    @groups = @intermediate_attestation.groups
   end
 
   def new
