@@ -23,13 +23,24 @@ ActiveAdmin.register Specialization do
       row :name
     end
 
-    panel 'Предметы' do
+    panel 'Subjects' do
       table_for specialization.specialities_subjects do
-        column 'Название предмета', :subject do |specialities_subject|
+        column 'Name of the item', :subject do |specialities_subject|
           specialities_subject.subject.name
         end
         column :description do |specialities_subject|
           specialities_subject.subject.description
+        end
+      end
+    end
+
+    if specialization.groups.any?
+      panel 'Groups' do
+        table_for specialization.groups do
+          column :name
+          column :curator
+          column :created_at
+          column :updated_at
         end
       end
     end

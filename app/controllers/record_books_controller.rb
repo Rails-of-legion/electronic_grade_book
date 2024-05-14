@@ -11,12 +11,16 @@ class RecordBooksController < ApplicationController
 
   def new
     @record_book = RecordBook.new
+    authorize! :create, @record_book
   end
 
-  def edit; end
+  def edit
+    authorize! :update, @record_book
+  end
 
   def create
     @record_book = RecordBook.new(record_book_params)
+    authorize! :create, @record_book
 
     if @record_book.save
       redirect_to @record_book, notice: 'Зачетная книжка успешно создана!'
@@ -26,6 +30,7 @@ class RecordBooksController < ApplicationController
   end
 
   def update
+    authorize! :update, @record_book
     if @record_book.update(record_book_params)
       redirect_to @record_book, notice: 'Зачетная книжка обновлена!'
     else
@@ -34,6 +39,7 @@ class RecordBooksController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, @record_book
     @record_book.destroy
     redirect_to record_books_path, notice: 'Зачетная книжка удалена!'
   end

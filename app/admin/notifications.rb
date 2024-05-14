@@ -7,7 +7,6 @@ ActiveAdmin.register Notification do
     id_column
     column :message
     column :date
-    column :status
     actions
   end
 
@@ -15,7 +14,6 @@ ActiveAdmin.register Notification do
     attributes_table do
       row :message
       row :date
-      row :status
       row :users, as: :check_boxes, collection: User.all
     end
     active_admin_comments
@@ -25,7 +23,6 @@ ActiveAdmin.register Notification do
     f.inputs 'Notification Details' do
       f.input :message
       f.input :date
-      f.input :status
       f.input :users, as: :check_boxes, collection: User.all
     end
     f.actions
