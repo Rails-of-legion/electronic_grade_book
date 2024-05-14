@@ -9,7 +9,6 @@ ActiveAdmin.register User do
   filter :middle_name
   filter :last_name
   filter :record_book_custom_number, as: :string, label: "Record book number", joins: :record_book
-  filter :date_of_birth
   filter :group, collection: -> { Group.all }
   filter :record_book_specialization_id_eq, as: :select, collection: -> { Specialization.all }, label: "Education program", joins: :record_book
   # Index (Read)

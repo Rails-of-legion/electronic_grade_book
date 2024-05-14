@@ -19,7 +19,6 @@ ActiveAdmin.register IntermediateAttestation do
   filter :assessment_type
   filter :subject
   filter :groups
-  filter :teacher, as: :select, collection: User.with_role(:teacher)
 
   form do |f|
     f.inputs 'Intermediate Attestation Details' do
