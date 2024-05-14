@@ -32,9 +32,13 @@ class Ability
     can :read, Specialization
     can :read, User
     can :read, IntermediateAttestation
+    can :read, RecordBook
+    can :manage, Grade
   end
 
   def define_student_abilities
-    can :read_notifications, User, id: user.id
+    can :read, RecordBook
+    can :read, Grade
+    can :read, User
   end
 end

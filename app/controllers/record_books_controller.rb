@@ -1,6 +1,7 @@
 class RecordBooksController < ApplicationController
   before_action :set_record_book, only: %i[show edit update destroy]
-
+  load_and_authorize_resource
+  
   def index
     @record_books = RecordBook.all
   end
