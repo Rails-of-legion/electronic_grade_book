@@ -21,10 +21,18 @@ class UsersController < ApplicationController
 
   def edit_password
     @user = User.find(params[:id])
+    unless current_user == @user
+      redirect_to root_path, alert: "Access denied!"
+      return
+    end
   end
 
   def edit_email
     @user = User.find(params[:id])
+    unless current_user == @user
+      redirect_to root_path, alert: "Access denied!"
+      return
+    end
   end
 
   def update_password
