@@ -46,6 +46,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   def set_notification_user
     @notification_user = NotificationsUser.find_by(notification_id: params[:id], user_id: current_user.id)
   end
