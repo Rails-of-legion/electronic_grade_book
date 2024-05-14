@@ -40,5 +40,8 @@ class Ability
     can :read, RecordBook
     can :read, Grade
     can :read, User
+    can :read, IntermediateAttestation
+    can :read, Group
+    can :read, Specialization
   end
 end
