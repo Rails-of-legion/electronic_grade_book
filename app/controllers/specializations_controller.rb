@@ -1,31 +1,27 @@
 class SpecializationsController < ApplicationController
   before_action :set_specialization, only: %i[show edit update destroy]
+  load_and_authorize_resource
 
   # GET /specializations
   def index
-    authorize! :read, Specialization
     @specializations = Specialization.all
   end
 
   # GET /specializations/1
   def show
-    authorize! :read, @specialization
   end
 
   # GET /specializations/new
   def new
-    authorize! :create, Specialization
     @specialization = Specialization.new
   end
 
   # GET /specializations/1/edit
   def edit
-    authorize! :update, @specialization
   end
 
   # POST /specializations
   def create
-    authorize! :create, Specialization
     @specialization = Specialization.new(specialization_params)
 
     if @specialization.save
@@ -39,7 +35,6 @@ class SpecializationsController < ApplicationController
 
   # PATCH/PUT /specializations/1
   def update
-    authorize! :update, @specialization
     if @specialization.update(specialization_params)
       flash[:notice] = 'Specialization was successfully updated.'
       render :show
@@ -51,7 +46,6 @@ class SpecializationsController < ApplicationController
 
   # DELETE /specializations/1
   def destroy
-    authorize! :destroy, @specialization
     if @specialization.destroy
       flash[:notice] = 'Specialization was successfully destroyed.'
       redirect_to specializations_url

@@ -5,7 +5,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Semester</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -13,11 +12,8 @@
     <% @subjects.each do |subject| %>
       <tr>
         <td><%= subject.name %></td>
-        <td><%= subject.semester.name %></td>
         <td>
           <%= link_to 'Show', subject, class: 'btn btn-sm btn-info' %>
-          <%= link_to 'Edit', edit_subject_path(subject), class: 'btn btn-sm btn-secondary' %>
-          <%= button_to 'Delete', subject, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
         </td>
       </tr>
     <% end %>
@@ -26,6 +22,3 @@
 <% else %>
   <p>No subjects found.</p>
 <% end %>
-<%= link_to 'New Subject', new_subject_path, class: 'btn btn-primary' %>
-
-

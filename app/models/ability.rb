@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     clear_abilities
-
+    @user = user
     return define_guest_abilities unless user
 
     define_admin_abilities if user.has_role?(:admin)
@@ -31,10 +31,17 @@ class Ability
     can :read, Group
     can :read, Specialization
     can :read, User
+    can :read, IntermediateAttestation
     can :read, RecordBook
+    can :manage, Grade
+    can :read, Semester
+    can :read, Subject
   end
 
   def define_student_abilities
-    can :manage, :all
+    can :read, User, id: @user.id
+    can :read, Semester
+    can :read, RecordBook
+    can :read, Subject
   end
 end

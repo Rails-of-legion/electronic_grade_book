@@ -14,8 +14,6 @@ Record Books
           <td><%= record_book.user.name %></td>
           <td>
             <%= link_to 'Show', record_book_path(record_book), class: 'btn btn-sm btn-outline-primary' %>
-            <%= link_to 'Edit', edit_record_book_path(record_book), class: 'btn btn-sm btn-outline-secondary' %>
-            <%= button_to 'Delete', record_book_path(record_book), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
           </td>
         </tr>
       <% end %>
@@ -24,5 +22,3 @@ Record Books
 <% else %>
   <p>No record books found.</p>
 <% end %>
-
-<%= link_to 'Create New Record Book', new_record_book_path, class: 'btn btn-primary' %>

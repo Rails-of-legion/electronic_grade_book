@@ -1,40 +1,33 @@
 <h1>Intermediate Attestation Details</h1>
-
-<p>
-  <b>Name:</b> <%= @intermediate_attestation.name %>
-</p>
-<p>
-  <b>Date:</b> <%= @intermediate_attestation.date %>
-</p>
-<p>
-  <b>Assessment Type:</b> <%= @intermediate_attestation.assessment_type %>
-</p>
-<p>
-  <b>Max Grade:</b> <%= @intermediate_attestation.max_grade %>
-</p>
-<p>
-  <b>Subject:</b> <%= @intermediate_attestation.subject.try(:name) %>
-</p>
+<p>  <b>Name:</b> <%= @intermediate_attestation.name %></p>
+<p>  <b>Date:</b> <%= @intermediate_attestation.date %></p>
+<p>  <b>Assessment Type:</b> <%= @intermediate_attestation.assessment_type %></p>
+<p>  <b>Subject:</b> <%= @intermediate_attestation.subject.try(:name) %></p>
 
 <h2>Record Books</h2>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Student</th>
-      <th>Marks</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @record_books.each do |record_book| %>
+<% @intermediate_attestation.groups.each do |group| %>
+  <h3>Group: <%= group.name %></h3>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= record_book.name %></td>
-        <td><%= record_book.marks %></td>
+        <th>Student</th>
+        <th>Marks</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% group.record_books.each do |record_book| %>
+        <tr>
+          <td><%= record_book.user.name %></td>
+          <td>
+            <% grade = record_book.grades.where(subject: @intermediate_attestation.subject).first %>
+            <%= grade&.grade %> 
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <%= link_to "Edit", edit_intermediate_attestation_path(@intermediate_attestation), class: "btn btn-primary" %>
 <%= link_to "Back", intermediate_attestations_path, class: "btn btn-secondary" %>
-

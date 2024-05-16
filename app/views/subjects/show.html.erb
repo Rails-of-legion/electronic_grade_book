@@ -1,19 +1,8 @@
 <h1>Subject: <%= @subject.name %></h1>
 
 <p>
-  <strong>Semester:</strong>
-  <%= @subject.semester.name %>
-</p>
-
-<p>
   <strong>Description:</strong>
   <%= @subject.description %>
 </p>
 
-<p>
-  <strong>Assessment Type:</strong>
-  <%= @subject.assessment_type %>
-</p>
-
-<%= link_to 'Edit', edit_subject_path(@subject), class: 'btn btn-secondary' %>
 <%= link_to 'Back', subjects_path, class: 'btn btn-secondary' %>

@@ -1,27 +1,42 @@
 class UsersController < ApplicationController
   def index
     @users = User.all
+    authorize! :read, User
+    if current_user.has_role?(:student)
+      @users = @users.with_role(:teacher)
+    end
   end
 
   def show
     @user = User.find(params[:id])
     @notificationsUser = NotificationsUser.where(user_id: @user.id)
+    authorize! :read, @user
   end
 
   def edit
     @user = User.find(params[:id])
+    authorize! :update, @user
   end
 
   def update
     @user = User.find(params[:id])
+    authorize! :update, @user
   end
 
   def edit_password
     @user = User.find(params[:id])
+    unless current_user == @user
+      redirect_to root_path, alert: "Access denied!"
+      return
+    end
   end
 
   def edit_email
     @user = User.find(params[:id])
+    unless current_user == @user
+      redirect_to root_path, alert: "Access denied!"
+      return
+    end
   end
 
   def update_password
