@@ -11,11 +11,10 @@ class IntermediateAttestationsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        headers["Content-Disposition"] = "attachment; filename=\"intermediate_attestation_report.pdf\""
-        render :pdf => "intermediate_attestation_report"
+        headers['Content-Disposition'] = 'attachment; filename="intermediate_attestation_report.pdf"'
+        render pdf: 'intermediate_attestation_report'
       end
     end
-
   end
 
   def new
@@ -31,10 +30,10 @@ class IntermediateAttestationsController < ApplicationController
 
   def create
     @intermediate_attestation = IntermediateAttestation.new(intermediate_attestation_params)
-  
+
     if @intermediate_attestation.save
       @intermediate_attestation.associate_students_to_attestation
-      
+
       redirect_to @intermediate_attestation, notice: 'Intermediate attestation was successfully created.'
     else
       @subjects = Subject.all

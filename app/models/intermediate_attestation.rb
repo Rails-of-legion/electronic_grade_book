@@ -22,5 +22,4 @@ class IntermediateAttestation < ApplicationRecord
       record_book.intermediate_attestations << self
     end
   end
-
 end

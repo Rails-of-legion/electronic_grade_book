@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @notificationsUser = NotificationsUser.where(user_id: @user.id)
   end
-  
+
   def edit
     @user = User.find(params[:id])
   end
@@ -43,6 +43,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   def set_notification_user
     @notification_user = NotificationsUser.find_by(notification_id: params[:id], user_id: current_user.id)
   end

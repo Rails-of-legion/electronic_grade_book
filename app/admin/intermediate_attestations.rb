@@ -1,6 +1,6 @@
 # app/admin/intermediate_attestation.rb
 ActiveAdmin.register IntermediateAttestation do
-  permit_params :name, :date, :assessment_type, :subject_id, :teacher_id, :group_id 
+  permit_params :name, :date, :assessment_type, :subject_id, :teacher_id, :group_id
 
   index do
     selectable_column
