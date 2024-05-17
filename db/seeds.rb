@@ -154,4 +154,23 @@ notifications.each do |notification|
   end
 end
 
+5.times do
+  intermediate_attestation = IntermediateAttestation.create!(
+    name: Faker::Lorem.sentence(word_count: 3),
+    assessment_type: ["Тест", "Эссе", "Практика"].sample,
+    subject: Subject.all.sample,
+    teacher: User.with_role(:teacher).sample,
+    date: Faker::Date.between(from: 1.year.ago, to: 1.year.from_now)
+  )
+  Rails.logger.debug { "Создана промежуточная аттестация: #{intermediate_attestation.name}" }
+
+  # Привязка промежуточной аттестации к случайной группе
+  group = Group.all.sample
+  GroupsIntermediateAttestation.create!(
+    group: group,
+    intermediate_attestation: intermediate_attestation
+  )
+  Rails.logger.debug { "Привязана промежуточная аттестация #{intermediate_attestation.name} к группе #{group.name}" }
+end
+
 puts "Сиды успешно созданы!"
