@@ -1,11 +1,4 @@
 class UsersController < ApplicationController
-  def index
-    @users = User.all
-    authorize! :read, User
-    if current_user.has_role?(:student)
-      @users = @users.with_role(:teacher)
-    end
-  end
 
   def show
     @user = User.find(params[:id])
@@ -16,6 +9,10 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     authorize! :update, @user
+    unless @user == current_user
+      redirect_to root_path, alert: "Access denied!"
+      return
+    end
   end
 
   def update
