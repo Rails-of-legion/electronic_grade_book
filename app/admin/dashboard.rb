@@ -16,3 +16,4 @@ ActiveAdmin.register_page 'Dashboard' do
     send_data pdf_data, filename: 'individual_report.pdf', type: 'application/pdf'
   end
 end
+
