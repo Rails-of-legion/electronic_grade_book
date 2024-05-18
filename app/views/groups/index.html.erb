@@ -4,13 +4,13 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Curator</th>
     </tr>
   </thead>
+
   <tbody>
     <% @groups.each do |group| %>
       <tr>
-        <td><%= link_to group.name, group_path(group), class: "btn btn-primary" %></td>
+        <td><%= link_to group.name, group_path(group) %></td>
       </tr>
     <% end %>
   </tbody>

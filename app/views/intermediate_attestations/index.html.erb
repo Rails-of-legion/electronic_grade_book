@@ -1,20 +1,17 @@
-<h1>List of Intermediate Attestations</h1>
-
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Date</th>
-      <th>Assessment Type</th>
-      <th>Subject</th>
-      <th>Actions</th>
+      <th class="col-md-3">Name</th>
+      <th class="col-md-2">Date</th>
+      <th class="col-md-2">Assessment Type</th>
+      <th class="col-md-3">Subject</th>
     </tr>
   </thead>
   <tbody>
     <% @intermediate_attestations.each do |intermediate_attestation| %>
       <tr>
         <td>
-          <%= intermediate_attestation.name %>
+          <%= link_to intermediate_attestation.name, intermediate_attestation_path(intermediate_attestation) %>
         </td>
         <td>
           <%= intermediate_attestation.date %>
@@ -24,9 +21,6 @@
         </td>
         <td>
           <%= intermediate_attestation.subject.try(:name) %>
-        </td>
-        <td>
-          <%= link_to "Show", intermediate_attestation_path(intermediate_attestation), class: "btn btn-primary" %>
         </td>
       </tr>
     <% end %>

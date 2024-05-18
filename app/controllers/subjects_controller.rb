@@ -2,7 +2,20 @@ class SubjectsController < ApplicationController
   before_action :set_subject, only: %i[show edit update destroy]
   load_and_authorize_resource
   def index
-    @subjects = Subject.all
+    if current_user.has_role? :student
+      record_book = current_user.record_book
+
+      if record_book
+        @subjects = record_book.group.specialization.subjects
+      else
+        flash[:error] = "У вас нет Record Book."
+        @subjects = []
+      end
+
+      if current_user.has_role? :teacher
+        @subjects = Subject.all
+      end
+    end
   end
 
   def show; end

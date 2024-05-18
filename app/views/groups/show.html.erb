@@ -2,6 +2,14 @@
 <p>  <b>Name:</b> <%= @group.name %></p>
 <p>  <b>Curator:</b> <%= @group.try(:curator).try(:name) || 'Unassigned' %></p>
 <p>  <b>Specialization:</b> <%= @group.specialization.name %></p>
+<h1>Students</h1>
+<ul>
+  <% @group.record_books.each do |record_book| %>
+    <li>
+      <%= link_to record_book.user.name, record_book_path(record_book) %>
+    </li>
+  <% end %>
+</ul>
  
 
 <h1>Record Books</h1>
@@ -29,5 +37,4 @@
 <%= f.button :submit, 'Добавить оценку', class: 'btn btn-primary' %>
 <% end %> 
 
-<%= link_to "Edit", edit_group_path(@group), class: "btn btn-primary" %>
 <%= link_to "Back", groups_path, class: "btn btn-secondary" %>
