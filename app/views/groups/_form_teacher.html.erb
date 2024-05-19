@@ -11,7 +11,7 @@
   <tbody>
     <% @record_books.each do |record_book| %>
     <tr>
-      <td><%= record_book.user.name %></td>
+      <td><%= link_to record_book.user.name, record_book_path(record_book) %></td>
       <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
         <td>
           <% date = Date.new(Time.current.year, @month.to_i, day) %>
