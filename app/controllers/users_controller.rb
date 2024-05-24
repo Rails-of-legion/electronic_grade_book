@@ -2,9 +2,9 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     authorize! :read, User
-    if current_user.has_role?(:student)
-      @users = @users.with_role(:teacher)
-    end
+    return unless current_user.has_role?(:student)
+
+    @users = @users.with_role(:teacher)
   end
 
   def show
@@ -25,18 +25,18 @@ class UsersController < ApplicationController
 
   def edit_password
     @user = User.find(params[:id])
-    unless current_user == @user
-      redirect_to root_path, alert: "Access denied!"
-      return
-    end
+    return if current_user == @user
+
+    redirect_to root_path, alert: 'Access denied!'
+    nil
   end
 
   def edit_email
     @user = User.find(params[:id])
-    unless current_user == @user
-      redirect_to root_path, alert: "Access denied!"
-      return
-    end
+    return if current_user == @user
+
+    redirect_to root_path, alert: 'Access denied!'
+    nil
   end
 
   def update_password

@@ -1,7 +1,6 @@
 class Group < ApplicationRecord
   belongs_to :curator, class_name: 'User', optional: true
   belongs_to :specialization
-  has_one :intermediate_attestations, dependent: :destroy
   has_many :record_books, dependent: :destroy
   has_many :groups_intermediate_attestations, dependent: :destroy
   has_many :intermediate_attestations, through: :groups_intermediate_attestations, dependent: :destroy

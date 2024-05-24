@@ -8,8 +8,7 @@ class SpecializationsController < ApplicationController
   end
 
   # GET /specializations/1
-  def show
-  end
+  def show; end
 
   # GET /specializations/new
   def new
@@ -17,8 +16,7 @@ class SpecializationsController < ApplicationController
   end
 
   # GET /specializations/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /specializations
   def create

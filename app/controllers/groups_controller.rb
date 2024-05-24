@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: %i[show edit update destroy]
   load_and_authorize_resource
-  
+
   # GET /groups
   def index
     @groups = Group.all
@@ -19,8 +19,7 @@ class GroupsController < ApplicationController
   end
 
   # GET /groups/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /groups
   def create
