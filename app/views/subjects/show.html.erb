@@ -1,8 +1,10 @@
-<h1>Subject: <%= @subject.name %></h1>
+<div class="container mt-5">
+  <h1>Subject: <%= @subject.name %></h1>
 
-<p>
-  <strong>Description:</strong>
-  <%= @subject.description %>
-</p>
+  <p>
+    <strong>Description:</strong>
+    <%= @subject.description %>
+  </p>
 
-<%= link_to 'Back', subjects_path, class: 'btn btn-secondary' %>
+  <%= link_to 'Back', subjects_path, class: 'btn btn-secondary' %>
+</div>

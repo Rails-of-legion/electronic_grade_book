@@ -1,30 +1,34 @@
-<h1>Specializations</h1>
+<h1 class="text-center mb-4">Specializations</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @specializations.each do |specialization| %>
+<div class="container">
+  <table class="table table-striped">
+    <thead class="thead-light">
       <tr>
-        <td><%= specialization.name %></td>
-        <td><%= link_to 'Show', specialization %></td>
-        <% if current_user.student? || current_user.teacher? %>
-          <!-- Скрыть ссылки для студентов и учителей -->
-        <% else %>
-          <td><%= link_to 'Edit', edit_specialization_path(specialization) %></td>
-          <td><%= button_to 'Destroy', specialization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% end %>
+        <th>Name</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-<% if current_user.admin? %>
-  <%= link_to 'New Specialization', new_specialization_path %>
-<% end %>
+    <tbody>
+      <% @specializations.each do |specialization| %>
+        <tr>
+          <td><%= specialization.name %></td>
+          <td><%= link_to 'Show', specialization, class: "btn btn-info" %></td>
+          <% if current_user.student? || current_user.teacher? %>
+            <!-- Скрыть ссылки для студентов и учителей -->
+          <% else %>
+            <td><%= link_to 'Edit', edit_specialization_path(specialization), class: "btn btn-warning" %></td>
+            <td>
+              <%= button_to 'Destroy', specialization, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+  <% if current_user.admin? %>
+    <%= link_to 'New Specialization', new_specialization_path, class: "btn btn-primary" %>
+  <% end %>
+</div>

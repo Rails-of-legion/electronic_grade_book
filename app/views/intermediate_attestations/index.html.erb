@@ -1,34 +1,31 @@
-<h1>List of Intermediate Attestations</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Date</th>
-      <th>Assessment Type</th>
-      <th>Subject</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @intermediate_attestations.each do |intermediate_attestation| %>
+<div class="container">
+  <h1 class="text-center mb-4">List of Intermediate Attestations</h1>
+  
+  <table class="table table-striped">
+    <thead class="thead-light">
       <tr>
-        <td>
-          <%= intermediate_attestation.name %>
-        </td>
-        <td>
-          <%= intermediate_attestation.date %>
-        </td>
-        <td>
-          <%= intermediate_attestation.assessment_type %>
-        </td>
-        <td>
-          <%= intermediate_attestation.subject.try(:name) %>
-        </td>
-        <td>
-          <%= link_to "Show", intermediate_attestation_path(intermediate_attestation), class: "btn btn-primary" %>
-        </td>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Assessment Type</th>
+        <th>Max Grade</th>
+        <th>Subject</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @intermediate_attestations.each do |intermediate_attestation| %>
+        <tr>
+          <td><%= intermediate_attestation.name %></td>
+          <td><%= intermediate_attestation.date %></td>
+          <td><%= intermediate_attestation.assessment_type %></td>
+          <td><%= intermediate_attestation.subject.try(:name) %></td>
+          <td>
+            <%= link_to "Show", intermediate_attestation_path(intermediate_attestation), class: "btn btn-primary btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to "New Intermediate Attestation", new_intermediate_attestation_path, class: "btn btn-success" %>
+</div>

@@ -1,24 +1,32 @@
 <% if @subjects.present? %>
-<h1>Subjects</h1>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @subjects.each do |subject| %>
-      <tr>
-        <td><%= subject.name %></td>
-        <td>
-          <%= link_to 'Show', subject, class: 'btn btn-sm btn-info' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div class="container mt-5">
+    <h1 class="mb-4">Subjects</h1>
+    
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @subjects.each do |subject| %>
+          <tr>
+            <td><%= subject.name %></td>
+            <td>
+              <%= link_to 'Show', subject, class: 'btn btn-sm btn-info' %>
+              <%= link_to 'Edit', edit_subject_path(subject), class: 'btn btn-sm btn-warning' %>
+              <%= link_to 'Delete', subject, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% else %>
-  <p>No subjects found.</p>
+  <div class="container mt-5">
+    <div class="alert alert-warning" role="alert">
+      No subjects found.
+    </div>
+  </div>
 <% end %>
