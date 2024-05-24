@@ -73,7 +73,6 @@ def create_group_with_specialization_and_subjects
       subject = Subject.create!(
         name: subject_name,
         description: Faker::Lorem.paragraph,
-        semester: Semester.all.sample
       )
       SpecialitiesSubject.create!(specialization: specialization, subject: subject)
       Rails.logger.debug { "Создан предмет: #{subject.name} для специализации #{specialization.name}" }

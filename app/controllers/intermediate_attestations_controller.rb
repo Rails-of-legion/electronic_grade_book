@@ -1,12 +1,12 @@
 class IntermediateAttestationsController < ApplicationController
   before_action :set_intermediate_attestation, only: %i[show edit update destroy]
-
+  load_and_authorize_resource
   def index
     @intermediate_attestations = IntermediateAttestation.all
   end
 
   def show
-    @record_books = @intermediate_attestation.record_books
+    @groups = @intermediate_attestation.groups
 
     respond_to do |format|
       format.html

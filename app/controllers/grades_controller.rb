@@ -1,6 +1,7 @@
 class GradesController < ApplicationController
   before_action :set_grade, only: %i[show edit update destroy]
-
+  load_and_authorize_resource
+  
   def index
     @grades = Grade.all
   end
@@ -14,15 +15,21 @@ class GradesController < ApplicationController
   def edit; end
 
   def create
-    date_grade = Date.new(Time.zone.now.year, params[:month].to_i, params[:grade][:date].to_i)
+    month = params[:month].to_i
+    day = params[:grade][:date].to_i
+    raise ArgumentError, 'Invalid month' unless (1..12).include?(month)
+
+    date_grade = Date.new(Time.zone.now.year, month, day)
     params[:grade][:date] = date_grade
     @grade = Grade.new(grade_params)
-
     if @grade.save
       redirect_to record_book_path(@grade.record_book)
     else
       render :new, status: :unprocessable_entity
     end
+  rescue ArgumentError => e
+    flash[:error] = e.message
+    render :new, status: :unprocessable_entity
   end
 
   def update

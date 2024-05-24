@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_08_170843) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,12 +51,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
     t.index ["specialization_id"], name: "index_groups_on_specialization_id"
   end
 
+  create_table "groups_intermediate_attestations", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "intermediate_attestation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_groups_intermediate_attestations_on_group_id"
+    t.index ["intermediate_attestation_id"], name: "idx_on_intermediate_attestation_id_e18abbf00a"
+  end
+
   create_table "intermediate_attestations", force: :cascade do |t|
     t.bigint "subject_id", null: false
     t.bigint "group_id", null: false
     t.string "name"
-    t.date "date"
     t.string "assessment_type"
+    t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "teacher_id"
@@ -94,16 +103,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
     t.index ["user_id"], name: "index_record_books_on_user_id"
   end
 
-  create_table "record_books_intermediate_attestations", force: :cascade do |t|
-    t.bigint "record_book_id", null: false
-    t.bigint "intermediate_attestation_id", null: false
-    t.boolean "status_attendances"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["intermediate_attestation_id"], name: "idx_on_intermediate_attestation_id_4b30864746"
-    t.index ["record_book_id"], name: "index_record_books_intermediate_attestations_on_record_book_id"
-  end
-
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -120,6 +119,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
     t.date "end_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "semesters_subjects", id: false, force: :cascade do |t|
+    t.bigint "semester_id", null: false
+    t.bigint "subject_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["semester_id"], name: "index_semesters_subjects_on_semester_id"
+    t.index ["subject_id"], name: "index_semesters_subjects_on_subject_id"
   end
 
   create_table "specialities_subjects", force: :cascade do |t|
@@ -140,10 +148,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
   create_table "subjects", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.bigint "semester_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["semester_id"], name: "index_subjects_on_semester_id"
   end
 
   create_table "teachers_subjects", force: :cascade do |t|
@@ -185,7 +191,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
   add_foreign_key "grades", "subjects"
   add_foreign_key "groups", "specializations"
   add_foreign_key "groups", "users", column: "curator_id"
-  add_foreign_key "intermediate_attestations", "groups"
+  add_foreign_key "groups_intermediate_attestations", "groups"
+  add_foreign_key "groups_intermediate_attestations", "intermediate_attestations"
   add_foreign_key "intermediate_attestations", "subjects"
   add_foreign_key "intermediate_attestations", "users", column: "teacher_id"
   add_foreign_key "notifications_users", "notifications"
@@ -193,11 +200,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_143534) do
   add_foreign_key "record_books", "groups"
   add_foreign_key "record_books", "specializations"
   add_foreign_key "record_books", "users"
-  add_foreign_key "record_books_intermediate_attestations", "intermediate_attestations"
-  add_foreign_key "record_books_intermediate_attestations", "record_books"
+  add_foreign_key "semesters_subjects", "semesters"
+  add_foreign_key "semesters_subjects", "subjects"
   add_foreign_key "specialities_subjects", "specializations"
   add_foreign_key "specialities_subjects", "subjects"
-  add_foreign_key "subjects", "semesters"
   add_foreign_key "teachers_subjects", "subjects"
   add_foreign_key "teachers_subjects", "users", column: "teacher_id"
 end

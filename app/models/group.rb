@@ -3,6 +3,8 @@ class Group < ApplicationRecord
   belongs_to :specialization
   has_one :intermediate_attestations, dependent: :destroy
   has_many :record_books, dependent: :destroy
+  has_many :groups_intermediate_attestations, dependent: :destroy
+  has_many :intermediate_attestations, through: :groups_intermediate_attestations, dependent: :destroy
   validates :name, presence: true, length: { minimum: 2 }
 
   def self.ransackable_associations(_auth_object = nil)

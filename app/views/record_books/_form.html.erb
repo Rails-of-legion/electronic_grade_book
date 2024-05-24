@@ -19,10 +19,6 @@
     <%= form.collection_select :intermediate_attestation_id, IntermediateAttestation.all, :id, :name, {}, { class: 'form-control' } %>
   </div>
 
-  <div class="mb-3">
-    <%= form.label :retake_ids, "Retakes" %>
-    <%= form.collection_check_boxes :retake_ids, Retake.all, :id, lambda { |retake| retake.subject.name } %>
-  </div>
 
   <%= form.submit 'Save Record Book', class: 'btn btn-primary' %>
 <% end %>
