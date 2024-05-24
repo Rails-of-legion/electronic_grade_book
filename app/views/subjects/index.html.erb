@@ -1,24 +1,41 @@
 <% if @subjects.present? %>
-<h1>Subjects</h1>
+  <h1>Subjects</h1>
+  
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <%= form_tag subjects_path, method: :get do %>
+        <div class="input-group">
+          <%= text_field_tag :search, params[:search], placeholder: "Поиск по названию или описанию", class: "form-control" %>
+          <div class="input-group-append" style="margin-left: 10px;">
+            <%= button_tag type: "submit", class: "btn btn-primary", style: "width: 3cm; height: 38px;" do %>
+              Search
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @subjects.each do |subject| %>
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= subject.name %></td>
-        <td>
-          <%= link_to 'Show', subject, class: 'btn btn-sm btn-info' %>
-        </td>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @subjects.each do |subject| %>
+        <tr>
+          <td><%= subject.name %></td>
+          <td><%= subject.description %></td>
+          <td>
+            <%= link_to 'Show', subject, class: 'btn btn-sm btn-info' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
   <p>No subjects found.</p>
 <% end %>

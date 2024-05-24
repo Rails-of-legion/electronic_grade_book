@@ -7,6 +7,7 @@ class SubjectsController < ApplicationController
 
       if record_book
         @subjects = record_book.group.specialization.subjects
+        @subjects = @subjects.where("name LIKE ? OR description LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%") if params[:search].present?
       else
         flash[:error] = "У вас нет Record Book."
         @subjects = []
