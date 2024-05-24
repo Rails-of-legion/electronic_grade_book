@@ -193,6 +193,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_170843) do
   add_foreign_key "groups", "users", column: "curator_id"
   add_foreign_key "groups_intermediate_attestations", "groups"
   add_foreign_key "groups_intermediate_attestations", "intermediate_attestations"
+  add_foreign_key "intermediate_attestations", "groups"
   add_foreign_key "intermediate_attestations", "subjects"
   add_foreign_key "intermediate_attestations", "users", column: "teacher_id"
   add_foreign_key "notifications_users", "notifications"

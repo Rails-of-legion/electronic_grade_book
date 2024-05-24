@@ -26,12 +26,12 @@ class IndividualReport
       # Информация о группе и специальности
       indent(40) do
         text "Группа № #{record_book.group.name}", align: :left, size: 11
-        text "«#{intermediate_attestation.group.specialization.id} #{intermediate_attestation.group.specialization.name}»",
+        text "«#{intermediate_attestation.groups.name} #{intermediate_attestation.groups.name}»",
              align: :left, size: 11
         # Информация о дисциплине
         text "Учебная дисциплина: #{intermediate_attestation.subject.name}", align: :left, size: 11
         # Информация о форме обучения и аттестации
-        text "Форма получения образования: #{intermediate_attestation.group.form_of_education}", align: :left, size: 11
+        text "Форма получения образования: #{intermediate_attestation.groups.name}", align: :left, size: 11
         text "Форма промежуточной аттестации: #{intermediate_attestation.name}", align: :left, size: 11
         # Объем дисциплины
         text 'Всего часов и зачетных единиц по учебной дисциплине: ', align: :left, size: 11

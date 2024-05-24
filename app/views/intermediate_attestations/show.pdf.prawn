@@ -1,7 +1,7 @@
 prawn_document title: 'Inermediate attestation Report' do |pdf|
 pdf.font_families.update("TimesNewRoman" => {
     :normal => { :file => "/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman.ttf", :font => "Times-Roman" },
-    :bold => { :file => "/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman_Bold.ttf", :font => "Times-Roman,Bold" } 
+    :bold => { :file => "/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman_Bold.ttf", :font => "Times-Roman,Bold" }
   })
   pdf.font 'TimesNewRoman', size: 11
   pdf.bounds.add_left_padding(72)
@@ -9,7 +9,7 @@ pdf.font_families.update("TimesNewRoman" => {
   pdf.text "Учреждение образования", align: :center, style: :bold
   pdf.text "РЕСПУБЛИКАНСКИЙ ИНСТИТУТ ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ", align: :center, style: :bold
   pdf.text "ЗАЧЕТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ № #{@intermediate_attestation.id}", align: :center, style: :bold
-  pdf.text_box "Группа #{@intermediate_attestation.group.name}",
+  pdf.text_box "Группа #{@intermediate_attestation.groups.name}",
               at: [0, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :left
@@ -18,9 +18,9 @@ pdf.font_families.update("TimesNewRoman" => {
               at: [pdf.bounds.width / 2, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :right
-  pdf.text "#{@intermediate_attestation.group.specialization.id} #{@intermediate_attestation.group.specialization.name}", align: :justify 
+  pdf.text "#{@intermediate_attestation.groups.name} #{@intermediate_attestation.groups.name}", align: :justify
   pdf.text "Учебная дисциплина, модуль «#{@intermediate_attestation.subject.name}»", align: :justify
-  pdf.text "Форма получения образования #{@intermediate_attestation.group.form_of_education}", align: :justify
+  pdf.text "Форма получения образования #{@intermediate_attestation.groups.name}", align: :justify
   pdf.text "Форма промежуточной аттестации #{@intermediate_attestation.name}", align: :justify
   pdf.text "Всего часов и зачетных единиц по учебной дисциплине, модулю  1", align: :justify
   pdf.text "Преподаватель #{@intermediate_attestation.teacher.name}", align: :justify
@@ -42,7 +42,7 @@ pdf.move_down 10
 students_with_grades_count = RecordBook.joins(:grades)
                                       .where(grades: { subject_id: @intermediate_attestation.subject_id })
                                       .distinct.count
-                                      
+
 # Получаем общее количество студентов в группе
 total_students_count = RecordBook.joins(:group)
                                   .where(groups: { id: @intermediate_attestation.group_id })
@@ -50,7 +50,7 @@ total_students_count = RecordBook.joins(:group)
 
 students_with_grades_count = RecordBook.joins(:grades)
                                       .where(grades: { subject_id: @intermediate_attestation.subject_id })
-                                      .distinct.count                                  
+                                      .distinct.count
 
 # Получаем количество студентов без оценок
 students_without_grades_count = total_students_count - students_with_grades_count
