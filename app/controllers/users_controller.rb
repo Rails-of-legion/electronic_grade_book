@@ -29,10 +29,18 @@ class UsersController < ApplicationController
 
     redirect_to root_path, alert: 'Access denied!'
     nil
+    return if current_user == @user
+
+    redirect_to root_path, alert: 'Access denied!'
+    nil
   end
 
   def edit_email
     @user = User.find(params[:id])
+    return if current_user == @user
+
+    redirect_to root_path, alert: 'Access denied!'
+    nil
     return if current_user == @user
 
     redirect_to root_path, alert: 'Access denied!'
