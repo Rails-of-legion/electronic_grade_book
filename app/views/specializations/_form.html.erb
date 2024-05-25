@@ -1,22 +1,22 @@
-<%= form_with(model: @specialization) do |form| %>
-    <% if @specialization.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@specialization.errors.count, "error") %> prohibited this specialization from being saved:</h2>
+<%= form_with(model: @specialization, local: true, class: "container") do |form| %>
+  <% if @specialization.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@specialization.errors.count, "ошибка", "ошибки", "ошибок") %> не позволили сохранить специализацию:</h2>
   
-        <ul>
-        <% @specialization.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-  
-    <div class="field">
-      <%= form.label :name %>
-      <%= form.text_field :name %>
-    </div>
-  
-    <div class="actions">
-      <%= form.submit %>
+      <ul>
+      <% @specialization.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
     </div>
   <% end %>
+  
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+  
+  <div class="actions">
+    <%= form.submit "Сохранить", class: "btn btn-primary" %>
+  </div>
+<% end %>

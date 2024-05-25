@@ -1,12 +1,18 @@
-<h1>Welcome to the Home Page</h1>
-<p>This is a static page with information about our application.</p>
+<div class="container">
+  <h1 class="display-4 text-center mb-4">Welcome to the Home Page</h1>
+  <p class="lead text-center">This is a static page with information about our application.</p>
 
-<% if user_signed_in? %>
-  <h3>Welcome <%= name(current_user)%></h3> 
-  <h3>your email is <%= current_user.email %></h3>
-  <h3>your role is <%= current_user.roles.first.name %></h3>
-  <%= button_to 'sign out', destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to 'sing in', new_user_session_path %>
-  <%= link_to 'sign up', users_search_path %>
-<% end %>
+  <% if user_signed_in? %>
+    <div class="text-center mt-4">
+      <h3>Welcome <%= current_user.name %>,</h3> 
+      <h4>Your email is <%= current_user.email %>,</h4>
+      <h4>Your role is <%= current_user.roles.first.name %>.</h4>
+      <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn btn-danger mt-3' %>
+    </div>
+  <% else %>
+    <div class="text-center mt-4">
+      <%= link_to 'Sign in', new_user_session_path, class: 'btn btn-primary me-2' %>
+      <%= link_to 'Sign up', users_search_path, class: 'btn btn-secondary' %>
+    </div>
+  <% end %>
+</div>

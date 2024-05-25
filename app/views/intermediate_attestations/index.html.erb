@@ -1,28 +1,23 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th class="col-md-3">Name</th>
-      <th class="col-md-2">Date</th>
-      <th class="col-md-2">Assessment Type</th>
-      <th class="col-md-3">Subject</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @intermediate_attestations.each do |intermediate_attestation| %>
+<div class="container">
+  <h1 class="text-center mb-4">List of Intermediate Attestations</h1>
+  
+  <table class="table table-striped">
+    <thead class="thead-light">
       <tr>
-        <td>
-          <%= link_to intermediate_attestation.name, intermediate_attestation_path(intermediate_attestation) %>
-        </td>
-        <td>
-          <%= intermediate_attestation.date %>
-        </td>
-        <td>
-          <%= intermediate_attestation.assessment_type %>
-        </td>
-        <td>
-          <%= intermediate_attestation.subject.try(:name) %>
-        </td>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Assessment Type</th>
+        <th>Subject</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @intermediate_attestations.each do |intermediate_attestation| %>
+        <tr>
+          <td><%= link_to intermediate_attestation.name, intermediate_attestation_path(intermediate_attestation) %></td>
+          <td><%= intermediate_attestation.date %></td>
+          <td><%= intermediate_attestation.assessment_type %></td>
+          <td><%= intermediate_attestation.subject.try(:name) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

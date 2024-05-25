@@ -1,18 +1,21 @@
 class UsersController < ApplicationController
-
   def show
     @user = User.find(params[:id])
     @notificationsUser = NotificationsUser.where(user_id: @user.id)
     authorize! :read, @user
   end
 
+  def generate_pdf(student)
+    IndividualReport.new(student).generate_report
+  end
+
   def edit
     @user = User.find(params[:id])
     authorize! :update, @user
-    unless @user == current_user
-      redirect_to root_path, alert: "Access denied!"
-      return
-    end
+    return if @user == current_user
+
+    redirect_to root_path, alert: 'Access denied!'
+    nil
   end
 
   def update
@@ -22,18 +25,18 @@ class UsersController < ApplicationController
 
   def edit_password
     @user = User.find(params[:id])
-    unless current_user == @user
-      redirect_to root_path, alert: "Access denied!"
-      return
-    end
+    return if current_user == @user
+
+    redirect_to root_path, alert: 'Access denied!'
+    nil
   end
 
   def edit_email
     @user = User.find(params[:id])
-    unless current_user == @user
-      redirect_to root_path, alert: "Access denied!"
-      return
-    end
+    return if current_user == @user
+
+    redirect_to root_path, alert: 'Access denied!'
+    nil
   end
 
   def update_password

@@ -1,19 +1,50 @@
-<h2>Найти пользователя</h2>
+<h2 class="mb-4">Найти пользователя</h2>
 
-<%= simple_form_for :user, url: users_find_user_path do |f| %>
+<%= simple_form_for :user, url: users_find_user_path, html: { class: 'form-horizontal' } do |f| %>
+  <div class="form-inputs">
+    <div class="form-group row">
+      <%= f.label :first_name, class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= f.input :first_name, input_html: { class: 'form-control' }, label: false %>
+      </div>
+    </div>
 
-<div class="form-inputs">
-  <%= f.input :first_name %>
-  <%= f.input :middle_name %>
-  <%= f.input :last_name %>
-  <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 12 %>
-  <%= f.input :phone_number %>
-</div>
+    <div class="form-group row">
+      <%= f.label :middle_name, class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= f.input :middle_name, input_html: { class: 'form-control' }, label: false %>
+      </div>
+    </div>
 
-<div class="form-actions">
-  <%= f.button :submit, "Find" %>
-</div>
+    <div class="form-group row">
+      <%= f.label :last_name, class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= f.input :last_name, input_html: { class: 'form-control' }, label: false %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :date_of_birth, class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= f.input :date_of_birth, as: :date, input_html: { class: 'form-control' }, start_year: Date.today.year - 90, end_year: Date.today.year - 12, label: false %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :phone_number, class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= f.input :phone_number, input_html: { class: 'form-control' }, label: false %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions mt-4">
+    <div class="form-group row">
+      <div class="col-sm-10 offset-sm-2">
+        <%= f.button :submit, "Find", class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
 <% end %>
-
 
 <%= render "users/shared/links" %>

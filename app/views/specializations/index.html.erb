@@ -1,18 +1,19 @@
-<h1>Specializations</h1>
+<h1 class="text-center mb-4">Specializations</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @specializations.each do |specialization| %>
+<div class="container">
+  <table class="table table-striped">
+    <thead class="thead-light">
       <tr>
-        <td><%= link_to specialization.name, specialization_path(specialization) %></td>
+        <th>Name</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @specializations.each do |specialization| %>
+        <tr>
+          <td><%= link_to specialization.name, specialization_path(specialization) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
