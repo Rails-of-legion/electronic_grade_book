@@ -41,6 +41,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_170843) do
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
+    t.string "form_of_education"
     t.bigint "curator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -61,12 +62,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_170843) do
 
   create_table "intermediate_attestations", force: :cascade do |t|
     t.bigint "subject_id", null: false
+    t.bigint "group_id", null: false
     t.string "name"
     t.string "assessment_type"
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "teacher_id"
+    t.index ["group_id"], name: "index_intermediate_attestations_on_group_id"
     t.index ["subject_id"], name: "index_intermediate_attestations_on_subject_id"
     t.index ["teacher_id"], name: "index_intermediate_attestations_on_teacher_id"
   end
@@ -190,6 +193,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_170843) do
   add_foreign_key "groups", "users", column: "curator_id"
   add_foreign_key "groups_intermediate_attestations", "groups"
   add_foreign_key "groups_intermediate_attestations", "intermediate_attestations"
+  add_foreign_key "intermediate_attestations", "groups"
   add_foreign_key "intermediate_attestations", "subjects"
   add_foreign_key "intermediate_attestations", "users", column: "teacher_id"
   add_foreign_key "notifications_users", "notifications"

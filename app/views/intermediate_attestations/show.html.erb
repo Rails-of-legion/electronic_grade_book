@@ -1,33 +1,18 @@
-<h1>Intermediate Attestation Details</h1>
-<p>  <b>Name:</b> <%= @intermediate_attestation.name %></p>
-<p>  <b>Date:</b> <%= @intermediate_attestation.date %></p>
-<p>  <b>Assessment Type:</b> <%= @intermediate_attestation.assessment_type %></p>
-<p>  <b>Subject:</b> <%= @intermediate_attestation.subject.try(:name) %></p>
+<div class="container">
+  <h1 class="text-center mb-4">Intermediate Attestation Details</h1>
+  
+  <div class="card">
+    <div class="card-body">
+      <p><strong>Name:</strong> <%= @intermediate_attestation.name %></p>
+      <p><strong>Date:</strong> <%= @intermediate_attestation.date %></p>
+      <p><strong>Assessment Type:</strong> <%= @intermediate_attestation.assessment_type %></p>
+      <p><strong>Subject:</strong> <%= @intermediate_attestation.subject.try(:name) || 'N/A' %></p>
+    </div>
+  </div>
 
-<h2>Record Books</h2>
-
-<% @intermediate_attestation.groups.each do |group| %>
-  <h3>Group: <%= group.name %></h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Student</th>
-        <th>Marks</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% group.record_books.each do |record_book| %>
-        <tr>
-          <td><%= record_book.user.name %></td>
-          <td>
-            <% grade = record_book.grades.where(subject: @intermediate_attestation.subject).first %>
-            <%= grade&.grade %> 
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
-
-<%= link_to "Edit", edit_intermediate_attestation_path(@intermediate_attestation), class: "btn btn-primary" %>
-<%= link_to "Back", intermediate_attestations_path, class: "btn btn-secondary" %>
+  <div class="mt-4">
+    <%= link_to "Edit", edit_intermediate_attestation_path(@intermediate_attestation), class: "btn btn-primary mr-2" %>
+    <%= link_to "Back", intermediate_attestations_path, class: "btn btn-secondary mr-2" %>
+    <%= link_to "Download PDF", intermediate_attestation_path(@intermediate_attestation, format: "pdf"), class: 'btn btn-primary' %>
+  </div>
+</div>

@@ -27,13 +27,18 @@
   </div>
 
   <div class="field">
-    <%= form.label :max_grade %>
-    <%= form.number_field :max_grade %>
+    <%= form.label :subject_id %>
+    <%= form.collection_select :subject_id, @subjects, :id, :name %>
   </div>
 
   <div class="field">
-    <%= form.label :subject_id %>
-    <%= form.collection_select :subject_id, @subjects, :id, :name %>
+    <%= form.label :group_id %>
+    <%= form.collection_select :group_id, @groups, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :teacher_id %>
+    <%= form.collection_select :teacher_id, @teachers, :id, :name %>
   </div>
 
   <div class="actions">

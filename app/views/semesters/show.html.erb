@@ -1,11 +1,14 @@
-<% if @semester.present? %>
-  <h1>Semester Details</h1>
-  <p>Name: <%= @semester.name %></p>
-  <p>Start Date: <%= @semester.start_date %></p>
-  <p>End Date: <%= @semester.end_date %></p>
-
-<% else %>
-  <p>No semester found.</p>
-<% end %>
-
-<%= link_to 'Back', semesters_path %>
+<div class="container mt-2">
+  <ul class="dropdown-menu position-static d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" data-bs-theme="light">
+    <li><a class="dropdown-item rounded-2 active" href="#">Name: <%= @semester.name %></a></li>
+    <li><a class="dropdown-item rounded-2" href="#">Start Date: <%= @semester.start_date %></a></li>
+    <li><a class="dropdown-item rounded-2" href="#">End Date: <%= @semester.end_date %></a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li>
+      <form action="<%= semester_path(@semester) %>" method="post">
+        <%= link_to 'Edit', edit_semester_path(@semester), class: 'btn btn-outline-primary me-1' %>
+        <%= button_to 'Destroy', @semester, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+      </form>
+    </li>
+  </ul>
+</div>

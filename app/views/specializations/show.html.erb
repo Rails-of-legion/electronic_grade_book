@@ -1,14 +1,16 @@
-<h1><%= @specialization.name %></h1>
+<div class="container">
+  <h1 class="text-center mb-4"><%= @specialization.name %></h1>
 
-<% if @specialization.groups.any? %>
-  <h2>Groups:</h2>
-  <ul>
-    <% @specialization.groups.each do |group| %>
-      <li><%= group.name %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>There are no groups for this specialization yet.</p>
-<% end %>
+  <% if @specialization.groups.any? %>
+    <h2>Groups:</h2>
+    <ul class="list-group mb-3">
+      <% @specialization.groups.each do |group| %>
+        <li class="list-group-item"><%= group.name %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="alert alert-info">There are no groups for this specialization yet.</p>
+  <% end %>
 
-<%= link_to 'Back', specializations_path %></p>
+  <%= link_to 'Back', specializations_path, class: "btn btn-secondary" %>
+</div>

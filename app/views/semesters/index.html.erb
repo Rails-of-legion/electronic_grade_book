@@ -1,36 +1,40 @@
-<h1 class="page-header">Semesters</h1>
+<div class="container">
+  <h1 class="page-header mb-4">Semesters</h1>
 
-<div class="semesters-index">
-  <% if @semesters.present? %>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @semesters.each do |semester| %>
+  <div class="semesters-index">
+    <% if @semesters.present? %>
+      <table class="table table-striped">
+        <thead>
           <tr>
-            <td><%= semester.name %></td>
-            <td><%= semester.start_date.strftime("%d.%m.%Y") if semester.start_date.present? %></td>
-            <td><%= semester.end_date.strftime("%d.%m.%Y") if semester.end_date.present? %></td>
-            <td>
-              <div class="btn-group" role="group">
-                <% if semester.persisted? %>
-                  <%= link_to 'Show', semester, class: 'btn btn-default' %>
-                <% end %>
-              </div>
-            </td>
+            <th>Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p>No semesters found.</p>
-  <% end %>
+        </thead>
+        <tbody>
+          <% @semesters.each do |semester| %>
+            <tr>
+              <td><%= semester.name %></td>
+              <td><%= semester.start_date.strftime("%d.%m.%Y") if semester.start_date.present? %></td>
+              <td><%= semester.end_date.strftime("%d.%m.%Y") if semester.end_date.present? %></td>
+              <td>
+                <div class="btn-group" role="group">
+                  <% if semester.persisted? %>
+                    <%= link_to 'Show', semester, class: 'btn btn-outline-primary btn-sm' %>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>No semesters found.</p>
+    <% end %>
 
+    <% if @semesters.present? %>
+      <%= link_to 'Create New Semester', new_semester_path, class: 'btn btn-primary' %>
+    <% end %>
+  </div>
 </div>
-
