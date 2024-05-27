@@ -9,33 +9,96 @@
 
   <h1 class="text-center mb-4">Record Books</h1>
   
-  <%= simple_form_for :grade, url: group_path(month: params[:month]), method: :get, html: { class: 'form-inline mb-3' } do |f| %>
+  <%= simple_form_for :grade, url: group_path, method: :get, html: { class: 'form-inline mb-3', id: 'grade-form' } do |f| %>
     <div class="form-group mr-2">
-      <%= f.input :selected_month, collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, prompt: 'Выберите месяц', input_html: { name: 'month', class: 'form-control' } %>
+      <%= f.input :selected_month, collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, prompt: 'Выберите месяц', input_html: { name: 'month', class: 'form-control', id: 'month-select', value: params[:month] } %>
     </div>
     <div class="form-group mr-2">
-      <%= f.input :subject_id, collection: @group.specialization.subjects, label_method: :name, value_method: :id, prompt: 'Выберите предмет', input_html: { name: 'subject_id', class: 'form-control', onchange: 'this.form.submit();' } %> 
+      <%= f.input :subject_id, collection: @group.specialization.subjects, label_method: :name, value_method: :id, prompt: 'Выберите предмет', input_html: { name: 'subject_id', class: 'form-control', id: 'subject-select', value: params[:subject_id], disabled: !params[:month].present?, onchange: 'this.form.submit();' } %> 
     </div>
     <%= hidden_field_tag :year, Time.now.year %>
   <% end %>
 
   <% if params[:month] && params[:subject_id] %>
-    <%= render partial: 'form_teacher' %>
+    <div id="form-teacher">
+      <%= render partial: 'form_teacher' %>
+    </div>
   <% end %>
 
-  <%= simple_form_for Grade.new, url: {controller: "grades", action: "create"}, method: :post, html: { class: 'mb-3' } do |f| %>
-    <div class="form-group mb-2">
-      <%= f.input :date, collection: (1..Time.days_in_month(@month.to_i)), prompt: 'Выберите день', input_html: { class: 'form-control' } %>
-    </div>
-    <div class="form-group mb-2">
-      <%= f.input :grade, collection: (1..5), prompt: 'Добавить оценку', input_html: { class: 'form-control' } %>
-    </div>
-    <div class="form-group mb-2">
-      <%= f.input :record_book_id, collection: RecordBook.where(specialization_id: @group.specialization.id, group_id: @group.id).map { |record_book| [record_book.user.name, record_book.id] }, prompt: 'Выберите студента', input_html: { class: 'form-control' } %>
-    </div>
-    <%= hidden_field_tag :month, @month %>
-    <%= hidden_field_tag :year, Time.now.year %>
-    <%= f.hidden_field :subject_id, value: params[:subject_id] %>
-    <%= f.button :submit, 'Добавить оценку', class: 'btn btn-primary' %>
-  <% end %>
+  <button id="toggle-grade-form" class="btn btn-primary mt-3">Добавить оценку</button>
+  <div id="grade-form-container" style="display: none;">
+    <% month_days = params[:month] ? (1..Time.days_in_month(params[:month].to_i)).to_a : [] %>
+    <%= simple_form_for Grade.new, url: {controller: "grades", action: "create"}, method: :post, html: { class: 'mb-3', id: 'grade-create-form' } do |f| %>
+      <div class="form-group mb-2">
+        <%= f.input :date, collection: month_days, prompt: 'Выберите день', input_html: { class: 'form-control', id: 'date-select' } %>
+      </div>
+      <div class="form-group mb-2">
+        <%= f.input :grade, collection: (1..5), prompt: 'Добавить оценку', input_html: { class: 'form-control', id: 'grade-select' } %>
+      </div>
+      <div class="form-group mb-2">
+        <%= f.input :record_book_id, collection: RecordBook.where(specialization_id: @group.specialization.id, group_id: @group.id).map { |record_book| [record_book.user.name, record_book.id] }, prompt: 'Выберите студента', input_html: { class: 'form-control', id: 'record-book-select' } %>
+      </div>
+      <%= hidden_field_tag :month, params[:month] %>
+      <%= hidden_field_tag :year, Time.now.year %>
+      <%= f.hidden_field :subject_id, value: params[:subject_id] %>
+      <%= f.button :submit, 'Добавить оценку', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var toggleGradeFormButton = document.getElementById('toggle-grade-form');
+    var gradeFormContainer = document.getElementById('grade-form-container');
+
+    toggleGradeFormButton.addEventListener('click', function() {
+      if (gradeFormContainer.style.display === 'none' || gradeFormContainer.style.display === '') {
+        gradeFormContainer.style.display = 'block';
+        toggleGradeFormButton.textContent = 'Скрыть форму';
+      } else {
+        gradeFormContainer.style.display = 'none';
+        toggleGradeFormButton.textContent = 'Добавить оценку';
+      }
+    });
+
+    var monthSelect = document.getElementById('month-select');
+    var subjectSelect = document.getElementById('subject-select');
+    var dateSelect = document.getElementById('date-select');
+    var gradeSelect = document.getElementById('grade-select');
+    var recordBookSelect = document.getElementById('record-book-select');
+
+    // Устанавливаем состояние полей при загрузке страницы
+    if (monthSelect.value) {
+      subjectSelect.disabled = false;
+    }
+
+    if (subjectSelect.value) {
+      dateSelect.disabled = false;
+      gradeSelect.disabled = false;
+      recordBookSelect.disabled = false;
+    }
+
+    monthSelect.addEventListener('change', function() {
+      if (monthSelect.value) {
+        subjectSelect.disabled = false;
+      } else {
+        subjectSelect.disabled = true;
+        dateSelect.disabled = true;
+        gradeSelect.disabled = true;
+        recordBookSelect.disabled = true;
+      }
+    });
+
+    subjectSelect.addEventListener('change', function() {
+      if (subjectSelect.value) {
+        dateSelect.disabled = false;
+        gradeSelect.disabled = false;
+        recordBookSelect.disabled = false;
+      } else {
+        dateSelect.disabled = true;
+        gradeSelect.disabled = true;
+        recordBookSelect.disabled = true;
+      }
+    });
+  });
+</script>

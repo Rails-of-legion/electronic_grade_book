@@ -37,22 +37,6 @@
     </tbody>
   </table>
 
-  <% if current_user.has_role? :teacher %> 
-    <%= simple_form_for Grade.new, url: {controller: "grades", action: "create"}, method: :post do |f| %>
-      <%= f.input :date, collection: (1..Time.days_in_month(@month.to_i)), prompt: 'Select a day', input_html: { class: 'form-control mb-2' } %>
-      <%= f.input :subject_id, collection: @record_book.specialization.subjects.map { |subject| [subject.name, subject.id] }, prompt: 'Select a subject', input_html: { class: 'form-control mb-2' } %>
-      <%= f.input :grade, collection: (1..5), prompt: 'Add a grade', input_html: { class: 'form-control mb-2' } %>
-      <%= f.input :record_book_id, collection: RecordBook.all.map { |record_book| [record_book.user.name, record_book.id] }, prompt: 'Select a student', input_html: { class: 'form-control mb-2' } %>
-      <%= hidden_field_tag :month, @month %>
-      <%= hidden_field_tag :year, Time.now.year %>
-      <%= f.button :submit, 'Add Grade', class: 'btn btn-primary' %>
-    <% end %> 
-  <% end %>
-
-  <% if current_user.has_role? :teacher %>
-    <%= link_to 'Edit', edit_record_book_path(@record_book), class: 'btn btn-secondary mr-2' %> 
-  <% end %>
-
   <% if current_user.has_role? :student %>
     <%= link_to 'Back', user_path(current_user), class: 'btn btn-light' %>
   <% else %>
