@@ -108,6 +108,9 @@ GEM
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     builder (3.2.4)
+    bullet (7.1.6)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     byebug (11.1.3)
     cancancan (3.5.0)
     capybara (3.40.0)
@@ -205,6 +208,7 @@ GEM
     minitest (5.22.3)
     msgpack (1.7.2)
     mutex_m (0.2.0)
+    n1_loader (1.7.4)
     net-imap (0.4.10)
       date
       net-protocol
@@ -386,6 +390,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
+    uniform_notifier (1.16.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.1)
@@ -410,6 +415,7 @@ DEPENDENCIES
   activeadmin
   arctic_admin
   bootsnap
+  bullet
   byebug
   cancancan
   capybara
@@ -421,6 +427,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jsbundling-rails (~> 1.3)
+  n1_loader
   pg (~> 1.1)
   prawn
   prawn-rails
