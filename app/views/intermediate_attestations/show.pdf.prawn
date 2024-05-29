@@ -45,7 +45,7 @@ students_with_grades_count = RecordBook.joins(:grades)
 
 # Получаем общее количество студентов в группе
 total_students_count = RecordBook.joins(:group)
-                                  .where(groups: { id: @intermediate_attestation.group_id })
+                                  .where(groups: { id: @intermediate_attestation.group_ids })
                                   .count
 
 students_with_grades_count = RecordBook.joins(:grades)

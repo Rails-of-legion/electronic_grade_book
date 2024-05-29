@@ -1,21 +1,21 @@
 class UsersController < ApplicationController
-  def index
-    @users = User.all
-    authorize! :read, User
-    return unless current_user.has_role?(:student)
-
-    @users = @users.with_role(:teacher)
-  end
-
   def show
     @user = User.find(params[:id])
     @notificationsUser = NotificationsUser.where(user_id: @user.id)
     authorize! :read, @user
   end
 
+  def generate_pdf(student)
+    IndividualReport.new(student).generate_report
+  end
+
   def edit
     @user = User.find(params[:id])
     authorize! :update, @user
+    return if @user == current_user
+
+    redirect_to root_path, alert: 'Access denied!'
+    nil
   end
 
   def update
@@ -29,10 +29,18 @@ class UsersController < ApplicationController
 
     redirect_to root_path, alert: 'Access denied!'
     nil
+    return if current_user == @user
+
+    redirect_to root_path, alert: 'Access denied!'
+    nil
   end
 
   def edit_email
     @user = User.find(params[:id])
+    return if current_user == @user
+
+    redirect_to root_path, alert: 'Access denied!'
+    nil
     return if current_user == @user
 
     redirect_to root_path, alert: 'Access denied!'

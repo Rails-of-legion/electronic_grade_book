@@ -5,7 +5,7 @@
     <h2>Groups:</h2>
     <ul class="list-group mb-3">
       <% @specialization.groups.each do |group| %>
-        <li class="list-group-item"><%= group.name %></li>
+        <li class="list-group-item"><%= link_to group.name, group_path(group) %></li>
       <% end %>
     </ul>
   <% else %>
