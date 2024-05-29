@@ -58,7 +58,6 @@ def create_group_with_specialization_and_subjects
 
   group = Group.create!(
     name: Faker::Educator.unique.secondary_school,
-    form_of_education: 'Очная',
     curator: User.with_role(:teacher).sample,
     specialization: specialization
   )
@@ -68,7 +67,7 @@ def create_group_with_specialization_and_subjects
   subjects_count = 4
   created_subjects = 0
   while created_subjects < subjects_count
-    subject_name = Faker::Educator.subject
+    subject_name = Faker::Educator.subject 
     if Subject.where(name: subject_name).empty?
       subject = Subject.create!(
         name: subject_name,
@@ -105,7 +104,7 @@ groups = 5.times.map { create_group_with_specialization_and_subjects }
   rb = RecordBook.create!(
     custom_number: Faker::Code.npi,
     user: student,
-    specialization: group.specialization,
+    specialization: group.specialization, 
     group: group
   )
   Rails.logger.debug { "Создана зачетная книжка для студента #{student.email} из группы #{group.name}" }
@@ -130,28 +129,6 @@ grade = Grade.create!(
 )
 
 Rails.logger.debug { "Создана оценка #{grade.grade} для студента #{student.email} по предмету #{subject.name}" }
-
-10.times do
-  # Выбираем случайную группу для обязательного заполнения `group_id`
-  group = Group.all.sample
-
-  # Создаем промежуточную аттестацию с обязательным `group_id`
-  intermediate_attestation = IntermediateAttestation.create!(
-    name: Faker::Educator.course_name,
-    date: Faker::Date.between(from: 1.month.ago, to: Time.zone.today),
-    assessment_type: ["Тестирование", "Экзамен", "Контрольная работа"].sample,
-    subject: Subject.all.sample,
-    teacher: User.with_role(:teacher).sample,
-    group_id: group.id # Указание обязательного `group_id`
-  )
-
-  # Добавляем дополнительные случайные группы к промежуточной аттестации
-  additional_groups = Group.where.not(id: group.id).sample(rand(0..2)) # Выбираем от 0 до 2 дополнительных групп, исключая уже выбранную
-  intermediate_attestation.groups << additional_groups unless additional_groups.empty?
-
-  Rails.logger.debug { "Создана промежуточная аттестация: #{intermediate_attestation.name} с группой #{group.name}" }
-end
-
 end
 
 notification_data = [
@@ -175,25 +152,6 @@ notifications.each do |notification|
       status: false
     )
   end
-end
-
-5.times do
-  intermediate_attestation = IntermediateAttestation.create!(
-    name: Faker::Lorem.sentence(word_count: 3),
-    assessment_type: ["Тест", "Эссе", "Практика"].sample,
-    subject: Subject.all.sample,
-    teacher: User.with_role(:teacher).sample,
-    date: Faker::Date.between(from: 1.year.ago, to: 1.year.from_now)
-  )
-  Rails.logger.debug { "Создана промежуточная аттестация: #{intermediate_attestation.name}" }
-
-  # Привязка промежуточной аттестации к случайной группе
-  group = Group.all.sample
-  GroupsIntermediateAttestation.create!(
-    group: group,
-    intermediate_attestation: intermediate_attestation
-  )
-  Rails.logger.debug { "Привязана промежуточная аттестация #{intermediate_attestation.name} к группе #{group.name}" }
 end
 
 puts "Сиды успешно созданы!"
