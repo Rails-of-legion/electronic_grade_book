@@ -21,4 +21,10 @@ ActiveAdmin.register Group do
     end
     f.actions
   end
+
+  controller do
+    def scoped_collection
+      super.includes :curator, :specialization
+    end
+  end
 end

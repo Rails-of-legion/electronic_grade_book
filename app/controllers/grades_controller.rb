@@ -3,7 +3,7 @@ class GradesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @grades = Grade.all
+    @grades = Grade.includes(:record_book, :subject).all
   end
 
   def show; end
@@ -52,6 +52,6 @@ class GradesController < ApplicationController
   end
 
   def set_grade
-    @grade = Grade.find(params[:id])
+    @grade = Grade.includes(:record_book, :subject).find(params[:id])
   end
 end

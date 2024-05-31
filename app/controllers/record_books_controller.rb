@@ -3,7 +3,7 @@ class RecordBooksController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @record_books = RecordBook.all
+    @record_books = RecordBook.includes(:user).all
   end
 
   def show
@@ -52,6 +52,6 @@ class RecordBooksController < ApplicationController
   end
 
   def set_record_book
-    @record_book = RecordBook.find(params[:id])
+    @record_book = RecordBook.includes(:user).find(params[:id])
   end
 end

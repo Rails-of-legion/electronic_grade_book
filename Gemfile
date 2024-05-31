@@ -57,8 +57,6 @@ group :development, :test do
 
   gem 'byebug'
 
-  gem 'n1_loader', require: 'n1_loader/active_record'
-
   gem 'bullet'
   
 end
