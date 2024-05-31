@@ -6,23 +6,23 @@
     <p><strong>Curator:</strong> <%= @group.try(:curator).try(:name) || 'Unassigned' %></p>
     <p><strong>Specialization:</strong> <%= @group.specialization.name %></p>
   </div>
-
-  <h1 class="text-center mb-4">Record Books</h1>
+ 
+<h1 class="text-center mb-4">Record Books</h1>
   
-  <%= simple_form_for :grade, url: group_path(month: params[:month]), method: :get, html: { class: 'form-inline mb-3' } do |f| %>
-    <div class="form-group mr-2">
-      <%= f.input :selected_month, collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, prompt: 'Выберите месяц', input_html: { name: 'month', class: 'form-control' } %>
-    </div>
-    <div class="form-group mr-2">
-      <%= f.input :subject_id, collection: @group.specialization.subjects, label_method: :name, value_method: :id, prompt: 'Выберите предмет', input_html: { name: 'subject_id', class: 'form-control', onchange: 'this.form.submit();' } %> 
-    </div>
-    <%= hidden_field_tag :year, Time.now.year %>
+<%= simple_form_for :grade, url: group_path(month: params[:month]), method: :get, html: { class: 'form-inline mb-3' } do |f| %>
+  <div class="form-group mr-2">
+    <%= f.input :selected_month, collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, prompt: 'Выберите месяц', input_html: { name: 'month', class: 'form-control' } %>
+  </div>
+  <div class="form-group mr-2">
+    <%= f.input :subject_id, collection: @group.specialization.subjects, label_method: :name, value_method: :id, prompt: 'Выберите предмет', input_html: { name: 'subject_id', class: 'form-control', onchange: 'this.form.submit();' } %> 
+  </div>
+  <%= hidden_field_tag :year, Time.now.year %>
   <% end %>
 
   <% if params[:month] && params[:subject_id] %>
     <%= render partial: 'form_teacher' %>
   <% end %>
-
+  
   <%= simple_form_for Grade.new, url: {controller: "grades", action: "create"}, method: :post, html: { class: 'mb-3' } do |f| %>
     <div class="form-group mb-2">
       <%= f.input :date, collection: (1..Time.days_in_month(@month.to_i)), prompt: 'Выберите день', input_html: { class: 'form-control' } %>
@@ -37,5 +37,6 @@
     <%= hidden_field_tag :year, Time.now.year %>
     <%= f.hidden_field :subject_id, value: params[:subject_id] %>
     <%= f.button :submit, 'Добавить оценку', class: 'btn btn-primary' %>
+    <%= link_to "Back", groups_path, class: "btn btn-secondary" %>
   <% end %>
 </div>

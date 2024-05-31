@@ -12,23 +12,8 @@
     <tbody>
       <% @specializations.each do |specialization| %>
         <tr>
-          <td><%= specialization.name %></td>
-          <td><%= link_to 'Show', specialization, class: "btn btn-info" %></td>
-          <% if current_user.student? || current_user.teacher? %>
-            <!-- Скрыть ссылки для студентов и учителей -->
-          <% else %>
-            <td><%= link_to 'Edit', edit_specialization_path(specialization), class: "btn btn-warning" %></td>
-            <td>
-              <%= button_to 'Destroy', specialization, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-            </td>
-          <% end %>
+          <td><%= link_to specialization.name, specialization_path(specialization) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
-  <br>
-  <% if current_user.admin? %>
-    <%= link_to 'New Specialization', new_specialization_path, class: "btn btn-primary" %>
-  <% end %>
-</div>

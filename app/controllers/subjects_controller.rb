@@ -2,6 +2,23 @@ class SubjectsController < ApplicationController
   before_action :set_subject, only: %i[show edit update destroy]
   load_and_authorize_resource
   def index
+    return unless current_user.has_role? :student
+
+    record_book = current_user.record_book
+
+    if record_book
+      @subjects = record_book.group.specialization.subjects
+      if params[:search].present?
+        @subjects = @subjects.where('name LIKE ? OR description LIKE ?', "%#{params[:search]}%",
+                                    "%#{params[:search]}%")
+      end
+    else
+      flash[:error] = 'У вас нет Record Book.'
+      @subjects = []
+    end
+
+    return unless current_user.has_role? :teacher
+
     @subjects = Subject.all
   end
 
