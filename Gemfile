@@ -107,3 +107,5 @@ gem 'prawn-table'
 gem 'prawn-rails'
 
 gem 'arctic_admin'
+
+gem 'jquery-rails'
