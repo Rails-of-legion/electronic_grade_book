@@ -4,7 +4,7 @@ class SpecializationsController < ApplicationController
 
   # GET /specializations
   def index
-    @specializations = Specialization.all
+    @pagy, @specializations = pagy(Specialization.all, items: 10)
   end
 
   # GET /specializations/1

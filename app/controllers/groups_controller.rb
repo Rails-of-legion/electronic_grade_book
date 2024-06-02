@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
 
   # GET /groups
   def index
-    @groups = Group.all
+    @pagy, @groups = pagy(Group.all, items: 10)
   end
 
   # GET /groups/1
