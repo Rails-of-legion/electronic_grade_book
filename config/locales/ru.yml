@@ -1,0 +1,10 @@
+ru:
+  subjects: "Предметы"
+  search: "Поиск"
+  name: "Имя"
+  actions: "Действия"
+  show: "Показать"
+  no_subjects_found: "Предметы не найдены"
+  back: "Назад"
+  subject: "Предмет"
+  description: "Описание"
