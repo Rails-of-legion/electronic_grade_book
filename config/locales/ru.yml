@@ -38,3 +38,12 @@ ru:
   start_date: "Дата начала"
   end_date: "Дата окончания"
   no_semesters_found: "Семестры не найдены"
+  intermediate_attestations:
+    list: "Список промежуточных аттестаций"
+    details: "Детали промежуточной аттестации"
+    name: "Название"
+    date: "Дата"
+    assessment_type: "Тип аттестации"
+    subject: "Предмет"
+    back: "Назад"
+    download_pdf: "Скачать PDF"
