@@ -1,15 +1,15 @@
-<h2><%= t('change_your_email') %></h2>
+<h2><%= t('users.change_your_email') %></h2>
 <%= simple_form_for :user, url: update_email_path do |f| %>
   <div class="form-inputs">
     <%= f.input :email,
-                label: t('new_email'),
+                label: t('users.new_email'),
                 required: true,
                 autofocus: true,
-                input_html: { type: "email" } %>
+                input_html: { type: "users.email" } %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, t('change_email') %>
-    <%= link_to t('back'), user_path(@user) %>
+    <%= f.button :submit, t('users.change_email') %>
+    <%= link_to t('users.back'), user_path(@user) %>
   </div>
 <% end %>

@@ -1,31 +1,95 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  users:
+   users: "Users"
+   first_name: "First Name"
+   last_name: "Last Name"
+   role: "Role"
+   show: "Show"
+   no_users_found: "No Users Found"
+   personal_profile: "Personal Profile"
+   date_of_birth: "Date of Birth"
+   show_notifications: "Show Notifications"
+   change_password: "Change Password"
+   change_email: "Change Email"
+   specialization: "Specialization"
+   group: "Group"
+   record_book: "Record Book"
+   status: "Status"
+   you_dont_have_any_new_notifications: "You Don't Have Any New Notifications"
+   read_notifications: "Read Notifications"
+   email: "Email"
+   change_your_email: "Change Your Email"
+   new_email: "New Email"
+   change_email: "Change Email"
+   change_your_password: "Change Your Password"
+   new_password: "New Password"
+   confirm_your_new_password: "Confirm Your New Password"
+   characters_minimum: "Minimum Characters"
+   change_my_password: "Change My Password"
+   back: "Back"
+   learn: "Learn"
+   
+  subjects:
+    subjects: "Subjects"
+    search: "Search"
+    name: "Name"
+    actions: "Actions"
+    show: "Show"
+    no_subjects_found: "No Subjects Found"
+    back: "Back"
+    subject: "Subject"
+    description: "Description"
+    back: "Back"
+
+  semesters:
+    show: "Show"
+    back: "Back"
+    actions: "Actions"
+    semesters: "Semesters"
+    start_date: "Start Date"
+    end_date: "End Date"
+    no_semesters_found: "No Semesters Found"
+
+  intermediate_attestations:
+    list: "List of Intermediate Attestations"
+    details: "Intermediate Attestation Details"
+    name: "Name"
+    date: "Date"
+    assessment_type: "Assessment Type"
+    subject: "Subject"
+    back: "Back"
+    download_pdf: "Download PDF"
+
+  specializations:
+    name: "Name"
+    list: "Specializations"
+    details: "Specialization Details"
+    groups: "Groups"
+    no_groups: "No Groups for This Specialization Yet"
+    back: "Back"
+
+  groups:
+    name: "Name"
+    list: "Group List"
+    details: "Group Details"
+    curator: "Curator"
+    unassigned: "Unassigned"
+    specialization: "Specialization"
+    record_books: "Record Books"
+    select_month: "Select Month"
+    select_subject: "Select Subject"
+    add_grade: "Add Grade"
+    select_day: "Select Day"
+    select_student: "Select Student"
+    back: "Back"
+
+  navbar:
+    home: "Home"
+    about: "About Us"
+    profile: "Profile"
+    subjects: "Subjects"
+    semesters: "Semesters"
+    intermediate_attestations: "Intermediate Attestations"
+    groups: "Groups"
+    specializations: "Specializations"
+    individual_report: "Individual Report"
