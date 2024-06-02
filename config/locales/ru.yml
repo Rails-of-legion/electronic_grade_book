@@ -34,3 +34,7 @@ ru:
   confirm_your_new_password: "Подтвердите ваш новый пароль"
   characters_minimum: "минимальное количество символов"
   change_my_password: "Изменить мой пароль"
+  semesters: "Семестры"
+  start_date: "Дата начала"
+  end_date: "Дата окончания"
+  no_semesters_found: "Семестры не найдены"

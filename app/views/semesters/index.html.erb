@@ -1,15 +1,15 @@
 <div class="container">
-  <h1 class="page-header mb-4">Semesters</h1>
+  <h1 class="page-header mb-4"><%= t('semesters') %></h1>
 
   <div class="semesters-index">
     <% if @semesters.present? %>
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Actions</th>
+            <th><%= t('name') %></th>
+            <th><%= t('start_date') %></th>
+            <th><%= t('end_date') %></th>
+            <th><%= t('actions') %></th>
           </tr>
         </thead>
         <tbody>
@@ -21,7 +21,7 @@
               <td>
                 <div class="btn-group" role="group">
                   <% if semester.persisted? %>
-                    <%= link_to 'Show', semester, class: 'btn btn-outline-primary btn-sm' %>
+                    <%= link_to t('show'), semester, class: 'btn btn-outline-primary btn-sm' %>
                   <% end %>
                 </div>
               </td>
@@ -30,7 +30,7 @@
         </tbody>
       </table>
     <% else %>
-      <p>No semesters found.</p>
+      <p><%= t('no_semesters_found') %></p>
     <% end %>
   </div>
 </div>
