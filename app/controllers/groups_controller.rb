@@ -13,7 +13,6 @@ class GroupsController < ApplicationController
     @month = params[:month] || Time.zone.today.month
     @record_books = @group.record_books.includes(:user)
   end
-  
 
   # GET /groups/new
   def new

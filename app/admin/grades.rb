@@ -35,9 +35,9 @@ ActiveAdmin.register Grade do
 
   controller do
     def scoped_collection
-      super.includes :record_book, :subject
+      super.includes :record_book, :subject, record_book: :user
     end
-    
+
     def create
       @grade = Grade.new(permitted_params[:grade])
       create!
