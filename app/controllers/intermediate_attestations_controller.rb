@@ -3,7 +3,8 @@ class IntermediateAttestationsController < ApplicationController
   load_and_authorize_resource
   def index
     @intermediate_attestations = IntermediateAttestation.includes(:subject).all
-  end  
+    @pagy, @intermediate_attestations = pagy(IntermediateAttestation.all, items: 10)
+  end
 
   def show
     @groups = @intermediate_attestation.groups
