@@ -109,3 +109,4 @@ gem 'prawn-rails'
 gem 'arctic_admin'
 
 gem 'rails-i18n'
+gem 'pagy'

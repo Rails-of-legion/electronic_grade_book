@@ -2,6 +2,7 @@ class SubjectsController < ApplicationController
   before_action :set_subject, only: %i[show edit update destroy]
   load_and_authorize_resource
   def index
+    @pagy, @subjects = pagy(Subject.all, items: 10)
     return unless current_user.has_role? :student
 
     record_book = current_user.record_book
@@ -17,9 +18,7 @@ class SubjectsController < ApplicationController
       @subjects = []
     end
 
-    return unless current_user.has_role? :teacher
-
-    @subjects = Subject.all
+    nil unless current_user.has_role? :teacher
   end
 
   def show; end
