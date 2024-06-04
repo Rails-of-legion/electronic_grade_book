@@ -13,7 +13,7 @@ ActiveAdmin.register User do
   filter :record_book_specialization_id_eq, as: :select, collection: lambda {
                                                                        Specialization.all
                                                                      }, label: 'Education program', joins: :record_book
-  # Index (Read)
+
   index do
     selectable_column
     id_column
@@ -27,7 +27,6 @@ ActiveAdmin.register User do
     actions
   end
 
-  # New/Create
   form do |f|
     f.inputs do
       f.input :first_name
@@ -82,7 +81,6 @@ ActiveAdmin.register User do
     active_admin_comments
   end
 
-  # Edit/Update and Create
   controller do
     def update
       @user = User.find(params[:id])

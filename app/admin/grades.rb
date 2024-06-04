@@ -23,7 +23,7 @@ ActiveAdmin.register Grade do
 
   form do |f|
     f.inputs do
-      f.input :record_book, as: :select, collection: RecordBook.joins(:user).where(users: { id: User.with_role(:student).select(:id) }), label: 'Студент', member_label: proc { |rb|
+      f.input :record_book, as: :select, collection: RecordBook.joins(:user).where(users: { id: User.with_role(:student).select(:id) }), label: 'Student', member_label: proc { |rb|
                                                                                                                                                                            rb.user.name
                                                                                                                                                                          }
       f.input :subject

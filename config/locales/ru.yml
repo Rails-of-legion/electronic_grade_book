@@ -111,3 +111,15 @@ ru:
     teacher: "Учитель"
     student: "Студент"
 
+  active_admin:
+    intermediate_attestations:
+      intermediate_attestation: 'Промежуточная аттестация'
+      intermediate_attestation_details: 'Детали промежуточной аттестации'
+      name: 'Имя'
+      date: 'Дата'
+      assessment_type: 'Тип аттестации'
+      subject: 'Предмет'
+      groups: 'Группы'
+      teacher: 'Учитель'
+      create: "Создать"
+      save_changes: "Сохранить изменения"

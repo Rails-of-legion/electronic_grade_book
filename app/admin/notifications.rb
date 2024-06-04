@@ -1,7 +1,5 @@
 ActiveAdmin.register Notification do
   permit_params :message, :date, :status, user_ids: []
-
-  # Отображаемые поля в списке
   index do
     selectable_column
     id_column
