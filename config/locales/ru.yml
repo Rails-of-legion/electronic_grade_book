@@ -132,3 +132,12 @@ ru:
       specialization: "Специализация"
       create: "Создать"
       save_changes: "Сохранить изменения"
+    notifications:
+      notifications: "Уведомления"
+      notification: "Уведомление"
+      notification_details: "Детали Уведомления"
+      message: "Сообщение"
+      date: "Дата"
+      users: "Пользователи"
+      create: "Создать"
+      save_changes: "Сохранить изменения"
