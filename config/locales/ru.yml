@@ -123,3 +123,12 @@ ru:
       teacher: 'Учитель'
       create: "Создать"
       save_changes: "Сохранить изменения"
+    groups:
+      groups: "Группы"
+      group: "Группа"
+      group_details: "Детали Группы"
+      name: "Название"
+      curator: "Куратор"
+      specialization: "Специализация"
+      create: "Создать"
+      save_changes: "Сохранить изменения"
