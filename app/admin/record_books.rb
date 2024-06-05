@@ -13,7 +13,7 @@ ActiveAdmin.register RecordBook do
     actions
   end
 
-  show title: proc { I18n.t('active_admin.record_books.record_book') } do
+  show do
     attributes_table do
       row I18n.t('active_admin.record_books.custom_number') do |record_book|
         record_book.custom_number

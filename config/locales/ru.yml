@@ -174,3 +174,50 @@ ru:
       semester_details: 'Детали семестра'
       create: 'Создать'
       save_changes: 'Сохранить изменения'
+    specializations:
+      specializations: 'Специализации'
+      name: 'Название'
+      details: 'Детали'
+      subjects: 'Предметы'
+      name_of_the_item: 'Название предмета'
+      description: 'Описание'
+      groups: 'Группы'
+      curator: 'Куратор'
+      created_at: 'Дата создания'
+      updated_at: 'Дата обновления'
+      create: 'Создать'
+      save_changes: 'Сохранить изменения'
+    subjects:
+      subjects: "Предметы"
+      name: "Название"
+      description: "Описание"
+      subject_details: "Детали предмета"
+      create: "Создать"
+      save_changes: "Сохранить изменения"
+    users:
+      users: 'Пользователи'
+      name: 'Имя'
+      email: 'Электронная почта'
+      roles: 'Роли'
+      status: 'Статус'
+      created_at: 'Дата создания'
+      first_name: 'Имя'
+      middle_name: 'Отчество'
+      last_name: 'Фамилия'
+      record_book_number: 'Номер зачетной книжки'
+      group: 'Группа'
+      education_program: 'Образовательная программа'
+      user_details: 'Детали пользователя'
+      password: 'Пароль'
+      password_confirmation: 'Подтверждение пароля'
+      date_of_birth: 'Дата рождения'
+      phone_number: 'Номер телефона'
+      create: 'Создать'
+      save_changes: 'Сохранить изменения'
+      user_updated: 'Пользователь обновлен'
+      user_created: 'Пользователь создан'
+      specialization: 'Специализация'
+      subjects_of_the_current_semester: 'Предметы текущего семестра'
+      grades: 'Оценки'
+      subject: 'Предмет'
+
