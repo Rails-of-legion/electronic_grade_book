@@ -1,7 +1,7 @@
 class IndividualReport
   def self.generate_pdf(intermediate_attestation_id, record_book_id)
     intermediate_attestation = IntermediateAttestation.find(intermediate_attestation_id)
-    record_book = RecordBook.find(record_book_id)
+    record_book = RecordBook.includes(:user).find(record_book_id)
 
     Prawn::Document.new do
       font_families.update('TimesNewRoman' => {

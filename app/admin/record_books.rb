@@ -53,5 +53,11 @@ ActiveAdmin.register RecordBook do
       end
     end
   end
+
+  controller do
+    def scoped_collection
+      super.includes :user, :specialization, :group
+    end
+  end
 end
   
