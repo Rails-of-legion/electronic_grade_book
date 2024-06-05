@@ -2,7 +2,7 @@ class SemestersController < ApplicationController
   before_action :set_semester, only: %i[show edit update destroy]
   load_and_authorize_resource
   def index
-    @semesters = Semester.all
+    @pagy, @semesters = pagy(Semester.all, items: 10)
   end
 
   def show; end

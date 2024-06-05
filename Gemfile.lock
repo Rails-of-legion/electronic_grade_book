@@ -108,6 +108,9 @@ GEM
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     builder (3.2.4)
+    bullet (7.1.6)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     byebug (11.1.3)
     cancancan (3.5.0)
     capybara (3.40.0)
@@ -215,9 +218,12 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.1)
+    nokogiri (1.16.4-x86_64-darwin)
+      racc (~> 1.4)
     nokogiri (1.16.4-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pagy (6.5.0)
     parallel (1.24.0)
     parser (3.3.0.5)
       ast (~> 2.4.1)
@@ -384,6 +390,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
+    uniform_notifier (1.16.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.1)
@@ -401,12 +408,14 @@ GEM
     zeitwerk (2.6.13)
 
 PLATFORMS
+  x86_64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
   activeadmin
   arctic_admin
   bootsnap
+  bullet
   byebug
   cancancan
   capybara
@@ -419,6 +428,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   jsbundling-rails (~> 1.3)
+  pagy
   pg (~> 1.1)
   prawn
   prawn-rails

@@ -28,7 +28,6 @@ class UsersController < ApplicationController
     return if current_user == @user
 
     redirect_to root_path, alert: 'Access denied!'
-    nil
     return if current_user == @user
 
     redirect_to root_path, alert: 'Access denied!'
@@ -40,7 +39,6 @@ class UsersController < ApplicationController
     return if current_user == @user
 
     redirect_to root_path, alert: 'Access denied!'
-    nil
     return if current_user == @user
 
     redirect_to root_path, alert: 'Access denied!'
