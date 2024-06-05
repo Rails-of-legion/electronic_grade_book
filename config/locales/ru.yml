@@ -141,3 +141,36 @@ ru:
       users: "Пользователи"
       create: "Создать"
       save_changes: "Сохранить изменения"
+    grades:
+      grades: 'Оценки'
+      student: 'Студент'
+      record_book: 'Зачетная книжка'
+      subject: 'Предмет'
+      grade: 'Оценка'
+      date: 'Дата'
+      created_at: 'Дата создания'
+      student_first_name: 'Имя студента'
+      grade_details: 'Детали оценки'
+      create: 'Создать'
+      save_changes: 'Сохранить изменения'
+    record_books:
+      record_books: 'Зачетные книжки'
+      custom_number: 'Пользовательский номер'
+      user: 'Пользователь'
+      specialization: 'Специализация'
+      group: 'Группа'
+      created_at: 'Дата создания'
+      record_book_details: 'Детали зачетной книжки'
+      create: 'Создать'
+      save_changes: 'Сохранить изменения'
+      record_book: 'Зачетная книжка'
+      active_admin:
+    semesters:
+      semesters: 'Семестры'
+      name: 'Название'
+      start_date: 'Дата начала'
+      end_date: 'Дата окончания'
+      created_at: 'Дата создания'
+      semester_details: 'Детали семестра'
+      create: 'Создать'
+      save_changes: 'Сохранить изменения'
