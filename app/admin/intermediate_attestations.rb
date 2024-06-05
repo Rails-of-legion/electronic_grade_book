@@ -31,4 +31,10 @@ ActiveAdmin.register IntermediateAttestation do
     end
     f.actions
   end
+
+  controller do
+    def scoped_collection
+      super.includes :groups, :subject, :teacher
+    end
+  end
 end
