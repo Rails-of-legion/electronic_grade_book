@@ -161,6 +161,10 @@ GEM
       activesupport (>= 5.2)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
+    importmap-rails (2.0.1)
+      actionpack (>= 6.0.0)
+      activesupport (>= 6.0.0)
+      railties (>= 6.0.0)
     inherited_resources (1.14.0)
       actionpack (>= 6.0)
       has_scope (>= 0.6)
@@ -421,6 +425,7 @@ DEPENDENCIES
   devise (~> 4.9)
   factory_bot_rails
   faker!
+  importmap-rails
   jbuilder
   jsbundling-rails
   pagy
