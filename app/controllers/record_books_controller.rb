@@ -3,14 +3,15 @@ class RecordBooksController < ApplicationController
   load_and_authorize_resource
 
   def index
-    if params[:group_id].present? 
-      @record_books = RecordBook.where(group_id: params[:group_id])
+    if params[:group_id].present?
+      @record_books = RecordBook.where(group_id: params[:group_id]).includes(:user)
     else
-      @record_books = RecordBook.all
+      @record_books = RecordBook.all.includes(:user)
     end
+
     respond_to do |format|
       format.html
-      format.json { render json: @record_books }
+      format.json { render json: @record_books.to_json(include: { user: { only: [:id, :first_name, :last_name, :middle_name] } }) }
     end
   end
 
@@ -56,7 +57,7 @@ class RecordBooksController < ApplicationController
   private
 
   def record_book_params
-    params.require(:record_book).permit(:record_book_id, :intermediate_attestation_id)
+    params.require(:record_book).permit(:record_book_id, :intermediate_attestation_id, :user_id, :specialit_id, :group_id)
   end
 
   def set_record_book

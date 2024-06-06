@@ -5,12 +5,15 @@ export default class extends Controller {
 
   connect() {
     console.log("SubjectsController: connected");
-    this.updateGroups();
-    this.updateIntermediateAttestations();
+    this.updateAll();
   }
 
   change() {
     console.log("SubjectsController: change event");
+    this.updateAll();
+  }
+
+  updateAll() {
     this.updateGroups();
     this.updateRecordBooks();
     this.updateIntermediateAttestations();
@@ -22,34 +25,39 @@ export default class extends Controller {
     if (specializationId) {
       const url = `/groups.json?specialization_id=${specializationId}`;
       fetch(url)
-        .then((response) => response.json())
+        .then(this.handleFetchResponse)
         .then((groups) => {
           this.populateSelect(this.groupTarget, groups);
           this.clearSelect(this.recordBookTarget);
           this.updateRecordBooks();
-        });
+        })
+        .catch(this.handleFetchError);
     } else {
       this.clearSelect(this.groupTarget);
       this.clearSelect(this.recordBookTarget);
     }
   }
-  
 
   updateRecordBooks() {
     console.log("SubjectsController: updating record books");
     const groupId = this.groupTarget.value;
-    console.log(groupId)
-    console.log('updateRecordBooks')
     if (groupId) {
-      const url = `/record_books.json?group_id=${groupId}`;
-      console.log('if')
-      fetch(url)
-        .then((response) => response.json())
+      const recordBooksUrl = `/record_books.json?group_id=${groupId}`;
+
+      fetch(recordBooksUrl)
+        .then(this.handleFetchResponse)
         .then((recordBooks) => {
-          this.populateSelect(this.recordBookTarget, recordBooks);
-        });
+          console.log("Fetched recordBooks:", recordBooks);
+
+          if (Array.isArray(recordBooks) && recordBooks.length > 0 && recordBooks[0].user) {
+            this.populateSelect(this.recordBookTarget, recordBooks, 'user');
+          } else {
+            console.log("No user property found in recordBooks or recordBooks is empty");
+            this.clearSelect(this.recordBookTarget);
+          }
+        })
+        .catch(this.handleFetchError);
     } else {
-      console.log('else')
       this.clearSelect(this.recordBookTarget);
     }
   }
@@ -60,10 +68,11 @@ export default class extends Controller {
     if (specializationId) {
       const url = `/intermediate_attestations.json?specialization_id=${specializationId}`;
       fetch(url)
-        .then((response) => response.json())
+        .then(this.handleFetchResponse)
         .then((intermediateAttestations) => {
           this.populateSelect(this.intermediateAttestationTarget, intermediateAttestations);
-        });
+        })
+        .catch(this.handleFetchError);
     } else {
       this.clearSelect(this.intermediateAttestationTarget);
     }
@@ -71,15 +80,27 @@ export default class extends Controller {
 
   populateSelect(selectElement, items, nestedKey = null) {
     selectElement.innerHTML = "";
-    selectElement.innerHTML += `<option value="">Выберите...</option>`; 
+    selectElement.innerHTML += `<option value="">Выберите...</option>`;
     items.forEach((item) => {
+      console.log("Processing item:", item);
       const value = nestedKey ? item[nestedKey].id : item.id;
-      const name = nestedKey ? item[nestedKey].name : item.name;
+      const name = nestedKey ? `${item[nestedKey].last_name} ${item[nestedKey].first_name} ${item[nestedKey].middle_name}` : item.name;
       selectElement.innerHTML += `<option value="${value}">${name}</option>`;
     });
   }
 
   clearSelect(selectElement) {
     selectElement.innerHTML = `<option value="">Выберите...</option>`;
+  }
+
+  handleFetchResponse(response) {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  }
+
+  handleFetchError(error) {
+    console.error('Fetch error:', error);
   }
 }

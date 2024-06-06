@@ -108,7 +108,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
-    builder (3.2.4)
+    builder (3.3.0)
     bullet (7.1.6)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
@@ -147,8 +147,16 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
+    ffi (1.17.0-aarch64-linux-gnu)
+    ffi (1.17.0-aarch64-linux-musl)
+    ffi (1.17.0-arm-linux-gnu)
+    ffi (1.17.0-arm-linux-musl)
+    ffi (1.17.0-arm64-darwin)
+    ffi (1.17.0-x86-linux-gnu)
+    ffi (1.17.0-x86-linux-musl)
     ffi (1.17.0-x86_64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.0-x86_64-linux-musl)
     font-awesome-sass (6.5.2)
       sassc (~> 2.0)
     formtastic (5.0.0)
@@ -221,6 +229,14 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.3)
+    nokogiri (1.16.5-aarch64-linux)
+      racc (~> 1.4)
+    nokogiri (1.16.5-arm-linux)
+      racc (~> 1.4)
+    nokogiri (1.16.5-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.16.5-x86-linux)
+      racc (~> 1.4)
     nokogiri (1.16.5-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.16.5-x86_64-linux)
@@ -409,8 +425,19 @@ GEM
     zeitwerk (2.6.15)
 
 PLATFORMS
-  x86_64-darwin-22
-  x86_64-linux
+  aarch64-linux
+  aarch64-linux-gnu
+  aarch64-linux-musl
+  arm-linux
+  arm-linux-gnu
+  arm-linux-musl
+  arm64-darwin
+  x86-linux
+  x86-linux-gnu
+  x86-linux-musl
+  x86_64-darwin
+  x86_64-linux-gnu
+  x86_64-linux-musl
 
 DEPENDENCIES
   activeadmin
@@ -455,4 +482,4 @@ RUBY VERSION
    ruby 3.0.0p0
 
 BUNDLED WITH
-   2.2.3
+   2.5.10
