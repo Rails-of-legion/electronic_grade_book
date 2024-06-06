@@ -1,26 +1,41 @@
+<!-- app/views/groups/_form_teacher.html.erb -->
+
+<%= hidden_field_tag :month, @month %>
+<%= hidden_field_tag :subject_id, @subject_id %>
+
 <table class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
-      <% subject = Subject.find(params[:subject_id]) %>
-      <th><%= Date::MONTHNAMES[@month.to_i] %> / <%= subject.name %></th>
-      <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
-        <th><%= day %></th>
+      <% if @month.present? && @subject_id.present? %>
+        <% subject = Subject.find(@subject_id) %>
+        <th><%= Date::MONTHNAMES[@month.to_i] %> / <%= subject.name %></th>
+        <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
+          <th><%= day %></th>
+        <% end %>
       <% end %>
     </tr>
   </thead>
+
   <tbody>
     <% @record_books.each do |record_book| %>
-    <tr>
-      <td><%= link_to record_book.user.name, record_book_path(record_book) %></td>
-      <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
-        <td>
-          <% date = Date.new(Time.current.year, @month.to_i, day) %>
-          <% grade = record_book.grades.find_by(date: date, subject_id: params[:subject_id]) %>
-          <% if grade %>
-            <%= grade.grade %>
-          <% end %>
-        </td>
-      <% end %>
-    </tr>
-  <% end %>
+      <tr>
+        <td><%= link_to record_book.user.name, record_book_path(record_book) %></td>
+        <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
+          <td>
+            <% date = Date.new(Time.current.year, @month.to_i, day) %>
+            <% grade = record_book.grades.find_by(date: date, subject_id: @subject_id) %>
+            <% if grade %>
+              <%= grade.grade %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
+
+<% if params[:subject_id].present? %>
+  <div id="form-teacher" data-target="grade.formTeacher" data-action="change->grade#changeSubject">
+    <%= render partial: 'form_teacher' %>
+  </div>
+<% end %>

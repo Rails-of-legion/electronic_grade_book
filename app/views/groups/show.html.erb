@@ -11,23 +11,27 @@
   
   <%= simple_form_for :grade, url: group_path, method: :get, html: { class: 'form-inline mb-3', id: 'grade-form' } do |f| %>
     <div class="form-group mr-2">
-      <%= f.input :selected_month, collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, prompt: 'Выберите месяц', input_html: { name: 'month', class: 'form-control', id: 'month-select' } %>
+      <%= f.input :selected_month, collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, prompt: 'Выберите месяц', input_html: { name: 'month', class: 'form-control', id: 'month-select', data: { action: 'change->grade#change' } } %>
     </div>
     <div class="form-group mr-2">
-      <%= f.input :subject_id, collection: @group.specialization.subjects, label_method: :name, value_method: :id, prompt: 'Выберите предмет', input_html: { name: 'subject_id', class: 'form-control', id: 'subject-select', data: { target: 'grade.subjectSelect' }, disabled: true } %> 
+      <%= f.input :subject_id, collection: @group.specialization.subjects, label_method: :name, value_method: :id, prompt: 'Выберите предмет', input_html: { name: 'subject_id', class: 'form-control', id: 'subject-select', data: { target: 'grade.subjectSelect', action: 'change->grade#changeSubject' }, disabled: true } %> 
     </div>
     <%= hidden_field_tag :year, Time.now.year %>
   <% end %>
 
-  <% if params[:month] && params[:subject_id] %>
-    <div id="form-teacher" data-target="grade.formTeacher">
+  <% if params[:month].present? && params[:subject_id].present? %>
+    <div id="form-teacher" data-target="grade.formTeacher" style="display: block;">
+      <%= render partial: 'form_teacher' %>
+    </div>
+  <% else %>
+    <div id="form-teacher" data-target="grade.formTeacher" style="display: none;">
       <%= render partial: 'form_teacher' %>
     </div>
   <% end %>
 
   <button id="toggle-grade-form" class="btn btn-primary mt-3" data-action="click->grade#toggleGradeForm">Добавить оценку</button>
   <div id="grade-form-container" data-target="grade.gradeFormContainer" style="display: none;">
-    <% month_days = params[:month] ? (1..Time.days_in_month(params[:month].to_i)).to_a : [] %>
+    <% month_days = params[:month].present? ? (1..Time.days_in_month(params[:month].to_i)).to_a : [] %>
     <%= simple_form_for Grade.new, url: {controller: "grades", action: "create"}, method: :post, html: { class: 'mb-3', id: 'grade-create-form' } do |f| %>
       <div class="form-group mb-2">
         <%= f.input :date, collection: month_days, prompt: 'Выберите день', input_html: { class: 'form-control', id: 'date-select', data: { target: 'grade.dateSelect' } } %>
