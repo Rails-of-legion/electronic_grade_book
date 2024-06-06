@@ -1,14 +1,15 @@
-     <% if @subjects.present? %>
-       <div class="container mt-5">
-        <h1 class="mb-4">Subjects</h1>
+<% if @subjects.present? %>
+  <div class="container mt-5">
+    <h1 class="mb-4"><%= t 'subjects.subjects' %></h1>
+    
     <div class="row mb-3">
     <div class="col-md-4">
       <%= form_tag subjects_path, method: :get do %>
         <div class="input-group">
-          <%= text_field_tag :search, params[:search], placeholder: "Поиск по названию или описанию", class: "form-control" %>
+          <%= text_field_tag :search, params[:search], placeholder: t('subjects.search'), class: "form-control" %>
           <div class="input-group-append" style="margin-left: 10px;">
-            <%= button_tag type: "search", class: "btn btn-primary", style: "width: 3cm; height: 38px;" do %>
-              Search
+            <%= button_tag type: "subjects.search", class: "btn btn-primary", style: "width: 3cm; height: 38px;" do %>
+              <%= t 'subjects.search' %>
             <% end %>
           </div>
         </div>
@@ -18,8 +19,8 @@
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr>
-          <th>Name</th>
-          <th>Actions</th>
+          <th><%= t 'subjects.name' %></th>
+          <th><%= t 'subjects.actions' %></th>
         </tr>
       </thead>
       <tbody>
@@ -27,7 +28,7 @@
           <tr>
             <td><%= subject.name %></td>
             <td>
-              <%= link_to 'Show', subject, class: 'btn btn-sm btn-info' %>
+              <%= link_to t('subjects.show'), subject, class: 'btn btn-sm btn-info' %>
             </td>
           </tr>
         <% end %>
@@ -38,7 +39,7 @@
   <% else %>
   <div class="container mt-5">
     <div class="alert alert-warning" role="alert">
-      No subjects found.
+      <%= t 'subjects.no_subjects_found' %>
     </div>
   </div>
 <% end %>

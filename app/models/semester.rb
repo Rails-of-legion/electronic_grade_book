@@ -5,4 +5,9 @@ class Semester < ApplicationRecord
 
   has_many :semesters_subjects, dependent: :destroy
   has_many :subjects, through: :semesters_subjects, dependent: :destroy
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "end_date", "id", "id_value", "name", "start_date", "updated_at"]
+  end
+  
 end

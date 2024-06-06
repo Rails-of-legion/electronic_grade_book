@@ -1,20 +1,20 @@
 <div class="container">
-  <h1 class="text-center mb-4">Group Details</h1>
+  <h1 class="text-center mb-4"><%= t('groups.details') %></h1>
   
   <div class="mb-3">
-    <p><strong>Name:</strong> <%= @group.name %></p>
-    <p><strong>Curator:</strong> <%= @group.try(:curator).try(:name) || 'Unassigned' %></p>
-    <p><strong>Specialization:</strong> <%= @group.specialization.name %></p>
+    <p><strong><%= t('groups.name') %>:</strong> <%= @group.name %></p>
+    <p><strong><%= t('groups.curator') %>:</strong> <%= @group.try(:curator).try(:name) || t('groups.unassigned') %></p>
+    <p><strong><%= t('groups.specialization') %>:</strong> <%= @group.specialization.name %></p>
   </div>
  
-<h1 class="text-center mb-4">Record Books</h1>
+<h1 class="text-center mb-4"><%= t('groups.record_books') %></h1>
   
 <%= simple_form_for :grade, url: group_path(month: params[:month]), method: :get, html: { class: 'form-inline mb-3' } do |f| %>
   <div class="form-group mr-2">
-    <%= f.input :selected_month, collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, prompt: 'Выберите месяц', input_html: { name: 'month', class: 'form-control' } %>
+    <%= f.input :selected_month, collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, prompt: t('groups.select_month'), input_html: { name: 'month', class: 'form-control' } %>
   </div>
   <div class="form-group mr-2">
-    <%= f.input :subject_id, collection: @group.specialization.subjects, label_method: :name, value_method: :id, prompt: 'Выберите предмет', input_html: { name: 'subject_id', class: 'form-control', onchange: 'this.form.submit();' } %> 
+    <%= f.input :subject_id, collection: @group.specialization.subjects, label_method: :name, value_method: :id, prompt: t('groups.select_subject'), input_html: { name: 'subject_id', class: 'form-control', onchange: 'this.form.submit();' } %> 
   </div>
   <%= hidden_field_tag :year, Time.now.year %>
   <% end %>
@@ -25,10 +25,10 @@
   
   <%= simple_form_for Grade.new, url: {controller: "grades", action: "create"}, method: :post, html: { class: 'mb-3' } do |f| %>
     <div class="form-group mb-2">
-      <%= f.input :date, collection: (1..Time.days_in_month(@month.to_i)), prompt: 'Выберите день', input_html: { class: 'form-control' } %>
+      <%= f.input :date, collection: (1..Time.days_in_month(@month.to_i)), prompt: t('groups.select_day'), input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group mb-2">
-      <%= f.input :grade, collection: (1..5), prompt: 'Добавить оценку', input_html: { class: 'form-control' } %>
+      <%= f.input :grade, collection: (1..5), prompt: t('groups.add_grade'), input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group mb-2">
       <%= f.input :record_book_id, collection: RecordBook.where(specialization_id: @group.specialization.id, group_id: @group.id).includes(:user).map { |record_book| [record_book.user.name, record_book.id] }, prompt: 'Выберите студента', input_html: { class: 'form-control' } %>
@@ -36,7 +36,7 @@
     <%= hidden_field_tag :month, @month %>
     <%= hidden_field_tag :year, Time.now.year %>
     <%= f.hidden_field :subject_id, value: params[:subject_id] %>
-    <%= f.button :submit, 'Добавить оценку', class: 'btn btn-primary' %>
-    <%= link_to "Back", groups_path, class: "btn btn-secondary" %>
+    <%= f.button :submit, t('groups.add_grade'), class: 'btn btn-primary' %>
+    <%= link_to t('groups.back'), groups_path, class: "btn btn-secondary" %>
   <% end %>
 </div>

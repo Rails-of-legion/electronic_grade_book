@@ -1,13 +1,13 @@
 <div class="container">
-  <h1 class="text-center mb-4">List of Intermediate Attestations</h1>
+  <h1 class="text-center mb-4"><%= t('intermediate_attestations.list') %></h1>
   
   <table class="table table-striped">
     <thead class="thead-light">
       <tr>
-        <th>Name</th>
-        <th>Date</th>
-        <th>Assessment Type</th>
-        <th>Subject</th>
+        <th><%= t('intermediate_attestations.name') %></th>
+        <th><%= t('intermediate_attestations.date') %></th>
+        <th><%= t('intermediate_attestations.assessment_type') %></th>
+        <th><%= t('intermediate_attestations.subject') %></th>
       </tr>
     </thead>
     <tbody>
@@ -21,4 +21,5 @@
       <% end %>
     </tbody>
   </table>
+</div>
   <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
