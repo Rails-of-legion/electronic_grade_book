@@ -2,6 +2,8 @@ class IndividualReportsController < ApplicationController
   def new
     @intermediate_attestations = IntermediateAttestation.all
     @record_books = RecordBook.all
+    @specializations = Specialization.all
+    @groups = Group.all
   end
 
   def generate_report
