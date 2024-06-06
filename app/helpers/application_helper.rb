@@ -1,5 +1,6 @@
 module ApplicationHelper
   include Pagy::Frontend
+  include Pagy::Frontend
 
   def user_role_translation(user)
     case user.roles.first.name
