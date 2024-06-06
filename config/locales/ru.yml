@@ -1,0 +1,241 @@
+ru:
+  login: 'Войти'
+  email: 'Электронная почта'
+  password: 'Пароль'
+  remember_me: 'Запомнить меня'
+  login: 'Войти'
+  sign_up: 'Зарегистрироваться'
+  forgot_password: 'Забыли пароль?'
+  confirmation_instructions: 'Не получили инструкции по подтверждению?'
+  unlock_instructions: 'Не получили инструкции по разблокировке?'
+  sign_in_with: 'Войти с %{provider}'
+
+  find_user: "Найти пользователя"
+  first_name: "Имя"
+  middle_name: "Отчество"
+  last_name: "Фамилия"
+  date_of_birth: "Дата рождения"
+  phone_number: "Номер телефона"
+  find: "Найти"
+
+  users:
+   users: "Пользователи"
+   first_name: "Имя"
+   last_name: "Фамилия"
+   role: "Роль"
+   show: "Показать"
+   no_users_found: "Пользователи не найдены"
+   personal_profile: "Личный профиль"
+   date_of_birth: "Дата рождения"
+   show_notifications: "Показать уведомления"
+   change_password: "Сменить пароль"
+   change_email: "Сменить электронную почту"
+   specialization: "Специализация"
+   group: "Группа"
+   record_book: "Зачетная книжка"
+   status: "Статус"
+   you_dont_have_any_new_notifications: "У вас нет новых уведомлений"
+   read_notifications: "Прочитанные уведомления"
+   email: "Электронная почта"
+   change_your_email: "Изменить электронную почту"
+   new_email: "Новоя электронная почта"
+   change_email: "Изменить электронную почту"
+   change_your_password: "Изменить ваш пароль"
+   new_password: "Новый пароль"
+   confirm_your_new_password: "Подтвердите ваш новый пароль"
+   characters_minimum: "минимальное количество символов"
+   change_my_password: "Изменить мой пароль"
+   back: "Назад"
+   lern: "Ознакомиться"
+   
+  subjects:
+    subjects: "Предметы"
+    search: "Поиск"
+    name: "Название"
+    actions: "Действия"
+    show: "Показать"
+    no_subjects_found: "Предметы не найдены"
+    back: "Назад"
+    subject: "Предмет"
+    description: "Описание"
+    back: "Назад"
+
+  semesters:
+    show: "Показать"
+    back: "Назад"
+    actions: "Действия"
+    semesters: "Семестры"
+    start_date: "Дата начала"
+    end_date: "Дата окончания"
+    no_semesters_found: "Семестры не найдены"
+
+  intermediate_attestations:
+    list: "Список промежуточных аттестаций"
+    details: "Детали промежуточной аттестации"
+    name: "Название"
+    date: "Дата"
+    assessment_type: "Тип аттестации"
+    subject: "Предмет"
+    back: "Назад"
+    download_pdf: "Скачать PDF"
+
+  specializations:
+    name: "Название"
+    list: "Специализации"
+    details: "Детали специализации"
+    groups: "Группы"
+    no_groups: "Группы для этой специализации пока нет"
+    back: "Назад"
+
+  groups:
+    name: "Название"
+    list: "Список групп"
+    details: "Детали группы"
+    curator: "Куратор"
+    unassigned: "Не назначен"
+    specialization: "Специализация"
+    record_books: "Зачетные книжки"
+    select_month: "Выберите месяц"
+    select_subject: "Выберите предмет"
+    add_grade: "Добавить оценку"
+    select_day: "Выберите день"
+    select_student: "Выберите студента"
+    back: "Назад"
+
+  navbar:
+    home: "Главная"
+    about: "О нас"
+    profile: "Профиль"
+    subjects: "Предметы"
+    semesters: "Семестры"
+    intermediate_attestations: "Промежуточные аттестации"
+    groups: "Группы"
+    specializations: "Специализации"
+    individual_report: "Индивидуальный отчет"
+
+
+  about:
+    title: "Добро пожаловать на страницу О нас"
+    description: "Это статическая страница с информацией о нашем приложении."
+  home:
+    title: "Добро пожаловать на Главную страницу"
+    description: "Это статическая страница с информацией о нашем приложении."
+    welcome: "Добро пожаловать"
+    email: "Ваш email"
+    role: "Ваша роль - "
+    sign_out: "Выйти"
+    sign_in: "Войти"
+    sign_up: "Зарегистрироваться"
+    admin: "Администратор"
+    teacher: "Учитель"
+    student: "Студент"
+
+  active_admin:
+    intermediate_attestations:
+      intermediate_attestation: 'Промежуточная аттестация'
+      intermediate_attestation_details: 'Детали промежуточной аттестации'
+      name: 'Имя'
+      date: 'Дата'
+      assessment_type: 'Тип аттестации'
+      subject: 'Предмет'
+      groups: 'Группы'
+      teacher: 'Учитель'
+      create: "Создать"
+      save_changes: "Сохранить изменения"
+    groups:
+      groups: "Группы"
+      group: "Группа"
+      group_details: "Детали Группы"
+      name: "Название"
+      curator: "Куратор"
+      specialization: "Специализация"
+      create: "Создать"
+      save_changes: "Сохранить изменения"
+    notifications:
+      notifications: "Уведомления"
+      notification: "Уведомление"
+      notification_details: "Детали Уведомления"
+      message: "Сообщение"
+      date: "Дата"
+      users: "Пользователи"
+      create: "Создать"
+      save_changes: "Сохранить изменения"
+    grades:
+      grades: 'Оценки'
+      student: 'Студент'
+      record_book: 'Зачетная книжка'
+      subject: 'Предмет'
+      grade: 'Оценка'
+      date: 'Дата'
+      created_at: 'Дата создания'
+      student_first_name: 'Имя студента'
+      grade_details: 'Детали оценки'
+      create: 'Создать'
+      save_changes: 'Сохранить изменения'
+    record_books:
+      record_books: 'Зачетные книжки'
+      custom_number: 'Пользовательский номер'
+      user: 'Пользователь'
+      specialization: 'Специализация'
+      group: 'Группа'
+      created_at: 'Дата создания'
+      record_book_details: 'Детали зачетной книжки'
+      create: 'Создать'
+      save_changes: 'Сохранить изменения'
+      record_book: 'Зачетная книжка'
+      active_admin:
+    semesters:
+      semesters: 'Семестры'
+      name: 'Название'
+      start_date: 'Дата начала'
+      end_date: 'Дата окончания'
+      created_at: 'Дата создания'
+      semester_details: 'Детали семестра'
+      create: 'Создать'
+      save_changes: 'Сохранить изменения'
+    specializations:
+      specializations: 'Специализации'
+      name: 'Название'
+      details: 'Детали'
+      subjects: 'Предметы'
+      name_of_the_item: 'Название предмета'
+      description: 'Описание'
+      groups: 'Группы'
+      curator: 'Куратор'
+      created_at: 'Дата создания'
+      updated_at: 'Дата обновления'
+      create: 'Создать'
+      save_changes: 'Сохранить изменения'
+    subjects:
+      subjects: "Предметы"
+      name: "Название"
+      description: "Описание"
+      subject_details: "Детали предмета"
+      create: "Создать"
+      save_changes: "Сохранить изменения"
+    users:
+      users: 'Пользователи'
+      name: 'Имя'
+      email: 'Электронная почта'
+      roles: 'Роли'
+      status: 'Статус'
+      created_at: 'Дата создания'
+      first_name: 'Имя'
+      middle_name: 'Отчество'
+      last_name: 'Фамилия'
+      record_book_number: 'Номер зачетной книжки'
+      group: 'Группа'
+      education_program: 'Образовательная программа'
+      user_details: 'Детали пользователя'
+      password: 'Пароль'
+      password_confirmation: 'Подтверждение пароля'
+      date_of_birth: 'Дата рождения'
+      phone_number: 'Номер телефона'
+      create: 'Создать'
+      save_changes: 'Сохранить изменения'
+      user_updated: 'Пользователь обновлен'
+      user_created: 'Пользователь создан'
+      specialization: 'Специализация'
+      subjects_of_the_current_semester: 'Предметы текущего семестра'
+      grades: 'Оценки'
+      subject: 'Предмет'

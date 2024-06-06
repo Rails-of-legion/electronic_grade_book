@@ -1,20 +1,20 @@
 <div class="container">
-  <h1 class="text-center mb-4">List of Groups</h1>
+  <h1 class="text-center mb-4"><%= t('groups.list') %></h1>
 
   <table class="table table-striped">
     <thead class="thead-light">
       <tr>
-        <th>Name</th>
-        <th>Curator</th>
+        <th><%= t('groups.name') %></th>
+        <th><%= t('groups.curator') %></th>
       </tr>
     </thead>
     <tbody>
       <% @groups.each do |group| %>
         <tr>
           <td><%= link_to group.name, group_path(group) %></td>
-          <td><% if group.curator %> <%= group.curator.name %> <% else %> Unassigned <% end %></td>
+          <td><% if group.curator %> <%= group.curator.name %> <% else %> <%= t('groups.unassigned') %> <% end %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
+</div>

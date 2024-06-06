@@ -2,15 +2,15 @@
   <h1 class="text-center mb-4"><%= @specialization.name %></h1>
 
   <% if @specialization.groups.any? %>
-    <h2>Groups:</h2>
+    <h2><%= t('specializations.groups') %> :</h2>
     <ul class="list-group mb-3">
       <% @specialization.groups.each do |group| %>
         <li class="list-group-item"><%= link_to group.name, group_path(group) %></li>
       <% end %>
     </ul>
   <% else %>
-    <p class="alert alert-info">There are no groups for this specialization yet.</p>
+    <p class="alert alert-info"><%= t('specializations.no_groups') %></p>
   <% end %>
 
-  <%= link_to 'Back', specializations_path, class: "btn btn-secondary" %>
+  <%= link_to t('specializations.back'), specializations_path, class: "btn btn-secondary" %>
 </div>
