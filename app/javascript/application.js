@@ -4,10 +4,3 @@ import "./controllers";
 import * as bootstrap from "bootstrap"
 import 'bootstrap/dist/js/bootstrap'
 import "bootstrap/dist/css/bootstrap";
-
-import { Application } from "stimulus"
-import { definitionsFromContext } from "stimulus"
-
-const application = Application.start()
-const context = require.context("controllers", true, /\.js$/)
-application.load(definitionsFromContext(context))

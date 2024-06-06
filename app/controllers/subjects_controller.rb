@@ -6,7 +6,7 @@ class SubjectsController < ApplicationController
     return unless current_user.has_role? :student
 
     record_book = current_user.record_book
-
+    byebug
     if record_book
       @subjects = record_book.group.specialization.subjects
       if params[:search].present?
