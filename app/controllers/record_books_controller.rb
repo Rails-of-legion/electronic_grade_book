@@ -3,7 +3,11 @@ class RecordBooksController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @record_books = RecordBook.includes(:user).all
+    @record_books = RecordBook.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @record_books }
+    end
   end
 
   def show

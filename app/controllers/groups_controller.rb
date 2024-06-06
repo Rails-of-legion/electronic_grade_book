@@ -3,10 +3,19 @@ class GroupsController < ApplicationController
   load_and_authorize_resource
 
   # GET /groups
-  def index
-    @pagy, @groups = pagy(Group.all, items: 10)
-  end
 
+  def index
+    if params[:specialization_id].present? 
+      @groups = Group.where(specialization_id: params[:specialization_id])
+    else
+      @groups = Group.all 
+    end
+
+    respond_to do |format|
+      format.html 
+      format.json { render json: @groups } 
+    end
+  end
   # GET /groups/1
   def show
     @month = params[:month] || Time.zone.today.month
