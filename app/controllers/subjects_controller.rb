@@ -7,21 +7,6 @@ class SubjectsController < ApplicationController
 
     @pagy, @subjects = pagy(subjects, items: 10)
     nil unless current_user.teacher?
-
-    record_book = current_user.record_book
-
-    if record_book
-      @subjects = record_book.group.specialization.subjects
-      if params[:search].present?
-        @subjects = @subjects.where('name LIKE ? OR description LIKE ?', "%#{params[:search]}%",
-                                    "%#{params[:search]}%")
-      end
-    else
-      flash[:error] = 'У вас нет Record Book.'
-      @subjects = []
-    end
-
-    nil unless current_user.has_role? :teacher
   end
 
   def show; end
