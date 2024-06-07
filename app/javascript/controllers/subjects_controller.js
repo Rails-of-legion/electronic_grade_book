@@ -1,10 +1,9 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["specialization", "group", "recordBook", "intermediateAttestation"];
+  static targets = ["specialization", "group", "recordBook", "intermediateAttestation", "user"];
 
   connect() {
-    console.log("SubjectsController: connected");
     this.updateGroups();
     this.updateIntermediateAttestations();
   }
@@ -17,7 +16,6 @@ export default class extends Controller {
   }
 
   updateGroups() {
-    console.log("SubjectsController: updating groups");
     const specializationId = this.specializationTarget.value;
     if (specializationId) {
       const url = `/groups.json?specialization_id=${specializationId}`;
@@ -38,24 +36,20 @@ export default class extends Controller {
   updateRecordBooks() {
     console.log("SubjectsController: updating record books");
     const groupId = this.groupTarget.value;
-    console.log(groupId)
-    console.log('updateRecordBooks')
+  
     if (groupId) {
       const url = `/record_books.json?group_id=${groupId}`;
-      console.log('if')
       fetch(url)
         .then((response) => response.json())
         .then((recordBooks) => {
-          this.populateSelect(this.recordBookTarget, recordBooks);
+          this.populateSelectRecordBook(this.recordBookTarget, recordBooks); 
         });
     } else {
-      console.log('else')
       this.clearSelect(this.recordBookTarget);
     }
   }
 
   updateIntermediateAttestations() {
-    console.log("SubjectsController: updating intermediate attestations");
     const specializationId = this.specializationTarget.value;
     if (specializationId) {
       const url = `/intermediate_attestations.json?specialization_id=${specializationId}`;
@@ -78,6 +72,17 @@ export default class extends Controller {
       selectElement.innerHTML += `<option value="${value}">${name}</option>`;
     });
   }
+
+  populateSelectRecordBook(selectElement, items, nestedKey = null) {
+    selectElement.innerHTML = "";
+    selectElement.innerHTML += `<option value="">Выберите...</option>`; 
+    items.forEach((item) => {
+      const user = item.user
+      const value = item.id;
+      const name = user ? ( user.last_name + ' ' + user.first_name  + ' ' + user.middle_name) : "Без пользователя"; 
+      selectElement.innerHTML += `<option value="${value}">${name}</option>`;
+    });
+}
 
   clearSelect(selectElement) {
     selectElement.innerHTML = `<option value="">Выберите...</option>`;

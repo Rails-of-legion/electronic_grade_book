@@ -4,13 +4,13 @@ class RecordBooksController < ApplicationController
 
   def index
     if params[:group_id].present? 
-      @record_books = RecordBook.where(group_id: params[:group_id])
+      @record_books = RecordBook.includes(:user).where(group_id: params[:group_id])
     else
-      @record_books = RecordBook.all
+      @record_books = RecordBook.includes(:user).all
     end
     respond_to do |format|
       format.html
-      format.json { render json: @record_books }
+      format.json { render json: @record_books, include: :user }
     end
   end
 
