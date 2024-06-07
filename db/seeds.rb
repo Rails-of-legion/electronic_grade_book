@@ -9,19 +9,21 @@ Role.create(name: 'student')
 Rails.logger.debug { "Созданы роли: #{Role.pluck(:name)}" }
 
 # Создание пользователя-администратора
-admin = User.create!(
-  first_name: Faker::Name.first_name,
-  last_name: Faker::Name.last_name,
-  middle_name: Faker::Name.middle_name,
-  phone_number: Faker::PhoneNumber.cell_phone,
-  email: Faker::Internet.unique.email,
-  password: 'password',
-  password_confirmation: 'password',
-  status: true,
-  date_of_birth: Faker::Date.birthday(min_age: 30, max_age: 50)
-)
-admin.add_role(:admin)
-Rails.logger.debug { "Создан пользователь-администратор: #{admin.email}" }
+2.times do |_i|
+  admin = User.create!(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    middle_name: Faker::Name.middle_name,
+    phone_number: Faker::PhoneNumber.cell_phone,
+    email: Faker::Internet.unique.email,
+    password: 'password',
+    password_confirmation: 'password',
+    status: true,
+    date_of_birth: Faker::Date.birthday(min_age: 30, max_age: 50)
+  )
+  admin.add_role(:admin)
+  Rails.logger.debug { "Создан пользователь-администратор: #{admin.email}" }
+end
 
 # Создание преподавателей
 2.times do |_i|
@@ -67,7 +69,7 @@ def create_group_with_specialization_and_subjects
   subjects_count = 4
   created_subjects = 0
   while created_subjects < subjects_count
-    subject_name = Faker::Educator.subject 
+    subject_name = Faker::Educator.subject
     if Subject.where(name: subject_name).empty?
       subject = Subject.create!(
         name: subject_name,
@@ -104,7 +106,7 @@ groups = 5.times.map { create_group_with_specialization_and_subjects }
   rb = RecordBook.create!(
     custom_number: Faker::Code.npi,
     user: student,
-    specialization: group.specialization, 
+    specialization: group.specialization,
     group: group
   )
   Rails.logger.debug { "Создана зачетная книжка для студента #{student.email} из группы #{group.name}" }

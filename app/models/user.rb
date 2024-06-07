@@ -57,4 +57,8 @@ class User < ApplicationRecord
   def name
     "#{last_name} #{first_name} #{middle_name}".strip.presence || login
   end
+
+  def format_full_name
+    "#{first_name} #{last_name[0]}.#{middle_name[0]}."
+  end
 end
