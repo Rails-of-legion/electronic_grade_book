@@ -35,7 +35,7 @@
                 <% if notification.status == false %>
                   <li class="list-group-item">
                     <%= Notification.find(notification.notification_id).message %>
-                    <%= button_to 'users.learn', mark_as_read_notification_path(notification), method: :patch, class: "btn btn-link" %>
+                    <%= button_to t('users.lern'), mark_as_read_notification_path(notification), method: :patch, class: "btn btn-link" %>
                   </li>
                 <% end %>
               <% end %>
