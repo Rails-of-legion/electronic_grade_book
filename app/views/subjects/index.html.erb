@@ -1,7 +1,6 @@
-<% if @subjects.present? %>
-  <div class="container mt-5">
-    <h1 class="mb-4"><%= t 'subjects.subjects' %></h1>
-    
+     <% if @subjects.present? %>
+       <div class="container mt-5">
+       <h1 class="mb-4"><%= t 'subjects.subjects' %></h1>
     <div class="row mb-3">
     <div class="col-md-4">
       <%= form_tag subjects_path, method: :get do %>

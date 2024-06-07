@@ -2,23 +2,11 @@ class SubjectsController < ApplicationController
   before_action :set_subject, only: %i[show edit update destroy]
   load_and_authorize_resource
   def index
-    @pagy, @subjects = pagy(Subject.all, items: 10)
-    return unless current_user.has_role? :student
+    subjects = current_user.student? ? student_subjects : teacher_subjects
+    subjects = search_subjects(subjects)
 
-    record_book = current_user.record_book
-
-    if record_book
-      @subjects = record_book.group.specialization.subjects
-      if params[:search].present?
-        @subjects = @subjects.where('name LIKE ? OR description LIKE ?', "%#{params[:search]}%",
-                                    "%#{params[:search]}%")
-      end
-    else
-      flash[:error] = 'У вас нет Record Book.'
-      @subjects = []
-    end
-
-    nil unless current_user.has_role? :teacher
+    @pagy, @subjects = pagy(subjects, items: 10)
+    nil unless current_user.teacher?
   end
 
   def show; end
@@ -65,6 +53,22 @@ class SubjectsController < ApplicationController
   end
 
   private
+
+  def student_subjects
+    record_book = current_user.record_book
+    record_book ? record_book.group.specialization.subjects : []
+  end
+
+  def teacher_subjects
+    Subject.all
+  end
+
+  def search_subjects(subjects)
+    return subjects unless params[:search].present?
+
+    search_query = "%#{params[:search]}%"
+    subjects.where('name LIKE ? OR description LIKE ?', search_query, search_query)
+  end
 
   def set_subject
     @subject = Subject.find(params[:id])

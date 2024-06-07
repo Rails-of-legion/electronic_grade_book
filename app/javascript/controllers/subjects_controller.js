@@ -36,7 +36,6 @@ export default class extends Controller {
   updateRecordBooks() {
     console.log("SubjectsController: updating record books");
     const groupId = this.groupTarget.value;
-  
     if (groupId) {
       const url = `/record_books.json?group_id=${groupId}`;
       fetch(url)
@@ -72,7 +71,6 @@ export default class extends Controller {
       selectElement.innerHTML += `<option value="${value}">${name}</option>`;
     });
   }
-
   populateSelectRecordBook(selectElement, items, nestedKey = null) {
     selectElement.innerHTML = "";
     selectElement.innerHTML += `<option value="">Выберите...</option>`; 
@@ -83,7 +81,6 @@ export default class extends Controller {
       selectElement.innerHTML += `<option value="${value}">${name}</option>`;
     });
 }
-
   clearSelect(selectElement) {
     selectElement.innerHTML = `<option value="">Выберите...</option>`;
   }

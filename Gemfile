@@ -5,8 +5,8 @@ ruby "3.0.0"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.2"
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
+# The original asset pipeline for Rails
+gem "propshaft"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
@@ -14,8 +14,10 @@ gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 
+gem 'importmap-rails'
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
+gem "jsbundling-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -23,11 +25,13 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
+gem "cssbundling-rails"
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", ">= 4.0.1"
+ gem "redis", ">= 4.0.1"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -58,7 +62,7 @@ group :development, :test do
   gem 'byebug'
 
   gem 'bullet'
-  
+
 end
 
 group :development do
@@ -84,8 +88,6 @@ group :test do
   gem 'shoulda-matchers'
 end
 
-gem 'sassc-rails'
-
 gem 'activeadmin'
 
 gem 'simple_form'
@@ -96,12 +98,6 @@ gem "rolify"
 
 gem 'cancancan'
 
-gem "cssbundling-rails", "~> 1.4"
-
-gem "jsbundling-rails", "~> 1.3"
-
-gem 'sass-rails'
-
 gem 'prawn'
 
 gem 'prawn-table'
@@ -111,4 +107,5 @@ gem 'prawn-rails'
 gem 'arctic_admin'
 
 gem 'rails-i18n'
+
 gem 'pagy'
