@@ -4,6 +4,10 @@ class IntermediateAttestationsController < ApplicationController
   def index
     @intermediate_attestations = IntermediateAttestation.includes(:subject).all
     @pagy, @intermediate_attestations = pagy(IntermediateAttestation.all, items: 10)
+    respond_to do |format|
+      format.html
+      format.json { render json: @intermediate_attestations }
+    end
   end
 
   def show

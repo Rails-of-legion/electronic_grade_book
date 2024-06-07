@@ -4,8 +4,16 @@ class GroupsController < ApplicationController
 
   # GET /groups
   def index
-    @groups = Group.includes(:curator).all
-    @pagy, @groups = pagy(Group.all, items: 10)
+    if params[:specialization_id].present? 
+      @groups = Group.where(specialization_id: params[:specialization_id])
+    else
+      @groups = Group.all 
+    end
+
+    respond_to do |format|
+      format.html 
+      format.json { render json: @groups } 
+    end
   end
 
   # GET /groups/1
