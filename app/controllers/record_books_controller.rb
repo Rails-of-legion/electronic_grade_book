@@ -3,7 +3,15 @@ class RecordBooksController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @record_books = RecordBook.includes(:user).all
+    if params[:group_id].present? 
+      @record_books = RecordBook.includes(:user).where(group_id: params[:group_id])
+    else
+      @record_books = RecordBook.includes(:user).all
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: @record_books, include: :user }
+    end
   end
 
   def show
