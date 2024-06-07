@@ -56,7 +56,7 @@ class IndividualReport
              align: :left, size: 11
         move_down 10
         text 'Декан факультета повышения                                                 ', align: :left, size: 11
-        text 'квалификации и переподготовки кадров                      _________________               <u>Ю.Ю.Королев<u>',
+        text "квалификации и переподготовки кадров                      _________________               <u>#{User.first.format_full_name}<u>",
              align: :left, inline_format: true, size: 11
       end
     end.render
