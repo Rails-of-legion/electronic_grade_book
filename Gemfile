@@ -58,7 +58,7 @@ group :development, :test do
   gem 'byebug'
 
   gem 'bullet'
-  
+
 end
 
 group :development do
@@ -108,7 +108,6 @@ gem 'prawn-table'
 
 gem 'prawn-rails'
 
-gem 'arctic_admin'
-
 gem 'rails-i18n'
+
 gem 'pagy'
