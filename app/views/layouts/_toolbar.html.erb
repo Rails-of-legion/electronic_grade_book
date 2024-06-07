@@ -1,23 +1,46 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <%= link_to t('navbar.home'), root_path, class: "navbar-brand" %>
+  <%= link_to t('navbar.home'), root_path, class: "navbar-brand ms-4" %>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item"><%= link_to t('navbar.about'), about_path, class: "nav-link" %></li>
+      <li class="nav-item">
+        <%= link_to t('navbar.about'), about_path, class: "nav-link #{request.fullpath == about_path ? 'active' : ''}" %>
+      </li>
       <% if user_signed_in? %>
         <% if current_user.has_role?(:student) %>
-          <li class="nav-item"><%= link_to t('navbar.profile'), user_path(current_user), class: "nav-link" %></li>
-          <li class="nav-item"><%= link_to t('navbar.subjects'), subjects_path, class: "nav-link"  %></li>
-          <li class="nav-item"><%= link_to t('navbar.semesters'), semesters_path, class: "nav-link"  %></li>
+          <li class="nav-item">
+            <%= link_to t('navbar.profile'), user_path(current_user), class: "nav-link #{request.fullpath == user_path(current_user) ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.subjects'), subjects_path, class: "nav-link #{request.fullpath == subjects_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.semesters'), semesters_path, class: "nav-link #{request.fullpath == semesters_path ? 'active' : ''}" %>
+          </li>
         <% elsif current_user.has_role?(:teacher) %>
-          <li class="nav-item"><%= link_to t('navbar.profile'), user_path(current_user), class: "nav-link" %></li>
-          <li class="nav-item"><%= link_to t('navbar.subjects'), subjects_path, class: "nav-link"  %></li>
-          <li class="nav-item"><%= link_to t('navbar.semesters'), semesters_path, class: "nav-link"  %></li>
-          <li class="nav-item"><%= link_to t('navbar.intermediate_attestations'), intermediate_attestations_path, class: "nav-link"  %></li>
-          <li class="nav-item"><%= link_to t('navbar.groups'), groups_path, class: "nav-link"  %></li>
-          <li class="nav-item"><%= link_to t('navbar.specializations'), specializations_path, class: "nav-link"  %></li>
-          <li class="nav-item"><%= link_to t('navbar.individual_report'), new_individual_report_path, class: "nav-link" %></li>
+          <li class="nav-item">
+            <%= link_to t('navbar.profile'), user_path(current_user), class: "nav-link #{request.fullpath == user_path(current_user) ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.subjects'), subjects_path, class: "nav-link #{request.fullpath == subjects_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.semesters'), semesters_path, class: "nav-link #{request.fullpath == semesters_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.intermediate_attestations'), intermediate_attestations_path, class: "nav-link #{request.fullpath == intermediate_attestations_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.groups'), groups_path, class: "nav-link #{request.fullpath == groups_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.specializations'), specializations_path, class: "nav-link #{request.fullpath == specializations_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.individual_report'), new_individual_report_path, class: "nav-link #{request.fullpath == new_individual_report_path ? 'active' : ''}" %>
+          </li>
         <% end %>
       <% end %>
     </ul>
   </div>
 </nav>
+
