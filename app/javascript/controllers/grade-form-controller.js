@@ -1,7 +1,6 @@
 // grade-form-controller.js
 
 import { Controller } from "@hotwired/stimulus";
-import Rails from "@rails/ujs";
 
 export default class extends Controller {
   static targets = [
@@ -10,7 +9,7 @@ export default class extends Controller {
     "date",
     "value",
     "messageContainer",
-  ]; //  Добавлен messageContainer 
+  ];
   static values = {
     groupId: Number,
     recordBooks: Array,
@@ -34,20 +33,17 @@ export default class extends Controller {
     const date = this.dateTarget.value;
     const value = parseInt(this.valueTarget.value);
 
-    // Валидация (если нужна)
-    // ...
-
     const data = {
       grade: {
         group_id: this.groupIdValue,
         record_book_id: recordBookId,
         subject_id: subjectId,
         date: date,
-        value: value,
+        grade: value,
       },
     };
 
-    fetch(Rails.routes.grades_path(), { 
+    fetch('/grades', { 
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +54,6 @@ export default class extends Controller {
     })
       .then((response) => {
         if (response.ok) {
-          // Очистка формы:
           this.subjectTarget.value = "";
           this.recordBookTarget.value = "";
           this.dateTarget.value = "";
