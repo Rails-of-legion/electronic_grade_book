@@ -15,21 +15,17 @@ class GradesController < ApplicationController
   def edit; end
 
   def create
-    month = params[:month].to_i
-    day = params[:grade][:date].to_i
-    raise ArgumentError, 'Invalid month' unless (1..12).include?(month)
-
-    date_grade = Date.new(Time.zone.now.year, month, day)
-    params[:grade][:date] = date_grade
     @grade = Grade.new(grade_params)
-    if @grade.save
-      redirect_to record_book_path(@grade.record_book)
-    else
-      render :new, status: :unprocessable_entity
+
+    respond_to do |format|
+      if @grade.save
+        format.html { redirect_to @grade, notice: 'Оценка успешно создана.' }  
+        format.json { render json: @grade, status: :created }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @grade.errors, status: :unprocessable_entity }
+      end
     end
-  rescue ArgumentError => e
-    flash[:error] = e.message
-    render :new, status: :unprocessable_entity
   end
 
   def update

@@ -18,10 +18,32 @@ class GroupsController < ApplicationController
 
   # GET /groups/1
   def show
-    @month = params[:month] || Time.zone.today.month
-    @record_books = @group.record_books.includes(:user)
+    @group = Group.find(params[:id])
+    @subjects = @group.specialization.subjects
+
+    respond_to do |format|
+      format.json { render json: @subjects }
+      format.html
+    end
   end
 
+  def form_teacher
+    @group = Group.find(params[:group_id])
+    @month = params[:month]&.to_i
+    @subject = Subject.find_by(id: params[:subject_id])
+  
+    if @month && @subject
+      start_date = Date.new(Time.current.year, @month, 1)
+      end_date = start_date.end_of_month
+  
+      @record_books = RecordBook.where(group_id: @group.id)
+      
+    end
+    respond_to do |format|
+      format.html { render partial: 'form_teacher', locals: { group: @group, month: @month, subject: @subject, record_books: @record_books } }
+      format.js { render locals: { record_books: @record_books } }
+    end
+  end
   # GET /groups/new
   def new
     @group = Group.new
