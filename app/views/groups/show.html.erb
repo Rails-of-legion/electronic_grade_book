@@ -12,57 +12,77 @@
   <div data-controller="report"
        data-report-group-value="<%= @group.id %>" 
        data-report-specialization-value="<%= @group.specialization.id %>">
-    <div>
-      <label for="month-select">Месяц:</label>
-      <select id="month-select" data-report-target="month">
-        <%= options_for_select((1..12).map { |m| [Date::MONTHNAMES[m], m] }) %>
-      </select>
-    </div>
+    <div class="form-group row mb-3">
+      <label for="month-select" class="col-sm-2 col-form-label">Месяц:</label>
+        <div class="col-sm-10">
+          <select id="month-select" data-report-target="month" class="form-select">
+            <%= options_for_select((1..12).map { |m| [Date::MONTHNAMES[m], m] }) %>
+          </select>
+        </div>
+      </div>
 
-    <div>
-      <label for="subject-select">Дисциплина:</label>
-      <select id="subject-select" data-report-target="subject">
-        <option value="">Выберите дисциплину</option>
-      </select>
+    <div class="form-group row mb-3">
+      <label for="subject-select" class="col-sm-2 col-form-label">Дисциплина:</label>
+        <div class="col-sm-10">
+         <select id="subject-select" data-report-target="subject" class="form-select">
+          <option value="">Выберите дисциплину</option>
+         </select>
+        </div>
     </div>
-
+    
     <div data-report-target="formTeacher">
       <div id="form-container"></div>
     </div>
   </div>
 
-  <h2><%= t('grades.new_grade') %></h2>
-
   <div data-controller="grade-form"
-       data-grade-form-group-id-value="<%= @group.id %>"
-       data-grade-form-record-books-value="<%= @group.record_books.to_json(only: [:id], methods: [:student_name]) %>"
-       data-grade-form-subjects-value="<%= @group.specialization.subjects.to_json(only: [:id, :name]) %>">
-    <div>
-      <label for="grade_subject_id"><%= t('subjects.subject') %></label>
-      <select id="grade_subject_id" data-grade-form-target="subject">
+     data-grade-form-group-id-value="<%= @group.id %>"
+     data-grade-form-record-books-value="<%= @group.record_books.to_json(only: [:id], methods: [:student_name]) %>"
+     data-grade-form-subjects-value="<%= @group.specialization.subjects.to_json(only: [:id, :name]) %>">
+
+  <div class="form-group row mb-3">
+    <label for="grade_subject_id" class="col-sm-2 col-form-label"><%= t('subjects.subject') %></label>
+    <div class="col-sm-10">
+      <select id="grade_subject_id" data-grade-form-target="subject" class="form-select">
         <option value=""><%= t('subjects.select_subject') %></option>
       </select>
     </div>
-  
-    <div>
-      <label for="grade_record_book_id"><%= t('grades.record_book') %></label>
-      <select id="grade_record_book_id" data-grade-form-target="recordBook">
+  </div>
+
+  <div class="form-group row mb-3">
+    <label for="grade_record_book_id" class="col-sm-2 col-form-label"><%= t('grades.record_book') %></label>
+    <div class="col-sm-10">
+      <select id="grade_record_book_id" data-grade-form-target="recordBook" class="form-select">
         <%= options_from_collection_for_select(@group.record_books, :id, :student_name) %>
       </select>
     </div>
-  
-    <div>
-      <label for="grade_date"><%= t('grades.date') %></label>
-      <input type="date" id="grade_date" data-grade-form-target="date">
-    </div>
-  
-    <div>
-      <label for="grade_value"><%= t('grades.value') %></label>
-      <input type="number" id="grade_value" min="1" max="5" data-grade-form-target="value">
-    </div>
-  
-    <button data-action="click->grade-form#submit"><%= t('common.submit') %></button>
   </div>
+
+  <div class="form-group row mb-3">
+    <label for="grade_date" class="col-sm-2 col-form-label"><%= t('grades.date') %></label>
+    <div class="col-sm-10">
+      <input type="date" id="grade_date" data-grade-form-target="date" class="form-control">
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <label for="grade_value" class="col-sm-2 col-form-label"><%= t('grades.value') %></label>
+    <div class="col-sm-10">
+      <input type="number" id="grade_value" min="1" max="5" data-grade-form-target="value" class="form-control">
+    </div>
+  </div>
+  <button data-action="click->grade-form#submit" class="btn btn-primary"><%= t('common.submit') %></button>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="copyToast" class="toast">
+    <div class="toast-header">
+      <strong class="me-auto">Оценка поставлена</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+  
   
   <template id="grade-form-template">
     <div>

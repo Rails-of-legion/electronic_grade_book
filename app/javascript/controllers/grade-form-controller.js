@@ -1,7 +1,7 @@
 // grade-form-controller.js
 
 import { Controller } from "@hotwired/stimulus";
-
+import { Toast } from "bootstrap";
 export default class extends Controller {
   static targets = [
     "subject",
@@ -23,9 +23,11 @@ export default class extends Controller {
       option.text = subject.name;
       this.subjectTarget.add(option);
     });
+    this.toast = new Toast(document.getElementById('copyToast'));
   }
 
   submit(event) {
+    this.toast.show()
     event.preventDefault();
 
     const subjectId = parseInt(this.subjectTarget.value);
