@@ -8,6 +8,9 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.enable_reloading = true
 
+  config.logger = Logger.new(STDOUT)
+  config.logger.level = Logger::DEBUG
+
   # Do not eager load code on boot.
   config.eager_load = false
 
@@ -84,5 +87,5 @@ Rails.application.configure do
     Bullet.rails_logger = true
     # Bullet.add_footer = true
   end
-  
+
 end
