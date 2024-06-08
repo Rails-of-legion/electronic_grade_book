@@ -1,14 +1,14 @@
 <div class="container">
-    <h1 class="text-center mb-4"><%= t('groups.details') %></h1>
-    
-    <div class="mb-3">
-      <p><strong><%= t('groups.name') %>:</strong> <%= @group.name %></p>
-      <p><strong><%= t('groups.curator') %>:</strong> <%= @group.try(:curator).try(:name) || t('groups.unassigned') %></p>
-      <p><strong><%= t('groups.specialization') %>:</strong> <%= @group.specialization.name %></p>
-    </div>
-  
+  <h1 class="text-center mb-4"><%= t('groups.details') %></h1>
+
+  <div class="mb-3">
+    <p><strong><%= t('groups.name') %>:</strong> <%= @group.name %></p>
+    <p><strong><%= t('groups.curator') %>:</strong> <%= @group.try(:curator).try(:name) || t('groups.unassigned') %></p>
+    <p><strong><%= t('groups.specialization') %>:</strong> <%= @group.specialization.name %></p>
+  </div>
+
   <h1 class="text-center mb-4"><%= t('groups.record_books') %></h1>
-    
+
   <div data-controller="report"
        data-report-group-value="<%= @group.id %>" 
        data-report-specialization-value="<%= @group.specialization.id %>">
@@ -18,7 +18,7 @@
         <%= options_for_select((1..12).map { |m| [Date::MONTHNAMES[m], m] }) %>
       </select>
     </div>
-  
+
     <div>
       <label for="subject-select">Дисциплина:</label>
       <select id="subject-select" data-report-target="subject">
@@ -26,8 +26,46 @@
       </select>
     </div>
 
-
     <div data-report-target="formTeacher">
+      <div id="form-container"></div>
     </div>
-  </div>    
-</div>
+  </div>
+
+  <h2><%= t('grades.new_grade') %></h2>
+
+  <div data-controller="grade-form"
+       data-grade-form-group-id-value="<%= @group.id %>"
+       data-grade-form-record-books-value="<%= @group.record_books.to_json(only: [:id], methods: [:student_name]) %>"
+       data-grade-form-subjects-value="<%= @group.specialization.subjects.to_json(only: [:id, :name]) %>">
+    <div>
+      <label for="grade_subject_id"><%= t('subjects.subject') %></label>
+      <select id="grade_subject_id" data-grade-form-target="subject">
+        <option value=""><%= t('subjects.select_subject') %></option>
+      </select>
+    </div>
+  
+    <div>
+      <label for="grade_record_book_id"><%= t('grades.record_book') %></label>
+      <select id="grade_record_book_id" data-grade-form-target="recordBook">
+        <%= options_from_collection_for_select(@group.record_books, :id, :student_name) %>
+      </select>
+    </div>
+  
+    <div>
+      <label for="grade_date"><%= t('grades.date') %></label>
+      <input type="date" id="grade_date" data-grade-form-target="date">
+    </div>
+  
+    <div>
+      <label for="grade_value"><%= t('grades.value') %></label>
+      <input type="number" id="grade_value" min="1" max="5" data-grade-form-target="value">
+    </div>
+  
+    <button data-action="click->grade-form#submit"><%= t('common.submit') %></button>
+  </div>
+  
+  <template id="grade-form-template">
+    <div>
+      Оценка успешно создана!
+    </div>
+  </template>

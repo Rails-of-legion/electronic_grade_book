@@ -17,4 +17,8 @@ class RecordBook < ApplicationRecord
   def subjects_list
     subjects.map(&:name).join(', ')
   end
+
+  def student_name
+    user.name
+  end
 end

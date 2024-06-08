@@ -40,6 +40,7 @@ export default class extends Controller {
         .catch(error => {
           console.error("Error fetching subjects:", error);
         });
+        
     } else {
       console.warn("Group ID is not available. Cannot fetch subjects.");
       this.clearSelect(this.subjectTarget);
