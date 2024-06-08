@@ -36,7 +36,11 @@ Rails.application.routes.draw do
   resources :users, only: %i[show update edit ]
   resources :semesters
   resources :subjects
-  resources :groups
+  resources :groups do
+    get '/subjects', to: 'subjects#group_subjects', on: :member
+    get :form_teacher
+
+  end
   resources :specializations
   resources :notifications do
     member do
