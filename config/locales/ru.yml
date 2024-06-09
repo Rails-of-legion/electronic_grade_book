@@ -131,6 +131,14 @@ ru:
     student: "Студент"
 
   active_admin:
+    comments:
+      name: "Название"
+      specialization: "Специализация"
+      resource_type: "Тип ресурса"
+      author_type: "Тип автора"
+      namespace: "Пространство имен"
+      body: "Текст комментария"
+      created_at: "Дата создания"
     dashboard:
       dashboard: "Панель управления"
       generate_individual_report: "Сгенерировать индивидуальный отчет"

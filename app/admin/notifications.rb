@@ -11,6 +11,10 @@ ActiveAdmin.register Notification do
     actions
   end
 
+  filter :message, label: proc { I18n.t('active_admin.notifications.message') }
+  filter :date, label: proc { I18n.t('active_admin.notifications.date') }
+  filter :users, label: proc { I18n.t('active_admin.notifications.users') }
+
   show do
     attributes_table do
       row I18n.t('active_admin.notifications.message') do |notification|

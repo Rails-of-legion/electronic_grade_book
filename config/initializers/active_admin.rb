@@ -351,4 +351,7 @@ ActiveAdmin.setup do |config|
   # You can switch to using Webpacker here.
   #
   # config.use_webpacker = true
+
+  config.localize_format = :long 
+  I18n.locale = :ru 
 end
