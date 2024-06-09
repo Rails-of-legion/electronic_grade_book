@@ -35,9 +35,6 @@
           <li class="nav-item">
             <%= link_to 'Отчеты', extends_reports_index_path, class: "nav-link #{request.fullpath == extends_reports_index_path ? 'active' : ''}" %>
           </li>
-          <li>
-            <%= link_to t('navbar.report'), marks_reports_create_path, class: "nav-link #{request.fullpath == marks_reports_create_path ? 'active' : ''}" %>
-          </li>
         <% end %>
       <% end %>
     </ul>

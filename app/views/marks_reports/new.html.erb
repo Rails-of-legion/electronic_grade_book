@@ -1,0 +1,50 @@
+<%= form_tag generate_marks_report_path(format: :pdf), method: :post, class: "container", id: "generate_report_form" do %>
+  <div class="form-group row mb-3">
+    <%= label_tag :record_book_id, "Зачетная книжка", class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= select_tag :record_book_id, options_for_select(@record_books.map { |rb| [rb.user.name, rb.id] }), class: "form-select" %>
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <%= label_tag :retake_count, "Количество пересдач", class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= number_field_tag :retake_count, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <div class="col-sm-10 offset-sm-2">
+      <%= submit_tag "Сгенерировать отчет", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  // Обработка успешной отправки формы и перенаправление
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('generate_report_form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // Предотвращаем стандартное поведение формы
+      fetch(form.action, {
+        method: form.method,
+        body: new FormData(form)
+      }).then(response => {
+        if (response.ok) {
+          return response.blob();
+        }
+        throw new Error('Network response was not ok.');
+      }).then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'marks_report.pdf';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }).catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
+    });
+  });
+</script>

@@ -10,27 +10,39 @@ class MarksReport
 
     pdf.font 'TimesNewRoman'
 
-    pdf.text 'Marks Report', align: :center, size: 12, style: :bold
-
-    font 'TimesNewRoman'
+    pdf.text 'Отчет о задолженностях', align: :center, size: 12, style: :bold
 
     # Заголовок
-    text 'Учреждение образования', align: :center, size: 11, style: :bold
-    text 'РЕСПУБЛИКАНСКИЙ ИНСТИТУТ ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ»', align: :center, size: 11, style: :bold
+    pdf.text 'Учреждение образования', align: :center, size: 11, style: :bold
+    pdf.text 'РЕСПУБЛИКАНСКИЙ ИНСТИТУТ ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ', align: :center, size: 11, style: :bold
 
     # Информация о ведомости
-    text "ЗАЧЕТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ № #{intermediate_attestation.id} ", align: :center, size: 11, style: :bold
-    text 'аттестации вне учебной группы', align: :center, size: 11, style: :bold
-    move_down 5
+    # Здесь предполагается, что у вас есть метод intermediate_attestation для получения id
+    pdf.text "ЗАЧЕТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ № 1", align: :center, size: 11, style: :bold
+    pdf.text 'аттестации вне учебной группы', align: :center, size: 11, style: :bold
+    pdf.move_down 5
 
-    text "Студент #{record_book.users.name}", align: :left, size: 11
-    # Информация о дисциплине
-    text "Средний балл студента: #{grades.where(record_book_id: record_book_id).average(:mark)}", align: :left,
-                                                                                                  size: 11
-    # Информация о форме обучения и аттестации
-    text "Количество пересдач: #{retake_count}", align: :left, size: 11
+    # Получение данных о студенте и оценках
+    record_book = RecordBook.find(record_book_id)
+    user_name = record_book.user.name
+    average_grade = Grade.where(record_book_id: record_book_id).average(:grade)
+
+    pdf.text "Студент #{user_name}", align: :left, size: 11
+    pdf.text "Средний балл студента: #{average_grade}", align: :left, size: 11
+    pdf.text "Количество пересдач: #{retake_count}", align: :left, size: 11
+
+    pdf.text 'Подпись преподавателя', align: :left, size: 11
+    pdf.text '_________________________                                            ______________________ '
+    pdf.text '(подпись)                                                                                   (фамилия, инициалы)'
+    pdf.text 'С индивидуальными сроками текущей аттестации ознакомлен', align: :left, size: 11
+    pdf.text '___________20___               ______________                               _______________________',
+             align: :left, size: 11
+    pdf.text '(дата)                                     (подпись)                               (Фамилия, инициалы слушателя)',
+             align: :left, size: 11
+    pdf.text 'Декан факультета повышения                                                 ', align: :left, size: 11
+    pdf.text "квалификации и переподготовки кадров                      _________________               <u>#{User.first.format_full_name}<u>",
+             align: :left, inline_format: true, size: 11
 
     pdf.render
-    pdf.to_blob
   end
 end
