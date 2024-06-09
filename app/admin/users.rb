@@ -38,7 +38,12 @@ ActiveAdmin.register User do
       f.input :password, label: I18n.t('active_admin.users.password')
       f.input :password_confirmation, label: I18n.t('active_admin.users.password_confirmation')
       f.input :status, label: I18n.t('active_admin.users.status')
-      f.input :date_of_birth, label: I18n.t('active_admin.users.date_of_birth')
+      f.input :date_of_birth, as: :datepicker,
+        datepicker_options: { 
+          changeMonth: true, 
+          changeYear: true,
+          yearRange: '1960:2020' # Установите нужный диапазон годов
+        } 
       f.input :phone_number, label: I18n.t('active_admin.users.phone_number')
       f.input :roles, as: :check_boxes, label: I18n.t('active_admin.users.roles')
     end
