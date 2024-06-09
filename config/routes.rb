@@ -5,10 +5,10 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  devise_scope :user do  
+  devise_scope :user do
     get 'users/search', to: 'users/registrations#search'
     post 'users/find_user', to: 'users/registrations#find_user'
-    put 'users/set_password_and_email', to: 'users/registrations#set_password_and_email' 
+    put 'users/set_password_and_email', to: 'users/registrations#set_password_and_email'
 
   end
 
@@ -26,6 +26,13 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'dashboard/generate_report', to: 'dashboard#generate_report'
+  end
+
+  resources :attestation_retake_reports, only: [] do
+    collection do
+      get 'select'
+      get 'generate_report', action: :generate_report, as: :generate_report
+    end
   end
 
   # Defines the root path route ("/")
@@ -58,6 +65,6 @@ Rails.application.routes.draw do
       post 'generate_report', on: :collection
     end
   end
-  
+
   get 'about', to: 'home#about', as: :about
 end
