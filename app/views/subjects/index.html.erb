@@ -1,5 +1,5 @@
 <% if @subjects.present? %>
-  <div class="container mt-5">
+  <div class="container mt-1">
     <h1 class="mb-4"><%= t 'subjects.subjects' %></h1>
     
     <div class="row mb-3">
@@ -28,7 +28,7 @@
           <tr>
             <td><%= subject.name %></td>
             <td>
-              <%= link_to t('subjects.show'), subject, class: 'btn btn-sm btn-info' %>
+              <%= link_to t('subjects.show'), subject, class: 'btn btn-outline-primary btn-sm' %>
             </td>
           </tr>
         <% end %>
