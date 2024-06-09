@@ -42,9 +42,9 @@ export default class extends Controller {
         subject_id: subjectId,
         date: date,
         grade: value,
+        is_retake: false,
       },
     };
-
     fetch('/grades', { 
       method: "POST",
       headers: {
