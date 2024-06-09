@@ -61,6 +61,7 @@ ru:
     back: "Назад"
 
   semesters:
+    name: "Название"
     show: "Показать"
     back: "Назад"
     actions: "Действия"
@@ -78,6 +79,7 @@ ru:
     subject: "Предмет"
     back: "Назад"
     download_pdf: "Скачать PDF"
+    back: "Назад"
 
   specializations:
     name: "Название"
@@ -87,20 +89,45 @@ ru:
     no_groups: "Группы для этой специализации пока нет"
     back: "Назад"
 
+  common:
+    month: "Месяц"
+    submit: "Создать"
+    specialization: "Специализация"
+
+  grades:
+    date: "Дата"
+    value: "Значение"
+    successfully_created: "Создать"
+
   groups:
     name: "Название"
     list: "Список групп"
-    details: "Детали группы"
     curator: "Куратор"
-    unassigned: "Не назначен"
-    specialization: "Специализация"
-    record_books: "Зачетные книжки"
     select_month: "Выберите месяц"
     select_subject: "Выберите предмет"
     add_grade: "Добавить оценку"
     select_day: "Выберите день"
     select_student: "Выберите студента"
     back: "Назад"
+    details: "Информация о группе"
+    unassigned: "Не назначен"
+    specialization: "Специализация"
+    record_books: "Зачетные книжки"
+    choose_a_discipline: "Выберите дисциплину"
+    discipline: "Дисциплина"
+    subject: "Предмет"
+    date: "Дата"
+    value: "Оценка"
+    submit: "Отправить"
+    
+
+  record_books:
+    title: "Зачетная книжка"
+    student: "Студент"
+    back: "Назад"
+    subject: "Предмет"
+    select_month: "Выберите месяц"
+    month: "Месяц"
 
   navbar:
     home: "Главная"

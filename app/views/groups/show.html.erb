@@ -13,7 +13,7 @@
        data-report-group-value="<%= @group.id %>" 
        data-report-specialization-value="<%= @group.specialization.id %>">
     <div class="form-group row mb-3">
-      <label for="month-select" class="col-sm-2 col-form-label">Месяц:</label>
+      <label for="month-select" class="col-sm-2 col-form-label"><%= t('common.month') %>:</label>
         <div class="col-sm-10">
           <select id="month-select" data-report-target="month" class="form-select">
             <%= options_for_select((1..12).map { |m| [Date::MONTHNAMES[m], m] }) %>
@@ -22,10 +22,10 @@
       </div>
 
     <div class="form-group row mb-3">
-      <label for="subject-select" class="col-sm-2 col-form-label">Дисциплина:</label>
+      <label for="subject-select" class="col-sm-2 col-form-label"><%= t('groups.discipline') %>:</label>
         <div class="col-sm-10">
          <select id="subject-select" data-report-target="subject" class="form-select">
-          <option value="">Выберите дисциплину</option>
+          <option value=""><%= t('groups.choose_a_discipline') %></option>
          </select>
         </div>
     </div>
@@ -77,7 +77,7 @@
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
   <div id="copyToast" class="toast">
     <div class="toast-header">
-      <strong class="me-auto">Оценка поставлена</strong>
+      <strong class="me-auto"><%= t('grades.grade_created') %></strong>
       <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
     </div>
   </div>
@@ -86,6 +86,6 @@
   
   <template id="grade-form-template">
     <div>
-      Оценка успешно создана!
+      <%= t('grades.successfully_created') %>
     </div>
   </template>
