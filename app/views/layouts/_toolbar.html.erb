@@ -38,6 +38,9 @@
           <li class="nav-item">
             <%= link_to t('navbar.individual_report'), new_individual_report_path, class: "nav-link #{request.fullpath == new_individual_report_path ? 'active' : ''}" %>
           </li>
+          <li>
+            <%= link_to t('navbar.report'), marks_reports_create_path, class: "nav-link #{request.fullpath == marks_reports_create_path ? 'active' : ''}" %>
+          </li>
         <% end %>
       <% end %>
     </ul>

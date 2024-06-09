@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'marks_reports/create'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -52,6 +53,7 @@ Rails.application.routes.draw do
   resources :record_books
 
   Rails.application.routes.draw do
+  get 'marks_reports/create'
     resources :individual_reports, only: [:new] do
       post 'generate_report', on: :collection
     end

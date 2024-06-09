@@ -11,4 +11,8 @@ class Grade < ApplicationRecord
   def self.ransackable_associations(_auth_object = nil)
     %w[record_book subject]
   end
+
+  attribute :is_retake, :boolean, default: false
+
 end
+
