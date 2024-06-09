@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
-  get 'marks_reports/create'
+  get 'extends_reports/index'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
 
-  devise_scope :user do  
+  devise_scope :user do
     get 'users/search', to: 'users/registrations#search'
     post 'users/find_user', to: 'users/registrations#find_user'
-    put 'users/set_password_and_email', to: 'users/registrations#set_password_and_email' 
+    put 'users/set_password_and_email', to: 'users/registrations#set_password_and_email'
 
   end
 
@@ -53,11 +53,11 @@ Rails.application.routes.draw do
   resources :record_books
 
   Rails.application.routes.draw do
-  get 'marks_reports/create'
+  get 'extends_reports/index'
     resources :individual_reports, only: [:new] do
       post 'generate_report', on: :collection
     end
   end
-  
+
   get 'about', to: 'home#about', as: :about
 end
