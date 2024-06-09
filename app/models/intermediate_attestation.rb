@@ -3,6 +3,7 @@ class IntermediateAttestation < ApplicationRecord
   belongs_to :teacher, class_name: 'User'
   has_many :groups_intermediate_attestations, dependent: :destroy
   has_many :groups, through: :groups_intermediate_attestations, dependent: :destroy
+  has_many :grades, foreign_key: :subject_id
 
   validates :name, :assessment_type, presence: true
 

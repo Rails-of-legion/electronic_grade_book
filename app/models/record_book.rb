@@ -11,7 +11,7 @@ class RecordBook < ApplicationRecord
   end
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at user_id id intermediate_attestation_id updated_at custom_number]
+    %w[created_at user_id id intermediate_attestation_id updated_at custom_number retake_count]
   end
 
   def subjects_list
