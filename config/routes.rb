@@ -33,6 +33,13 @@ Rails.application.routes.draw do
     get 'dashboard/generate_report', to: 'dashboard#generate_report'
   end
 
+  resources :attestation_retake_reports, only: [] do
+    collection do
+      get 'select'
+      get 'generate_report', action: :generate_report, as: :generate_report
+    end
+  end
+
   # Defines the root path route ("/")
   root "home#home"
   get "users/:id/edit_password", to: "users#edit_password", as: :edit_password

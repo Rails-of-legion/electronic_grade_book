@@ -1,5 +1,5 @@
 class Grade < ApplicationRecord
-  belongs_to :subject
+  belongs_to :subject, class_name: 'IntermediateAttestation'
   belongs_to :record_book
 
   validates :grade, presence: true
