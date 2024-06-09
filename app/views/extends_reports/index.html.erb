@@ -2,12 +2,15 @@
 <html>
   <head>
     <title>Отчеты</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   </head>
   <body>
     <div class="container mt-5">
       <h1 class="text-center">Отчеты</h1>
       <div class="d-flex justify-content-around mt-4">
         <%= link_to 'Промежуточная аттестация', intermediate_attestations_path, class: "btn btn-primary" %>
+        <%= link_to 'Индивидуальный отчет', new_individual_report_path, class: "btn btn-primary" %>
+        <%= link_to 'Отчет успеваемости', new_marks_report_path, class: "btn btn-primary #{request.fullpath == new_marks_report_path ? 'active' : ''}" %>
         <%= link_to 'Индивидуальный отчет', new_individual_report_path, class: "btn btn-secondary" %>
         <%= link_to 'Отчет по пересдаче аттестации', select_attestation_retake_reports_path, class: "btn btn-warning" %>
       </div>

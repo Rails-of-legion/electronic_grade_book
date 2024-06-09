@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_08_170843) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_09_022326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,6 +35,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_170843) do
     t.datetime "updated_at", null: false
     t.date "date"
     t.bigint "record_book_id"
+    t.boolean "is_retake"
     t.index ["record_book_id"], name: "index_grades_on_record_book_id"
     t.index ["subject_id"], name: "index_grades_on_subject_id"
   end
@@ -96,6 +97,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_170843) do
     t.string "custom_number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "retake_count", default: 0
     t.index ["group_id"], name: "index_record_books_on_group_id"
     t.index ["specialization_id"], name: "index_record_books_on_specialization_id"
     t.index ["user_id"], name: "index_record_books_on_user_id"
