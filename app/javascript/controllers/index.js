@@ -6,3 +6,9 @@ import { application } from "./application"
 
 import SubjectsController from "./subjects_controller"
 application.register("subjects", SubjectsController)
+
+import ReportController from "./report_controller"
+application.register("report", ReportController)
+
+import GradeFormController from "./grade-form-controller"
+application.register("grade-form", GradeFormController)

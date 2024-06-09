@@ -52,6 +52,15 @@ class SubjectsController < ApplicationController
     end
   end
 
+  def group_subjects
+    group = Group.find(params[:id])
+    @subjects = group.specialization.subjects
+
+    respond_to do |format|
+      format.json { render json: @subjects }
+    end
+  end
+
   private
 
   def student_subjects

@@ -18,12 +18,12 @@ ActiveAdmin.register User do
     actions
   end
 
-  filter :email, label: I18n.t('active_admin.users.email')
   filter :role, collection: -> { Role.all }, label: I18n.t('active_admin.users.role')
   filter :first_name, label: I18n.t('active_admin.users.first_name')
   filter :middle_name, label: I18n.t('active_admin.users.middle_name')
   filter :last_name, label: I18n.t('active_admin.users.last_name')
   filter :record_book_custom_number, as: :string, label: I18n.t('active_admin.users.record_book_number'), joins: :record_book
+  filter :date_of_birth, label: I18n.t('active_admin.users.date_of_birth')
   filter :group, collection: -> { Group.all }, label: I18n.t('active_admin.users.group')
   filter :record_book_specialization_id_eq, as: :select, collection: lambda {
                                                                        Specialization.all
@@ -38,7 +38,12 @@ ActiveAdmin.register User do
       f.input :password, label: I18n.t('active_admin.users.password')
       f.input :password_confirmation, label: I18n.t('active_admin.users.password_confirmation')
       f.input :status, label: I18n.t('active_admin.users.status')
-      f.input :date_of_birth, label: I18n.t('active_admin.users.date_of_birth')
+      f.input :date_of_birth, as: :datepicker,
+        datepicker_options: { 
+          changeMonth: true, 
+          changeYear: true,
+          yearRange: '1960:2020' # Установите нужный диапазон годов
+        } 
       f.input :phone_number, label: I18n.t('active_admin.users.phone_number')
       f.input :roles, as: :check_boxes, label: I18n.t('active_admin.users.roles')
     end

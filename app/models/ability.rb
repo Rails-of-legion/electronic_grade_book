@@ -37,6 +37,8 @@ class Ability
     can :manage, Grade
     can :read, Semester
     can :read, Subject
+    can :group_subjects, Subject
+    can :form_teacher, Group
   end
 
   def define_student_abilities
