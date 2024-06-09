@@ -4,15 +4,15 @@ class GroupsController < ApplicationController
 
   # GET /groups
   def index
-    if params[:specialization_id].present? 
-      @groups = Group.where(specialization_id: params[:specialization_id])
+    if params[:specialization_id].present?
+      @pagy, @groups = pagy(Group.where(specialization_id: params[:specialization_id]), items: 10)
     else
-      @groups = Group.all 
+      @pagy, @groups = pagy(Group.all, items: 10)
     end
 
     respond_to do |format|
-      format.html 
-      format.json { render json: @groups } 
+      format.html
+      format.json { render json: @groups }
     end
   end
 
@@ -31,19 +31,23 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:group_id])
     @month = params[:month]&.to_i
     @subject = Subject.find_by(id: params[:subject_id])
-  
+
     if @month && @subject
       start_date = Date.new(Time.current.year, @month, 1)
       end_date = start_date.end_of_month
-  
+
       @record_books = RecordBook.where(group_id: @group.id)
-      
+
     end
     respond_to do |format|
-      format.html { render partial: 'form_teacher', locals: { group: @group, month: @month, subject: @subject, record_books: @record_books } }
+      format.html do
+        render partial: 'form_teacher',
+               locals: { group: @group, month: @month, subject: @subject, record_books: @record_books }
+      end
       format.js { render locals: { record_books: @record_books } }
     end
   end
+
   # GET /groups/new
   def new
     @group = Group.new
@@ -84,6 +88,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
   end
 
+  
   def group_params
     params.require(:group).permit(:name, :curator_id)
   end
