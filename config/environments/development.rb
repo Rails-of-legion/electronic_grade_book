@@ -85,4 +85,6 @@ Rails.application.configure do
     # Bullet.add_footer = true
   end
   
+  config.logger = Logger.new(STDOUT)
+  config.logger.level = Logger::DEBUG
 end

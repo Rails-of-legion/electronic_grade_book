@@ -131,10 +131,15 @@ ru:
     student: "Студент"
 
   active_admin:
+    dashboard:
+      dashboard: "Панель управления"
+      generate_individual_report: "Сгенерировать индивидуальный отчет"
     intermediate_attestations:
+      intermediate_attestations: "Промежуточные аттестации"
+      new_model: "Создать промежуточную аттестациюll"
       intermediate_attestation: 'Промежуточная аттестация'
       intermediate_attestation_details: 'Детали промежуточной аттестации'
-      name: 'Имя'
+      name: 'Название'
       date: 'Дата'
       assessment_type: 'Тип аттестации'
       subject: 'Предмет'
@@ -142,6 +147,7 @@ ru:
       teacher: 'Учитель'
       create: "Создать"
       save_changes: "Сохранить изменения"
+      group: "Группа"
     groups:
       groups: "Группы"
       group: "Группа"
@@ -207,6 +213,7 @@ ru:
       create: 'Создать'
       save_changes: 'Сохранить изменения'
     subjects:
+      subject: 'Предмет'
       subjects: "Предметы"
       name: "Название"
       description: "Описание"
@@ -239,3 +246,17 @@ ru:
       subjects_of_the_current_semester: 'Предметы текущего семестра'
       grades: 'Оценки'
       subject: 'Предмет'
+
+  activerecord:
+    models:
+      intermediate_attestation: "промежуточную аттестацию"
+      record_book: "зачетную книжку"
+      subject: "предмет"
+      user: "пользователя"
+      group: "группу"
+      specialization: "специализацию"
+      semester: "семестр"
+      grade: "оценку"
+      user: "пользователя"
+      notification: "уведомление"
+      comment: "Комментарии"
