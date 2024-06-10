@@ -58,12 +58,7 @@
     </div>
   </div>
 
-  <div class="form-group row mb-3">
-    <label for="grade_date" class="col-sm-2 col-form-label"><%= t('grades.date') %></label>
-    <div class="col-sm-10">
-      <input type="date" id="grade_date" data-grade-form-target="date" class="form-control">
-    </div>
-  </div>
+  <input type="hidden" id="grade_date" data-grade-form-target="date" class="form-control"> 
 
   <div class="form-group row mb-3" data-grade-form-target="messageContainer" id="messageContainer">
     <label for="grade_value" class="col-sm-2 col-form-label"><%= t('grades.value') %></label>

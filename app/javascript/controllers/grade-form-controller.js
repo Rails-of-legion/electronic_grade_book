@@ -24,6 +24,8 @@ export default class extends Controller {
       this.subjectTarget.add(option);
     });
     this.toast = new Toast(document.getElementById('copyToast'));
+    const today = new Date().toISOString().slice(0, 10);
+    this.dateTarget.value = today;
   }
 
   submit(event) {
