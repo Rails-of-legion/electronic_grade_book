@@ -19,7 +19,7 @@ class GradesController < ApplicationController
 
     respond_to do |format|
       if @grade.save
-        format.html { redirect_to @grade, notice: 'Оценка успешно создана.' }  
+        format.html { redirect_to @grade, notice: 'Оценка успешно создана.' }
         format.json { render json: @grade, status: :created }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +44,7 @@ class GradesController < ApplicationController
   private
 
   def grade_params
-    params.require(:grade).permit(:date, :subject_id, :grade, :record_book_id)
+    params.require(:grade).permit(:date, :subject_id, :grade, :record_book_id, :is_retake)
   end
 
   def set_grade

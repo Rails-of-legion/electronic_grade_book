@@ -61,6 +61,7 @@ ru:
     back: "Назад"
 
   semesters:
+    name: "Название"
     show: "Показать"
     back: "Назад"
     actions: "Действия"
@@ -78,6 +79,7 @@ ru:
     subject: "Предмет"
     back: "Назад"
     download_pdf: "Скачать PDF"
+    back: "Назад"
 
   specializations:
     name: "Название"
@@ -87,20 +89,45 @@ ru:
     no_groups: "Группы для этой специализации пока нет"
     back: "Назад"
 
+  common:
+    month: "Месяц"
+    submit: "Создать"
+    specialization: "Специализация"
+
+  grades:
+    date: "Дата"
+    value: "Значение"
+    successfully_created: "Создать"
+
   groups:
     name: "Название"
     list: "Список групп"
-    details: "Детали группы"
     curator: "Куратор"
-    unassigned: "Не назначен"
-    specialization: "Специализация"
-    record_books: "Зачетные книжки"
     select_month: "Выберите месяц"
     select_subject: "Выберите предмет"
     add_grade: "Добавить оценку"
     select_day: "Выберите день"
     select_student: "Выберите студента"
     back: "Назад"
+    details: "Информация о группе"
+    unassigned: "Не назначен"
+    specialization: "Специализация"
+    record_books: "Зачетные книжки"
+    choose_a_discipline: "Выберите дисциплину"
+    discipline: "Дисциплина"
+    subject: "Предмет"
+    date: "Дата"
+    value: "Оценка"
+    submit: "Отправить"
+    
+
+  record_books:
+    title: "Зачетная книжка"
+    student: "Студент"
+    back: "Назад"
+    subject: "Предмет"
+    select_month: "Выберите месяц"
+    month: "Месяц"
 
   navbar:
     home: "Главная"
@@ -131,10 +158,23 @@ ru:
     student: "Студент"
 
   active_admin:
+    comments:
+      name: "Название"
+      specialization: "Специализация"
+      resource_type: "Тип ресурса"
+      author_type: "Тип автора"
+      namespace: "Пространство имен"
+      body: "Текст комментария"
+      created_at: "Дата создания"
+    dashboard:
+      dashboard: "Панель управления"
+      generate_individual_report: "Сгенерировать индивидуальный отчет"
     intermediate_attestations:
+      intermediate_attestations: "Промежуточные аттестации"
+      new_model: "Создать промежуточную аттестациюll"
       intermediate_attestation: 'Промежуточная аттестация'
       intermediate_attestation_details: 'Детали промежуточной аттестации'
-      name: 'Имя'
+      name: 'Название'
       date: 'Дата'
       assessment_type: 'Тип аттестации'
       subject: 'Предмет'
@@ -142,6 +182,7 @@ ru:
       teacher: 'Учитель'
       create: "Создать"
       save_changes: "Сохранить изменения"
+      group: "Группа"
     groups:
       groups: "Группы"
       group: "Группа"
@@ -207,6 +248,7 @@ ru:
       create: 'Создать'
       save_changes: 'Сохранить изменения'
     subjects:
+      subject: 'Предмет'
       subjects: "Предметы"
       name: "Название"
       description: "Описание"
@@ -239,3 +281,17 @@ ru:
       subjects_of_the_current_semester: 'Предметы текущего семестра'
       grades: 'Оценки'
       subject: 'Предмет'
+
+  activerecord:
+    models:
+      intermediate_attestation: "промежуточную аттестацию"
+      record_book: "зачетную книжку"
+      subject: "предмет"
+      user: "пользователя"
+      group: "группу"
+      specialization: "специализацию"
+      semester: "семестр"
+      grade: "оценку"
+      user: "пользователя"
+      notification: "уведомление"
+      comment: "Комментарии"

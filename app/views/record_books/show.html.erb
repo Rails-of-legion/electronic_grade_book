@@ -1,12 +1,20 @@
 <div class="container">
-  <h1 class="mb-4">Record Book</h1>
+  <h1 class="mb-4"><%= t('record_books.title') %></h1>
 
   <p>
-    <strong>Student:</strong> <%= @record_book.user.name %>
+    <strong><%= t('record_books.student') %>:</strong> <%= @record_book.user.name %>
   </p>
-
   <%= simple_form_for :grade, url: record_book_path(@record_book, month: params[:month]), method: :get, html: { class: 'form-inline mb-4' } do |f| %>
-    <%= f.input :selected_month, collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, prompt: 'Select a month', input_html: { onchange: 'this.form.submit();', name: 'month', class: 'form-control' } %>
+    <%= f.input :selected_month, 
+               collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, 
+               prompt: t('record_books.select_month'), 
+               label: t('record_books.month'), 
+               input_html: { 
+                 onchange: 'this.form.submit();', 
+                 name: 'month', 
+                 class: 'form-control' 
+               } 
+    %>
     <%= hidden_field_tag :year, Time.now.year %>
   <% end %>
 
@@ -37,25 +45,7 @@
     </tbody>
   </table>
 
-  <% if current_user.has_role? :teacher %> 
-    <%= simple_form_for Grade.new, url: {controller: "grades", action: "create"}, method: :post do |f| %>
-      <%= f.input :date, collection: (1..Time.days_in_month(@month.to_i)), prompt: 'Select a day', input_html: { class: 'form-control mb-2' } %>
-      <%= f.input :subject_id, collection: @record_book.specialization.subjects.map { |subject| [subject.name, subject.id] }, prompt: 'Select a subject', input_html: { class: 'form-control mb-2' } %>
-      <%= f.input :grade, collection: (1..5), prompt: 'Add a grade', input_html: { class: 'form-control mb-2' } %>
-      <%= f.input :record_book_id, collection: RecordBook.all.map { |record_book| [record_book.user.name, record_book.id] }, prompt: 'Select a student', input_html: { class: 'form-control mb-2' } %>
-      <%= hidden_field_tag :month, @month %>
-      <%= hidden_field_tag :year, Time.now.year %>
-      <%= f.button :submit, 'Add Grade', class: 'btn btn-primary' %>
-    <% end %> 
-  <% end %>
-
   <% if current_user.has_role? :teacher %>
-    <%= link_to 'Edit', edit_record_book_path(@record_book), class: 'btn btn-secondary mr-2' %> 
-  <% end %>
-
-  <% if current_user.has_role? :student %>
-    <%= link_to 'Back', user_path(current_user), class: 'btn btn-light' %>
-  <% else %>
-    <%= link_to 'Back', record_books_path, class: 'btn btn-light' %>
+    <%= link_to t('record_books.back'), groups_path, class: 'btn btn-light' %>
   <% end %>
 </div>

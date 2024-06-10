@@ -24,6 +24,8 @@ export default class extends Controller {
       this.subjectTarget.add(option);
     });
     this.toast = new Toast(document.getElementById('copyToast'));
+    const today = new Date().toISOString().slice(0, 10);
+    this.dateTarget.value = today;
   }
 
   submit(event) {
@@ -42,9 +44,9 @@ export default class extends Controller {
         subject_id: subjectId,
         date: date,
         grade: value,
+        is_retake: false,
       },
     };
-
     fetch('/grades', { 
       method: "POST",
       headers: {

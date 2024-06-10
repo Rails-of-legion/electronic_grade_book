@@ -14,6 +14,9 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def default_title
+    action_name.humanize
+  end
 
   def authenticate_admin_user!
     redirect_to(root_path) unless current_user.try(:admin?)

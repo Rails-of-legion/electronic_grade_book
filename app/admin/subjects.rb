@@ -16,7 +16,7 @@ ActiveAdmin.register Subject do
 
   show do
     attributes_table do
-      panel I18n.t('active_admin.subjects.subjects') do
+      panel I18n.t('active_admin.subjects.subject') do
         table_for subject.specialities_subjects do
           column I18n.t('active_admin.subjects.name'), :subject do |specialities_subject|
             specialities_subject.subject.name

@@ -1,0 +1,14 @@
+<%= form_tag generate_marks_report_path(format: :pdf), method: :post, class: "container", id: "generate_report_form", data: { turbo: false } do %>
+  <div class="form-group row mb-3">
+    <%= label_tag :record_book_id, "Зачетная книжка", class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= select_tag :record_book_id, options_for_select(@record_books.map { |rb| [rb.user.name, rb.id] }), class: "form-select" %>
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <div class="col-sm-10 offset-sm-2">
+      <%= submit_tag "Сгенерировать отчет", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
