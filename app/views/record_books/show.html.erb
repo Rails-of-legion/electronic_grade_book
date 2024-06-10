@@ -1,12 +1,20 @@
 <div class="container">
-  <h1 class="mb-4">Record Book</h1>
+  <h1 class="mb-4"><%= t('record_books.title') %></h1>
 
   <p>
-    <strong>Student:</strong> <%= @record_book.user.name %>
+    <strong><%= t('record_books.student') %>:</strong> <%= @record_book.user.name %>
   </p>
-
   <%= simple_form_for :grade, url: record_book_path(@record_book, month: params[:month]), method: :get, html: { class: 'form-inline mb-4' } do |f| %>
-    <%= f.input :selected_month, collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, prompt: 'Select a month', input_html: { onchange: 'this.form.submit();', name: 'month', class: 'form-control' } %>
+    <%= f.input :selected_month, 
+               collection: Date::MONTHNAMES.compact.each_with_index.map { |name, i| [name, i+1] }, 
+               prompt: t('record_books.select_month'), 
+               label: t('record_books.month'), 
+               input_html: { 
+                 onchange: 'this.form.submit();', 
+                 name: 'month', 
+                 class: 'form-control' 
+               } 
+    %>
     <%= hidden_field_tag :year, Time.now.year %>
   <% end %>
 
@@ -38,6 +46,6 @@
   </table>
 
   <% if current_user.has_role? :teacher %>
-    <%= link_to 'Back', groups_path, class: 'btn btn-light' %>
+    <%= link_to t('record_books.back'), groups_path, class: 'btn btn-light' %>
   <% end %>
 </div>

@@ -1,11 +1,11 @@
 ActiveAdmin.register IntermediateAttestation do
-  menu priority: 3, label: proc { I18n.t('active_admin.intermediate_attestations.intermediate_attestation') }
+  menu priority: 3, label: proc { I18n.t('active_admin.intermediate_attestations.intermediate_attestations') }
 
   permit_params :name, :date, :assessment_type, :subject_id, :teacher_id, group_ids: []
 
 
   
-  index title: proc { I18n.t('active_admin.intermediate_attestations.intermediate_attestation') } do
+  index title: proc { I18n.t('active_admin.intermediate_attestations.intermediate_attestations') } do
     selectable_column
     id_column
     column I18n.t('active_admin.intermediate_attestations.name'), :name
@@ -17,7 +17,7 @@ ActiveAdmin.register IntermediateAttestation do
     actions
   end
 
-  show do
+  show do |attestation|
     attributes_table do
       row I18n.t('active_admin.intermediate_attestations.name') do |attestation|
         attestation.name
@@ -41,11 +41,11 @@ ActiveAdmin.register IntermediateAttestation do
     active_admin_comments
   end
 
-  filter :name
-  filter :date
-  filter :assessment_type
-  filter :subject
-  filter :groups
+  filter :name, label:I18n.t('active_admin.intermediate_attestations.name')
+  filter :date, label: I18n.t('active_admin.intermediate_attestations.date')
+  filter :assessment_type, label: I18n.t('active_admin.intermediate_attestations.assessment_type')
+  filter :subject, label: I18n.t('active_admin.intermediate_attestations.subject')
+  filter :groups, label: I18n.t('active_admin.intermediate_attestations.group')
 
   form do |f|
     f.inputs I18n.t('active_admin.intermediate_attestations.intermediate_attestation_details') do
@@ -66,6 +66,11 @@ ActiveAdmin.register IntermediateAttestation do
   end
 
   controller do
+
+    def default_title
+      "Мой заголовок"
+    end
+
     def scoped_collection
       super.includes :groups, :subject, :teacher
     end

@@ -1,8 +1,8 @@
 ActiveAdmin.register_page 'Dashboard' do
-  menu priority: 1, label: proc { I18n.t('active_admin.dashboard') }
+  menu priority: 1, label: proc { I18n.t('active_admin.dashboard.dashboard') }
 
-  content title: proc { I18n.t('active_admin.dashboard') } do
-    panel 'Generate Individual Report' do
+  content title: proc { I18n.t('active_admin.dashboard.dashboard') } do
+   panel I18n.t('active_admin.dashboard.generate_individual_report') do
       render 'admin/dashboard/generate_report_form'
     end
   end
