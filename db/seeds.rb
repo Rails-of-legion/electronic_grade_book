@@ -1,92 +1,116 @@
 require 'faker'
 
-Faker::UniqueGenerator.clear
-
-# Создание ролей
 puts "Создание ролей..."
 Role.create(name: 'admin')
 Role.create(name: 'teacher')
 Role.create(name: 'student')
 puts "Созданы роли: #{Role.pluck(:name)}"
 
-# Создание пользователя-администратора
-puts "Создание пользователей-администраторов..."
-2.times do |_i|
-  admin = User.create!(
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    middle_name: Faker::Name.middle_name,
-    phone_number: Faker::PhoneNumber.cell_phone,
-    email: Faker::Internet.unique.email,
-    password: 'password',
-    password_confirmation: 'password',
-    status: true,
-    date_of_birth: Faker::Date.birthday(min_age: 30, max_age: 50)
-  )
-  admin.add_role(:admin)
-  puts "Создан пользователь-администратор: #{admin.email}"
+# Создание специализаций
+puts "Создание специализаций..."
+specializations = []
+5.times do |i|
+  specialization = Specialization.create!(name: "Специализация #{i + 1}")
+  specializations << specialization
 end
+puts "Созданы специализации: #{Specialization.pluck(:name)}"
+
+# Создание предметов для каждой специализации
+puts "Создание предметов для каждой специализации..."
+subjects_data = [
+  { name: "Математика", description: "Основы математики" },
+  { name: "Физика", description: "Основы физики" },
+  { name: "Литература", description: "Классическая русская литература" },
+  { name: "История", description: "История России" },
+  { name: "Химия", description: "Основы химии" },
+  { name: "Биология", description: "Основы биологии" },
+  { name: "География", description: "География мира" },
+  { name: "Информатика", description: "Основы информатики" },
+  { name: "Иностранный язык", description: "Английский язык" },
+  { name: "Искусство", description: "Искусство и культура" }
+]
+
+specializations.each do |specialization|
+  subjects_data.each do |subject_data|
+    subject = Subject.create!(
+      name: "#{subject_data[:name]} #{specialization.name}",
+      description: "#{subject_data[:description]} для #{specialization.name}"
+    )
+    SpecialitiesSubject.create!(specialization: specialization, subject: subject)
+    puts "Создан предмет: #{subject.name} для специализации #{specialization.name}"
+  end
+end
+
+# Создание групп
+puts "Создание групп..."
+groups = []
+5.times do |i|
+  4.times do |j|
+    group = Group.create!(
+      name: "Группа #{('A'.ord + j).chr}",
+      specialization: specializations.sample
+    )
+    puts "Создана группа: #{group.name} со специализацией #{group.specialization.name}"
+    groups << group
+  end
+end
+
+# Создание пользователей-администраторов
+puts "Создание пользователей-администраторов..."
+admin1 = User.create!(
+  first_name: "Иван",
+  last_name: "Иванов",
+  middle_name: "Иванович",
+  phone_number: '+79991234567',
+  email: 'admin1@example.com',
+  password: 'password',
+  password_confirmation: 'password',
+  status: true,
+  date_of_birth: Date.new(1980, 1, 1)
+)
+admin1.add_role(:admin)
+puts "Создан пользователь-администратор: #{admin1.email}"
+
+admin2 = User.create!(
+  first_name: "Петр",
+  last_name: "Петров",
+  middle_name: "Петрович",
+  phone_number: '+79991234568',
+  email: 'admin2@example.com',
+  password: 'password',
+  password_confirmation: 'password',
+  status: true,
+  date_of_birth: Date.new(1982, 3, 15)
+)
+admin2.add_role(:admin)
+puts "Создан пользователь-администратор: #{admin2.email}"
 
 # Создание преподавателей
 puts "Создание преподавателей..."
-50.times do |_i|
+20.times do |i|
+  first_name = Faker::Name.first_name
+  last_name = Faker::Name.last_name
+  middle_name = Faker::Name.middle_name
+  middle_name = Faker::Name.middle_name while middle_name.length < 3 # Проверяем длину отчества
+
   teacher = User.create!(
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    middle_name: Faker::Name.middle_name,
+    first_name: first_name,
+    last_name: last_name,
+    middle_name: middle_name,
     phone_number: Faker::PhoneNumber.cell_phone,
-    email: Faker::Internet.unique.email,
+    email: Faker::Internet.email,
     password: 'password',
     password_confirmation: 'password',
     status: true,
-    date_of_birth: Faker::Date.birthday(min_age: 25, max_age: 40)
+    date_of_birth: Faker::Date.birthday(min_age: 25, max_age: 65)
   )
   teacher.add_role(:teacher)
   puts "Создан преподаватель: #{teacher.email}"
 end
 
-# Создание семестров
-puts "Создание семестров..."
-20.times do |i|
-  semester = Semester.create!(
-    name: "Семестр #{i + 1}",
-    start_date: Faker::Date.between(from: 2.years.ago, to: Time.zone.today),
-    end_date: Faker::Date.between(from: Time.zone.today, to: 2.years.from_now)
-  )
-  puts "Создан семестр: #{semester.name}"
-end
-
-# Создание групп с уникальными специализациями и предметами
-puts "Создание групп, специализаций и предметов..."
-groups = 50.times.map do |i|
-  specialization = Specialization.create!(name: "Специализация #{i + 1}")
-  puts "Создана специализация: #{specialization.name}"
-
-  gcount = 0
-
-  group = Group.create!(
-    name: "Группа #{gcount + 1}",
-    curator: User.with_role(:teacher).sample,
-    specialization: specialization
-  )
-  puts "Создана группа: #{group.name} со специализацией #{specialization.name}"
-
-  # Создание уникальных предметов для этой специализации
-  20.times do |j|
-    subject = Subject.create!(
-      name: "#{specialization.name} Предмет #{j + 1}",
-      description: Faker::Lorem.paragraph
-    )
-    SpecialitiesSubject.create!(specialization: specialization, subject: subject)
-    puts "Создан предмет: #{subject.name} для специализации #{specialization.name}"
-  end
-
-  group
-end
-
 # Создание студентов и зачетных книжек
 puts "Создание студентов и зачетных книжек..."
-50.times do |_i|
+100.times do
   group = groups.sample
   student = User.create!(
     first_name: Faker::Name.first_name,
@@ -97,31 +121,19 @@ puts "Создание студентов и зачетных книжек..."
     password: 'password',
     password_confirmation: 'password',
     status: [true, false].sample,
-    date_of_birth: Faker::Date.birthday(min_age: 17, max_age: 23)
+    date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 25)
   )
   student.add_role(:student)
   puts "Создан студент: #{student.email}"
 
+  # Создание зачетной книжки для студента
   record_book = RecordBook.create!(
-    custom_number: Faker::Code.npi,
+    custom_number: Faker::Number.unique.number(digits: 6),
     user: student,
     specialization: group.specialization,
     group: group
   )
   puts "Создана зачетная книжка для студента #{student.email} из группы #{group.name}"
-
-  # Создание оценок для студента
-  record_book.specialization.subjects.each do |subject|
-    grade_value = rand(2..5)
-    grade = Grade.create!(
-      grade: grade_value,
-      subject: subject,
-      record_book: record_book,
-      date: Date.today
-    )
-
-    puts "Создана оценка #{grade.grade} для студента #{student.email} по предмету #{subject.name}"
-  end
 end
 
 # Создание уведомлений
@@ -134,41 +146,55 @@ notification_data = [
 notification_data.each do |data|
   Notification.create!(data)
 end
+puts "Уведомления успешно созданы!"
 
-# Связывание уведомлений с пользователями
-puts "Связывание уведомлений с пользователями..."
-users = User.all
-notifications = Notification.all
-
-notifications.each do |notification|
-  users.each do |user|
-    NotificationsUser.create!(
-      notification: notification,
-      user: user,
-      status: false
-    )
-  end
+puts "Создание семестров..."
+5.times do |i|
+  semester = Semester.create!(
+    name: "Семестр #{i + 1}",
+    start_date: Time.zone.today - (i + 1).years,
+    end_date: Time.zone.today + (i + 1).months
+  )
+  puts "Создан семестр: #{semester.name}"
 end
 
 # Создание промежуточных аттестаций
 puts "Создание промежуточных аттестаций..."
-100.times do
-  intermediate_attestation = IntermediateAttestation.create!(
-    name: Faker::Lorem.sentence(word_count: 3),
-    assessment_type: ["Тест", "Эссе", "Практика"].sample,
-    subject: Subject.all.sample,
-    teacher: User.with_role(:teacher).sample,
-    date: Faker::Date.between(from: 1.year.ago, to: 1.year.from_now)
-  )
-  puts "Создана промежуточная аттестация: #{intermediate_attestation.name}"
+subjects = Subject.all
+teachers = User.with_role(:teacher)
+assessment_types = ["Тест", "Эссе", "Практика"]
 
-  # Привязка промежуточной аттестации к случайной группе
-  group = Group.all.sample
-  GroupsIntermediateAttestation.create!(
-    group: group,
-    intermediate_attestation: intermediate_attestation
+30.times do |i|
+  subject = subjects.sample
+  teacher = teachers.sample
+  assessment_type = assessment_types.sample
+
+  intermediate_attestation = IntermediateAttestation.create!(
+    name: "#{i + 1}, #{subject.name}, #{assessment_type}",
+    assessment_type: assessment_type,
+    subject: subject,
+    teacher: teacher,
+    date: Time.zone.today + (i + 1).weeks
   )
-  puts "Привязана промежуточная аттестация #{intermediate_attestation.name} к группе #{group.name}"
+
+  puts "Создана промежуточная аттестация: #{intermediate_attestation.name}"
 end
 
-puts "Сиды успешно созданы!"
+# Создание оценок для студентов
+puts "Создание оценок для студентов..."
+RecordBook.includes(:specialization).find_each do |record_book|
+  record_book.specialization.subjects.each do |subject|
+    intermediate_attestation = IntermediateAttestation.find_by(subject: subject)
+    next unless intermediate_attestation # Пропускаем, если нет промежуточной аттестации для предмета
+
+    grade_value = rand(2..5)
+    grade = Grade.create!(
+      grade: grade_value,
+      subject: intermediate_attestation,
+      record_book: record_book,
+      date: Date.today
+    )
+
+    puts "Создана оценка #{grade.grade} для студента #{record_book.user.email} по предмету #{subject.name}"
+  end
+end
