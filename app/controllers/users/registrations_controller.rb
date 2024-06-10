@@ -15,11 +15,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def search; end
 
   def find_user
-    date_of_birth = Date.new(
-      params[:user][:'date_of_birth(1i)'].to_i,
-      params[:user][:'date_of_birth(2i)'].to_i,
-      params[:user][:'date_of_birth(3i)'].to_i
-    )
+    year = params[:user][:'date_of_birth(1i)'].to_i
+    month = params[:user][:'date_of_birth(2i)'].to_i
+    day = params[:user][:'date_of_birth(3i)'].to_i
+    date_of_birth = Date.new(year, month, day)
 
     @user = User.find_by(
       first_name: params[:user][:first_name],
@@ -28,7 +27,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       phone_number: params[:user][:phone_number],
       date_of_birth: date_of_birth
     )
-    serach_user
+    search_user
   end
 
   # GET /resource/edit
@@ -55,12 +54,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def serach_user
+  def search_user
     if @user && @user[:status].blank?
       render :set_password_and_email, status: :unprocessable_entity
     else
       flash[:alert] = 'User not found'
-      redirect_to users_find_user_path
+      render :search
     end
   end
 
