@@ -14,4 +14,17 @@ class Subject < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     %w[created_at description id name updated_at]
   end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "grades",
+      "intermediate_attestations",
+      "semesters",
+      "semesters_subjects",
+      "specialities_subjects",
+      "specializations",
+      "teachers",
+      "teachers_subjects"
+    ]
+  end
 end
