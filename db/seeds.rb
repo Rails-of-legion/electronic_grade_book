@@ -30,37 +30,12 @@ subjects_data = [
   { name: "Искусство", description: "Искусство и культура" }
 ]
 
-specializations.each do |specialization|
-  subjects_data.each do |subject_data|
-    subject = Subject.create!(
-      name: "#{subject_data[:name]} #{specialization.name}",
-      description: "#{subject_data[:description]} для #{specialization.name}"
-    )
-    SpecialitiesSubject.create!(specialization: specialization, subject: subject)
-    puts "Создан предмет: #{subject.name} для специализации #{specialization.name}"
-  end
-end
-
-# Создание групп
-puts "Создание групп..."
-groups = []
-5.times do |i|
-  4.times do |j|
-    group = Group.create!(
-      name: "Группа #{('A'.ord + j).chr}",
-      specialization: specializations.sample
-    )
-    puts "Создана группа: #{group.name} со специализацией #{group.specialization.name}"
-    groups << group
-  end
-end
-
 # Создание пользователей-администраторов
 puts "Создание пользователей-администраторов..."
 admin1 = User.create!(
-  first_name: "Иван",
-  last_name: "Иванов",
-  middle_name: "Иванович",
+  first_name: "Юрий",
+  last_name: "Юрьевич",
+  middle_name: "Королев",
   phone_number: '+79991234567',
   email: 'admin1@example.com',
   password: 'password',
@@ -85,9 +60,9 @@ admin2 = User.create!(
 admin2.add_role(:admin)
 puts "Создан пользователь-администратор: #{admin2.email}"
 
-# Создание преподавателей
+#  Создание преподавателей с ролью "teacher"
 puts "Создание преподавателей..."
-20.times do |i|
+teachers = 20.times.map do
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
   middle_name = Faker::Name.middle_name
@@ -106,6 +81,36 @@ puts "Создание преподавателей..."
   )
   teacher.add_role(:teacher)
   puts "Создан преподаватель: #{teacher.email}"
+  teacher
+end
+
+specializations.each do |specialization|
+  subjects_data.each do |subject_data|
+    subject = Subject.create!(
+      name: "#{subject_data[:name]} #{specialization.name}",
+      description: "#{subject_data[:description]} для #{specialization.name}"
+    )
+    SpecialitiesSubject.create!(specialization: specialization, subject: subject)
+    puts "Создан предмет: #{subject.name} для специализации #{specialization.name}"
+  end
+end
+
+puts "Создание групп..."
+groups = []
+5.times do |i|
+  4.times do |j|
+    specialization = specializations.sample
+    curator = teachers.sample
+
+    group = Group.create!(
+      name: "Группа #{('A'.ord + j).chr}#{i + 1}",
+      specialization: specialization,
+      curator: curator,
+      form_of_education: "Очная" # или заочная, в зависимости от ваших требований
+    )
+    puts "Создана группа: #{group.name} со специализацией #{group.specialization.name} и куратором #{curator.first_name} #{curator.last_name}"
+    groups << group
+  end
 end
 
 # Создание студентов и зачетных книжек
@@ -158,11 +163,11 @@ puts "Создание семестров..."
   puts "Создан семестр: #{semester.name}"
 end
 
-# Создание промежуточных аттестаций
 puts "Создание промежуточных аттестаций..."
 subjects = Subject.all
 teachers = User.with_role(:teacher)
 assessment_types = ["Тест", "Эссе", "Практика"]
+groups = Group.all.sample(5) # Выбираем случайные 5 групп
 
 30.times do |i|
   subject = subjects.sample
@@ -177,24 +182,39 @@ assessment_types = ["Тест", "Эссе", "Практика"]
     date: Time.zone.today + (i + 1).weeks
   )
 
+  # Присваиваем каждой промежуточной аттестации случайные 5 групп
+  intermediate_attestation.groups << groups
+
   puts "Создана промежуточная аттестация: #{intermediate_attestation.name}"
 end
 
-# Создание оценок для студентов
 puts "Создание оценок для студентов..."
-RecordBook.includes(:specialization).find_each do |record_book|
-  record_book.specialization.subjects.each do |subject|
-    intermediate_attestation = IntermediateAttestation.find_by(subject: subject)
-    next unless intermediate_attestation # Пропускаем, если нет промежуточной аттестации для предмета
+
+# Получаем все группы
+groups = Group.all
+
+# Для каждой группы выбираем случайного студента и создаем оценки для него
+groups.each do |group|
+  # Получаем случайного студента из группы
+  student = group.record_books.sample&.user
+  next unless student # Пропускаем группу, если у нее нет студентов
+
+  # Получаем промежуточные аттестации, в которых участвует группа студента
+  intermediate_attestations = group.intermediate_attestations
+
+  # Для каждой промежуточной аттестации создаем оценку для случайного студента
+  intermediate_attestations.each do |intermediate_attestation|
+    # Получаем предмет, связанный с этой промежуточной аттестацией
+    subject = intermediate_attestation.subject
 
     grade_value = rand(2..5)
     grade = Grade.create!(
       grade: grade_value,
       subject: intermediate_attestation,
-      record_book: record_book,
-      date: Date.today
+      record_book: student.record_book,
+      date: intermediate_attestation.date
     )
 
-    puts "Создана оценка #{grade.grade} для студента #{record_book.user.email} по предмету #{subject.name}"
+    puts "Создана оценка #{grade.grade} для студента #{student.email} по предмету #{subject.name} в промежуточной аттестации #{intermediate_attestation.name}"
   end
 end
