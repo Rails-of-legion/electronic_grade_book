@@ -26,15 +26,25 @@ pdf.font_families.update("TimesNewRoman" => {
   pdf.text "Преподаватель #{@intermediate_attestation.teacher.name}", align: :justify
 
   table_data = [['№ пп', 'Фамилия, собственное имя, отчество слушателя', 'Отметка', 'Подпись преподавателя']]
+# Получаем список студентов группы
+students_in_group = RecordBook.includes(:group, :user)
+                              .where(group_id: @intermediate_attestation.group_ids)
+                              .to_a
 
-RecordBook.all.each_with_index do |record_book, index|
-  grades = record_book.grades.map(&:grade).join(', ') # Получаем оценки из связанных объектов Grade и объединяем их в строку
-  table_data << [index + 1, record_book.user.name, grades, '']
+# Получаем студентов, участвующих в аттестации
+students_with_grades = students_in_group.select do |record_book|
+  record_book.grades.exists?(subject_id: @intermediate_attestation.subject_id)
+end
+
+table_data = [['№ пп', 'Фамилия, собственное имя, отчество слушателя', 'Отметка', 'Подпись преподавателя']]
+
+students_with_grades.each_with_index do |record_book, index|
+  grades = record_book.grades.map(&:grade).join(', ')
+  table_data << [index + 1, record_book.user.name, grades.first, '']
 end
 
 pdf.table(table_data, header: true)
 pdf.move_down 10
-
 
 pdf.move_down 10
 
@@ -94,7 +104,7 @@ students_without_grades_count = total_students_count - students_with_grades_coun
               width: pdf.bounds.width / 2,
               align: :center
   pdf.move_down 10
-  pdf.text_box "Декан Декан Декан",
+  pdf.text_box "#{User.first.format_full_name}",
               at: [pdf.bounds.width / 2, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :right
