@@ -59,7 +59,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       render :set_password_and_email, status: :unprocessable_entity
     else
       flash[:alert] = 'User not found'
-      render :search
+      redirect_to users_search_path
     end
   end
 
