@@ -17,7 +17,12 @@ ActiveAdmin.register Grade do
     actions
   end
 
-  filter :record_book_user_first_name, as: :string, filters: [:cont], label: I18n.t('active_admin.grades.student_first_name')
+  filter :record_book_user_first_name, as: :string, filters: [:cont],
+                                       label: I18n.t('active_admin.grades.student_first_name')
+  filter :record_book_user_last_name, as: :string, filters: [:cont],
+                                      label: I18n.t('active_admin.grades.student_last_name')
+  filter :record_book_user_middle_name, as: :string, filters: [:cont],
+                                        label: I18n.t('active_admin.grades.student_middle_name')
   filter :subject, label: I18n.t('active_admin.grades.subject')
   filter :grade, label: I18n.t('active_admin.grades.grade')
   filter :date, label: I18n.t('active_admin.grades.date')
@@ -26,8 +31,8 @@ ActiveAdmin.register Grade do
   form do |f|
     f.inputs I18n.t('active_admin.grades.grade_details') do
       f.input :record_book, as: :select, collection: RecordBook.joins(:user).where(users: { id: User.with_role(:student).select(:id) }), label: I18n.t('active_admin.grades.student'), member_label: proc { |rb|
-                                                                                                                                                                           rb.user.name
-                                                                                                                                                                         }
+                                                                                                                                                                                                       rb.user.name
+                                                                                                                                                                                                     }
       f.input :subject, label: I18n.t('active_admin.grades.subject')
       f.input :grade, label: I18n.t('active_admin.grades.grade')
       f.input :date, label: I18n.t('active_admin.grades.date')
