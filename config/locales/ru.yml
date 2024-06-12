@@ -210,6 +210,8 @@ ru:
       date: 'Дата'
       created_at: 'Дата создания'
       student_first_name: 'Имя студента'
+      student_last_name: 'Фамилия студента'
+      student_middle_name: 'Отчество студента'
       grade_details: 'Детали оценки'
       create: 'Создать'
       save_changes: 'Сохранить изменения'
