@@ -52,6 +52,7 @@ class User < ApplicationRecord
     has_role?(:teacher)
   end
 
+  
   def student?
     has_role?(:student)
   end
