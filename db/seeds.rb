@@ -1,5 +1,12 @@
 require 'faker'
 
+def generate_phone_number(codes, prefixes)
+  "#{codes.sample}#{prefixes.sample}#{rand.to_s[2..8]}"
+end
+
+codes = ['+375', '80']
+prefixes = ['29', '44', '25', '33']
+
 puts "Создание ролей..."
 Role.create(name: 'admin')
 Role.create(name: 'teacher')
@@ -10,7 +17,7 @@ puts "Созданы роли: #{Role.pluck(:name)}"
 puts "Создание специализаций..."
 specializations = []
 5.times do |i|
-  specialization = Specialization.create!(name: "Специализация #{i + 1}")
+  specialization = Specialization.find_or_create_by!(name: "Специализация #{i + 1}")
   specializations << specialization
 end
 puts "Созданы специализации: #{Specialization.pluck(:name)}"
@@ -36,7 +43,7 @@ admin1 = User.create!(
   first_name: "Юрий",
   last_name: "Юрьевич",
   middle_name: "Королев",
-  phone_number: '+79991234567',
+  phone_number: generate_phone_number(codes, prefixes),
   email: 'admin1@example.com',
   password: 'password',
   password_confirmation: 'password',
@@ -50,7 +57,7 @@ admin2 = User.create!(
   first_name: "Петр",
   last_name: "Петров",
   middle_name: "Петрович",
-  phone_number: '+79991234568',
+  phone_number: generate_phone_number(codes, prefixes),
   email: 'admin2@example.com',
   password: 'password',
   password_confirmation: 'password',
@@ -72,7 +79,7 @@ teachers = 20.times.map do
     first_name: first_name,
     last_name: last_name,
     middle_name: middle_name,
-    phone_number: Faker::PhoneNumber.cell_phone,
+    phone_number: generate_phone_number(codes, prefixes),
     email: Faker::Internet.email,
     password: 'password',
     password_confirmation: 'password',
@@ -121,7 +128,7 @@ puts "Создание студентов и зачетных книжек..."
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     middle_name: Faker::Name.middle_name,
-    phone_number: Faker::PhoneNumber.cell_phone,
+    phone_number: generate_phone_number(codes, prefixes),
     email: Faker::Internet.unique.email,
     password: 'password',
     password_confirmation: 'password',
