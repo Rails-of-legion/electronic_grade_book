@@ -90,6 +90,6 @@ class GroupsController < ApplicationController
 
 
   def group_params
-    params.require(:group).permit(:name, :curator_id)
+    params.require(:group).permit(:name, :curator_id, :specialization_id, :form_of_education)
   end
 end
