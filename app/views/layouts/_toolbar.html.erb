@@ -35,10 +35,12 @@
           <li class="nav-item">
             <%= link_to 'Отчеты', extends_reports_index_path, class: "nav-link #{request.fullpath == extends_reports_index_path ? 'active' : ''}" %>
           </li>
+        <% elsif current_user.has_role?(:admin) %>
+          <li class="nav-item">
+            <%= link_to 'Админ Панель', admin_panel_path, class: "nav-link #{request.fullpath == admin_panel_path ? 'active' : ''}" %>
+          </li>
         <% end %>
       <% end %>
     </ul>
   </div>
 </nav>
-
-
