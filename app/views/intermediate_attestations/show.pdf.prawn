@@ -1,18 +1,17 @@
-prawn_document title: 'Inermediate attestation Report' do |pdf|
-pdf.font_families.update("TimesNewRoman" => {
-    :normal => { :file => "/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman.ttf", :font => "Times-Roman" },
-    :bold => { :file => "/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman_Bold.ttf", :font => "Times-Roman,Bold" }
+prawn_document title: 'Intermediate Attestation Report' do |pdf|
+  pdf.font_families.update("TimesNewRoman" => {
+    normal: { file: "/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman.ttf", font: "Times-Roman" },
+    bold: { file: "/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman_Bold.ttf", font: "Times-Roman,Bold" }
   })
   pdf.font 'TimesNewRoman', size: 11
   pdf.bounds.add_left_padding(72)
-
   pdf.text "Учреждение образования", align: :center, style: :bold
   pdf.text "РЕСПУБЛИКАНСКИЙ ИНСТИТУТ ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ", align: :center, style: :bold
-  pdf.text "ЗАЧЕТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ № #{@intermediate_attestation.id}", align: :center, style: :bold
-  pdf.text_box "Группа #{@intermediate_attestation.groups.name}",
-              at: [0, pdf.cursor],
-              width: pdf.bounds.width / 2,
-              align: :left
+  pdf.text "ЗАЧЕТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ № #{@intermediate_attestation.id}", align: :center, style: :bold
+  group = @intermediate_attestation.groups.first
+
+    pdf.text "Группа #{group.name}", align: :justify
+
   pdf.move_down 10
   pdf.text_box "Дата проведения #{@intermediate_attestation.date}",
               at: [pdf.bounds.width / 2, pdf.cursor],
@@ -20,7 +19,10 @@ pdf.font_families.update("TimesNewRoman" => {
               align: :right
   pdf.text "#{@intermediate_attestation.groups.name} #{@intermediate_attestation.groups.name}", align: :justify
   pdf.text "Учебная дисциплина, модуль «#{@intermediate_attestation.subject.name}»", align: :justify
-  pdf.text "Форма получения образования #{@intermediate_attestation.groups.name}", align: :justify
+
+  pdf.text "Группа #{group.name}", align: :justify
+  pdf.text "Форма получения образования #{group.form_of_education}", align: :justify
+
   pdf.text "Форма промежуточной аттестации #{@intermediate_attestation.name}", align: :justify
   pdf.text "Всего часов и зачетных единиц по учебной дисциплине, модулю  1", align: :justify
   pdf.text "Преподаватель #{@intermediate_attestation.teacher.name}", align: :justify
@@ -84,7 +86,7 @@ students_without_grades_count = total_students_count - students_with_grades_coun
               width: pdf.bounds.width / 2,
               align: :left
   pdf.move_down 10
-  pdf.text_box "______________",
+  pdf.text_box "                   ______________",
               at: [pdf.bounds.width / 4, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :center
@@ -99,7 +101,7 @@ students_without_grades_count = total_students_count - students_with_grades_coun
               width: pdf.bounds.width / 2,
               align: :left
   pdf.move_down 10
-  pdf.text_box "______________",
+  pdf.text_box "                   ______________",
               at: [pdf.bounds.width / 4, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :center
