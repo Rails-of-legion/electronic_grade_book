@@ -1,10 +1,25 @@
-<h1><%= @notification.message %></h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Уведомление</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="my-4"><%= @notification.message %></h1>
 
-<p>Date: <%= @notification.date %></p>
-<p>Read Status: <%= @notification.read_status %></p>
-<p>User: <%= @notification.user.name if @notification.user %></p>
+    <p><strong>Дата:</strong> <%= @notification.date %></p>
+    <p><strong>Статус прочтения:</strong> <%= @notification_user&.status ? 'Прочитано' : 'Не прочитано' %></p>
+    <p><strong>Пользователь:</strong> <%= @notification_user&.user&.name %></p>
 
-<p>
-  <%= link_to 'Edit', edit_notification_path(@notification) %> |
-  <%= link_to 'Back', notifications_path %>
-</p>
+    <p>
+      <%= link_to 'Редактировать', edit_notification_path(@notification), class: 'btn btn-warning' %>
+      <%= link_to 'Назад', notifications_path, class: 'btn btn-secondary' %>
+      <%= button_to 'Удалить', @notification, method: :delete, data: { confirm: 'Вы уверены?' }, class: 'btn btn-danger' %>
+    </p>
+  </div>
+</body>
+</html>
