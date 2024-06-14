@@ -15,6 +15,7 @@
     <p><strong><%= t('groups.name') %>:</strong> <%= @group.name %></p>
     <p><strong><%= t('groups.curator') %>:</strong> <%= @group.try(:curator).try(:name) || t('groups.unassigned') %></p>
     <p><strong><%= t('groups.specialization') %>:</strong> <%= @group.specialization.name %></p>
+    <p><strong><%= t('groups.form_of_education') %>:</strong> <%= @group.form_of_education %></p>
   </div>
 
   <h1 class="text-center mb-4"><%= 'Выставление оценок' %></h1>

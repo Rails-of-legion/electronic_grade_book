@@ -11,6 +11,7 @@
       <tr>
         <th><%= t('groups.name') %></th>
         <th><%= t('groups.curator') %></th>
+        <th><%= t('groups.specialization') %></th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,13 @@
         <tr>
           <td><%= link_to group.name, group_path(group) %></td>
           <td><% if group.curator %> <%= group.curator.name %> <% else %> <%= t('groups.unassigned') %> <% end %></td>
+          <td><%= group.specialization.name %></td>
+          <% if current_user.admin? %>
+          <td class="text-right">
+            <%= link_to t('common.edit'), edit_group_path(group), class: 'btn btn-sm btn-secondary' %>
+            <%= link_to t('common.delete'), group_path(group), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm mr' %>
+          </td>
+        <% end %>
         </tr>
       <% end %>
     </tbody>

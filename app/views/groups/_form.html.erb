@@ -1,41 +1,50 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <%= form_for @group, html: { class: "form-horizontal" } do |f| %>
-        <% if @group.errors.any? %>
-          <div id="error_explanation" class="alert alert-danger">
-            <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
-            <ul>
-              <% @group.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
+    
+       <%= form_with model: @group, data: { turbo: false } do |f| %>
+        <%= render 'shared/errors', object: @group %>
 
         <div class="form-group row mb-3">
-          <%= f.label :name, "Name:", class: "col-sm-3 col-form-label text-right" %>
+          <div class="col-sm-3 text-right">
+            <%= f.label :name, class: "col-form-label" do %>
+              <div>Name:</div> 
+            <% end %>
+          </div>
+
           <div class="col-sm-9">
             <%= f.text_field :name, class: "form-control" %>
           </div>
         </div>
 
         <div class="form-group row mb-3">
-          <%= f.label :curator_id, "Curator:", class: "col-sm-3 col-form-label text-right" %>
+          <div class="col-sm-3 text-right">
+            <%= f.label :curator_id, class: "col-form-label" do %>
+              <div>Curator:</div>
+            <% end %>
+          </div>
           <div class="col-sm-9">
            <%= f.collection_select :curator_id, User.with_role(:teacher), :id, :name, { prompt: "Select Curator" }, { class: "form-control" } %>
           </div>
         </div>
 
         <div class="form-group row mb-3">
-          <%= f.label :specialization_id, "Specialization:", class: "col-sm-3 col-form-label text-right" %>
+          <div class="col-sm-3 text-right">
+            <%= f.label :specialization_id, class: "col-form-label" do %>
+              <div>Specialization:</div>
+            <% end %>
+          </div>
           <div class="col-sm-9">
             <%= f.collection_select :specialization_id, Specialization.all, :id, :name, { prompt: "Select Specialization" }, class: "form-control" %>
           </div>
         </div>
 
         <div class="form-group row mb-3">
-          <%= f.label :form_of_education, "Form of Education:", class: "col-sm-3 col-form-label text-right" %>
+          <div class="col-sm-3 text-right">
+            <%= f.label :form_of_education, class: "col-form-label" do %>
+              <div>Form of Education:</div>
+            <% end %>
+          </div>
           <div class="col-sm-9">
             <%= f.text_field :form_of_education, class: "form-control" %>
           </div>
