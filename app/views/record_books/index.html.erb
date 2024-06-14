@@ -1,10 +1,18 @@
-Record Books
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-center">Record Books</h1>
+    <% if current_user.admin? %>
+    <%= link_to 'Create New Record Book', new_record_book_path, class: 'btn btn-primary' %>
+    <% end %>
+  </div>
 
-<% if @record_books.present? %>
   <table class="table table-striped">
-    <thead>
+    <thead class="thead-light">
       <tr>
         <th>Student</th>
+        <th>Custom Namber</th>
+        <th>Specialization</th>
+        <th>Group</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -12,15 +20,19 @@ Record Books
       <% @record_books.each do |record_book| %>
         <tr>
           <td><%= record_book.user.name %></td>
+          <td><%= record_book.custom_number %></td>
+          <td><%= record_book.specialization.name %></td>
+          <td><%= record_book.group.name %></td>
           <td>
             <%= link_to 'Show', record_book_path(record_book), class: 'btn btn-sm btn-outline-primary' %>
+            <% if current_user.admin? %>
+              <%= link_to 'Edit', edit_record_book_path(record_book), class: 'btn btn-sm btn-secondary' %>
+              <%= link_to 'Delete', record_book_path(record_book), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+            <% end %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
-<% else %>
-  <p>No record books found.</p>
-<% end %>
-
-<%= link_to 'Create New Record Book', new_record_book_path, class: 'btn btn-primary' %>
+  <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+</div>

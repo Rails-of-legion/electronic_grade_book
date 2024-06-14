@@ -1,24 +1,61 @@
-<%= form_with(model: record_book, local: true) do |form| %>
-  <div class="mb-3">
-    <%= form.label :record_book_id, "Student" %>
-    <%= form.collection_select :record_book_id, RecordBook.all, :id, :user.name, {}, { class: 'form-control' } %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+       <%= form_with model: @record_book, data: { turbo: false } do |f| %>
+        
+
+        <div class="form-group row mb-3">
+          <div class="col-sm-3 text-right">
+            <%= f.label :user_id, class: "col-form-label" do %>
+              <div>Student:</div> 
+            <% end %>
+          </div>
+
+          <div class="col-sm-9">
+            <%= f.collection_select :user_id, User.with_role(:student), :id, :name, { prompt: "Select Student" }, { class: "form-control" } %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <div class="col-sm-3 text-right">
+            <%= f.label :specialization_id, class: "col-form-label" do %>
+              <div>Specialization:</div>
+            <% end %>
+          </div>
+          <div class="col-sm-9">
+            <%= f.collection_select :specialization_id, Specialization.all, :id, :name, { prompt: "Select Specialization" }, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <div class="col-sm-3 text-right">
+            <%= f.label :group_id, class: "col-form-label" do %>
+              <div>Group:</div>
+            <% end %>
+          </div>
+          <div class="col-sm-9">
+            <%= f.collection_select :group_id, Group.all, :id, :name, { prompt: "Select Group" }, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <div class="col-sm-3 text-right">
+            <%= f.label :custom_number, class: "col-form-label" do %>
+              <div>Number:</div>
+            <% end %>
+          </div>
+          <div class="col-sm-9">
+            <%= f.text_field :custom_number, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-9 offset-sm-3 d-flex justify-content-end">
+             <%= f.submit (@record_book.new_record? ? "Create Record Book" : "Edit Record Book"), class: "btn btn-primary mr-2" %> 
+            <%= link_to "Back", record_books_path, class: "btn btn-secondary" %> 
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
-
-  <div class="mb-3">
-    <%= form.label :subject_id, "Subject" %>
-    <%= form.collection_select :subject_id, Subject.all, :id, :name, {}, { class: 'form-control' } %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :teacher_id, "Teacher" %>
-    <%= form.collection_select :teacher_id, User.with_role(:teacher), :id, :name, {}, { class: 'form-control' } %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :intermediate_attestation_id, "Attestation" %>
-    <%= form.collection_select :intermediate_attestation_id, IntermediateAttestation.all, :id, :name, {}, { class: 'form-control' } %>
-  </div>
-
-
-  <%= form.submit 'Save Record Book', class: 'btn btn-primary' %>
-<% end %>
+</div>
