@@ -71,5 +71,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'admin_panel/index', as: 'admin_panel'
+
   get 'about', to: 'home#about', as: :about
 end
