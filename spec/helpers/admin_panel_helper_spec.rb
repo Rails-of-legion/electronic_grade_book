@@ -10,6 +10,6 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe AdminPanelHelper, type: :helper do
+RSpec.describe AdminPanelHelper do
   pending "add some examples to (or delete) #{__FILE__}"
 end

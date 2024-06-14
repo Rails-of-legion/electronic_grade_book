@@ -3,8 +3,6 @@ ActiveAdmin.register IntermediateAttestation do
 
   permit_params :name, :date, :assessment_type, :subject_id, :teacher_id, group_ids: []
 
-
-  
   index title: proc { I18n.t('active_admin.intermediate_attestations.intermediate_attestations') } do
     selectable_column
     id_column
@@ -17,17 +15,11 @@ ActiveAdmin.register IntermediateAttestation do
     actions
   end
 
-  show do |attestation|
+  show do |_attestation|
     attributes_table do
-      row I18n.t('active_admin.intermediate_attestations.name') do |attestation|
-        attestation.name
-      end
-      row I18n.t('active_admin.intermediate_attestations.date') do |attestation|
-        attestation.date
-      end
-      row I18n.t('active_admin.intermediate_attestations.assessment_type') do |attestation|
-        attestation.assessment_type
-      end
+      row I18n.t('active_admin.intermediate_attestations.name'), &:name
+      row I18n.t('active_admin.intermediate_attestations.date'), &:date
+      row I18n.t('active_admin.intermediate_attestations.assessment_type'), &:assessment_type
       row I18n.t('active_admin.intermediate_attestations.subject') do |attestation|
         attestation.subject.name
       end
@@ -41,7 +33,7 @@ ActiveAdmin.register IntermediateAttestation do
     active_admin_comments
   end
 
-  filter :name, label:I18n.t('active_admin.intermediate_attestations.name')
+  filter :name, label: I18n.t('active_admin.intermediate_attestations.name')
   filter :date, label: I18n.t('active_admin.intermediate_attestations.date')
   filter :assessment_type, label: I18n.t('active_admin.intermediate_attestations.assessment_type')
   filter :subject, label: I18n.t('active_admin.intermediate_attestations.subject')
@@ -53,8 +45,10 @@ ActiveAdmin.register IntermediateAttestation do
       f.input :date, label: I18n.t('active_admin.intermediate_attestations.date')
       f.input :assessment_type, label: I18n.t('active_admin.intermediate_attestations.assessment_type')
       f.input :subject, label: I18n.t('active_admin.intermediate_attestations.subject')
-      f.input :group_ids, as: :check_boxes, collection: Group.all, label: I18n.t('active_admin.intermediate_attestations.groups')
-      f.input :teacher, as: :select, collection: User.with_role(:teacher), label: I18n.t('active_admin.intermediate_attestations.teacher')
+      f.input :group_ids, as: :check_boxes, collection: Group.all,
+                          label: I18n.t('active_admin.intermediate_attestations.groups')
+      f.input :teacher, as: :select, collection: User.with_role(:teacher),
+                        label: I18n.t('active_admin.intermediate_attestations.teacher')
     end
     f.actions do
       if f.object.new_record?
@@ -62,13 +56,12 @@ ActiveAdmin.register IntermediateAttestation do
       else
         f.action :submit, label: I18n.t('active_admin.intermediate_attestations.save_changes'), wrap_element: :button
       end
-    end    
+    end
   end
 
   controller do
-
     def default_title
-      "Мой заголовок"
+      'Мой заголовок'
     end
 
     def scoped_collection

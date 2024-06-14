@@ -22,7 +22,8 @@ ActiveAdmin.register User do
   filter :first_name, label: I18n.t('active_admin.users.first_name')
   filter :middle_name, label: I18n.t('active_admin.users.middle_name')
   filter :last_name, label: I18n.t('active_admin.users.last_name')
-  filter :record_book_custom_number, as: :string, label: I18n.t('active_admin.users.record_book_number'), joins: :record_book
+  filter :record_book_custom_number, as: :string, label: I18n.t('active_admin.users.record_book_number'),
+                                     joins: :record_book
   filter :date_of_birth, label: I18n.t('active_admin.users.date_of_birth')
   filter :group, collection: -> { Group.all }, label: I18n.t('active_admin.users.group')
   filter :record_book_specialization_id_eq, as: :select, collection: lambda {
@@ -39,12 +40,12 @@ ActiveAdmin.register User do
       f.input :password_confirmation, label: I18n.t('active_admin.users.password_confirmation')
       f.input :status, label: I18n.t('active_admin.users.status')
       f.input :date_of_birth,
-      label: I18n.t('active_admin.users.date_of_birth'),
-      as: :datepicker,
-      datepicker_options: {
-        min_date: 90.years.ago.to_date,  # Ограничиваем минимальную дату 90 лет назад
-        max_date: 15.years.ago.to_date   # Ограничиваем максимальную дату 15 лет назад
-      }
+              label: I18n.t('active_admin.users.date_of_birth'),
+              as: :datepicker,
+              datepicker_options: {
+                min_date: 90.years.ago.to_date,  # Ограничиваем минимальную дату 90 лет назад
+                max_date: 15.years.ago.to_date   # Ограничиваем максимальную дату 15 лет назад
+              }
       f.input :phone_number, label: I18n.t('active_admin.users.phone_number')
       f.input :roles, as: :check_boxes, label: I18n.t('active_admin.users.roles')
     end
@@ -59,18 +60,10 @@ ActiveAdmin.register User do
 
   show do
     attributes_table do
-      row I18n.t('active_admin.users.name') do |user|
-        user.name
-      end
-      row I18n.t('active_admin.users.email') do |user|
-        user.email
-      end
-      row I18n.t('active_admin.users.date_of_birth') do |user|
-        user.date_of_birth
-      end
-      row I18n.t('active_admin.users.phone_number') do |user|
-        user.phone_number
-      end
+      row I18n.t('active_admin.users.name'), &:name
+      row I18n.t('active_admin.users.email'), &:email
+      row I18n.t('active_admin.users.date_of_birth'), &:date_of_birth
+      row I18n.t('active_admin.users.phone_number'), &:phone_number
       row I18n.t('active_admin.users.roles') do |user|
         user.roles.pluck(:name).join(', ')
       end
