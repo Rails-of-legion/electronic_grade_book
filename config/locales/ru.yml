@@ -129,6 +129,14 @@ ru:
     select_month: "Выберите месяц"
     month: "Месяц"
 
+  extends_reports:
+    name: "Наименование отчета"
+    list: "Отчеты"
+    intermediate_attestation: "Промежуточная аттестация"
+    individual_report: "Индивидуальный отчет"
+    mark_report: "Отчет успеваемости"
+    attestation_retake_report: "Отчет по пересдаче аттестации"
+
   navbar:
     home: "Главная"
     about: "О нас"
