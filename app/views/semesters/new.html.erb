@@ -1,30 +1,9 @@
-
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <h2>New Semester</h2>
-
-    <%= form_with(model: @semester, local: true) do |form| %>
-      <div class="form-group">
-        <%= form.label :name, class: "control-label" %>
-        <%= form.text_field :name, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :start_date, class: "control-label" %>
-        <%= form.date_field :start_date, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :end_date, class: "control-label" %>
-        <%= form.date_field :end_date, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= form.submit "Create", class: "btn btn-primary" %>
-      </div>
-    <% end %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="text-center mb-4">New Semester</h1>
+      
+      <%= render 'form' %>
+    </div>
   </div>
 </div>
-
-<hr>
-
