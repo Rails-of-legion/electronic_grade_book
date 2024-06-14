@@ -59,6 +59,10 @@ ru:
     subject: "Предмет"
     description: "Описание"
     back: "Назад"
+    create_subject: "Создать"
+    edit_subject: "Обновить"
+    edit: "Обновить предмет"
+    new: "Создать предмет"
 
   semesters:
     name: "Название"
