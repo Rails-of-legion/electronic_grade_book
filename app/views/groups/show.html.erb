@@ -1,10 +1,21 @@
 <div class="container">
-  <h1 class="text-center mb-4"><%= t('groups.details') %></h1>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-center"><%= t('groups.details') %></h1>
+    <div>
+      <% if can? :edit, @group %>
+        <%= link_to t('common.edit'), edit_group_path(@group), class: 'btn btn-secondary me-2' %>
+      <% end %>
+      <% if can? :destroy, @group %>
+        <%= link_to t('common.delete'), group_path(@group), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger' %>
+      <% end %>
+    </div>
+  </div>
 
   <div class="mb-3">
     <p><strong><%= t('groups.name') %>:</strong> <%= @group.name %></p>
     <p><strong><%= t('groups.curator') %>:</strong> <%= @group.try(:curator).try(:name) || t('groups.unassigned') %></p>
     <p><strong><%= t('groups.specialization') %>:</strong> <%= @group.specialization.name %></p>
+    <p><strong><%= t('groups.form_of_education') %>:</strong> <%= @group.form_of_education %></p>
   </div>
 
   <h1 class="text-center mb-4"><%= 'Выставление оценок' %></h1>
@@ -83,6 +94,8 @@
     </div>
   </div>
 </div>
+
+<%= link_to t('common.back'), groups_path, class: 'btn btn-secondary mb-3' %>
   
   
   <template id="grade-form-template">

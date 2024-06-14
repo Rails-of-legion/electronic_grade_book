@@ -1,25 +1,43 @@
-<%= form_with(model: @notification) do |form| %>
-  <div class="field">
-    <%= form.label :message %>
-    <%= form.text_area :message %>
-  </div>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <%= form_with(model: @notification, local: true, html: { class: 'needs-validation', novalidate: true }) do |form| %>
+        <div class="form-group">
+          <%= form.label :message, class: 'form-label' %>
+          <%= form.text_area :message, class: 'form-control', rows: 3, required: true %>
+          <div class="invalid-feedback">
+            Пожалуйста, введите сообщение.
+          </div>
+        </div>
 
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_field :date %>
-  </div>
+        <div class="form-group">
+          <%= form.label :date, class: 'form-label' %>
+          <%= form.date_field :date, class: 'form-control', required: true %>
+          <div class="invalid-feedback">
+            Пожалуйста, выберите дату.
+          </div>
+        </div>
 
-  <div class="field">
-    <%= form.label :read_status %>
-    <%= form.text_area :read_status %>
-  </div>
+        <div class="form-group">
+          <%= form.label :read_status, class: 'form-label' %>
+          <%= form.text_area :read_status, class: 'form-control', rows: 1, required: true %>
+          <div class="invalid-feedback">
+            Пожалуйста, введите статус прочтения.
+          </div>
+        </div>
 
-  <div class="field">
-    <%= form.label :user_id, "User" %>
-    <%= form.collection_select :user_id, User.all, :id, :name %>
-  </div>
+        <div class="form-group">
+          <%= form.label :user_id, "User", class: 'form-label' %>
+          <%= form.collection_select :user_id, User.all, :id, :name, { include_blank: 'Выберите пользователя' }, { class: 'form-control', required: true } %>
+          <div class="invalid-feedback">
+            Пожалуйста, выберите пользователя.
+          </div>
+        </div>
 
-  <div class="actions">
-    <%= form.submit %>
+        <div class="form-group text-center">
+          <%= form.submit 'Сохранить', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
   </div>
-<% end %>
+</div>
