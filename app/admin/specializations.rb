@@ -17,7 +17,9 @@ ActiveAdmin.register Specialization do
       f.input :name, label: I18n.t('active_admin.specializations.name')
     end
     f.inputs I18n.t('active_admin.specializations.subjects') do
-      f.input :subjects, as: :check_boxes, collection: Subject.all.map { |s| [s.name, s.id] }, label: I18n.t('active_admin.specializations.subjects')
+      f.input :subjects, as: :check_boxes, collection: Subject.all.map { |s|
+                                                         [s.name, s.id]
+                                                       }, label: I18n.t('active_admin.specializations.subjects')
     end
     f.actions do
       if f.object.new_record?
@@ -30,18 +32,17 @@ ActiveAdmin.register Specialization do
 
   show do
     attributes_table do
-
-    panel I18n.t('active_admin.specializations.subjects') do
-      table_for specialization.specialities_subjects do
-        column I18n.t('active_admin.specializations.name_of_the_item'), :subject do |specialities_subject|
-          specialities_subject.subject.name
-        end
-        column I18n.t('active_admin.specializations.description') do |specialities_subject|
-          specialities_subject.subject.description
+      panel I18n.t('active_admin.specializations.subjects') do
+        table_for specialization.specialities_subjects do
+          column I18n.t('active_admin.specializations.name_of_the_item'), :subject do |specialities_subject|
+            specialities_subject.subject.name
+          end
+          column I18n.t('active_admin.specializations.description') do |specialities_subject|
+            specialities_subject.subject.description
+          end
         end
       end
     end
-  end
 
     if specialization.groups.any?
       panel I18n.t('active_admin.specializations.groups') do

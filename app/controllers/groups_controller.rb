@@ -34,7 +34,7 @@ class GroupsController < ApplicationController
 
     if @month && @subject
       start_date = Date.new(Time.current.year, @month, 1)
-      end_date = start_date.end_of_month
+      start_date.end_of_month
 
       @record_books = RecordBook.where(group_id: @group.id)
 
@@ -87,7 +87,6 @@ class GroupsController < ApplicationController
   def set_group
     @group = Group.find(params[:id])
   end
-
 
   def group_params
     params.require(:group).permit(:name, :curator_id, :specialization_id, :form_of_education)

@@ -3,10 +3,10 @@ class RecordBooksController < ApplicationController
   load_and_authorize_resource
 
   def index
-    if params[:group_id].present? 
-      @record_books = RecordBook.includes(:user).where(group_id: params[:group_id])
+    if params[:group_id].present?
+      @pagy, @record_books = pagy(RecordBook.includes(:user).where(group_id: params[:group_id]))
     else
-      @record_books = RecordBook.includes(:user).all
+      @pagy, @record_books = pagy(RecordBook.includes(:user).all, items: 10)
     end
     respond_to do |format|
       format.html
@@ -56,7 +56,7 @@ class RecordBooksController < ApplicationController
   private
 
   def record_book_params
-    params.require(:record_book).permit(:record_book_id, :intermediate_attestation_id)
+    params.require(:record_book).permit(:user_id, :specialization_id, :group_id, :custom_number)
   end
 
   def set_record_book
