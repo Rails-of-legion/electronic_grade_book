@@ -15,22 +15,13 @@ ActiveAdmin.register RecordBook do
 
   show do
     attributes_table do
-      row I18n.t('active_admin.record_books.custom_number') do |record_book|
-        record_book.custom_number
-      end
-      row I18n.t('active_admin.record_books.user') do |record_book|
-        record_book.user
-      end
-      row I18n.t('active_admin.record_books.specialization') do |record_book|
-        record_book.specialization
-      end
-      row I18n.t('active_admin.record_books.group') do |record_book|
-        record_book.group
-      end
+      row I18n.t('active_admin.record_books.custom_number'), &:custom_number
+      row I18n.t('active_admin.record_books.user'), &:user
+      row I18n.t('active_admin.record_books.specialization'), &:specialization
+      row I18n.t('active_admin.record_books.group'), &:group
     end
     active_admin_comments
   end
-
 
   filter :custom_number, label: I18n.t('active_admin.record_books.custom_number')
   filter :user, label: I18n.t('active_admin.record_books.user')
@@ -60,4 +51,3 @@ ActiveAdmin.register RecordBook do
     end
   end
 end
-  

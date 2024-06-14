@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "AdminPanels", type: :request do
-  describe "GET /index" do
+RSpec.describe 'AdminPanels' do
+  describe 'GET /index' do
     pending "add some examples (or delete) #{__FILE__}"
   end
 end

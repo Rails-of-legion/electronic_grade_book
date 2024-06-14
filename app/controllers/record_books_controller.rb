@@ -3,7 +3,7 @@ class RecordBooksController < ApplicationController
   load_and_authorize_resource
 
   def index
-    if params[:group_id].present? 
+    if params[:group_id].present?
       @pagy, @record_books = pagy(RecordBook.includes(:user).where(group_id: params[:group_id]))
     else
       @pagy, @record_books = pagy(RecordBook.includes(:user).all, items: 10)

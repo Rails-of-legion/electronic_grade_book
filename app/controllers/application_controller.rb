@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
   def default_title
     action_name.humanize
   end

@@ -5,8 +5,7 @@ class Group < ApplicationRecord
   has_many :groups_intermediate_attestations, dependent: :destroy
   has_many :intermediate_attestations, through: :groups_intermediate_attestations, dependent: :destroy
 
-  validates :name, presence: true, length: { minimum: 2 } 
-  validates :specialization_id, presence: true
+  validates :name, presence: true, length: { minimum: 2 }
   validates :curator_id, presence: true
   validates :form_of_education, presence: true
 
