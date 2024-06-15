@@ -48,7 +48,10 @@
             <li class="nav-item">
           <%= link_to 'Оценки', grades_path, class: "nav-link #{request.fullpath == grades_path ? 'active' : ''}" %>
           </li>
-<% end %>
+          <li class="nav-item">
+            <%= link_to 'Пользователи', users_path, class: "nav-link #{request.fullpath == users_path ? 'active' : ''}" %>
+          </li>
+        <% end %>
 
       <% end %>
     </ul>

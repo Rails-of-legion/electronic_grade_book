@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     get 'marks_reports/generate_report_redirect', to: redirect('/marks_reports/new'), as: :generate_marks_report_redirect
   end
 
+  Rails.application.routes.draw do
+    resources :users
+  end
+
   ActiveAdmin.routes(self) do
     devise_for :admin_users, ActiveAdmin::Devise.config
   end

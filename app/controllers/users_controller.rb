@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  def index
+    @users = User.all
+  end
+
   def show
     @user = User.find(params[:id])
     @notificationsUser = NotificationsUser.where(user_id: @user.id)
@@ -15,12 +19,16 @@ class UsersController < ApplicationController
     return if @user == current_user
 
     redirect_to root_path, alert: 'Access denied!'
-    nil
   end
 
   def update
     @user = User.find(params[:id])
     authorize! :update, @user
+    if @user.update(user_params)
+      redirect_to @user, notice: 'User was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def edit_password
@@ -28,10 +36,6 @@ class UsersController < ApplicationController
     return if current_user == @user
 
     redirect_to root_path, alert: 'Access denied!'
-    return if current_user == @user
-
-    redirect_to root_path, alert: 'Access denied!'
-    nil
   end
 
   def edit_email
@@ -39,16 +43,12 @@ class UsersController < ApplicationController
     return if current_user == @user
 
     redirect_to root_path, alert: 'Access denied!'
-    return if current_user == @user
-
-    redirect_to root_path, alert: 'Access denied!'
-    nil
   end
 
   def update_password
     @user = User.find(params[:id])
     if @user.update(edit_password_params)
-      redirect_to user_path(@user), notice: 'password updated'
+      redirect_to user_path(@user), notice: 'Password updated.'
     else
       render :edit_password
     end
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   def update_email
     @user = User.find(params[:id])
     if @user.update(edit_email_params)
-      redirect_to user_path(@user), notice: 'email updated'
+      redirect_to user_path(@user), notice: 'Email updated.'
     else
       render :edit_email
     end
