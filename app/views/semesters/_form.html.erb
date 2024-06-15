@@ -3,7 +3,7 @@
     <div class="col-md-8">
 
       <%= form_with(model: @semester, local: true) do |f| %>
-        
+        <%= render 'shared/errors', object: @semester %>
 
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
