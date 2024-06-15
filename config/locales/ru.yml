@@ -84,6 +84,7 @@ ru:
     back: "Назад"
     download_pdf: "Скачать PDF"
     back: "Назад"
+    no_groups: "Нет групп"
 
   specializations:
     name: "Название"
@@ -145,6 +146,7 @@ ru:
     groups: "Группы"
     specializations: "Специализации"
     individual_report: "Индивидуальный отчет"
+    grades: "Оценки"
 
 
   about:

@@ -1,12 +1,20 @@
 <div class="container">
   <h1 class="text-center mb-4"><%= t('intermediate_attestations.details') %></h1>
-  
+
   <div class="card">
     <div class="card-body">
       <p><strong><%= t('intermediate_attestations.name') %> :</strong> <%= @intermediate_attestation.name %></p>
       <p><strong><%= t('intermediate_attestations.date') %> :</strong> <%= @intermediate_attestation.date %></p>
       <p><strong><%= t('intermediate_attestations.assessment_type') %> :</strong> <%= @intermediate_attestation.assessment_type %></p>
       <p><strong><%= t('intermediate_attestations.subject') %> :</strong> <%= @intermediate_attestation.subject.try(:name) || 'N/A' %></p>
+      <p>
+        <strong><%= t('intermediate_attestations.groups') %> :</strong>
+        <% if @intermediate_attestation.groups.any? %>
+          <%= @intermediate_attestation.groups.map { |group| link_to group.name, group_path(group) }.join(', ').html_safe %>
+        <% else %>
+          <%= t('intermediate_attestations.no_groups') %>
+        <% end %>
+      </p> 
     </div>
   </div>
 

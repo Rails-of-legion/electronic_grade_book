@@ -39,8 +39,33 @@
           <li class="nav-item">
             <%= link_to 'Админ Панель', admin_panel_path, class: "nav-link #{request.fullpath == admin_panel_path ? 'active' : ''}" %>
           </li>
-           <li class="nav-item">
+          <li class="nav-item">
             <%= link_to 'Уведомления', notifications_path, class: "nav-link #{request.fullpath == notifications_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.groups'), groups_path, class: "nav-link #{request.fullpath == groups_path ? 'active' : ''}" %>
+          </li>
+            <li class="nav-item">
+          <%= link_to 'Оценки', grades_path, class: "nav-link #{request.fullpath == grades_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Пользователи', users_path, class: "nav-link #{request.fullpath == users_path ? 'active' : ''}" %>
+          </li>
+          
+          <li class="nav-item">
+            <%= link_to t('navbar.subjects'), subjects_path, class: "nav-link #{request.fullpath == subjects_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.intermediate_attestations'), intermediate_attestations_path, class: "nav-link #{request.fullpath == intermediate_attestations_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.semesters'), semesters_path, class: "nav-link #{request.fullpath == semesters_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.specializations'), specializations_path, class: "nav-link #{request.fullpath == specializations_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Отчеты', extends_reports_index_path, class: "nav-link #{request.fullpath == extends_reports_index_path ? 'active' : ''}" %>
           </li>
         <% end %>
       <% end %>
