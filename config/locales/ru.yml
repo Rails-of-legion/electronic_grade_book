@@ -3,6 +3,7 @@ ru:
   email: 'Электронная почта'
   password: 'Пароль'
   remember_me: 'Запомнить меня'
+  show_password: 'Показать пароль'
   login: 'Войти'
   sign_up: 'Зарегистрироваться'
   forgot_password: 'Забыли пароль?'
