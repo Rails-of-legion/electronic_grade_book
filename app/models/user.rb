@@ -9,8 +9,8 @@ class User < ApplicationRecord
   validates :last_name, presence: true, length: { minimum: 3, maximum: 50 }
   validates :middle_name, presence: true, length: { minimum: 3, maximum: 50 }
   validates :phone_number, presence: true
-  validates :phone_number, format: { with: /\A(\+375|80)(29|44|25|33)\d{7}\z/, 
-                                    message: "неверный формат номера телефона" }
+  validates :phone_number, format: { with: /\A(\+375|80)(29|44|25|33)\d{7}\z/,
+                                     message: 'неверный формат номера телефона' }
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :date_of_birth, presence: true
   validates :status, inclusion: { in: [true, false] }
@@ -52,7 +52,6 @@ class User < ApplicationRecord
     has_role?(:teacher)
   end
 
-  
   def student?
     has_role?(:student)
   end

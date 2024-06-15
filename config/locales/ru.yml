@@ -59,6 +59,10 @@ ru:
     subject: "Предмет"
     description: "Описание"
     back: "Назад"
+    create_subject: "Создать"
+    edit_subject: "Обновить"
+    edit: "Обновить предмет"
+    new: "Создать предмет"
 
   semesters:
     name: "Название"
@@ -100,7 +104,7 @@ ru:
     successfully_created: "Создать"
 
   groups:
-    name: "Группа"
+    name: "Название"
     list: "Список групп"
     curator: "Преподаватель"
     select_month: "Выберите месяц"
@@ -109,7 +113,7 @@ ru:
     select_day: "Выберите день"
     select_student: "Выберите студента"
     back: "Назад"
-    details: "Внесение отметок в ведомость"
+    details: "Информация о группе"
     unassigned: "Не назначен"
     specialization: "Специальность"
     record_books: "Зачетные книжки"
@@ -119,6 +123,8 @@ ru:
     date: "Дата"
     value: "Оценка"
     submit: "Отправить"
+    unassigned: "Не назначен"
+    form_of_education: "Форма обучения"
     
 
   record_books:

@@ -18,7 +18,7 @@ class MarksReport
 
     # Информация о ведомости
     # Здесь предполагается, что у вас есть метод intermediate_attestation для получения id
-    pdf.text "ЗАЧЕТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ № 1", align: :center, size: 11, style: :bold
+    pdf.text 'ЗАЧЕТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ № 1', align: :center, size: 11, style: :bold
     pdf.text 'аттестации вне учебной группы', align: :center, size: 11, style: :bold
     pdf.move_down 5
 

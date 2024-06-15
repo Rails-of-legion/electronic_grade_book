@@ -1,4 +1,4 @@
-<h1 class="text-center mb-4">Создать отчет</h1>
+<h1 class="text-center mb-4">Сформировать отчет</h1>
 
 <%= form_tag generate_report_individual_reports_path(format: :pdf), method: :post, class: "container", data: {controller: 'subjects'} do %>
   <div class="form-group row mb-3">
@@ -42,7 +42,7 @@
 
   <div class="form-group row mb-3">
     <div class="col-sm-10 offset-sm-2">
-      <%= submit_tag "Сгенерировать PDF", class: "btn btn-primary" %>
+      <%= submit_tag "Сформировать отчет", class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>

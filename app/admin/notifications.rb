@@ -17,12 +17,8 @@ ActiveAdmin.register Notification do
 
   show do
     attributes_table do
-      row I18n.t('active_admin.notifications.message') do |notification|
-        notification.message
-      end
-      row I18n.t('active_admin.notifications.date') do |notification|
-        notification.date
-      end
+      row I18n.t('active_admin.notifications.message'), &:message
+      row I18n.t('active_admin.notifications.date'), &:date
       row I18n.t('active_admin.notifications.users') do |notification|
         notification.users.map(&:name).join(', ')
       end
@@ -42,6 +38,6 @@ ActiveAdmin.register Notification do
       else
         f.action :submit, label: I18n.t('active_admin.notifications.save_changes'), wrap_element: :button
       end
-    end    
+    end
   end
 end
