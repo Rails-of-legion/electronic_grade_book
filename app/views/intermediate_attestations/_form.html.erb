@@ -48,16 +48,16 @@
           </div>
         </div>
 
-        <div class="form-group row mb-3">
-          <div class="col-sm-3 text-right">
-            <%= form.label :group_id, class: "col-form-label" do %>
-              <div>Group:</div>
-            <% end %>
-          </div>
-          <div class="col-sm-9">
-            <%= form.collection_select :group_ids, @groups, :id, :name, { prompt: "Выберите группы" }, { multiple: true, class: "form-control" } %>
-          </div>
-        </div>
+<div class="form-group row mb-3">
+  <div class="col-sm-3 text-right">
+    <%= form.label :group_ids, class: "col-form-label" do %>
+      <div>Group:</div>
+    <% end %>
+  </div>
+  <div class="col-sm-9">
+    <%= form.collection_check_boxes :group_ids, @groups, :id, :name, { prompt: "Выберите группы" }, { class: "form-check" } %>
+  </div>
+</div>
 
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
