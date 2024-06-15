@@ -84,6 +84,7 @@ ru:
     back: "Назад"
     download_pdf: "Скачать PDF"
     back: "Назад"
+    no_groups: "Нет групп"
 
   specializations:
     name: "Название"

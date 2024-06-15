@@ -1,47 +1,82 @@
-<%= form_with(model: @intermediate_attestation, local: true) do |form| %>
-  <% if @intermediate_attestation.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@intermediate_attestation.errors.count, "error") %> prohibited this intermediate attestation from being saved:</h2>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <%= form_with(model: @intermediate_attestation, local: true) do |form| %>
+        <%= render 'shared/errors', object: @intermediate_attestation %>
 
-      <ul>
-        <% @intermediate_attestation.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+        <div class="form-group row mb-3">
+          <div class="col-sm-3 text-right">
+            <%= form.label :name, class: "col-form-label" do %>
+              <div>Name:</div>
+            <% end %>
+          </div>
+          <div class="col-sm-9">
+            <%= form.text_field :name, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <div class="col-sm-3 text-right">
+            <%= form.label :date, class: "col-form-label" do %>
+              <div>Date:</div>
+            <% end %>
+          </div>
+          <div class="col-sm-9">
+            <%= form.date_field :date, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <div class="col-sm-3 text-right">
+            <%= form.label :assessment_type, class: "col-form-label" do %>
+              <div>Assessment Type:</div>
+            <% end %>
+          </div>
+          <div class="col-sm-9">
+            <%= form.text_field :assessment_type, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <div class="col-sm-3 text-right">
+            <%= form.label :subject_id, class: "col-form-label" do %>
+              <div>Subject:</div>
+            <% end %>
+          </div>
+          <div class="col-sm-9">
+            <%= form.collection_select :subject_id, @subjects, :id, :name, { prompt: "Select Subject" }, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <div class="col-sm-3 text-right">
+            <%= form.label :group_id, class: "col-form-label" do %>
+              <div>Group:</div>
+            <% end %>
+          </div>
+          <div class="col-sm-9">
+            <%= form.collection_select :group_ids, @groups, :id, :name, { prompt: "Выберите группы" }, { multiple: true, class: "form-control" } %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <div class="col-sm-3 text-right">
+            <%= form.label :teacher_id, class: "col-form-label" do %>
+              <div>Teacher:</div>
+            <% end %>
+          </div>
+          <div class="col-sm-9">
+            <%= form.collection_select :teacher_id, @teachers, :id, :name, { prompt: "Select Teacher" }, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-9 offset-sm-3 d-flex justify-content-end">
+            <%= form.submit class: "btn btn-primary mr-2" %>
+            <%= link_to "Back", intermediate_attestations_path, class: "btn btn-secondary" %>
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
   </div>
-
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_field :date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :assessment_type %>
-    <%= form.text_field :assessment_type %>
-  </div>
-
-  <div class="field">
-    <%= form.label :subject_id %>
-    <%= form.collection_select :subject_id, @subjects, :id, :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :group_id %>
-    <%= form.collection_select :group_id, @groups, :id, :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :teacher_id %>
-    <%= form.collection_select :teacher_id, @teachers, :id, :name %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

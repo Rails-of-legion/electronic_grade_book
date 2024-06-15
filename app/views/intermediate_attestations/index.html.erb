@@ -1,6 +1,11 @@
 <div class="container">
-  <h1 class="text-center mb-4"><%= t('intermediate_attestations.list') %></h1>
-  
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-center"><%= t('intermediate_attestations.list') %></h1>
+    <% if current_user.admin? %> 
+      <%= link_to t('intermediate_attestations.new'), new_intermediate_attestation_path, class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+
   <table class="table table-striped">
     <thead class="thead-light">
       <tr>
@@ -8,6 +13,10 @@
         <th><%= t('intermediate_attestations.date') %></th>
         <th><%= t('intermediate_attestations.assessment_type') %></th>
         <th><%= t('intermediate_attestations.subject') %></th>
+        <th><%= t('intermediate_attestations.groups') %></th>
+        <% if current_user.admin? %>
+          <th class="text-right"><%= t('common.actions') %></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +26,23 @@
           <td><%= intermediate_attestation.date %></td>
           <td><%= intermediate_attestation.assessment_type %></td>
           <td><%= intermediate_attestation.subject.try(:name) %></td>
+          <td>
+            <% if intermediate_attestation.groups.any? %>
+              <ul class="list-unstyled">
+                <% intermediate_attestation.groups.each do |group| %>
+                  <li><%= link_to group.name, group_path(group) %></li>
+                <% end %>
+              </ul>
+            <% else %>
+              <%= t('intermediate_attestations.no_groups') %>
+            <% end %>
+          </td>
+          <% if current_user.admin? %>
+            <td class="text-right">
+              <%= link_to t('common.edit'), edit_intermediate_attestation_path(intermediate_attestation), class: 'btn btn-sm btn-secondary' %>
+              <%= link_to t('common.delete'), intermediate_attestation_path(intermediate_attestation), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm' %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
