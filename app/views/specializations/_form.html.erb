@@ -1,22 +1,43 @@
-<%= form_with(model: @specialization, local: true, class: "container") do |form| %>
-  <% if @specialization.errors.any? %>
-    <div id="error_explanation" class="alert alert-danger">
-      <h2><%= pluralize(@specialization.errors.count, "ошибка", "ошибки", "ошибок") %> не позволили сохранить специализацию:</h2>
-  
-      <ul>
-      <% @specialization.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <%= form_with model: @specialization, data: { turbo: false } do |f| %>
+        <%= render 'shared/errors', object: @specialization %>
+
+        <div class="form-group row mb-3">
+          <div class="col-sm-3 text-right">
+            <%= f.label :name, class: "col-form-label" do %>
+              <div>Name:</div>
+            <% end %>
+          </div>
+
+          <div class="col-sm-9">
+            <%= f.text_field :name, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <div class="col-sm-3 text-right">
+            <%= f.label :subject_ids, class: "col-form-label" do %>
+              <div>Subjects:</div>
+            <% end %>
+          </div>
+          <div class="col-sm-9">
+            <%= f.select :subject_ids, 
+                         options_from_collection_for_select(Subject.all, :id, :name, f.object.subject_ids), 
+                         {}, 
+                         { multiple: true, class: "form-control" } %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-9 offset-sm-3 d-flex justify-content-end">
+            <%= f.submit (@specialization.new_record? ? "Create Specialization" : "Edit Specialization"), class: "btn btn-primary mr-2" %>
+            <%= link_to "Back", specializations_path, class: "btn btn-secondary" %>
+          </div>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-  
-  <div class="mb-3">
-    <%= form.label :name, class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
   </div>
-  
-  <div class="actions">
-    <%= form.submit "Сохранить", class: "btn btn-primary" %>
-  </div>
-<% end %>
+</div>
