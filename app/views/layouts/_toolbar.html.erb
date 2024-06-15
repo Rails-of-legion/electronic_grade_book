@@ -51,8 +51,11 @@
           <li class="nav-item">
             <%= link_to 'Пользователи', users_path, class: "nav-link #{request.fullpath == users_path ? 'active' : ''}" %>
           </li>
+          <li class="nav-item">
+            <%= link_to 'Отчеты', extends_reports_index_path, class: "nav-link #{request.fullpath == extends_reports_index_path ? 'active' : ''}" %>
+          </li>
+          
         <% end %>
-
       <% end %>
     </ul>
   </div>
