@@ -1,11 +1,17 @@
-<h1>Grades</h1>
+<h1>Оценки</h1>
+
+<% if current_user.has_role?(:admin) %>
+  <%= link_to 'Создать новую оценку', new_grade_path, class: 'btn btn-primary' %>
+<% end %>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Subject</th>
-      <th>Grade</th>
-      <th>Actions</th>
+      <th>Предмет</th>
+      <th>Оценка</th>
+      <% if current_user.has_role?(:admin) %>
+        <th>Действия</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -13,15 +19,14 @@
       <tr>
         <td><%= grade.subject.name %></td>
         <td><%= grade.grade %></td>
+        <% if current_user.has_role?(:admin) %>
         <td>
-          <%= link_to 'Show', grade_path(grade), class: 'btn btn-sm btn-outline-primary' %>
-          <%= link_to 'Edit', edit_grade_path(grade), class: 'btn btn-sm btn-outline-secondary' %>
-          <%= button_to 'Delete', grade_path(grade), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
+          <%= link_to 'Показать', grade_path(grade), class: 'btn btn-sm btn-outline-primary' %>
+          <%= link_to 'Изменить', edit_grade_path(grade), class: 'btn btn-sm btn-outline-secondary' %>
+          <%= button_to 'Удалить', grade_path(grade), method: :delete, data: { confirm: 'Вы уверены?' }, class: 'btn btn-sm btn-outline-danger' %>
         </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to 'Create New Grade', new_grade_path, class: 'btn btn-primary' %>
-

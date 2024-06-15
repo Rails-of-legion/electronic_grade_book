@@ -16,9 +16,13 @@
           <tr>
             <td><%= user.first_name %></td>
             <td><%= user.last_name %></td>
-            <td><%= user.roles.first.name %></td> 
+            <td><%= user.roles.first.name %></td>
             <td>
               <%= link_to 'Show', user_path(user), class: 'btn btn-primary btn-sm' %>
+              <% if current_user.has_role?(:admin) %>
+                <%= link_to 'Edit', edit_user_path(user), class: 'btn btn-secondary btn-sm' %>
+                <%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+              <% end %>
             </td>
           </tr>
         <% end %>
