@@ -1,11 +1,18 @@
-<h1 class="text-center mb-4"><%= t('specializations.list') %></h1>
-
 <div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-center"><%= t('specializations.list') %></h1>
+    <% if current_user.admin? %>
+      <%= link_to t('specializations.new'), new_specialization_path, class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+
   <table class="table table-striped">
     <thead class="thead-light">
       <tr>
         <th><%= t('specializations.name') %></th>
-        <th colspan="3"></th>
+        <% if current_user.admin? %>
+          <th class="text-right"><%= t('common.actions') %></th>
+        <% end %>
       </tr>
     </thead>
 
@@ -13,6 +20,12 @@
       <% @specializations.each do |specialization| %>
         <tr>
           <td><%= link_to specialization.name, specialization_path(specialization) %></td>
+          <% if current_user.admin? %>
+            <td class="text-right">
+              <%= link_to t('common.edit'), edit_specialization_path(specialization), class: 'btn btn-sm btn-secondary' %>
+              <%= link_to t('common.delete'), specialization_path(specialization), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm mr' %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
