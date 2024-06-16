@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>Уведомления</title>
-  <!-- Подключение Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -19,19 +18,28 @@
             <th>Сообщение</th>
             <th>Дата</th>
             <th>Статус прочтения</th>
-            <th>Пользователь</th>
+            <th>Пользователи</th>
             <th colspan="4">Действия</th>
           </tr>
         </thead>
 
         <tbody>
           <% @notifications.each do |notification| %>
-            <% notification_user = @notifications_users.find { |nu| nu.notification_id == notification.id } %>
             <tr>
               <td><%= notification.message %></td>
               <td><%= notification.date %></td>
-              <td><%= notification_user&.status ? 'Прочитано' : 'Не прочитано' %></td>
-              <td><%= notification_user&.user&.name %></td>
+              <td>
+                <% notification.users.each do |user| %>
+                  <u><%= notification.notifications_users.find_by(user: user)&.status ? 'Прочитано' : 'Не прочитано' %></u>
+                  <br> 
+                <% end %>
+              </td>
+              <td class="w-25">
+                <% notification.users.each do |user| %>
+                  <u><%= user.name %></u>
+                  <br> 
+                <% end %>
+              </td>
               <td><%= link_to 'Показать', notification, class: 'btn btn-info btn-sm' %></td>
               <td><%= link_to 'Редактировать', edit_notification_path(notification), class: 'btn btn-warning btn-sm' %></td>
               <td><%= button_to 'Удалить', notification, method: :delete, data: { confirm: 'Вы уверены?' }, class: 'btn btn-danger btn-sm' %></td>

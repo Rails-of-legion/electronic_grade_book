@@ -1,5 +1,5 @@
 class Notification < ApplicationRecord
-  has_many :notifications_users
+  has_many :notifications_users, dependent: :destroy
   has_many :users, through: :notifications_users
 
   validates :message, presence: true, length: { maximum: 255 }
