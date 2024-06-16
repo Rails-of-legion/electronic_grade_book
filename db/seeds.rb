@@ -40,8 +40,8 @@ subjects_data = [
 # Создание пользователей-администраторов
 puts "Создание пользователей-администраторов..."
 admin1 = User.create!(
-  first_name: "Юрий",
   last_name: "Юрьевич",
+  first_name: "Юрий",
   middle_name: "Королев",
   phone_number: generate_phone_number(codes, prefixes),
   email: 'admin1@example.com',
@@ -54,8 +54,8 @@ admin1.add_role(:admin)
 puts "Создан пользователь-администратор: #{admin1.email}"
 
 admin2 = User.create!(
-  first_name: "Петр",
   last_name: "Петров",
+  first_name: "Петр",
   middle_name: "Петрович",
   phone_number: generate_phone_number(codes, prefixes),
   email: 'admin2@example.com',
@@ -70,14 +70,14 @@ puts "Создан пользователь-администратор: #{admin2
 #  Создание преподавателей с ролью "teacher"
 puts "Создание преподавателей..."
 teachers = 20.times.map do
-  first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
+  first_name = Faker::Name.first_name
   middle_name = Faker::Name.middle_name
   middle_name = Faker::Name.middle_name while middle_name.length < 3 # Проверяем длину отчества
 
   teacher = User.create!(
-    first_name: first_name,
     last_name: last_name,
+    first_name: first_name,
     middle_name: middle_name,
     phone_number: generate_phone_number(codes, prefixes),
     email: Faker::Internet.email,
@@ -115,7 +115,7 @@ groups = []
       curator: curator,
       form_of_education: "Очная" # или заочная, в зависимости от ваших требований
     )
-    puts "Создана группа: #{group.name} со специализацией #{group.specialization.name} и куратором #{curator.first_name} #{curator.last_name}"
+    puts "Создана группа: #{group.name} со специализацией #{group.specialization.name} и куратором #{curator.last_name} #{curator.first_name}"
     groups << group
   end
 end
@@ -125,8 +125,8 @@ puts "Создание студентов и зачетных книжек..."
 100.times do
   group = groups.sample
   student = User.create!(
-    first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
+    first_name: Faker::Name.first_name,
     middle_name: Faker::Name.middle_name,
     phone_number: generate_phone_number(codes, prefixes),
     email: Faker::Internet.unique.email,
