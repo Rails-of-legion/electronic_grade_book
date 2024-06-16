@@ -1,20 +1,22 @@
 class NotificationsController < ApplicationController
   before_action :set_notification, only: %i[show edit update destroy mark_as_read]
+  before_action :set_users, only: %i[edit new]
 
   # GET /notifications
   def index
     @notifications = Notification.all
-    @notifications_users = NotificationsUser.where(user: current_user)
   end
 
   # GET /notifications/1
   def show
-    @notification_user = NotificationsUser.find_by(notification: @notification, user: current_user)
+    @notification_user = NotificationsUser.find_by(notification: @notification)
+    @users = @notification.users
   end
 
   # GET /notifications/new
   def new
     @notification = Notification.new
+    @users = User.all
   end
 
   # GET /notifications/1/edit
@@ -26,7 +28,11 @@ class NotificationsController < ApplicationController
 
     respond_to do |format|
       if @notification.save
-        NotificationsUser.create(notification: @notification, user: current_user)
+        # Сохраняем уведомление для выбранных пользователей
+        params[:notification][:user_id].each do |user_id|
+          NotificationsUser.create(notification: @notification, user_id: user_id)
+        end
+
         format.html { redirect_to @notification, notice: 'Уведомление успешно создано.' }
         format.json { render :show, status: :created, location: @notification }
       else
@@ -36,20 +42,25 @@ class NotificationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /notifications/1
   def update
-    @notification_user = NotificationsUser.find_by(notification: @notification, user: current_user)
-    if @notification && @notification_user
-      if @notification.update(notification_params)
-        @notification_user.update(status: true)
-        redirect_to notifications_path, notice: 'Уведомление было отмечено как прочитанное.'
-      else
-        render :edit
+    if @notification.update(notification_params)
+      @notification.notifications_users.destroy_all
+      params[:notification][:user_id].each do |user_id|
+        NotificationsUser.create(notification: @notification, user_id: user_id)
+      end
+  
+      respond_to do |format|
+        format.html { redirect_to @notification, notice: 'Уведомление успешно обновлено.' }
+        format.json { render :show, status: :ok, location: @notification }
       end
     else
-      redirect_to notifications_path, alert: 'Уведомление не найдено.'
+      respond_to do |format|
+        format.html { render :edit }
+        format.json { render json: @notification.errors, status: :unprocessable_entity } 
+      end
     end
   end
+
 
   # DELETE /notifications/1
   def destroy
@@ -73,7 +84,11 @@ class NotificationsController < ApplicationController
     @notification = Notification.find(params[:id])
   end
 
+  def set_users
+    @users = User.all
+  end
+
   def notification_params
-    params.require(:notification).permit(:message, :date)
+    params.require(:notification).permit(:message, :date, user_ids: [])
   end
 end

@@ -9,17 +9,29 @@
 </head>
 <body>
   <div class="container mt-5">
-    <h1 class="my-4"><%= @notification.message %></h1>
+    <h1 class="text-center mb-4">Детали уведомления</h1>
 
-    <p><strong>Дата:</strong> <%= @notification.date %></p>
-    <p><strong>Статус прочтения:</strong> <%= @notification_user&.status ? 'Прочитано' : 'Не прочитано' %></p>
-    <p><strong>Пользователь:</strong> <%= @notification_user&.user&.name %></p>
+    <div class="card">
+      <div class="card-body">
+        <p><strong>Сообщение:</strong> <%= @notification.message %></p>
+        <p><strong>Дата:</strong> <%= @notification.date %></p>
 
-    <p>
-      <%= link_to 'Редактировать', edit_notification_path(@notification), class: 'btn btn-warning' %>
-      <%= link_to 'Назад', notifications_path, class: 'btn btn-secondary' %>
-      <%= button_to 'Удалить', @notification, method: :delete, data: { confirm: 'Вы уверены?' }, class: 'btn btn-danger' %>
-    </p>
+        <p>
+          <strong>Пользователи:</strong>
+          <% if @users.any? %>
+            <%= @users.map(&:name).join(', ').html_safe %>
+          <% else %>
+            Нет пользователей для этого уведомления
+          <% end %>
+        </p> 
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <%= link_to 'Редактировать', edit_notification_path(@notification), class: "btn btn-warning mr-2" %>
+      <%= link_to 'Назад', notifications_path, class: "btn btn-secondary mr-2" %>
+      <%= link_to 'Удалить', @notification, data: { turbo_method: :delete, turbo_confirm: 'Вы уверены?' }, class: 'btn btn-danger' %>
+    </div>
   </div>
 </body>
 </html>
