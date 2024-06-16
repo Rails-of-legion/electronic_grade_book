@@ -15,6 +15,7 @@ class NotificationsController < ApplicationController
   # GET /notifications/new
   def new
     @notification = Notification.new
+    @users = User.all
   end
 
   # GET /notifications/1/edit
@@ -26,7 +27,11 @@ class NotificationsController < ApplicationController
 
     respond_to do |format|
       if @notification.save
-        NotificationsUser.create(notification: @notification, user: current_user)
+        # Сохраняем уведомление для выбранных пользователей
+        params[:notification][:user_id].each do |user_id|
+          NotificationsUser.create(notification: @notification, user_id: user_id)
+        end
+
         format.html { redirect_to @notification, notice: 'Уведомление успешно создано.' }
         format.json { render :show, status: :created, location: @notification }
       else
