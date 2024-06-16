@@ -12,6 +12,7 @@ class IntermediateAttestationsController < ApplicationController
   end
 
   def show
+    @intermediate_attestation = IntermediateAttestation.find(params[:id])
     @groups = @intermediate_attestation.groups
 
     respond_to do |format|
@@ -64,7 +65,7 @@ class IntermediateAttestationsController < ApplicationController
   def set_collections
     @groups = Group.all
     @subjects = Subject.all
-    @teachers = User.with_role(:teacher) 
+    @teachers = User.with_role(:teacher)
   end
 
   def intermediate_attestation_params
