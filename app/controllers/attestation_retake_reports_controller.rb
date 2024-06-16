@@ -38,7 +38,7 @@ class AttestationRetakeReportsController < ApplicationController
     pdf.move_down 10
     pdf.text "Количество слушателей: #{@grades.count}"
     pdf.move_down 10
-    pdf.text "Преподаватели, закрепленные за экзаменом: #{@exam.teacher.first_name} #{@exam.teacher.last_name}"
+    pdf.text "Преподаватели, закрепленные за экзаменом: #{@exam.teacher.last_name} #{@exam.teacher.first_name}"
     pdf.move_down 10
     pdf.text "Количество слушателей, которые сдали экзамен: #{@passed_students.count}"
     pdf.move_down 10
