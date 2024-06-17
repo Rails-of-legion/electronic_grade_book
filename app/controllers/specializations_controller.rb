@@ -4,7 +4,8 @@ class SpecializationsController < ApplicationController
 
   # GET /specializations
   def index
-    @pagy, @specializations = pagy(Specialization.all, items: 10)
+    @q = Specialization.ransack(params[:q])
+    @pagy, @specializations = pagy(@q.result.includes(:subjects, :specialities_subjects), items: 10)
   end
 
   # GET /specializations/1
