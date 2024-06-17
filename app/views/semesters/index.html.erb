@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h1 class="text-center"><%= t('semesters.semesters') %></h1>
       <% if current_user.admin? %>
-        <%= link_to t('semesters.new'), new_semester_path, class: 'btn btn-primary' %>
+        <%= link_to t('common.add'), new_semester_path, class: 'btn btn-primary' %>
       <% end %>
     </div>
 
@@ -29,7 +29,7 @@
                 <% if current_user.admin? %>
                   <td class="text-right">
                     <%= link_to t('common.edit'), edit_semester_path(semester), class: 'btn btn-sm btn-secondary' %>
-                    <%= link_to t('common.delete'), semester_path(semester), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm mr' %>
+                    <%= link_to t('common.delete'), semester_path(semester), data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm mr' %>
                   </td>
                 <% end %>
               </tr>
@@ -41,28 +41,28 @@
       <div class="col-md-3"> 
         <%= search_form_for @q, class: "form-inline" do |f| %>
           <div class="form-group mb-2">
-            <%= f.label :name_cont, "Название" %>
-            <%= f.search_field :name_cont, placeholder: "Название", class: "form-control" %>
+            <%= f.label :name_cont, t('semesters.name') %>
+            <%= f.search_field :name_cont, class: "form-control" %>
           </div>
           <div class="form-group mb-2">
-            <%= f.label :start_date_gteq, "Дата начала от" %>
+            <%= f.label :start_date_gteq, t('semesters.star_date_from')  %>
             <%= f.date_field :start_date_gteq, class: "form-control" %>
           </div>
           <div class="form-group mb-2">
-            <%= f.label :start_date_lteq, "Дата начала до" %>
+            <%= f.label :start_date_lteq, t('semesters.start_date_before')  %>
             <%= f.date_field :start_date_lteq, class: "form-control" %>
           </div>
           <div class="form-group mb-2">
-            <%= f.label :end_date_gteq, "Дата окончания от" %>
+            <%= f.label :end_date_gteq, t('semesters.end_date_from')  %>
             <%= f.date_field :end_date_gteq, class: "form-control" %>
           </div>
           <div class="form-group mb-2">
-            <%= f.label :end_date_lteq, "Дата окончания до" %>
+            <%= f.label :end_date_lteq, t('semesters.end_date_before')  %>
             <%= f.date_field :end_date_lteq, class: "form-control" %>
           </div>
           <div class="form-group mt-3 d-flex"> 
-            <%= f.submit "Поиск", class: 'btn btn-primary me-2' %>
-            <%= link_to "Сбросить", semesters_path, class: "btn btn-secondary" %> 
+            <%= f.submit t('common.search'), class: 'btn btn-primary me-2' %>
+            <%= link_to t('common.reset'), semesters_path, class: "btn btn-secondary" %> 
           </div>
         <% end %>
       </div>

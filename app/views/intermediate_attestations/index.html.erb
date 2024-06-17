@@ -1,12 +1,10 @@
- <% if @intermediateatestations.present? %> 
+ <% if @intermediate_attestations.present? %> 
   <div class="container">
     <div class="row mb-4">
-      <div class="col-md-6">
+      <div class="d-flex justify-content-between align-items-center mb-4">
         <h1><%= t('intermediate_attestations.list') %></h1>
-      </div>
-      <div class="col-md-6 text-end">
         <% if current_user.admin? %>
-          <%= link_to t('intermediate_attestations.new'), new_intermediate_attestation_path, class: 'btn btn-primary' %>
+          <%= link_to t('common.add'), new_intermediate_attestation_path, class: 'btn btn-primary' %>
         <% end %>
       </div>
     </div>
@@ -43,7 +41,7 @@
                 <% if current_user.admin? %>
                   <td class="text-right">
                     <%= link_to t('common.edit'), edit_intermediate_attestation_path(intermediate_attestation), class: 'btn btn-sm btn-secondary me-1' %> <%# Добавлено me-1 для отступа %>
-                    <%= link_to t('common.delete'), intermediate_attestation_path(intermediate_attestation), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm' %>
+                    <%= link_to t('common.delete'), intermediate_attestation_path(intermediate_attestation), data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm' %>
                   </td>
                 <% end %>
               </tr>
@@ -78,7 +76,7 @@
       </div>
     </div>
   </div>
- <% else %>
+<% else %>
   <div class="container mt-5">
     <div class="alert alert-warning" role="alert">
       <%= t 'intermediate_attestations.no_intermediate_attestations_found'%>

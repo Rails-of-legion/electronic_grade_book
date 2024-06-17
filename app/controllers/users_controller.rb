@@ -4,6 +4,26 @@ class UsersController < ApplicationController
     @pagy, @users = pagy(@q.result(distinct: true), items: 10)
   end
 
+  def new
+    @user = User.new
+    authorize! :create, @user
+  end
+
+  def create
+    @user = User.new(user_params)
+    authorize! :create, @user 
+
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.json { render json: @user, status: :created }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def show
     @user = User.find(params[:id])
     @notificationsUser = NotificationsUser.where(user_id: @user.id)
@@ -17,9 +37,6 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     authorize! :update, @user
-    return if @user == current_user
-
-    redirect_to root_path, alert: 'Access denied!'
   end
 
   def update
@@ -30,6 +47,13 @@ class UsersController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    authorize! :destroy, @user
+    @user.destroy
+    redirect_to users_path
   end
 
   def edit_password
@@ -73,7 +97,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(
       :first_name, :last_name, :middle_name, :phone_number, :email,
-      :password, :password_confirmation, roles: []
+      :password, :password_confirmation, :status, :date_of_birth, role_ids: []
     )
   end
 

@@ -9,20 +9,20 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-body">
-          <h1 class="text-center mb-4">Grade</h1>
+          <h1 class="text-center mb-4"><%= t('grades.grade') %></h1>
 
           <% if @grade && @grade.record_book && @grade.record_book.user %>
             <p class="text-center">
-              Student: <%= @grade.record_book.user.first_name %> 
+              <%= t('grades.sudent') %> : <%= @grade.record_book.user.last_name %>  <%= @grade.record_book.user.first_name %> 
             </p>
           <% end %>
 
-          <p class="text-center">Grade: <%= @grade.grade %></p>
+          <p class="text-center"><%= t('grades.grade') %> : <%= @grade.grade %></p>
 
           <% if @grade %>
             <div class="text-center">
-              <%= link_to 'Edit', edit_grade_path(@grade), class: 'btn btn-default mr-2' %>
-              <%= link_to 'Back', grades_path, class: 'btn btn-secondary' %>
+              <%= link_to t('common.edit'), edit_grade_path(@grade), class: 'btn btn-default mr-2' %>
+              <%= link_to t('common.back'), grades_path, class: 'btn btn-secondary' %>
             </div>
           <% end %>
         </div>
