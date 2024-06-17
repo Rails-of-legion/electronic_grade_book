@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="text-center"><%= t('specializations.list') %></h1>
     <% if current_user.admin? %>
-      <%= link_to t('specializations.new'), new_specialization_path, class: 'btn btn-primary' %>
+      <%= link_to t('common.add'), new_specialization_path, class: 'btn btn-primary' %>
     <% end %>
   </div>
 
@@ -25,7 +25,7 @@
               <% if current_user.admin? %>
                 <td class="text-right">
                   <%= link_to t('common.edit'), edit_specialization_path(specialization), class: 'btn btn-sm btn-secondary' %>
-                  <%= link_to t('common.delete'), specialization_path(specialization), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm mr' %>
+                  <%= link_to t('common.delete'), specialization_path(specialization), data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm mr' %>
                 </td>
               <% end %>
             </tr>
@@ -43,7 +43,7 @@
         </div>
         <div class="form-group mt-3">
           <%= f.submit t('common.search'), class: 'btn btn-primary' %>
-          <%= link_to "Сбросить", specializations_path, class: "btn btn-secondary" %> 
+          <%= link_to t('common.reset'), specializations_path, class: "btn btn-secondary" %> 
         </div>
       <% end %>
     </div>

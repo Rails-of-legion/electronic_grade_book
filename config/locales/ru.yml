@@ -1,22 +1,92 @@
 ru:
-  login: 'Войти'
-  email: 'Электронная почта'
-  password: 'Пароль'
-  remember_me: 'Запомнить меня'
-  login: 'Войти'
-  sign_up: 'Зарегистрироваться'
-  forgot_password: 'Забыли пароль?'
-  confirmation_instructions: 'Не получили инструкции по подтверждению?'
-  unlock_instructions: 'Не получили инструкции по разблокировке?'
-  sign_in_with: 'Войти с %{provider}'
+ #Titles
+ login: 'Войти'
+ email: 'Электронная почта'
+ password: 'Пароль'
+ remember_me: 'Запомнить меня'
+ login: 'Войти'
+ sign_up: 'Зарегистрироваться'
+ forgot_password: 'Забыли пароль?'
+ confirmation_instructions: 'Не получили инструкции по подтверждению?'
+ unlock_instructions: 'Не получили инструкции по разблокировке?'
+ sign_in_with: 'Войти с %{provider}'
 
-  find_user: "Найти пользователя"
+
+ find_user: "Найти пользователя"
+ first_name: "Имя"
+ middle_name: "Отчество"
+ last_name: "Фамилия"
+ date_of_birth: "Дата рождения"
+ phone_number: "Номер телефона"
+ find: "Найти"
+  #For buttons
+ common:
+   month: "Месяц"
+   submit: "Создать"
+   specialization: "Специализация"
+   search: "Поиск"
+   show: "Показать"
+   edit: "Редактировать"
+   update: "Обновить"
+   delete: "Удалить"
+   back: "Назад"
+   add: "Добавить"
+   actions: "Дейтвия"
+   reset: "Сбросить"
+   all: "Все"
+   create: "Создать"
+   new: "Новый"
+   save: "Сохранить"
+
+
+ users:
+  users: "Пользователи"
   first_name: "Имя"
-  middle_name: "Отчество"
   last_name: "Фамилия"
-  date_of_birth: "Дата рождения"
+  middle_name: "Отчество"
+  email: 'Электронная почта'
   phone_number: "Номер телефона"
-  find: "Найти"
+  role: "Роль"
+  show: "Показать"
+  no_users_found: "Пользователи не найдены"
+  personal_profile: "Личный кабинет"
+  date_of_birth: "Дата рождения"
+  show_notifications: "Показать уведомления"
+  change_password: "Сменить пароль"
+  change_email: "Сменить электронную почту"
+  specialization: "Специализация"
+  group: "Группа"
+  record_book: "Зачетная книжка"
+  status: "Статус"
+  you_dont_have_any_new_notifications: "У вас нет новых уведомлений"
+  read_notifications: "Прочитанные уведомления"
+  email: "Электронная почта"
+  change_your_email: "Изменить электронную почту"
+  new_email: "Новоя электронная почта"
+  change_email: "Изменить электронную почту"
+  change_your_password: "Изменить ваш пароль"
+  new_password: "Новый пароль"
+  confirm_your_new_password: "Подтвердите ваш новый пароль"
+  characters_minimum: "минимальное количество символов"
+  change_my_password: "Изменить мой пароль"
+  back: "Назад"
+  lern: "Ознакомиться"
+ 
+ subjects:
+   subjects: "Предметы"
+   search: "Поиск"
+   name: "Название"
+   actions: "Действия"
+   show: "Показать"
+   no_subjects_found: "Предметы не найдены"
+   back: "Назад"
+   subject: "Предмет"
+   description: "Описание"
+   back: "Назад"
+   create_subject: "Создать"
+   edit_subject: "Обновить"
+   edit: "Обновить предмет"
+   new: "Создать предмет"
 
   users:
    users: "Пользователи"
@@ -67,27 +137,57 @@ ru:
     edit: "Обновить предмет"
     new: "Создать предмет"
 
-  semesters:
-    name: "Название"
-    show: "Показать"
-    back: "Назад"
-    actions: "Действия"
-    semesters: "Семестры"
-    start_date: "Дата начала"
-    end_date: "Дата окончания"
-    no_semesters_found: "Семестры не найдены"
 
-  intermediate_attestations:
-    list: "Список промежуточных аттестаций"
-    details: "Детали промежуточной аттестации"
-    name: "Название"
-    date: "Дата"
-    assessment_type: "Тип аттестации"
-    subject: "Предмет"
-    back: "Назад"
-    download_pdf: "Скачать PDF"
-    back: "Назад"
-    no_groups: "Нет групп"
+ semesters:
+   name: "Название"
+   show: "Показать"
+   back: "Назад"
+   actions: "Действия"
+   semesters: "Семестры"
+   start_date: "Дата начала"
+   end_date: "Дата окончания"
+   no_semesters_found: "Семестры не найдены"
+   star_date_from: "Дата начала от"
+   start_date_before: "Дата начала до" 
+   end_date_from: "Дата окончания от"
+   end_date_before: "Дата окончания до"
+   edit_semester: "Изменить семестр"
+   new_semester: "Новый семестр"
+   create_semester: "Создать семестр"
+   edit_semester: "Изменить семестр"
+
+
+
+ intermediate_attestations:
+   list: "Список промежуточных аттестаций"
+   groups: "Группы"
+   details: "Детали промежуточной аттестации"
+   name: "Название"
+   date: "Дата"
+   assessment_type: "Тип аттестации"
+   subject: "Предмет"
+   select_subject: "Веберите предмет"
+   back: "Назад"
+   download_pdf: "Скачать PDF"
+   back: "Назад"
+   no_groups: "Нет групп"
+   teacher: "Перподователь"
+   select_teacher: "Выберите преподователя"
+   edit_intermediate_attestation: "Изменить промежуточную аттестацию"
+   new_Intermediate_attestation: "Новая промежуточная аттестация"
+
+
+ specializations:
+   name: "Название"
+   list: "Специализации"
+   details: "Детали специализации"
+   groups: "Группы"
+   no_groups: "Группы для этой специализации пока нет"
+   back: "Назад"
+   new_specialization: "Новая специальзация"
+   edit_specialization: "Изменить специальзацию"
+   create_specialization: "Создать специальзацию"
+   edit_specialization: "Изменить специальзацию"
 
   specializations:
     name: "Название"
@@ -98,226 +198,286 @@ ru:
     back: "Назад"
 
   common:
-    month: "Месяц"
-    submit: "Создать"
-    specialization: "Специализация"
-    search: "Поиск"
-    edit: "Обновить"
-    delete: "Удалить"
-    create: "Создать"
-    back: "Назад"
-    new: "Новый"
-    update: "Изменить"
-    save: "Сохранить"
+
   
 
-  grades:
-    date: "Дата"
-    value: "Значение"
-    successfully_created: "Создать"
-
-  groups:
-    name: "Название"
-    list: "Список групп"
-    curator: "Преподаватель"
-    select_month: "Выберите месяц"
-    select_subject: "Выберите предмет"
-    add_grade: "Добавить оценку"
-    select_day: "Выберите день"
-    select_student: "Выберите студента"
-    back: "Назад"
-    details: "Информация о группе"
-    unassigned: "Не назначен"
-    specialization: "Специальность"
-    record_books: "Зачетные книжки"
-    choose_a_discipline: "Выберите дисциплину"
-    discipline: "Дисциплина"
-    subject: "Предмет"
-    date: "Дата"
-    value: "Оценка"
-    submit: "Отправить"
-    unassigned: "Не назначен"
-    form_of_education: "Форма обучения"
-    
-
-  record_books:
-    title: "Зачетная книжка"
-    student: "Студент"
-    back: "Назад"
-    subject: "Предмет"
-    select_month: "Выберите месяц"
-    month: "Месяц"
-
-  navbar:
-    home: "Главная"
-    about: "О нас"
-    profile: "Профиль"
-    subjects: "Предметы"
-    semesters: "Семестры"
-    intermediate_attestations: "Промежуточные аттестации"
-    groups: "Группы"
-    specializations: "Специализации"
-    individual_report: "Индивидуальный отчет"
-    grades: "Оценки"
-    record_books: "Зачетные книжки"
-    reports: "Отчеты"
-    notifications: "Уведомления"
-    users: "Пользователи"
+ grades:
+   grades: "Оценки"
+   new_grades: "Новая оценка"
+   edit_grades: "Изменить оценку"
+   date: "Дата"
+   value: "Значение"
+   successfully_created: "Создать"
+   actions: "Действия"
+   sudent: "Студент"
+   grade: "Оценка"
+   item: "Предмет"
+   students_last_name: Фамилия студента
 
 
-  about:
-    title: "Добро пожаловать на страницу О нас"
-    description: "Это статическая страница с информацией о нашем приложении."
-  home:
-    title: "Добро пожаловать на Главную страницу"
-    description: "Это статическая страница с информацией о нашем приложении."
-    welcome: "Добро пожаловать"
-    email: "Ваш email"
-    role: "Ваша роль - "
-    sign_out: "Выйти"
-    sign_in: "Войти"
-    sign_up: "Зарегистрироваться"
-    admin: "Администратор"
-    teacher: "Учитель"
-    student: "Студент"
+ groups:
+   name: "Название"
+   list: "Список групп"
+   new_list: "Новый список групп"
+   edit_list: "Изменить список групп"
+   curator: "Преподаватель"
+   select_month: "Выберите месяц"
+   select_subject: "Выберите предмет"
+   add_grade: "Добавить оценку"
+   select_day: "Выберите день"
+   select_student: "Выберите студента"
+   student: "Cтуденты"
 
-  active_admin:
-    comments:
-      name: "Название"
-      specialization: "Специализация"
-      resource_type: "Тип ресурса"
-      author_type: "Тип автора"
-      namespace: "Пространство имен"
-      body: "Текст комментария"
-      created_at: "Дата создания"
-    dashboard:
-      dashboard: "Панель управления"
-      generate_individual_report: "Сгенерировать индивидуальный отчет"
-    intermediate_attestations:
-      intermediate_attestations: "Промежуточные аттестации"
-      new_model: "Создать промежуточную аттестациюll"
-      intermediate_attestation: 'Промежуточная аттестация'
-      intermediate_attestation_details: 'Детали промежуточной аттестации'
-      name: 'Название'
-      date: 'Дата'
-      assessment_type: 'Тип аттестации'
-      subject: 'Предмет'
-      groups: 'Группы'
-      teacher: 'Учитель'
-      create: "Создать"
-      save_changes: "Сохранить изменения"
-      group: "Группа"
-    groups:
-      groups: "Группы"
-      group: "Группа"
-      group_details: "Детали Группы"
-      name: "Название"
-      curator: "Куратор"
-      specialization: "Специализация"
-      create: "Создать"
-      save_changes: "Сохранить изменения"
-    notifications:
-      notifications: "Уведомления"
-      notification: "Уведомление"
-      notification_details: "Детали Уведомления"
-      message: "Сообщение"
-      date: "Дата"
-      users: "Пользователи"
-      create: "Создать"
-      save_changes: "Сохранить изменения"
-    grades:
-      grades: 'Оценки'
-      student: 'Студент'
-      record_book: 'Зачетная книжка'
-      subject: 'Предмет'
-      grade: 'Оценка'
-      date: 'Дата'
-      created_at: 'Дата создания'
-      student_first_name: 'Имя студента'
-      student_last_name: 'Фамилия студента'
-      student_middle_name: 'Отчество студента'
-      grade_details: 'Детали оценки'
-      create: 'Создать'
-      save_changes: 'Сохранить изменения'
-    record_books:
-      record_books: 'Зачетные книжки'
-      custom_number: 'Пользовательский номер'
-      user: 'Пользователь'
-      specialization: 'Специализация'
-      group: 'Группа'
-      created_at: 'Дата создания'
-      record_book_details: 'Детали зачетной книжки'
-      create: 'Создать'
-      save_changes: 'Сохранить изменения'
-      record_book: 'Зачетная книжка'
-      active_admin:
-    semesters:
-      semesters: 'Семестры'
-      name: 'Название'
-      start_date: 'Дата начала'
-      end_date: 'Дата окончания'
-      created_at: 'Дата создания'
-      semester_details: 'Детали семестра'
-      create: 'Создать'
-      save_changes: 'Сохранить изменения'
-    specializations:
-      specializations: 'Специализации'
-      name: 'Название'
-      details: 'Детали'
-      subjects: 'Предметы'
-      name_of_the_item: 'Название предмета'
-      description: 'Описание'
-      groups: 'Группы'
-      curator: 'Куратор'
-      created_at: 'Дата создания'
-      updated_at: 'Дата обновления'
-      create: 'Создать'
-      save_changes: 'Сохранить изменения'
-    subjects:
-      subject: 'Предмет'
-      subjects: "Предметы"
-      name: "Название"
-      description: "Описание"
-      subject_details: "Детали предмета"
-      create: "Создать"
-      save_changes: "Сохранить изменения"
-    users:
-      users: 'Пользователи'
-      name: 'Имя'
-      email: 'Электронная почта'
-      roles: 'Роли'
-      status: 'Статус'
-      created_at: 'Дата создания'
-      first_name: 'Имя'
-      middle_name: 'Отчество'
-      last_name: 'Фамилия'
-      record_book_number: 'Номер зачетной книжки'
-      group: 'Группа'
-      education_program: 'Образовательная программа'
-      user_details: 'Детали пользователя'
-      password: 'Пароль'
-      password_confirmation: 'Подтверждение пароля'
-      date_of_birth: 'Дата рождения'
-      phone_number: 'Номер телефона'
-      create: 'Создать'
-      save_changes: 'Сохранить изменения'
-      user_updated: 'Пользователь обновлен'
-      user_created: 'Пользователь создан'
-      specialization: 'Специализация'
-      subjects_of_the_current_semester: 'Предметы текущего семестра'
-      grades: 'Оценки'
-      subject: 'Предмет'
 
-  activerecord:
-    models:
-      intermediate_attestation: "промежуточную аттестацию"
-      record_book: "зачетную книжку"
-      subject: "предмет"
-      user: "пользователя"
-      group: "группу"
-      specialization: "специализацию"
-      semester: "семестр"
-      grade: "оценку"
-      user: "пользователя"
-      notification: "уведомление"
-      comment: "Комментарии"
+   details: "Информация о группе"
+   unassigned: "Не назначен"
+   specialization: "Специальность"
+   record_books: "Зачетные книжки"
+   choose_a_discipline: "Выберите дисциплину"
+   discipline: "Дисциплина"
+   subject: "Предмет"
+   date: "Дата"
+   value: "Оценка"
+   submit: "Отправить"
+   unassigned: "Не назначен"
+   form_of_education: "Форма обучения"
+   create_group: "Создать группу"
+   edit_group: "Изменить группы"
+   grading: "Выставление оценок"
+   select_curator: "Выбрать куратора"
+   select_specialization: "Выберите специализацию"
+  
+
+
+ record_books:
+   title: "Зачетная книжка"
+   student: "Студент"
+   select_student: "Выберите студента"
+   custom_number: "Номер" 
+   specialization: "Специализация"
+   select_specialization: "Выберите специальзацию"
+   specialization_name: "Имя специализации"
+   group: "Группа"
+   select_group: "Выберите группу"
+   group_name: "Называние группы"
+   retake_count: "Пересдач"
+   subject: "Предмет"
+   select_month: "Выберите месяц"
+   month: "Месяц"
+   new_record_book: "Новая зачетная книга"
+   edit_record_book: "Изменить зачетную книгу"
+   create_record_book: "Создать учетную книгу"
+   edit_record_book: "Изменить учетную книгу"
+
+
+ navbar:
+   home: "Главная"
+   about: "О нас"
+   profile: "Профиль"
+   subjects: "Предметы"
+   semesters: "Семестры"
+   intermediate_attestations: "Промежуточные аттестации"
+   groups: "Группы"
+   specializations: "Специализации"
+   individual_report: "Индивидуальный отчет"
+   grades: "Оценки"
+   record_books: "Зачетные книжки"
+   reports: "Отчеты"
+   notifications: "Уведомления"
+   users: "Пользователи"
+
+
+ notifications:
+   notifications: "Уведомления"
+   new_notifications: "Новое уведомление"
+   message: "Сообщение"
+   date: "Дата"
+   read_status: "Cтатус прочтения "
+   users: "Пользователи"
+   actions: "Действия"
+   read: "Прочитано"
+   no_read: "Не прочитано"
+   you_are_sure: "Вы уверены?"
+   date_greater: "Дата больше или равно"
+   date_less: "Дата меньше или равно"
+   create: "Создать"
+   save_changes: "Сохранить изменения"
+   new_notification: "Новое сообщение"
+   notification_details: "Детали уведомления"
+   no_users_for_this_notification: "Нет пользователей для этого уведомления"
+   select_user: "Выберите пользователя"
+   create_notification: "Создать пользователя"
+   edit_notification: "Изменить пользователя"
+ 
+ extends_reports: 
+   reports: "Отчеты"
+   interim_certification: "Промежуточная аттестация"
+   individual_report: "Индивидуальный отчет"
+   progress_report: "Отчет успеваемости"
+   certification_retake_report: "Отчет по пересдаче аттестации"
+   generate_a_report: "Сформировать отчет"
+   generate_a_progress_report: "Сформировать отчет успеваемости"
+   generate_a_report_on_retaking_the_certification: "Сформировать отчет по пересдаче аттестации"
+   select_certification: "Выберите аттестацию"
+   select_a_group: "Выберите группу"
+
+ about:
+   title: "Добро пожаловать на страницу О нас"
+   description: "Это статическая страница с информацией о нашем приложении."
+ home:
+   title: "Добро пожаловать на Главную страницу"
+   description: "Это статическая страница с информацией о нашем приложении."
+   welcome: "Добро пожаловать"
+   email: "Ваш email"
+   role: "Ваша роль - "
+   sign_out: "Выйти"
+   sign_in: "Войти"
+   sign_up: "Зарегистрироваться"
+   admin: "Администратор"
+   teacher: "Учитель"
+   student: "Студент"
+ 
+
+ active_admin:
+   comments:
+     name: "Название"
+     specialization: "Специализация"
+     resource_type: "Тип ресурса"
+     author_type: "Тип автора"
+     namespace: "Пространство имен"
+     body: "Текст комментария"
+     created_at: "Дата создания"
+   dashboard:
+     dashboard: "Панель управления"
+     generate_individual_report: "Сгенерировать индивидуальный отчет"
+   intermediate_attestations:
+     intermediate_attestations: "Промежуточные аттестации"
+     new_model: "Создать промежуточную аттестациюll"
+     intermediate_attestation: 'Промежуточная аттестация'
+     intermediate_attestation_details: 'Детали промежуточной аттестации'
+     name: 'Название'
+     date: 'Дата'
+     assessment_type: 'Тип аттестации'
+     subject: 'Предмет'
+     groups: 'Группы'
+     teacher: 'Учитель'
+     create: "Создать"
+     save_changes: "Сохранить изменения"
+     group: "Группа"
+   groups:
+     groups: "Группы"
+     group: "Группа"
+     group_details: "Детали Группы"
+     name: "Название"
+     curator: "Куратор"
+     specialization: "Специализация"
+     create: "Создать"
+     save_changes: "Сохранить изменения"
+   notifications:
+     notifications: "Уведомления"
+     notification: "Уведомление"
+     notification_details: "Детали Уведомления"
+     message: "Сообщение"
+     date: "Дата"
+     users: "Пользователи"
+     create: "Создать"
+     save_changes: "Сохранить изменения"
+     new_notification: "Новое сообщение"
+   grades:
+     grades: 'Оценки'
+     student: 'Студент'
+     record_book: 'Зачетная книжка'
+     subjec: 'Предмет'
+     grade: 'Оценка'
+     date: 'Дата'
+     created_at: 'Дата создания'
+     student_first_name: 'Имя студента'
+     student_last_name: 'Фамилия студента'
+     student_middle_name: 'Отчество студента'
+     grade_details: 'Детали оценки'
+     create: 'Создать'
+     save_changes: 'Сохранить изменения'
+   record_books:
+     record_books: 'Зачетные книжки'
+     custom_number: 'Пользовательский номер'
+     user: 'Пользователь'
+     specialization: 'Специализация'
+     group: 'Группа'
+     created_at: 'Дата создания'
+     record_book_details: 'Детали зачетной книжки'
+     create: 'Создать'
+     save_changes: 'Сохранить изменения'
+     record_book: 'Зачетная книжка'
+     active_admin:
+   semesters:
+     semesters: 'Семестры'
+     name: 'Название'
+     start_date: 'Дата начала'
+     end_date: 'Дата окончания'
+     created_at: 'Дата создания'
+     semester_details: 'Детали семестра'
+     create: 'Создать'
+     save_changes: 'Сохранить изменения'
+   specializations:
+     specializations: 'Специализации'
+     name: 'Название'
+     details: 'Детали'
+     subjects: 'Предметы'
+     name_of_the_item: 'Название предмета'
+     description: 'Описание'
+     groups: 'Группы'
+     curator: 'Куратор'
+     created_at: 'Дата создания'
+     updated_at: 'Дата обновления'
+     create: 'Создать'
+     save_changes: 'Сохранить изменения'
+   subjects:
+     subject: 'Предмет'
+     subjects: "Предметы"
+     name: "Название"
+     description: "Описание"
+     subject_details: "Детали предмета"
+     create: "Создать"
+     save_changes: "Сохранить изменения"
+   users:
+     users: 'Пользователи'
+     name: 'Имя'
+     email: 'Электронная почта'
+     roles: 'Роли'
+     status: 'Статус'
+     created_at: 'Дата создания'
+     first_name: 'Имя'
+     middle_name: 'Отчество'
+     last_name: 'Фамилия'
+     record_book_number: 'Номер зачетной книжки'
+     group: 'Группа'
+     education_program: 'Образовательная программа'
+     user_details: 'Детали пользователя'
+     password: 'Пароль'
+     password_confirmation: 'Подтверждение пароля'
+     date_of_birth: 'Дата рождения'
+     phone_number: 'Номер телефона'
+     create: 'Создать'
+     save_changes: 'Сохранить изменения'
+     user_updated: 'Пользователь обновлен'
+     user_created: 'Пользователь создан'
+     specialization: 'Специализация'
+     subjects_of_the_current_semester: 'Предметы текущего семестра'
+     grades: 'Оценки'
+     subject: 'Предмет'
+
+
+ activerecord:
+   models:
+     intermediate_attestation: "промежуточную аттестацию"
+     record_book: "зачетную книжку"
+     subject: "предмет"
+     user: "пользователя"
+     group: "группу"
+     specialization: "специализацию"
+     semester: "семестр"
+     grade: "оценку"
+     user: "пользователя"
+     notification: "уведомление"
+     comment: "Комментарии"
+     

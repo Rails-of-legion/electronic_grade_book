@@ -1,8 +1,8 @@
-<h1 class="text-center mb-4">Сформировать отчет успеваемости</h1>
+<h1 class="text-center mb-4"><%=t('extends_reports.generate_a_progress_report')%></h1>
 
 <%= form_tag generate_marks_report_path(format: :pdf), method: :post, class: "container", id: "generate_report_form", data: { turbo: false } do %>
   <div class="form-group row mb-3">
-    <%= label_tag :record_book_id, "Зачетная книжка", class: "col-sm-2 col-form-label" %>
+    <%= label_tag :record_book_id,  t('record_books.title'), class: "col-sm-2 col-form-label" %>
     <div class="col-sm-10">
       <%= select_tag :record_book_id, options_for_select(@record_books.map { |rb| [rb.user.name, rb.id] }), class: "form-select" %>
     </div>
@@ -10,7 +10,7 @@
 
   <div class="form-group row mb-3">
     <div class="col-sm-10 offset-sm-2">
-      <%= submit_tag "Сформировать отчет", class: "btn btn-primary" %>
+      <%= submit_tag  t('extends_reports.generate_a_report'), class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>

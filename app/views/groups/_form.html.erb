@@ -1,62 +1,72 @@
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-    
-       <%= form_with model: @group, data: { turbo: false } do |f| %>
-        <%= render 'shared/errors', object: @group %>
+ <div class="row justify-content-center">
+   <div class="col-md-8">
+  
+      <%= form_with model: @group, data: { turbo: false } do |f| %>
+       <%= render 'shared/errors', object: @group %>
 
-        <div class="form-group row mb-3">
-          <div class="col-sm-3 text-right">
-            <%= f.label :name, class: "col-form-label" do %>
-              <div>Name:</div> 
-            <% end %>
-          </div>
 
-          <div class="col-sm-9">
-            <%= f.text_field :name, class: "form-control" %>
-          </div>
-        </div>
+       <div class="form-group row mb-3">
+         <div class="col-sm-3 text-right">
+           <%= f.label :name, class: "col-form-label" do %>
+             <div><%= t('groups.name') %>: </div>
+           <% end %>
+         </div>
 
-        <div class="form-group row mb-3">
-          <div class="col-sm-3 text-right">
-            <%= f.label :curator_id, class: "col-form-label" do %>
-              <div>Curator:</div>
-            <% end %>
-          </div>
-          <div class="col-sm-9">
-           <%= f.collection_select :curator_id, User.with_role(:teacher), :id, :name, { prompt: "Select Curator" }, { class: "form-control" } %>
-          </div>
-        </div>
 
-        <div class="form-group row mb-3">
-          <div class="col-sm-3 text-right">
-            <%= f.label :specialization_id, class: "col-form-label" do %>
-              <div>Specialization:</div>
-            <% end %>
-          </div>
-          <div class="col-sm-9">
-            <%= f.collection_select :specialization_id, Specialization.all, :id, :name, { prompt: "Select Specialization" }, class: "form-control" %>
-          </div>
-        </div>
+         <div class="col-sm-9">
+           <%= f.text_field :name, class: "form-control" %>
+         </div>
+       </div>
 
-        <div class="form-group row mb-3">
-          <div class="col-sm-3 text-right">
-            <%= f.label :form_of_education, class: "col-form-label" do %>
-              <div>Form of Education:</div>
-            <% end %>
-          </div>
-          <div class="col-sm-9">
-            <%= f.text_field :form_of_education, class: "form-control" %>
-          </div>
-        </div>
 
-        <div class="form-group row">
-          <div class="col-sm-9 offset-sm-3 d-flex justify-content-end">
-             <%= f.submit (@group.new_record? ? "Create Group" : "Edit Group"), class: "btn btn-primary mr-2" %> 
-            <%= link_to "Back", groups_path, class: "btn btn-secondary" %> 
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
+       <div class="form-group row mb-3">
+         <div class="col-sm-3 text-right">
+           <%= f.label :curator_id, class: "col-form-label" do %>
+             <div><%= t('groups.curator') %>: </div>
+           <% end %>
+         </div>
+         <div class="col-sm-9">
+          <%= f.collection_select :curator_id, User.with_role(:teacher), :id, :name, { prompt: t('groups.select_curator') }, { class: "form-control" } %>
+         </div>
+       </div>
+
+
+       <div class="form-group row mb-3">
+         <div class="col-sm-3 text-right">
+           <%= f.label :specialization_id, class: "col-form-label" do %>
+             <div><%= t('groups.specialization') %>:</div>
+           <% end %>
+         </div>
+         <div class="col-sm-9">
+           <%= f.collection_select :specialization_id, Specialization.all, :id, :name, { prompt: t('groups.select_specialization') }, class: "form-control" %>
+         </div>
+       </div>
+
+
+       <div class="form-group row mb-3">
+         <div class="col-sm-3 text-right">
+           <%= f.label :form_of_education, class: "col-form-label" do %>
+             <div><%= t('groups.form_of_education') %>:</div>
+           <% end %>
+         </div>
+         <div class="col-sm-9">
+           <%= f.text_field :form_of_education, class: "form-control" %>
+         </div>
+       </div>
+
+
+       <div class="form-group row">
+         <div class="col-sm-9 offset-sm-3 d-flex justify-content-between">
+           <div>
+               <%= f.submit (@group.new_record? ? t('groups.create_group') : t('groups.edit_group') ), class: "btn btn-primary mr-2" %>
+           </div>
+           <div>
+              <%= link_to t('common.back'), groups_path, class: "btn btn-secondary" %>
+           </div>
+         </div>
+       </div>
+     <% end %>
+   </div>
+ </div>
 </div>

@@ -8,7 +8,7 @@
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
             <%= f.label :name, class: "col-form-label" do %>
-              <div>Name:</div>
+              <div><%= t('specializations.name') %>:</div>
             <% end %>
           </div>
 
@@ -20,7 +20,7 @@
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
             <%= f.label :subject_ids, class: "col-form-label" do %>
-              <div>Subjects:</div>
+              <div><%= t('specializations.list') %>:</div>
             <% end %>
           </div>
           <div class="col-sm-9">
@@ -32,11 +32,15 @@
         </div>
 
         <div class="form-group row">
-          <div class="col-sm-9 offset-sm-3 d-flex justify-content-end">
-            <%= f.submit (@specialization.new_record? ? "Create Specialization" : "Edit Specialization"), class: "btn btn-primary mr-2" %>
-            <%= link_to "Back", specializations_path, class: "btn btn-secondary" %>
-          </div>
-        </div>
+         <div class="col-sm-9 offset-sm-3 d-flex justify-content-between">
+           <div>
+              <%= f.submit (@specialization.new_record? ? t('specializations.create_specialization') : t('specializations.edit_specialization') ), class: "btn btn-primary mr-2" %>
+           </div>
+           <div>
+              <%= link_to t('common.back'), specializations_path, class: "btn btn-secondary" %>
+           </div>
+         </div>
+       </div>
       <% end %>
     </div>
   </div>

@@ -1,8 +1,8 @@
-<h1 class="text-center mb-4">Сформировать отчет</h1>
+<h1 class="text-center mb-4"><%= t('extends_reports.generate_a_report') %></h1>
 
 <%= form_tag generate_report_individual_reports_path(format: :pdf), method: :post, class: "container", data: {controller: 'subjects'} do %>
   <div class="form-group row mb-3">
-    <%= label_tag :specialization_id, "Специализация", class: "col-sm-2 col-form-label" %>
+    <%= label_tag :specialization_id, t('specializations.list'), class: "col-sm-2 col-form-label" %>
     <div class="col-sm-10">
       <%= select_tag :specialization_id, 
                      options_for_select(@specializations.map { |s| [s.name, s.id] }), 
@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="form-group row mb-3">
-    <%= label_tag :group_id, "Группа", class: "col-sm-2 col-form-label" %>
+    <%= label_tag :group_id, t('specializations.groups'), class: "col-sm-2 col-form-label" %>
     <div class="col-sm-10">
       <%= select_tag :group_id, 
                      options_for_select([]),
@@ -21,7 +21,7 @@
   </div>
 
   <div class="form-group row mb-3">
-    <%= label_tag :record_book_id, "Студент", class: "col-sm-2 col-form-label" %>
+    <%= label_tag :record_book_id, t('record_books.student'), class: "col-sm-2 col-form-label" %>
     <div class="col-sm-10">
       <%= select_tag :record_book_id, 
                      options_for_select([]), 
@@ -31,7 +31,7 @@
   </div>
 
   <div class="form-group row mb-3">
-    <%= label_tag :intermediate_attestation_id, "Промежуточная аттестация", class: "col-sm-2 col-form-label" %>
+    <%= label_tag :intermediate_attestation_id, t('extends_reports.interim_certification'), class: "col-sm-2 col-form-label" %>
     <div class="col-sm-10">
       <%= select_tag :intermediate_attestation_id, 
                      options_for_select([]),
@@ -42,7 +42,7 @@
 
   <div class="form-group row mb-3">
     <div class="col-sm-10 offset-sm-2">
-      <%= submit_tag "Сформировать отчет", class: "btn btn-primary" %>
+      <%= submit_tag t('extends_reports.generate_a_report') , class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>
