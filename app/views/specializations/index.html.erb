@@ -1,51 +1,64 @@
-<div class="container">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="text-center"><%= t('specializations.list') %></h1>
-    <% if current_user.admin? %>
-      <%= link_to t('common.add'), new_specialization_path, class: 'btn btn-primary' %>
-    <% end %>
-  </div>
-
-  <div class="row mb-4">
-    <div class="col-md-9">
-      <table class="table table-striped">
-        <thead class="thead-light">
-          <tr>
-            <th><%= t('specializations.name') %></th>
-            <% if current_user.admin? %>
-              <th class="text-right"><%= t('common.actions') %></th>
-            <% end %>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @specializations.each do |specialization| %>
-            <tr>
-              <td><%= link_to specialization.name, specialization_path(specialization) %></td>
-              <% if current_user.admin? %>
-                <td class="text-right">
-                  <%= link_to t('common.edit'), edit_specialization_path(specialization), class: 'btn btn-sm btn-secondary' %>
-                  <%= link_to t('common.delete'), specialization_path(specialization), data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm mr' %>
-                </td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
-    </div>
-
-    <div class="col-md-3">
-      <%= search_form_for @q, class: "form-inline" do |f| %>
-        <div class="form-group mb-2">
-          <%= f.label :name_cont, t('specializations.name') %>
-          <%= f.search_field :name_cont, placeholder: t('specializations.name'), class: "form-control" %>
-        </div>
-        <div class="form-group mt-3">
-          <%= f.submit t('common.search'), class: 'btn btn-primary' %>
-          <%= link_to t('common.reset'), specializations_path, class: "btn btn-secondary" %> 
-        </div>
+<% if @specializations.present? %>
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="text-center"><%= t('specializations.list') %></h1>
+      <% if current_user.admin? %>
+        <%= link_to t('common.add'), new_specialization_path, class: 'btn btn-primary' %>
       <% end %>
     </div>
+
+      <div class="row mb-4">
+        <div class="col-md-9">
+          <table class="table table-striped">
+            <thead class="thead-light">
+              <tr>
+                <th><%= t('specializations.name') %></th>
+                <% if current_user.admin? %>
+                  <th class="text-right"><%= t('common.actions') %></th>
+                <% end %>
+              </tr>
+            </thead>
+
+          <tbody>
+            <% @specializations.each do |specialization| %>
+              <tr>
+                <td><%= link_to specialization.name, specialization_path(specialization) %></td>
+                <% if current_user.admin? %>
+                  <td class="text-right">
+                    <%= link_to t('common.edit'), edit_specialization_path(specialization), class: 'btn btn-sm btn-secondary' %>
+                    <%= link_to t('common.delete'), specialization_path(specialization), data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm mr' %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+      </div>
+
+      <div class="col-md-3">
+        <%= search_form_for @q, class: "form-inline" do |f| %>
+          <div class="form-group mb-2">
+            <%= f.label :name_cont, t('specializations.name') %>
+            <%= f.search_field :name_cont, placeholder: t('specializations.name'), class: "form-control" %>
+          </div>
+          <div class="form-group mt-3">
+            <%= f.submit t('common.search'), class: 'btn btn-primary' %>
+            <%= link_to t('common.reset'), specializations_path, class: "btn btn-secondary" %> 
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-</div>
+<% else %>
+  <div class="container mt-5">
+    <div class="alert alert-warning" role="alert">
+      <%= t 'specializations.no_specializations_found'%>
+    </div>
+    <% if can? :create, Specialization %>
+      <div class="container mt-4">
+      <%= link_to t('specializations.new'), new_specialization_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
+      </div>
+    <% end %>
+    </div>
+<% end %>
