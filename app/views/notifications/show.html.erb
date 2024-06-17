@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Уведомление</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ <title><%= t('notifications.notifications')%></title>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <div class="container mt-5">
-    <h1 class="text-center mb-4">Детали уведомления</h1>
+ <div class="container mt-5">
+   <h1 class="text-center mb-4"><%= t('notifications.notification_details')%></h1>
 
-    <div class="card">
-      <div class="card-body">
-        <p><strong>Сообщение:</strong> <%= @notification.message %></p>
-        <p><strong>Дата:</strong> <%= @notification.date %></p>
 
-        <p>
-          <strong>Пользователи:</strong>
-          <% if @users.any? %>
-            <%= @users.map(&:name).join(', ').html_safe %>
-          <% else %>
-            Нет пользователей для этого уведомления
-          <% end %>
-        </p> 
-      </div>
-    </div>
+   <div class="card">
+     <div class="card-body">
+       <p><strong><%= t('notifications.message')%> : </strong> <%= @notification.message %></p>
+       <p><strong><%= t('notifications.date')%> : </strong> <%= @notification.date %></p>
 
-    <div class="mt-4">
-      <%= link_to 'Редактировать', edit_notification_path(@notification), class: "btn btn-warning mr-2" %>
-      <%= link_to 'Назад', notifications_path, class: "btn btn-secondary mr-2" %>
-      <%= link_to 'Удалить', @notification, data: { turbo_method: :delete, turbo_confirm: 'Вы уверены?' }, class: 'btn btn-danger' %>
-    </div>
-  </div>
+
+       <p>
+         <strong><%= t('notifications.users')%> : </strong>
+         <% if @users.any? %>
+           <%= @users.map(&:name).join(', ').html_safe %>
+         <% else %>
+           <%= t('notifications.no_users_for_this_notification')%>
+         <% end %>
+       </p>
+     </div>
+   </div>
+
+
+   <div class="mt-4">
+     <%= link_to t('common.edit'), edit_notification_path(@notification), class: "btn btn-warning mr-2" %>
+     <%= link_to t('common.back'), notifications_path, class: "btn btn-secondary mr-2" %>
+     <%= link_to t('common.delete'), @notification, data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger' %>
+   </div>
+ </div>
 </body>
 </html>

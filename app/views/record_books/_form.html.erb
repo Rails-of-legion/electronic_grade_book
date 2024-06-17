@@ -7,41 +7,41 @@
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
             <%= f.label :user_id, class: "col-form-label" do %>
-              <div>Student:</div> 
+              <div><%= t('record_books.student') %>:</div> 
             <% end %>
           </div>
 
           <div class="col-sm-9">
-            <%= f.collection_select :user_id, User.with_role(:student), :id, :name, { prompt: "Select Student" }, { class: "form-control" } %>
+            <%= f.collection_select :user_id, User.with_role(:student), :id, :name, { prompt: t('record_books.select_student') }, { class: "form-control" } %>
           </div>
         </div>
 
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
             <%= f.label :specialization_id, class: "col-form-label" do %>
-              <div>Specialization:</div>
+              <div><%= t('record_books.specialization') %>:</div>
             <% end %>
           </div>
           <div class="col-sm-9">
-            <%= f.collection_select :specialization_id, Specialization.all, :id, :name, { prompt: "Select Specialization" }, class: "form-control" %>
+            <%= f.collection_select :specialization_id, Specialization.all, :id, :name, { prompt: t('record_books.select_specialization')}, class: "form-control" %>
           </div>
         </div>
 
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
             <%= f.label :group_id, class: "col-form-label" do %>
-              <div>Group:</div>
+              <div><%= t('record_books.group') %>:</div>
             <% end %>
           </div>
           <div class="col-sm-9">
-            <%= f.collection_select :group_id, Group.all, :id, :name, { prompt: "Select Group" }, class: "form-control" %>
+            <%= f.collection_select :group_id, Group.all, :id, :name, { prompt: t('record_books.select_group') }, class: "form-control" %>
           </div>
         </div>
 
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
             <%= f.label :custom_number, class: "col-form-label" do %>
-              <div>Number:</div>
+              <div><%= t('record_books.custom_number') %>: </div>
             <% end %>
           </div>
           <div class="col-sm-9">
@@ -50,11 +50,15 @@
         </div>
 
         <div class="form-group row">
-          <div class="col-sm-9 offset-sm-3 d-flex justify-content-end">
-             <%= f.submit (@record_book.new_record? ? "Create Record Book" : "Edit Record Book"), class: "btn btn-primary mr-2" %> 
-            <%= link_to "Back", record_books_path, class: "btn btn-secondary" %> 
-          </div>
-        </div>
+         <div class="col-sm-9 offset-sm-3 d-flex justify-content-between">
+           <div>
+               <%= f.submit (@record_book.new_record?) ? t('record_books.create_record_book') : t('record_books.edit_record_book'), class: "btn btn-primary mr-2" %> 
+           </div>
+           <div>
+              <%= link_to t('common.back'), groups_path, class: "btn btn-secondary" %>
+           </div>
+         </div>
+       </div>
       <% end %>
     </div>
   </div>

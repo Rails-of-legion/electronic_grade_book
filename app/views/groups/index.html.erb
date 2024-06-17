@@ -1,11 +1,9 @@
 <div class="container">
   <div class="row mb-4">
-    <div class="col-md-6">
+    <div class="d-flex justify-content-between align-items-center mb-4">
       <h1><%= t('groups.list') %></h1>
-    </div>
-    <div class="col-md-6 text-end">
       <% if current_user.admin? %>
-        <%= link_to t('groups.new'), new_group_path, class: 'btn btn-primary' %>
+        <%= link_to t('common.add'), new_group_path, class: 'btn btn-primary' %>
       <% end %>
     </div>
   </div>
@@ -34,7 +32,7 @@
               <% if current_user.admin? %>
               <td class="text-right">
                 <%= link_to t('common.edit'), edit_group_path(group), class: 'btn btn-sm btn-secondary' %>
-                <%= link_to t('common.delete'), group_path(group), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm mr' %>
+                <%= link_to t('common.delete'), group_path(group), data: { turbo_method: :delete, turbo_confirm: t('comnotificationsmon.you_are_sure') }, class: 'btn btn-danger btn-sm mr' %>
               </td>
             <% end %>
             </tr>
@@ -59,7 +57,7 @@
         </div>
         <div class="form-group mt-3">
           <%= f.submit t('common.search'), class: 'btn btn-primary' %>
-          <%= link_to "Сбросить", groups_path, class: "btn btn-secondary" %> 
+          <%= link_to t('common.reset'), groups_path, class: "btn btn-secondary" %> 
         </div>
       <% end %>
     </div>

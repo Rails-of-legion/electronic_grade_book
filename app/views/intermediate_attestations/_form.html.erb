@@ -7,7 +7,7 @@
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
             <%= form.label :name, class: "col-form-label" do %>
-              <div>Name:</div>
+              <div><%= t('intermediate_attestations.name') %>:</div>
             <% end %>
           </div>
           <div class="col-sm-9">
@@ -18,7 +18,7 @@
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
             <%= form.label :date, class: "col-form-label" do %>
-              <div>Date:</div>
+              <div><%= t('intermediate_attestations.date') %>:</div>
             <% end %>
           </div>
           <div class="col-sm-9">
@@ -29,7 +29,7 @@
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
             <%= form.label :assessment_type, class: "col-form-label" do %>
-              <div>Assessment Type:</div>
+              <div><%= t('intermediate_attestations.assessment_type') %>:</div>
             <% end %>
           </div>
           <div class="col-sm-9">
@@ -40,18 +40,18 @@
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
             <%= form.label :subject_id, class: "col-form-label" do %>
-              <div>Subject:</div>
+              <div><%= t('intermediate_attestations.subject') %>:</div>
             <% end %>
           </div>
           <div class="col-sm-9">
-            <%= form.collection_select :subject_id, @subjects, :id, :name, { prompt: "Select Subject" }, class: "form-control" %>
+            <%= form.collection_select :subject_id, @subjects, :id, :name, { prompt: t('intermediate_attestations.select_subject') }, class: "form-control" %>
           </div>
         </div>
 
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
             <%= form.label :group_ids, class: "col-form-label" do %>
-              <div>Group:</div>
+              <div><%= t('intermediate_attestations.groups') %>:</div>
             <% end %>
           </div>
           <div class="col-sm-9">
@@ -75,20 +75,24 @@
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
             <%= form.label :teacher_id, class: "col-form-label" do %>
-              <div>Teacher:</div>
+              <div><%= t('intermediate_attestations.teacher') %>:</div>
             <% end %>
           </div>
           <div class="col-sm-9">
-            <%= form.collection_select :teacher_id, @teachers, :id, :name, { prompt: "Select Teacher" }, class: "form-control" %>
+            <%= form.collection_select :teacher_id, @teachers, :id, :name, { prompt: t('intermediate_attestations.select_teacher') }, class: "form-control" %>
           </div>
         </div>
 
-        <div class="form-group row">
-          <div class="col-sm-9 offset-sm-3 d-flex justify-content-end">
-            <%= form.submit class: "btn btn-primary mr-2" %>
-            <%= link_to "Back", intermediate_attestations_path, class: "btn btn-secondary" %>
-          </div>
-        </div>
+         <div class="form-group row">
+         <div class="col-sm-9 offset-sm-3 d-flex justify-content-between">
+           <div>
+              <%= form.submit t('common.add'), class: "btn btn-primary mr-2" %>
+           </div>
+           <div>
+             <%= link_to t('common.back'), intermediate_attestations_path, class: "btn btn-secondary" %>
+           </div>
+         </div>
+       </div>
       <% end %>
     </div>
   </div>

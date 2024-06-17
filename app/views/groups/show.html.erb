@@ -1,105 +1,117 @@
 <div class="container">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="text-center"><%= t('groups.details') %></h1>
-    <div>
-      <% if can? :edit, @group %>
-        <%= link_to t('common.edit'), edit_group_path(@group), class: 'btn btn-secondary me-2' %>
-      <% end %>
-      <% if can? :destroy, @group %>
-        <%= link_to t('common.delete'), group_path(@group), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger' %>
-      <% end %>
-    </div>
-  </div>
+ <div class="d-flex justify-content-between align-items-center mb-4">
+   <h1 class="text-center"><%= t('groups.details') %></h1>
+   <div>
+     <% if can? :edit, @group %>
+       <%= link_to t('common.edit'), edit_group_path(@group), class: 'btn btn-secondary me-2' %>
+     <% end %>
+     <% if can? :destroy, @group %>
+       <%= link_to t('common.delete'), group_path(@group), data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure')  }, class: 'btn btn-danger' %>
+     <% end %>
+   </div>
+ </div>
 
-  <div class="mb-3">
-    <p><strong><%= t('groups.name') %>:</strong> <%= @group.name %></p>
-    <p><strong><%= t('groups.curator') %>:</strong> <%= @group.try(:curator).try(:name) || t('groups.unassigned') %></p>
-    <p><strong><%= t('groups.specialization') %>:</strong> <%= @group.specialization.name %></p>
-    <p><strong><%= t('groups.form_of_education') %>:</strong> <%= @group.form_of_education %></p>
-  </div>
 
-  <h1 class="text-center mb-4"><%= 'Выставление оценок' %></h1>
+ <div class="mb-3">
+   <p><strong><%= t('groups.name') %>:</strong> <%= @group.name %></p>
+   <p><strong><%= t('groups.curator') %>:</strong> <%= @group.try(:curator).try(:name) || t('groups.unassigned') %></p>
+   <p><strong><%= t('groups.specialization') %>:</strong> <%= @group.specialization.name %></p>
+   <p><strong><%= t('groups.form_of_education') %>:</strong> <%= @group.form_of_education %></p>
+ </div>
 
-  <div data-controller="report"
-       data-report-group-value="<%= @group.id %>" 
-       data-report-specialization-value="<%= @group.specialization.id %>">
-    <div class="form-group row mb-3">
-      <label for="month-select" class="col-sm-2 col-form-label"><%= t('common.month') %>:</label>
-        <div class="col-sm-10">
-          <select id="month-select" data-report-target="month" class="form-select">
-            <%= options_for_select((1..12).map { |m| [Date::MONTHNAMES[m], m] }) %>
-          </select>
-        </div>
-      </div>
 
-    <div class="form-group row mb-3">
-      <label for="subject-select" class="col-sm-2 col-form-label"><%= t('groups.discipline') %>:</label>
-        <div class="col-sm-10">
-         <select id="subject-select" data-report-target="subject" class="form-select">
-          <option value=""><%= t('groups.choose_a_discipline') %></option>
+ <h1 class="text-center mb-4"><%= t('groups.grading') %></h1>
+
+
+ <div data-controller="report"
+      data-report-group-value="<%= @group.id %>"
+      data-report-specialization-value="<%= @group.specialization.id %>">
+   <div class="form-group row mb-3">
+     <label for="month-select" class="col-sm-2 col-form-label"><%= t('common.month') %>:</label>
+       <div class="col-sm-10">
+         <select id="month-select" data-report-target="month" class="form-select">
+           <%= options_for_select((1..12).map { |m| [Date::MONTHNAMES[m], m] }) %>
          </select>
-        </div>
-    </div>
-    
-    <div data-report-target="formTeacher">
-      <div id="form-container"></div>
-    </div>
-  </div>
+       </div>
+     </div>
 
-  <div data-controller="grade-form"
-     data-grade-form-group-id-value="<%= @group.id %>"
-     data-grade-form-record-books-value="<%= @group.record_books.to_json(only: [:id], methods: [:student_name]) %>"
-     data-grade-form-subjects-value="<%= @group.specialization.subjects.to_json(only: [:id, :name]) %>">
 
-  <div class="form-group row mb-3">
-    <label for="grade_subject_id" class="col-sm-2 col-form-label"><%= t('subjects.subject') %></label>
-    <div class="col-sm-10">
-      <select id="grade_subject_id" data-grade-form-target="subject" class="form-select">
-        <option value=""><%= t('subjects.select_subject') %></option>
-      </select>
-    </div>
-  </div>
-
-  <div class="form-group row mb-3">
-    <label for="grade_record_book_id" class="col-sm-2 col-form-label"><%= t('grades.record_book') %></label>
-    <div class="col-sm-10">
-      <select id="grade_record_book_id" data-grade-form-target="recordBook" class="form-select">
-        <%= options_from_collection_for_select(@group.record_books, :id, :student_name) %>
-      </select>
-    </div>
-  </div>
-
+   <div class="form-group row mb-3">
+     <label for="subject-select" class="col-sm-2 col-form-label"><%= t('groups.discipline') %>:</label>
+       <div class="col-sm-10">
+        <select id="subject-select" data-report-target="subject" class="form-select">
+         <option value=""><%= t('groups.choose_a_discipline') %></option>
+        </select>
+       </div>
+   </div>
   
-  <div class="form-group row mb-3">
-    <label for="grade_date" class="col-sm-2 col-form-label"><%= t('grades.date') %></label>
-    <div class="col-sm-10">
-      <input type="date" id="grade_date" data-grade-form-target="date" class="form-control">
-    </div>
-  </div>
+   <div data-report-target="formTeacher">
+     <div id="form-container"></div>
+   </div>
+ </div>
 
-  <div class="form-group row mb-3" data-grade-form-target="messageContainer" id="messageContainer">
-    <label for="grade_value" class="col-sm-2 col-form-label"><%= t('grades.value') %></label>
-    <div class="col-sm-10">
-      <input type="number" id="grade_value" min="1" max="5" data-grade-form-target="value" class="form-control">
-    </div>
-  </div>
-  <button data-action="click->grade-form#submit" class="btn btn-primary"><%= t('common.submit') %></button>
+
+ <div data-controller="grade-form"
+    data-grade-form-group-id-value="<%= @group.id %>"
+    data-grade-form-record-books-value="<%= @group.record_books.to_json(only: [:id], methods: [:student_name]) %>"
+    data-grade-form-subjects-value="<%= @group.specialization.subjects.to_json(only: [:id, :name]) %>">
+
+
+ <div class="form-group row mb-3">
+   <label for="grade_subject_id" class="col-sm-2 col-form-label"><%= t('subjects.subject') %></label>
+   <div class="col-sm-10">
+     <select id="grade_subject_id" data-grade-form-target="subject" class="form-select">
+       <option value=""><%= t('groups.select_subject') %></option>
+     </select>
+   </div>
+ </div>
+
+
+ <div class="form-group row mb-3">
+   <label for="grade_record_book_id" class="col-sm-2 col-form-label"><%= t('groups.student') %></label>
+   <div class="col-sm-10">
+     <select id="grade_record_book_id" data-grade-form-target="recordBook" class="form-select">
+       <%= options_from_collection_for_select(@group.record_books, :id, :student_name) %>
+     </select>
+   </div>
+ </div>
+
+
+  <div class="form-group row mb-3">
+   <label for="grade_date" class="col-sm-2 col-form-label"><%= t('grades.date') %></label>
+   <div class="col-sm-10">
+     <input type="date" id="grade_date" data-grade-form-target="date" class="form-control">
+   </div>
+ </div>
+
+
+ <div class="form-group row mb-3" data-grade-form-target="messageContainer" id="messageContainer">
+   <label for="grade_value" class="col-sm-2 col-form-label"><%= t('grades.value') %></label>
+   <div class="col-sm-10">
+     <input type="number" id="grade_value" min="1" max="5" data-grade-form-target="value" class="form-control">
+   </div>
+ </div>
+ <button data-action="click->grade-form#submit" class="btn btn-primary"><%= t('common.submit') %></button>
 </div>
+
+
 
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
-  <div id="copyToast" class="toast">
-    <div class="toast-header">
-      <strong class="me-auto"><%= t('grades.grade_created') %></strong>
-      <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-    </div>
-  </div>
+ <div id="copyToast" class="toast">
+   <div class="toast-header">
+     <strong class="me-auto"><%= t('grades.grade_created') %></strong>
+     <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+   </div>
+ </div>
 </div>
 
+
 <%= link_to t('common.back'), groups_path, class: 'btn btn-secondary mb-3' %>
-  
-  
-  <template id="grade-form-template">
-    <div>
-      <%= t('grades.successfully_created') %>
-    </div>
-  </template>
+ 
+ <template id="grade-form-template">
+   <div>
+     <%= t('grades.successfully_created') %>
+   </div>
+ </template>
+
+ 
