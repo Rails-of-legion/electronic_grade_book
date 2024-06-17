@@ -39,7 +39,7 @@
                 <%= link_to t('common.edit'), edit_subject_path(subject), class: 'btn btn-secondary btn-sm mr-2' %>
               <% end %>
               <% if can? :destroy, subject %>
-                <%= link_to t('common.delete'), subject_path(subject), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm' %>
+                <%= link_to t('common.delete'), subject_path(subject), data: { turbo_method: :delete, turbo_confirm:  t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm' %>
               <% end %>
             </td>
           </tr>
