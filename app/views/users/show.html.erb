@@ -14,7 +14,10 @@
             <% end %>        
             <li class="list-group-item"><strong><%= t('users.status') %> :</strong> <%= @user.status %></li>
             <li class="list-group-item"><strong><%= t('users.date_of_birth') %> :</strong> <%= @user.date_of_birth %></li>      
-          </ul>    
+          </ul>  
+          <% if current_user.admin? && current_user != @user %>
+             <%= link_to t('users.back_to_users'), users_path, class: "btn btn-secondary mb-3" %>
+          <% end %>
         </div>  
       </div>
       <div>
