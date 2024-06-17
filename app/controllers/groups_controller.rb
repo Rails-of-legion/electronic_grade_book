@@ -2,14 +2,11 @@ class GroupsController < ApplicationController
   before_action :set_group, only: %i[show edit update destroy]
   load_and_authorize_resource
 
-  # GET /groups
-  def index
-    if params[:specialization_id].present?
-      @pagy, @groups = pagy(Group.where(specialization_id: params[:specialization_id]), items: 10)
-    else
-      @pagy, @groups = pagy(Group.all, items: 10)
-    end
 
+  def index
+    @q = Group.ransack(params[:q])
+    @pagy, @groups = pagy(@q.result.includes(:specialization, :curator), items: 10)
+    
     respond_to do |format|
       format.html
       format.json { render json: @groups }
