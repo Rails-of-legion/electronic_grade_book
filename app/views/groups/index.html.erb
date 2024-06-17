@@ -1,67 +1,80 @@
-<div class="container">
-  <div class="row mb-4">
-    <div class="col-md-6">
-      <h1><%= t('groups.list') %></h1>
+<% if @groups.present? %>
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <h1><%= t('groups.list') %></h1>
+      </div>
+      <div class="col-md-6 text-end">
+        <% if current_user.admin? %>
+          <%= link_to t('groups.new'), new_group_path, class: 'btn btn-primary' %>
+        <% end %>
+      </div>
     </div>
-    <div class="col-md-6 text-end">
-      <% if current_user.admin? %>
-        <%= link_to t('groups.new'), new_group_path, class: 'btn btn-primary' %>
-      <% end %>
-    </div>
-  </div>
 
-  <div class="row mb-4">
-    <div class="col-md-9">
-      <table class="table table-striped">
-        <thead class="thead-light">
-          <tr>
-            <th><%= t('groups.name') %></th>
-            <th><%= t('groups.curator') %></th>
-            <th><%= t('groups.specialization') %></th>
-            <th><%= t('groups.form_of_education') %></th>
-            <% if current_user.admin? %>
-              <th class="text-right"><%= t('common.actions') %></th>
-            <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <% @groups.each do |group| %>
+    <div class="row mb-4">
+      <div class="col-md-9">
+        <table class="table table-striped">
+          <thead class="thead-light">
             <tr>
-              <td><%= link_to group.name, group_path(group) %></td>
-              <td><% if group.curator %> <%= group.curator.name %> <% else %> <%= t('groups.unassigned') %> <% end %></td>
-              <td><%= group.specialization.name %></td>
-              <td><%= group.form_of_education %></td>
+              <th><%= t('groups.name') %></th>
+              <th><%= t('groups.curator') %></th>
+              <th><%= t('groups.specialization') %></th>
+              <th><%= t('groups.form_of_education') %></th>
               <% if current_user.admin? %>
-              <td class="text-right">
-                <%= link_to t('common.edit'), edit_group_path(group), class: 'btn btn-sm btn-secondary' %>
-                <%= link_to t('common.delete'), group_path(group), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm mr' %>
-              </td>
-            <% end %>
+                <th class="text-right"><%= t('common.actions') %></th>
+              <% end %>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
-    </div>
-    <div class="col-md-3">
-      <%= search_form_for @q, class: "form-inline" do |f| %>
-        <div class="form-group mb-2">
-          <%= f.label :name_cont, t('groups.name') %>
-          <%= f.search_field :name_cont, placeholder: t('groups.name'), class: "form-control" %>
-        </div>
-        <div class="form-group mb-2">
-          <%= f.label :curator_id_eq, t('groups.curator') %>
-          <%= f.collection_select :curator_id_eq, User.with_role(:teacher), :id, :name, { include_blank: t('common.all') }, class: "form-control" %>
-        </div>
-        <div class="form-group mb-2">
-          <%= f.label :specialization_id_eq, t('groups.specialization') %>
-          <%= f.collection_select :specialization_id_eq, Specialization.all, :id, :name, { include_blank: t('common.all') }, class: "form-control" %>
-        </div>
-        <div class="form-group mt-3">
-          <%= f.submit t('common.search'), class: 'btn btn-primary' %>
-          <%= link_to "Сбросить", groups_path, class: "btn btn-secondary" %> 
-        </div>
-      <% end %>
+          </thead>
+          <tbody>
+            <% @groups.each do |group| %>
+              <tr>
+                <td><%= link_to group.name, group_path(group) %></td>
+                <td><% if group.curator %> <%= group.curator.name %> <% else %> <%= t('groups.unassigned') %> <% end %></td>
+                <td><%= group.specialization.name %></td>
+                <td><%= group.form_of_education %></td>
+                <% if current_user.admin? %>
+                <td class="text-right">
+                  <%= link_to t('common.edit'), edit_group_path(group), class: 'btn btn-sm btn-secondary' %>
+                  <%= link_to t('common.delete'), group_path(group), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm mr' %>
+                </td>
+              <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+      </div>
+      <div class="col-md-3">
+        <%= search_form_for @q, class: "form-inline" do |f| %>
+          <div class="form-group mb-2">
+            <%= f.label :name_cont, t('groups.name') %>
+            <%= f.search_field :name_cont, placeholder: t('groups.name'), class: "form-control" %>
+          </div>
+          <div class="form-group mb-2">
+            <%= f.label :curator_id_eq, t('groups.curator') %>
+            <%= f.collection_select :curator_id_eq, User.with_role(:teacher), :id, :name, { include_blank: t('common.all') }, class: "form-control" %>
+          </div>
+          <div class="form-group mb-2">
+            <%= f.label :specialization_id_eq, t('groups.specialization') %>
+            <%= f.collection_select :specialization_id_eq, Specialization.all, :id, :name, { include_blank: t('common.all') }, class: "form-control" %>
+          </div>
+          <div class="form-group mt-3">
+            <%= f.submit t('common.search'), class: 'btn btn-primary' %>
+            <%= link_to "Сбросить", groups_path, class: "btn btn-secondary" %> 
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
+ <% else %>
+  <div class="container mt-5">
+    <div class="alert alert-warning" role="alert">
+      <%= t 'groups.no_groups_found'%>
+    </div>
+    <% if can? :create, Group %>
+      <div class="container mt-4">
+      <%= link_to t('Groups.new'), new_group_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
+      </div>
+    <% end %>
+    </div>
+<% end %>

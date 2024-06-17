@@ -1,69 +1,82 @@
-<div class="container">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="text-center"><%= t('semesters.semesters') %></h1>
-    <% if current_user.admin? %>
-      <%= link_to t('semesters.new'), new_semester_path, class: 'btn btn-primary' %>
-    <% end %>
-  </div>
-
-  <div class="row mb-4">
-    <div class="col-md-9">
-      <table class="table table-striped">
-        <thead class="thead-light">
-          <tr>
-            <th><%= t('semesters.name') %></th>
-            <th><%= t('semesters.start_date') %></th>
-            <th><%= t('semesters.end_date') %></th>
-            <% if current_user.admin? %>
-              <th><%= t('semesters.actions') %></th>
-            <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <% @semesters.each do |semester| %>
-            <tr>
-              <td><%= link_to semester.name, semester_path(semester) %></td>
-              <td><%= semester.start_date.strftime("%d.%m.%Y") if semester.start_date.present? %></td>
-              <td><%= semester.end_date.strftime("%d.%m.%Y") if semester.end_date.present? %></td>
-              <% if current_user.admin? %>
-                <td class="text-right">
-                  <%= link_to t('common.edit'), edit_semester_path(semester), class: 'btn btn-sm btn-secondary' %>
-                  <%= link_to t('common.delete'), semester_path(semester), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm mr' %>
-                </td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
-    </div>
-    <div class="col-md-3"> 
-      <%= search_form_for @q, class: "form-inline" do |f| %>
-        <div class="form-group mb-2">
-          <%= f.label :name_cont, "Название" %>
-          <%= f.search_field :name_cont, placeholder: "Название", class: "form-control" %>
-        </div>
-        <div class="form-group mb-2">
-          <%= f.label :start_date_gteq, "Дата начала от" %>
-          <%= f.date_field :start_date_gteq, class: "form-control" %>
-        </div>
-        <div class="form-group mb-2">
-          <%= f.label :start_date_lteq, "Дата начала до" %>
-          <%= f.date_field :start_date_lteq, class: "form-control" %>
-        </div>
-        <div class="form-group mb-2">
-          <%= f.label :end_date_gteq, "Дата окончания от" %>
-          <%= f.date_field :end_date_gteq, class: "form-control" %>
-        </div>
-        <div class="form-group mb-2">
-          <%= f.label :end_date_lteq, "Дата окончания до" %>
-          <%= f.date_field :end_date_lteq, class: "form-control" %>
-        </div>
-        <div class="form-group mt-3 d-flex"> 
-          <%= f.submit "Поиск", class: 'btn btn-primary me-2' %>
-          <%= link_to "Сбросить", semesters_path, class: "btn btn-secondary" %> 
-        </div>
+<% if @semesters.present? %> 
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="text-center"><%= t('semesters.semesters') %></h1>
+      <% if current_user.admin? %>
+        <%= link_to t('semesters.new'), new_semester_path, class: 'btn btn-primary' %>
       <% end %>
     </div>
-  </div> 
-</div>
+
+    <div class="row mb-4">
+      <div class="col-md-9">
+        <table class="table table-striped">
+          <thead class="thead-light">
+            <tr>
+              <th><%= t('semesters.name') %></th>
+              <th><%= t('semesters.start_date') %></th>
+              <th><%= t('semesters.end_date') %></th>
+              <% if current_user.admin? %>
+                <th><%= t('semesters.actions') %></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% @semesters.each do |semester| %>
+              <tr>
+                <td><%= link_to semester.name, semester_path(semester) %></td>
+                <td><%= semester.start_date.strftime("%d.%m.%Y") if semester.start_date.present? %></td>
+                <td><%= semester.end_date.strftime("%d.%m.%Y") if semester.end_date.present? %></td>
+                <% if current_user.admin? %>
+                  <td class="text-right">
+                    <%= link_to t('common.edit'), edit_semester_path(semester), class: 'btn btn-sm btn-secondary' %>
+                    <%= link_to t('common.delete'), semester_path(semester), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm mr' %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+      </div>
+      <div class="col-md-3"> 
+        <%= search_form_for @q, class: "form-inline" do |f| %>
+          <div class="form-group mb-2">
+            <%= f.label :name_cont, "Название" %>
+            <%= f.search_field :name_cont, placeholder: "Название", class: "form-control" %>
+          </div>
+          <div class="form-group mb-2">
+            <%= f.label :start_date_gteq, "Дата начала от" %>
+            <%= f.date_field :start_date_gteq, class: "form-control" %>
+          </div>
+          <div class="form-group mb-2">
+            <%= f.label :start_date_lteq, "Дата начала до" %>
+            <%= f.date_field :start_date_lteq, class: "form-control" %>
+          </div>
+          <div class="form-group mb-2">
+            <%= f.label :end_date_gteq, "Дата окончания от" %>
+            <%= f.date_field :end_date_gteq, class: "form-control" %>
+          </div>
+          <div class="form-group mb-2">
+            <%= f.label :end_date_lteq, "Дата окончания до" %>
+            <%= f.date_field :end_date_lteq, class: "form-control" %>
+          </div>
+          <div class="form-group mt-3 d-flex"> 
+            <%= f.submit "Поиск", class: 'btn btn-primary me-2' %>
+            <%= link_to "Сбросить", semesters_path, class: "btn btn-secondary" %> 
+          </div>
+        <% end %>
+      </div>
+    </div> 
+  </div>
+ <% else %>
+  <div class="container mt-5">
+    <div class="alert alert-warning" role="alert">
+      <%= t 'semesters.no_semesters_found'%>
+    </div>
+    <% if can? :create, Semester %>
+      <div class="container mt-4">
+      <%= link_to t('semesters.new'), new_semester_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
+      </div>
+    <% end %>
+    </div>
+<% end %>
