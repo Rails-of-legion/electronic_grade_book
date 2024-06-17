@@ -111,3 +111,5 @@ gem 'prawn-rails'
 gem 'rails-i18n'
 
 gem 'pagy'
+
+gem 'ransack'

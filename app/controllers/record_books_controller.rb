@@ -3,14 +3,12 @@ class RecordBooksController < ApplicationController
   load_and_authorize_resource
 
   def index
-    if params[:group_id].present?
-      @pagy, @record_books = pagy(RecordBook.includes(:user).where(group_id: params[:group_id]))
-    else
-      @pagy, @record_books = pagy(RecordBook.includes(:user).all, items: 10)
-    end
+    @q = RecordBook.includes(:user, :specialization, :group).ransack(params[:q])
+    @pagy, @record_books = pagy(@q.result, items: 10)
+    
     respond_to do |format|
       format.html
-      format.json { render json: @record_books, include: :user }
+      format.json { render json: @record_books }
     end
   end
 
