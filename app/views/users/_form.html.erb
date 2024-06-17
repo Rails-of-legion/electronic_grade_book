@@ -1,0 +1,63 @@
+<%= render 'shared/errors', object: @user %>
+      
+      <%= form_with(model: @user, local: true) do |form| %>
+        <div class="mb-3">
+          <%= form.label :first_name %>
+          <%= form.text_field :first_name, class: 'form-control' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :last_name %>
+          <%= form.text_field :last_name, class: 'form-control' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :middle_name %>
+          <%= form.text_field :middle_name, class: 'form-control' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :phone_number %>
+          <%= form.text_field :phone_number, class: 'form-control' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :email %>
+          <%= form.email_field :email, class: 'form-control' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :password %>
+          <%= form.password_field :password, class: 'form-control' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :password_confirmation %>
+          <%= form.password_field :password_confirmation, class: 'form-control' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :status %>
+          <%= form.check_box :status, class: 'form-check-input' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :date_of_birth, "Date of Birth" %>
+          <%= form.date_field :date_of_birth, class: 'form-control' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :roles, "Roles" %><br>
+          <%= form.collection_check_boxes :role_ids, Role.all, :id, :name do |b| %>
+            <div class="form-check">
+              <%= b.check_box class: "form-check-input" %>
+              <%= b.label class: "form-check-label" %>
+            </div>
+          <% end %>
+        </div>
+        
+        <div class="text-center">
+          <%= form.submit (@user.new_record? ? t('common.create') : t('common.update')), class: "btn btn-primary mr-2" %> 
+          <%= link_to t('common.back'), users_path, class: "btn btn-secondary" %> 
+        </div>
+      <% end %>
