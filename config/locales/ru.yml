@@ -99,6 +99,9 @@ ru:
     submit: "Создать"
     specialization: "Специализация"
     search: "Поиск"
+    edit: "Обновить"
+    delete: "Удалить"
+  
 
   grades:
     date: "Дата"

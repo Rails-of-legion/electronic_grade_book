@@ -19,7 +19,7 @@
             <th><%= t('intermediate_attestations.date') %></th>
             <th><%= t('intermediate_attestations.assessment_type') %></th>
             <th><%= t('intermediate_attestations.subject') %></th>
-            <th><%= t('intermediate_attestations.groups') %></th>
+            <th><%= t('intermediate_attestations.groups') %></th> 
             <% if current_user.admin? %>
               <th class="text-right"><%= t('common.actions') %></th>
             <% end %>
@@ -34,18 +34,14 @@
               <td><%= intermediate_attestation.subject.try(:name) %></td>
               <td>
                 <% if intermediate_attestation.groups.any? %>
-                  <ul class="list-unstyled">
-                    <% intermediate_attestation.groups.each do |group| %>
-                      <li><%= link_to group.name, group_path(group) %></li>
-                    <% end %>
-                  </ul>
+                  <%= intermediate_attestation.groups.map { |group| link_to group.name, group_path(group) }.join(', ').html_safe %> 
                 <% else %>
                   <%= t('intermediate_attestations.no_groups') %>
                 <% end %>
               </td>
               <% if current_user.admin? %>
                 <td class="text-right">
-                  <%= link_to t('common.edit'), edit_intermediate_attestation_path(intermediate_attestation), class: 'btn btn-sm btn-secondary' %>
+                  <%= link_to t('common.edit'), edit_intermediate_attestation_path(intermediate_attestation), class: 'btn btn-sm btn-secondary me-1' %> <%# Добавлено me-1 для отступа %>
                   <%= link_to t('common.delete'), intermediate_attestation_path(intermediate_attestation), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm' %>
                 </td>
               <% end %>
@@ -74,8 +70,8 @@
           <%= f.collection_select :teacher_id_eq, User.with_role(:teacher), :id, :name, { include_blank: t('common.all') }, class: "form-control" %>
         </div>
         <div class="form-group mt-3">
-          <%= f.submit t('common.search'), class: 'btn btn-primary' %>
-          <%= link_to "Сбросить", intermediate_attestations_path, class: "btn btn-secondary" %> 
+          <%= f.submit t('common.search'), class: 'btn btn-primary mr-1' %>
+          <%= link_to t('common.reset'), intermediate_attestations_path, class: 'btn btn-secondary' %>
         </div>
       <% end %>
     </div>
