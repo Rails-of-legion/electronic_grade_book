@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
+    @pagy, @users = pagy(User.all, items: 10)
   end
 
   def show

@@ -3,7 +3,7 @@ class GradesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @grades = Grade.includes(:record_book, :subject).all
+    @pagy, @grades = pagy(Grade.includes(:record_book, :subject).all, items: 10)
   end
 
   def show; end
