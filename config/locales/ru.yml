@@ -98,6 +98,7 @@ ru:
     month: "Месяц"
     submit: "Создать"
     specialization: "Специализация"
+    search: "Поиск"
 
   grades:
     date: "Дата"
