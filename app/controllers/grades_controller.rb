@@ -3,8 +3,10 @@ class GradesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @pagy, @grades = pagy(Grade.includes(:record_book, :subject).all, items: 10)
+    @q = Grade.ransack(params[:q])
+    @pagy, @grades = pagy(@q.result.includes(:record_book, :subject, record_book: :user), items: 10)
   end
+  
 
   def show; end
 
