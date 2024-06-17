@@ -1,14 +1,23 @@
-<h1>Оценки</h1>
-
+<div class="container">
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <h1>Оценки</h1>
+  </div>
+<div class="col-md-6 text-end">
 <% if current_user.has_role?(:admin) %>
   <%= link_to 'Создать новую оценку', new_grade_path, class: 'btn btn-primary' %>
 <% end %>
+</div>
+  </div>
 
-<table class="table table-striped">
+<div class="d-flex justify-content-center">
+  <div class="flex-shrink-1" style="width: 60%;">
+<table class="table table-striped mt-3">
   <thead>
     <tr>
       <th>Предмет</th>
       <th>Оценка</th>
+      <th>Студент</th>
       <% if current_user.has_role?(:admin) %>
         <th>Действия</th>
       <% end %>
@@ -19,6 +28,7 @@
       <tr>
         <td><%= grade.subject.name %></td>
         <td><%= grade.grade %></td>
+        <td><%= grade.record_book.user.last_name %> <%= grade.record_book.user.first_name %></td>
         <% if current_user.has_role?(:admin) %>
         <td>
           <%= link_to 'Показать', grade_path(grade), class: 'btn btn-sm btn-outline-primary' %>
@@ -31,3 +41,33 @@
   </tbody>
 </table>
 <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+</div>
+  <div class="col-md-4 mt-2 ml-4">
+<%= search_form_for @q do |f| %>
+<div class="container">
+  <div class="form-row">
+    <div class="col-md-4 mt-4 ml-4">
+      <%= f.label :subject_name_cont, 'Предмет' %>
+      <%= f.search_field :subject_name_cont, class: 'form-control' %>
+    </div>
+    <div class="col-md-4 mt-4 ml-4">
+      <%= f.label :grade_eq, 'Оценка' %>
+      <%= f.search_field :grade_eq, class: 'form-control' %>
+    </div>
+    <div class="col-md-4 mt-4 ml-4">
+      <%= f.label :record_book_user_last_name_cont, 'Фамилия студента' %>
+      <%= f.search_field :record_book_user_last_name_cont, class: 'form-control' %>
+    </div>
+    </div>
+  <div class="col-md-4 mt-4 ml-4">
+  <%= f.submit 'Поиск', class: 'btn btn-primary' %>
+  </div>
+  <div class="col-md-4 mt-4 ml-4">
+  <%= link_to "Сбросить", grades_path, class: "btn btn-secondary" %>
+    </div>
+<% end %>
+  </div>
+    </div>
+      </div>
+
+
