@@ -432,6 +432,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.1.3, >= 7.1.3.2)
   rails-i18n
+  ransack
   rolify
   rspec-rails
   rubocop

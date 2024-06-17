@@ -2,9 +2,13 @@ class IntermediateAttestationsController < ApplicationController
   before_action :set_intermediate_attestation, only: %i[show edit update destroy]
   before_action :set_collections, only: %i[new create edit update]
   load_and_authorize_resource
+
   def index
-    @intermediate_attestations = IntermediateAttestation.includes(:subject).all
-    @pagy, @intermediate_attestations = pagy(IntermediateAttestation.all, items: 10)
+    @q = IntermediateAttestation.ransack(params[:q])
+    @intermediate_attestations = @q.result(distinct: true).includes(:subject)
+  
+    @pagy, @intermediate_attestations = pagy(@intermediate_attestations, items: 10)
+  
     respond_to do |format|
       format.html
       format.json { render json: @intermediate_attestations }

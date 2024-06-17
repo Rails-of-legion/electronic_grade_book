@@ -1,51 +1,82 @@
 <div class="container">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="text-center"><%= t('intermediate_attestations.list') %></h1>
-    <% if current_user.admin? %> 
-      <%= link_to t('intermediate_attestations.new'), new_intermediate_attestation_path, class: 'btn btn-primary' %>
-    <% end %>
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <h1><%= t('intermediate_attestations.list') %></h1>
+    </div>
+    <div class="col-md-6 text-end">
+      <% if current_user.admin? %>
+        <%= link_to t('intermediate_attestations.new'), new_intermediate_attestation_path, class: 'btn btn-primary' %>
+      <% end %>
+    </div>
   </div>
 
-  <table class="table table-striped">
-    <thead class="thead-light">
-      <tr>
-        <th><%= t('intermediate_attestations.name') %></th>
-        <th><%= t('intermediate_attestations.date') %></th>
-        <th><%= t('intermediate_attestations.assessment_type') %></th>
-        <th><%= t('intermediate_attestations.subject') %></th>
-        <th><%= t('intermediate_attestations.groups') %></th>
-        <% if current_user.admin? %>
-          <th class="text-right"><%= t('common.actions') %></th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <% @intermediate_attestations.each do |intermediate_attestation| %>
-        <tr>
-          <td><%= link_to intermediate_attestation.name, intermediate_attestation_path(intermediate_attestation) %></td>
-          <td><%= intermediate_attestation.date %></td>
-          <td><%= intermediate_attestation.assessment_type %></td>
-          <td><%= intermediate_attestation.subject.try(:name) %></td>
-          <td>
-            <% if intermediate_attestation.groups.any? %>
-              <ul class="list-unstyled">
-                <% intermediate_attestation.groups.each do |group| %>
-                  <li><%= link_to group.name, group_path(group) %></li>
-                <% end %>
-              </ul>
-            <% else %>
-              <%= t('intermediate_attestations.no_groups') %>
+  <div class="row mb-4">
+    <div class="col-md-9">
+      <table class="table table-striped">
+        <thead class="thead-light">
+          <tr>
+            <th><%= t('intermediate_attestations.name') %></th>
+            <th><%= t('intermediate_attestations.date') %></th>
+            <th><%= t('intermediate_attestations.assessment_type') %></th>
+            <th><%= t('intermediate_attestations.subject') %></th>
+            <th><%= t('intermediate_attestations.groups') %></th>
+            <% if current_user.admin? %>
+              <th class="text-right"><%= t('common.actions') %></th>
             <% end %>
-          </td>
-          <% if current_user.admin? %>
-            <td class="text-right">
-              <%= link_to t('common.edit'), edit_intermediate_attestation_path(intermediate_attestation), class: 'btn btn-sm btn-secondary' %>
-              <%= link_to t('common.delete'), intermediate_attestation_path(intermediate_attestation), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm' %>
-            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @intermediate_attestations.each do |intermediate_attestation| %>
+            <tr>
+              <td><%= link_to intermediate_attestation.name, intermediate_attestation_path(intermediate_attestation) %></td>
+              <td><%= intermediate_attestation.date %></td>
+              <td><%= intermediate_attestation.assessment_type %></td>
+              <td><%= intermediate_attestation.subject.try(:name) %></td>
+              <td>
+                <% if intermediate_attestation.groups.any? %>
+                  <ul class="list-unstyled">
+                    <% intermediate_attestation.groups.each do |group| %>
+                      <li><%= link_to group.name, group_path(group) %></li>
+                    <% end %>
+                  </ul>
+                <% else %>
+                  <%= t('intermediate_attestations.no_groups') %>
+                <% end %>
+              </td>
+              <% if current_user.admin? %>
+                <td class="text-right">
+                  <%= link_to t('common.edit'), edit_intermediate_attestation_path(intermediate_attestation), class: 'btn btn-sm btn-secondary' %>
+                  <%= link_to t('common.delete'), intermediate_attestation_path(intermediate_attestation), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm' %>
+                </td>
+              <% end %>
+            </tr>
           <% end %>
-        </tr>
+        </tbody>
+      </table>
+      <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+    </div>
+    <div class="col-md-3">
+      <%= search_form_for @q, class: "form-inline" do |f| %>
+        <div class="form-group mb-2">
+          <%= f.label :name_cont, t('intermediate_attestations.name') %>
+          <%= f.search_field :name_cont, placeholder: t('intermediate_attestations.name'), class: "form-control" %>
+        </div>
+        <div class="form-group mb-2">
+          <%= f.label :assessment_type_eq, t('intermediate_attestations.assessment_type') %>
+          <%= f.collection_select :assessment_type_eq, IntermediateAttestation.distinct.pluck(:assessment_type), :itself, :itself, { include_blank: t('common.all') }, class: "form-control" %>
+        </div>
+        <div class="form-group mb-2">
+          <%= f.label :subject_id_eq, t('intermediate_attestations.subject') %>
+          <%= f.collection_select :subject_id_eq, Subject.all, :id, :name, { include_blank: t('common.all') }, class: "form-control" %>
+        </div>
+        <div class="form-group mb-2">
+          <%= f.label :teacher_id_eq, t('intermediate_attestations.teacher') %>
+          <%= f.collection_select :teacher_id_eq, User.with_role(:teacher), :id, :name, { include_blank: t('common.all') }, class: "form-control" %>
+        </div>
+        <div class="form-group mt-3">
+          <%= f.submit t('common.search'), class: 'btn btn-primary' %>
+        </div>
       <% end %>
-    </tbody>
-  </table>
-  <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+    </div>
+  </div>
 </div>
