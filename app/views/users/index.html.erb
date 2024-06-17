@@ -1,35 +1,79 @@
 <div class="container">
-  <h1 class="mb-3">Users</h1>
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <h1>Users</h1>
+    </div>
+  </div>
 
-  <% if @users.present? %>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Role</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @users.each do |user| %>
-          <tr>
-            <td><%= user.first_name %></td>
-            <td><%= user.last_name %></td>
-            <td><%= user.roles.first.name %></td>
-            <td>
-              <%= link_to 'Show', user_path(user), class: 'btn btn-primary btn-sm' %>
-              <% if current_user.has_role?(:admin) %>
-                <%= link_to 'Edit', edit_user_path(user), class: 'btn btn-secondary btn-sm' %>
-                <%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
-  <% else %>
-    <p class="alert alert-info">No users found.</p>
-  <% end %>
+  <div class="row mb-4">
+    <div class="col-md-9">
+      <% if @users.present? %>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Middle Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Roles</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.first_name %></td>
+                <td><%= user.last_name %></td>
+                <td><%= user.middle_name %></td>
+                <td><%= user.email.gsub('@', '<br />@')&.html_safe %></td> 
+                <td><%= user.phone_number %></td>
+                <td><%= user.roles.map(&:name).join(', ') %></td> 
+                <td class="text-right">
+                  <div class="btn-group d-flex justify-content-center align-items-center" role="group">
+                    <%= link_to 'Show', user_path(user), class: 'btn btn-primary btn-sm' %>
+                    <% if current_user.has_role?(:admin) %>
+                      <%= link_to 'Edit', edit_user_path(user), class: 'btn btn-secondary btn-sm' %>
+                      <%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+      <% else %>
+        <p class="alert alert-info">No users found.</p>
+      <% end %>
+    </div>
+    <div class="col-md-3">
+      <%= search_form_for @q, class: "form-inline" do |f| %>
+        <div class="form-group mb-2">
+          <%= f.label :first_name_cont, 'First Name' %>
+          <%= f.search_field :first_name_cont, placeholder: 'First Name', class: "form-control" %>
+        </div>
+        <div class="form-group mb-2">
+          <%= f.label :last_name_cont, 'Last Name' %>
+          <%= f.search_field :last_name_cont, placeholder: 'Last Name', class: "form-control" %>
+        </div>
+        <div class="form-group mb-2">
+          <%= f.label :middle_name_cont, 'Middle Name' %>
+          <%= f.search_field :middle_name_cont, placeholder: 'Middle Name', class: "form-control" %>
+        </div>
+        <div class="form-group mb-2">
+          <%= f.label :email_cont, 'Email' %>
+          <%= f.search_field :email_cont, placeholder: 'Email', class: "form-control" %>
+        </div>
+        <div class="form-group mb-2">
+          <%= f.label :phone_number_cont, 'Phone Number' %>
+          <%= f.search_field :phone_number_cont, placeholder: 'Phone Number', class: "form-control" %>
+        </div>
+        <div class="form-group mt-3">
+          <%= f.submit 'Search', class: 'btn btn-primary' %>
+          <%= link_to t('common.reset'), users_path, class: 'btn btn-secondary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

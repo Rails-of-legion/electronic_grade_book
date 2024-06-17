@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def index
-    @pagy, @users = pagy(User.all, items: 10)
+    @q = User.ransack(params[:q])
+    @pagy, @users = pagy(@q.result(distinct: true), items: 10)
   end
 
   def show

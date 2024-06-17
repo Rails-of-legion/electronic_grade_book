@@ -15,6 +15,7 @@ class User < ApplicationRecord
   validates :date_of_birth, presence: true
   validates :status, inclusion: { in: [true, false] }
 
+
   has_many :curated_groups, class_name: 'Group', foreign_key: 'curator_id', dependent: :destroy
   has_many :notifications_users
   has_many :notifications, through: :notifications_users
@@ -62,5 +63,10 @@ class User < ApplicationRecord
 
   def format_full_name
     "#{first_name} #{last_name[0]}.#{middle_name[0]}."
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    # Whitelist attributes you want to be searchable
+    %w[created_at date_of_birth email first_name middle_name last_name status phone_number] 
   end
 end
