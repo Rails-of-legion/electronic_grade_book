@@ -99,6 +99,9 @@ ru:
     submit: "Создать"
     specialization: "Специализация"
     search: "Поиск"
+    edit: "Обновить"
+    delete: "Удалить"
+  
 
   grades:
     date: "Дата"
@@ -148,6 +151,10 @@ ru:
     specializations: "Специализации"
     individual_report: "Индивидуальный отчет"
     grades: "Оценки"
+    record_books: "Зачетные книжки"
+    reports: "Отчеты"
+    notifications: "Уведомления"
+    users: "Пользователи"
 
 
   about:
