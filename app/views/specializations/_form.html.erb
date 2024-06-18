@@ -29,10 +29,9 @@
                 <tbody>
                   <%= f.collection_check_boxes :subject_ids, Subject.all, :id, :name, { prompt: "Выберите предметы" }, { class: "form-check" } do |b| %>
                     <tr>
-                      <td class="form-check">
-                        <div class="form-check-inline">
-                          <%= b.check_box %> <%= b.label %>
-                        </div>
+                      <td class="form-check d-flex align-items-center ml-5">
+                          <%= b.check_box %> 
+                          <label class="form-check-label" for="<%= b.object.id %>" style="margin-left: 10px;"> <%= b.text %></label> 
                       </td>
                     </tr>
                   <% end %>
