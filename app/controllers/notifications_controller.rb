@@ -22,7 +22,7 @@ class NotificationsController < ApplicationController
   # GET /notifications/new
   def new
     @notification = Notification.new
-    @users = User.all
+    
   end
 
   # GET /notifications/1/edit
@@ -31,12 +31,18 @@ class NotificationsController < ApplicationController
   # POST /notifications
   def create
     @notification = Notification.new(notification_params)
+    @users = User.all
 
     respond_to do |format|
       if @notification.save
-        # Сохраняем уведомление для выбранных пользователей
-        params[:notification][:user_id].each do |user_id|
-          NotificationsUser.create(notification: @notification, user_id: user_id)
+        # Associate users with the notification correctly
+        params[:notification][:user_ids].each do |user_id|
+          # Check if a NotificationsUser record already exists
+          existing_record = NotificationsUser.find_by(notification: @notification, user_id: user_id)
+          # If it doesn't exist, create a new one
+          unless existing_record
+            NotificationsUser.create(notification: @notification, user_id: user_id)
+          end
         end
 
         format.html { redirect_to @notification, notice: 'Уведомление успешно создано.' }

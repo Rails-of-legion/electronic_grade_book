@@ -4,6 +4,7 @@ class Notification < ApplicationRecord
 
   validates :message, presence: true, length: { maximum: 255 }
   validates :date, presence: true
+  validates :users, presence: true
 
   def self.ransackable_associations(_auth_object = nil)
     %w[notifications_users users]
