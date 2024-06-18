@@ -44,7 +44,8 @@
       <% end %>
     </tbody>
   </table>
-
+  <%= link_to t('common.back'), record_books_path, class: 'btn btn-secondary' %>
+  
   <% if current_user.has_role? :teacher %>
     <%= link_to t('record_books.back'), groups_path, class: 'btn btn-light' %>
   <% end %>

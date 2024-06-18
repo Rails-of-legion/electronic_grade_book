@@ -92,6 +92,7 @@
    </div>
  </div>
  <button data-action="click->grade-form#submit" class="btn btn-primary"><%= t('common.submit') %></button>
+  <%= link_to t('common.back'), groups_path, class: 'btn btn-secondary' %>
 </div>
 
 
@@ -106,7 +107,6 @@
 </div>
 
 
-<%= link_to t('common.back'), groups_path, class: 'btn btn-secondary mb-3' %>
  
  <template id="grade-form-template">
    <div>
