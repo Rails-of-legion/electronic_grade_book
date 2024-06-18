@@ -158,13 +158,7 @@ ru:
     create_specialization: "Создать специальзацию"
     edit_specialization: "Изменить специальзацию"
   
-  specializations:
-    name: "Название"
-    list: "Специализации"
-    details: "Детали специализации"
-    groups: "Группы"
-    no_groups: "Группы для этой специализации пока нет"
-    back: "Назад"
+  
   
   grades:
     grades: "Оценки"
