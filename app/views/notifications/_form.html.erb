@@ -4,7 +4,7 @@
 
 
      <%= form_with(model: @notification, local: true, data: { turbo: false }) do |form| %>
-      
+      <%= render 'shared/errors', object: @notification %>
 
 
        <div class="form-group row mb-3">
@@ -35,16 +35,33 @@
        </div>
 
 
+      
+
        <div class="form-group row mb-3">
-         <div class="col-sm-3 text-right">
-           <%= form.label :user_id, "Users", class: "col-form-label" do %>
-             <div><%= t('users.users')%> : </div>
-           <% end %>
-         </div>
-         <div class="col-sm-9">
-           <%= form.collection_select :user_id, @users, :id, :name, { prompt: t('notifications.select_user') }, { multiple: true, class: "form-control" } %>
-         </div>
-       </div>
+          <div class="col-sm-3 text-right">
+            <%= form.label :user_ids, "Users", class: "col-form-label" do %>
+              <div>
+                <%= t('users.users')%> : 
+              </div>
+            <% end %>
+          </div>
+          <div class="col-sm-9">
+            <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <%= form.collection_check_boxes :user_ids, @users, :id, :name, { prompt: t('notifications.select_user') }, { class: "form-check" } do |b| %>
+                    <tr>
+                      <td class="form-check d-flex align-items-center ml-5">
+                        <%= b.check_box %>
+                        <label class="form-check-label" for="<%= b.object.id %>" style="margin-left: 10px;"> <%= b.text %></label> 
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
 
 
        <div class="form-group row">
