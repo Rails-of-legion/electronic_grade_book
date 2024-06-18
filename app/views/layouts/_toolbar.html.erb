@@ -45,13 +45,12 @@
           <li class="nav-item">
             <%= link_to t('navbar.record_books'), record_books_path, class: "nav-link #{request.fullpath == record_books_path ? 'active' : ''}" %>
           </li>
-            <li class="nav-item">
-          <%= link_to t('navbar.grades'), grades_path, class: "nav-link #{request.fullpath == grades_path ? 'active' : ''}" %>
+          <li class="nav-item">
+            <%= link_to t('navbar.grades'), grades_path, class: "nav-link #{request.fullpath == grades_path ? 'active' : ''}" %>
           </li>
           <li class="nav-item">
             <%= link_to t('navbar.users'), users_path, class: "nav-link #{request.fullpath == users_path ? 'active' : ''}" %>
           </li>
-          
           <li class="nav-item">
             <%= link_to t('navbar.subjects'), subjects_path, class: "nav-link #{request.fullpath == subjects_path ? 'active' : ''}" %>
           </li>
@@ -72,3 +71,15 @@
     </ul>
   </div>
 </nav>
+
+<style>
+  .navbar-nav .nav-item {
+    margin-right: 15px; /* Adjust spacing between nav items */
+  }
+
+  .nav-link.active {
+    background-color: #0056b3; /* Darker background for active link */
+    color: white; /* Ensure the text color is white for better contrast */
+    border-radius: 5px; /* Optional: Adds rounded corners to the active link */
+  }
+</style>
