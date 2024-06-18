@@ -17,14 +17,13 @@ class User < ApplicationRecord
 
 
   has_many :curated_groups, class_name: 'Group', foreign_key: 'curator_id', dependent: :destroy
-  has_many :notifications_users
+  has_many :notifications_users, dependent: :destroy
   has_many :notifications, through: :notifications_users
   has_many :groups
-  has_many :teachers_subjects, foreign_key: :teacher_id
+  has_many :teachers_subjects, foreign_key: :teacher_id, dependent: :nullify
   has_many :subjects, through: :teachers_subjects
   has_one :record_book, dependent: :destroy
-  has_many :intermediate_attestation, foreign_key: :teacher_id
-
+  has_many :intermediate_attestation, foreign_key: :teacher_id, dependent: :destroy
   def self.ransackable_associations(auth_object = nil)
     super + ['record_book']
   end

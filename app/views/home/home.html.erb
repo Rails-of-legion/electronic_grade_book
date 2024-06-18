@@ -1,16 +1,59 @@
-<div class="container">
+<style>
+  .container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .card {
+    border-radius: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    color: #343a40;
+  }
+
+  .card-subtitle {
+    font-size: 1.25rem;
+    color: #6c757d;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+
+  .welcome-card {
+    max-width: 600px;
+    margin: auto;
+  }
+</style>
+
+<div class="container py-5">
   <h1 class="display-4 text-center mb-4"><%= t('home.title') %></h1>
-  <p class="lead text-center"><%= t('home.description') %></p>
+  <p class="lead text-center mb-5"><%= t('home.description') %></p>
 
   <% if user_signed_in? %>
-    <div class="text-center mt-4">
-      <h3><%= t('home.welcome') %> <%= current_user.name %>,</h3> 
-      <h4><%= t('home.email') %> <%= current_user.email %>,</h4>
-      <h4><%= t('home.role') %> <%= user_role_translation(current_user) %></h4>
-      <%= button_to t('home.sign_out'), destroy_user_session_path, method: :delete, class: 'btn btn-danger mt-3' %>
+    <div class="card welcome-card shadow-lg">
+      <div class="card-body text-center">
+        <h3 class="card-title"><%= t('home.welcome') %> <%= current_user.name %>,</h3>
+        <h4 class="card-subtitle mb-2 text-muted"><%= t('home.email') %> <%= current_user.email %>,</h4>
+        <h4 class="card-subtitle mb-4 text-muted"><%= t('home.role') %> <%= user_role_translation(current_user) %></h4>
+        <%= button_to t('home.sign_out'), destroy_user_session_path, method: :delete, class: 'btn btn-danger mt-3' %>
+      </div>
     </div>
   <% else %>
-    <div class="text-center mt-4">
+    <div class="d-flex justify-content-center mt-4">
       <%= link_to t('home.sign_in'), new_user_session_path, class: 'btn btn-primary me-2' %>
       <%= link_to t('home.sign_up'), users_search_path, class: 'btn btn-secondary' %>
     </div>
