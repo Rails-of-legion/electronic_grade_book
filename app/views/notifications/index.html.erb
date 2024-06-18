@@ -1,89 +1,86 @@
-<% if @notifications.present? %> 
+<% if @notifications.present? %>
   <!DOCTYPE html>
   <html>
   <head>
-   <title>Уведомления</title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title><%= t('notifications.notifications') %></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </head>
   <body>
-   <div class="container mt-5">
-     <div class="row mb-4">
-       <div class="col-md-6">
-         <h1><%= t('notifications.notifications')%></h1>
-       </div>
-       <div class="col-md-6 text-end">
-         <%= link_to  t('notifications.new_notifications'), new_notification_path, class: 'btn btn-primary' %>
-       </div>
-     </div>
+    <div class="container">
+      <div class="row">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h1><b> <%= t('notifications.notifications') %><b> </h1>
+          <%= link_to t('notifications.new_notifications'), new_notification_path, class: 'btn btn-primary' %>
+        </div>
+      </div>
 
+      <div class="row mb-4">
+        <div class="col-md-12">
+          <%= search_form_for @q, class: "form-inline" do |f| %>
+            <div class="form-group mr-3">
+              <%= f.label :message_cont, t('notifications.message'), class: "sr-only" %>
+              <%= f.search_field :message_cont, placeholder: t('notifications.message'), class: "form-control" %>
+            </div>
+            <div class="form-group mr-3">
+              <%= f.label :date_gteq, t('notifications.date_greater'), class: "sr-only" %>
+              <%= f.date_field :date_gteq, class: "form-control" %>
+            </div>
+            <div class="form-group mr-3">
+              <%= f.label :date_lteq, t('notifications.date_less'), class: "sr-only" %>
+              <%= f.date_field :date_lteq, class: "form-control" %>
+            </div>
+            <div class="ml-auto"> <%= f.submit t('common.search'), class: 'btn btn-primary' %>
+            <%= link_to t('common.reset'), notifications_path, class: "btn btn-secondary ml-2" %>
+            </div> 
+          <% end %>
+        </div>
+      </div>
 
-     <div class="row mb-4">
-       <div class="col-md-9">
-         <div class="table-responsive">
-           <table class="table table-striped table-bordered">
-             <thead class="thead-blue">
-               <tr>
-                 <th><%= t('notifications.message')%></th>
-                 <th><%= t('notifications.date')%></th>
-                 <th><%= t('notifications.read_status')%></th>
-                 <th><%= t('notifications.users')%></th>
-                 <th colspan="3" class="text-right"><%= t('notifications.actions')%></th>
-               </tr>
-             </thead>
-             <tbody>
-               <% @notifications.each do |notification| %>
-                 <tr>
-                   <td><%= notification.message %></td>
-                   <td><%= notification.date %></td>
-                   <td>
+      <div class="row mb-4">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered">
+            <thead class="thead-blue">
+              <tr>
+                <th><%= t('notifications.message') %></th>
+                <th><%= t('notifications.users') %></th>
+                <th><%= t('notifications.read_status') %></th>
+                <th><%= t('notifications.date') %></th>
+                <th colspan="3" ><%= t('notifications.actions') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @notifications.each do |notification| %>
+                <tr>
+                  <td><%= notification.message %></td>
+                  <td>
+                     <% notification.users.each do |user| %>
+                       <u><%= user.name %></u>
+                       <br>
+                     <% end %>
+                    <td>
                      <% notification.users.each do |user| %>
                        <u><%= notification.notifications_users.find_by(user: user)&.status ? t('notifications.read'): t('notifications.no_read') %></u>
                        <br>
                      <% end %>
                    </td>
-                   <td class="w-25">
-                     <% notification.users.each do |user| %>
-                       <u><%= user.name %></u>
-                       <br>
-                     <% end %>
-                   </td>
-                   <td class="text-right">
-                     <%= link_to t('common.show'), notification, class: 'btn btn-info btn-sm' %>
-                     <%= link_to t('common.edit'), edit_notification_path(notification), class: 'btn btn-warning btn-sm' %>
-                     <%= button_to t('common.delete'), notification, method: :delete, data: { confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm' %>
-                   </td>
-                 </tr>
-               <% end %>
-             </tbody>
-           </table>
-         </div>
-       </div>
-       <div class="col-md-3">
-         <%= search_form_for @q, class: "form-inline" do |f| %>
-           <div class="form-group mb-2">
-             <%= f.label :message_cont,  t('notifications.message') %>
-             <%= f.search_field :message_cont, placeholder:  t('notifications.message'), class: "form-control" %>
-           </div>
-           <div class="form-group mb-2">
-             <%= f.label :date_gteq, t('notifications.date_greater') %>
-             <%= f.date_field :date_gteq, class: "form-control" %>
-           </div>
-           <div class="form-group mb-2">
-             <%= f.label :date_lteq, t('notifications.date_less') %>
-             <%= f.date_field :date_lteq, class: "form-control" %>
-           </div>
-           <div class="form-group mt-3">
-             <%= f.submit t('common.search'), class: 'btn btn-primary' %>
-           </div>
-         <% end %>
-       </div>
-     </div>
-   </div>
+                  <td class="w-25"><%= notification.date %></td>
+                  <td class="w-10">
+                    <%= link_to t('common.show'), notification, class: 'btn btn-info btn-sm' %>
+                    <%= link_to t('common.edit'), edit_notification_path(notification), class: 'btn btn-warning btn-sm' %>
+                    <%= button_to t('common.delete'), notification, method: :delete, data: { confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </body>
-  </html>
+</html>
 <% else %>
   <div class="container mt-5">
     <div class="alert alert-warning" role="alert">
@@ -94,5 +91,5 @@
       <%= link_to t('notifications.new'), new_notification_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
       </div>
     <% end %>
-    </div>
+  </div>
 <% end %>
