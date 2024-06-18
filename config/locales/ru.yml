@@ -89,23 +89,6 @@ ru:
     edit_subject: "Обновить"
     edit: "Обновить предмет"
     new: "Создать предмет"
-     
-  subjects:
-    subjects: "Предметы"
-    search: "Поиск"
-    name: "Название"
-    actions: "Действия"
-    show: "Показать"
-    no_subjects_found: "Предметы не найдены"
-    back: "Назад"
-    subject: "Предмет"
-    description: "Описание"
-    back: "Назад"
-    create_subject: "Создать"
-    edit_subject: "Обновить"
-    edit: "Обновить предмет"
-    new: "Создать предмет"
-  
   
   semesters:
     name: "Название"
@@ -148,7 +131,7 @@ ru:
   
   specializations:
     name: "Название"
-    list: "Специализации"
+    list: "Специальзации"
     details: "Детали специализации"
     groups: "Группы"
     no_groups: "Группы для этой специализации пока нет"
@@ -157,14 +140,7 @@ ru:
     edit_specialization: "Изменить специальзацию"
     create_specialization: "Создать специальзацию"
     edit_specialization: "Изменить специальзацию"
-  
-  specializations:
-    name: "Название"
-    list: "Специализации"
-    details: "Детали специализации"
-    groups: "Группы"
-    no_groups: "Группы для этой специализации пока нет"
-    back: "Назад"
+    subjects: "Предметы"
   
   grades:
     grades: "Оценки"
