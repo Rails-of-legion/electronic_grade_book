@@ -60,9 +60,9 @@
                 <tbody>
                   <%= form.collection_check_boxes :group_ids, @groups, :id, :name, { prompt: "Выберите группы" }, { class: "form-check" } do |b| %>
                     <tr>
-                      <td class="form-check">
+                      <td class="form-check d-flex align-items-center ml-5">
                         <%= b.check_box %>
-                        <%= b.label %>
+                        <label class="form-check-label" for="<%= b.object.id %>" style="margin-left: 10px;"> <%= b.text %></label> 
                       </td>
                     </tr>
                   <% end %>
@@ -70,7 +70,7 @@
               </table>
             </div>
           </div>
-        </div>
+        </div>      
 
         <div class="form-group row mb-3">
           <div class="col-sm-3 text-right">
