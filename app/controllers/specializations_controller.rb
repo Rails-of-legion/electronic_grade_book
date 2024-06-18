@@ -1,5 +1,6 @@
 class SpecializationsController < ApplicationController
   before_action :set_specialization, only: %i[show edit update destroy]
+  before_action :set_subject, only: %i[edit new]
   load_and_authorize_resource
 
   # GET /specializations
@@ -22,7 +23,6 @@ class SpecializationsController < ApplicationController
   # POST /specializations
   def create
     @specialization = Specialization.new(specialization_params)
-
     if @specialization.save
       flash[:notice] = 'Specialization was successfully created.'
       render :show
@@ -56,6 +56,10 @@ class SpecializationsController < ApplicationController
 
   private
 
+  def set_subject
+    @subjects = Subject.all
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_specialization
     @specialization = Specialization.find(params[:id])
@@ -63,6 +67,6 @@ class SpecializationsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def specialization_params
-    params.require(:specialization).permit(:name)
+    params.require(:specialization).permit(:name, subject_ids: [])
   end
 end
