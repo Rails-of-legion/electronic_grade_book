@@ -12,3 +12,6 @@ application.register("report", ReportController)
 
 import GradeFormController from "./grade-form-controller"
 application.register("grade-form", GradeFormController)
+
+import PasswordController from "./password_controller"
+application.register("password", PasswordController)

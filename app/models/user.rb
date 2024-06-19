@@ -61,7 +61,7 @@ class User < ApplicationRecord
   end
 
   def format_full_name
-    "#{first_name} #{last_name[0]}.#{middle_name[0]}."
+    "#{last_name} #{first_name[0]}.#{middle_name[0]}."
   end
 
   def self.ransackable_attributes(auth_object = nil)
