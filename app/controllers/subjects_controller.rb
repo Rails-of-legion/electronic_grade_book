@@ -73,7 +73,7 @@ class SubjectsController < ApplicationController
   end
 
   def search_subjects(subjects)
-    return subjects unless params[:search].present?
+    return subjects if params[:search].blank?
 
     search_query = "%#{params[:search].downcase}%"
     subjects.where('LOWER(name) LIKE ? OR LOWER(description) LIKE ?', search_query, search_query)

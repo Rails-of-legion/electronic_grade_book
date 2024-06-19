@@ -15,11 +15,11 @@ class AttestationRetakeReportsController < ApplicationController
 
     # Добавляем настройки для Times New Roman
     pdf.font_families.update('TimesNewRoman' => {
-      normal: { file: '/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman.ttf',
-                                       font: 'Times-Roman' },
-      bold: { file: '/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman_Bold.ttf',
+                               normal: { file: '/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman.ttf',
+                                         font: 'Times-Roman' },
+                               bold: { file: '/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman_Bold.ttf',
                                        font: 'Times-Roman,Bold' }
-    })
+                             })
 
     # Установка шрифта и размера
     pdf.font 'TimesNewRoman'
@@ -27,7 +27,7 @@ class AttestationRetakeReportsController < ApplicationController
     pdf.text 'Учреждение образования', align: :center, size: 11, style: :bold
     pdf.text 'РЕСПУБЛИКАНСКИЙ ИНСТИТУТ ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ»', align: :center, size: 11, style: :bold
 
-    pdf.text "ЗАЧЕТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ № 1 ", align: :center, size: 11, style: :bold
+    pdf.text 'ЗАЧЕТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ № 1 ', align: :center, size: 11, style: :bold
     pdf.text 'аттестации вне учебной группы', align: :center, size: 11, style: :bold
 
     pdf.text "Отчет по экзамену: #{@exam.name}", size: 20, style: :bold
@@ -45,7 +45,7 @@ class AttestationRetakeReportsController < ApplicationController
     pdf.text "Количество слушателей, не сдавших экзамен: #{@failed_students.count}"
     pdf.move_down 20
 
-    pdf.text "Список студентов, не явившихся или получивших отрицательный балл:", style: :bold
+    pdf.text 'Список студентов, не явившихся или получивших отрицательный балл:', style: :bold
 
     pdf.text "Дата выдачи ведомости: #{Time.zone.today.strftime('%d.%m.%Y')}", align: :left, size: 11
     pdf.text 'Ведомость действительна по: ________________', align: :left, size: 11
@@ -68,17 +68,16 @@ class AttestationRetakeReportsController < ApplicationController
 
     pdf.table failed_students_table_data, header: true
 
-    send_data pdf.render, filename: "report.pdf", type: 'application/pdf', disposition: 'attachment'
-
+    send_data pdf.render, filename: 'report.pdf', type: 'application/pdf', disposition: 'attachment'
   end
 
   private
 
   def failed_students_table_data
-    [['ФИО', 'Оценка']] +
-    @failed_students.map do |grade|
-      student = grade.record_book.user
-      ["#{student.last_name} #{student.first_name}", grade.grade || 'Не явился']
-    end
+    [%w[ФИО Оценка]] +
+      @failed_students.map do |grade|
+        student = grade.record_book.user
+        ["#{student.last_name} #{student.first_name}", grade.grade || 'Не явился']
+      end
   end
 end

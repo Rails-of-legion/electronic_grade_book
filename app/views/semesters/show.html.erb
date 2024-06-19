@@ -1,9 +1,21 @@
 <div class="container mt-2">
-  <ul class="dropdown-menu position-static d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" data-bs-theme="light">
-    <li><a class="dropdown-item rounded-2 active" href="#"><%= t('semesters.name') %>: <%= @semester.name %></a></li>
-    <li><a class="dropdown-item rounded-2" href="#"><%= t('semesters.start_date') %>: <%= @semester.start_date %></a></li>
-    <li><a class="dropdown-item rounded-2" href="#"><%= t('semesters.end_date') %>: <%= @semester.end_date %></a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item rounded-2" href="<%= semesters_path %>"><%= t('semesters.back') %></a></li>
-  </ul>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-center"><%= t('semesters.details') %></h1>
+    <div>
+      <% if can? :edit, @semester %>
+        <%= link_to t('common.edit'), edit_semester_path(@semester), class: 'btn btn-secondary me-2' %>
+      <% end %>
+      <% if can? :destroy, @semester %>
+        <%= link_to t('common.delete'), semester_path(@semester), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <p><strong><%= t('semesters.name') %>:</strong> <%= @semester.name %></p>
+    <p><strong><%= t('semesters.start_date') %>:</strong> <%= @semester.start_date %></p>
+    <p><strong><%= t('semesters.end_date') %>:</strong> <%= @semester.end_date %></p>
+  </div>
+
+  <%= link_to t('semesters.back'), semesters_path, class: 'btn btn-secondary mb-3' %>
 </div>

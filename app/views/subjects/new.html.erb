@@ -1,18 +1,9 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <h1 class="display-4 mt-5 mb-3">New Subject</h1>
-
-      <%= simple_form_for @subject, html: { class: 'form-horizontal' } do |f| %>
-        <%= f.input :name, label: 'Name', required: true, wrapper: :horizontal_form, input_html: { class: 'form-control' } %>
-        <%= f.association :semester, label: 'Semester', required: true, wrapper: :horizontal_form, input_html: { class: 'form-control' } %>
-        <%= f.input :description, label: 'Description', as: :text, wrapper: :horizontal_form, input_html: { class: 'form-control' } if @subject.present? %>
-        <%= f.input :description, label: 'Description', as: :text, wrapper: :horizontal_form, input_html: { class: 'form-control' } if @subject.nil? %>
-        <%= f.input :assessment_type, label: 'Assessment Type', wrapper: :horizontal_form, input_html: { class: 'form-control' } %>
-        <%= f.button :submit, 'Create Subject', class: 'btn btn-primary mt-3' %>
-      <% end %>
-
-      <%= link_to 'Back', subjects_path, class: 'btn btn-secondary mt-3' %>
+<div class="container mt-5"> 
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="text-center mb-4"><%= t('subjects.new') %></h1>
+      
+      <%= render 'form' %>
     </div>
   </div>
 </div>

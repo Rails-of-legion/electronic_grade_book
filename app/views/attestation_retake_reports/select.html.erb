@@ -1,4 +1,4 @@
-<h1 class="text-center mb-4">Сформировать отчет по пересдаче аттестации</h1>
+<h1 class="text-center mb-4"><%= t('extends_reports.generate_a_report_on_retaking_the_certification') %></h1>
 
 <%= form_with url: generate_report_attestation_retake_reports_path(format: :pdf), method: :post, local: true, class: "container", data: {controller: 'reports'} do |form| %>
   <%= hidden_field_tag(:_method, :get) %> <!-- Это скрытое поле для отправки GET запроса -->
@@ -20,6 +20,7 @@
   <div class="form-group row mb-3">
     <div class="col-sm-10 offset-sm-2">
       <%= form.submit 'Сформировать отчет', class: "btn btn-primary" %>
+      <%= link_to t('common.back'), extends_reports_index_path, class: 'btn btn-secondary' %>
     </div>
   </div>
 <% end %>

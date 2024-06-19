@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     get 'marks_reports/generate_report_redirect', to: redirect('/marks_reports/new'), as: :generate_marks_report_redirect
   end
 
+  Rails.application.routes.draw do
+    resources :users
+  end
+
   ActiveAdmin.routes(self) do
     devise_for :admin_users, ActiveAdmin::Devise.config
   end
@@ -46,7 +50,7 @@ Rails.application.routes.draw do
   get "users/:id/edit_email", to: "users#edit_email", as: :edit_email
   post "users/:id/update_password", to: "users#update_password", as: :update_password
   post "users/:id/update_email", to: "users#update_email",as: :update_email
-  resources :users, only: %i[show update edit ]
+  resources :users, only: %i[show update edit create new destroy]
   resources :semesters
   resources :subjects
   resources :groups do
@@ -70,6 +74,8 @@ Rails.application.routes.draw do
       post 'generate_report', on: :collection
     end
   end
+
+  get 'admin_panel/index', as: 'admin_panel'
 
   get 'about', to: 'home#about', as: :about
 end

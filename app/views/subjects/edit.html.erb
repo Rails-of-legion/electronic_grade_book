@@ -1,11 +1,9 @@
-<h1>Edit Subject</h1>
-
-<%= simple_form_for @subject, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.input :name, label: 'Name', required: true, input_html: { class: 'form-control' } %>
-  <%= f.association :semester, label: 'Semester', required: true, input_html: { class: 'form-control' } %>
-  <%= f.input :description, label: 'Description', as: :text, input_html: { class: 'form-control' } %> 
-  <%= f.input :assessment_type, label: 'Assessment Type', input_html: { class: 'form-control' } %>
-  <%= f.button :submit, 'Update Subject', class: 'btn btn-primary' %>
-<% end %>
-
-<%= link_to 'Back', subjects_path, class: 'btn btn-secondary' %>
+<div class="container mt-5"> 
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="text-center mb-4"><%= t('subjects.edit') %></h1>
+      
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

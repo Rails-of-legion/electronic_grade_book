@@ -1,24 +1,69 @@
-<%= form_with(model: record_book, local: true) do |form| %>
-  <div class="mb-3">
-    <%= form.label :record_book_id, "Student" %>
-    <%= form.collection_select :record_book_id, RecordBook.all, :id, :user.name, {}, { class: 'form-control' } %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <%= form_with model: @record_book, data: { turbo: false } do |f| %>
+            <%= render 'shared/errors', object: @record_book %>
+
+            <div class="form-group row mb-3">
+              <div class="col-sm-3 text-right">
+                <%= f.label :user_id, class: "col-form-label" do %>
+                  <div><%= t('record_books.student') %>:</div> 
+                <% end %>
+              </div>
+
+              <div class="col-sm-9">
+                <%= f.collection_select :user_id, User.with_role(:student), :id, :name, { prompt: t('record_books.select_student') }, { class: "form-control" } %>
+              </div>
+            </div>
+
+            <div class="form-group row mb-3">
+              <div class="col-sm-3 text-right">
+                <%= f.label :specialization_id, class: "col-form-label" do %>
+                  <div><%= t('record_books.specialization') %>:</div>
+                <% end %>
+              </div>
+              <div class="col-sm-9">
+                <%= f.collection_select :specialization_id, Specialization.all, :id, :name, { prompt: t('record_books.select_specialization') }, class: "form-control" %>
+              </div>
+            </div>
+
+            <div class="form-group row mb-3">
+              <div class="col-sm-3 text-right">
+                <%= f.label :group_id, class: "col-form-label" do %>
+                  <div><%= t('record_books.group') %>:</div>
+                <% end %>
+              </div>
+              <div class="col-sm-9">
+                <%= f.collection_select :group_id, Group.all, :id, :name, { prompt: t('record_books.select_group') }, class: "form-control" %>
+              </div>
+            </div>
+
+            <div class="form-group row mb-3">
+              <div class="col-sm-3 text-right">
+                <%= f.label :custom_number, class: "col-form-label" do %>
+                  <div><%= t('record_books.custom_number') %>: </div>
+                <% end %>
+              </div>
+              <div class="col-sm-9">
+                <%= f.text_field :custom_number, class: "form-control" %>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-9 offset-sm-3 d-flex justify-content-between">
+                <div>
+                  <%= f.submit (@record_book.new_record? ? t('record_books.create_record_book') : t('record_books.edit_record_book')), class: "btn btn-primary mr-2" %>
+                </div>
+                <div>
+                  <%= link_to t('common.back'), record_books_path, class: "btn btn-secondary" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="mb-3">
-    <%= form.label :subject_id, "Subject" %>
-    <%= form.collection_select :subject_id, Subject.all, :id, :name, {}, { class: 'form-control' } %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :teacher_id, "Teacher" %>
-    <%= form.collection_select :teacher_id, User.with_role(:teacher), :id, :name, {}, { class: 'form-control' } %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :intermediate_attestation_id, "Attestation" %>
-    <%= form.collection_select :intermediate_attestation_id, IntermediateAttestation.all, :id, :name, {}, { class: 'form-control' } %>
-  </div>
-
-
-  <%= form.submit 'Save Record Book', class: 'btn btn-primary' %>
-<% end %>
+</div>

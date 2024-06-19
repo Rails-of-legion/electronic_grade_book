@@ -1,9 +1,14 @@
 class IntermediateAttestationsController < ApplicationController
   before_action :set_intermediate_attestation, only: %i[show edit update destroy]
+  before_action :set_collections, only: %i[new create edit update]
   load_and_authorize_resource
+
   def index
-    @intermediate_attestations = IntermediateAttestation.includes(:subject).all
-    @pagy, @intermediate_attestations = pagy(IntermediateAttestation.all, items: 10)
+    @q = IntermediateAttestation.ransack(params[:q])
+    @intermediate_attestations = @q.result(distinct: true).includes(:subject)
+  
+    @pagy, @intermediate_attestations = pagy(@intermediate_attestations, items: 10)
+  
     respond_to do |format|
       format.html
       format.json { render json: @intermediate_attestations }
@@ -11,6 +16,7 @@ class IntermediateAttestationsController < ApplicationController
   end
 
   def show
+    @intermediate_attestation = IntermediateAttestation.find(params[:id])
     @groups = @intermediate_attestation.groups
 
     respond_to do |format|
@@ -23,25 +29,19 @@ class IntermediateAttestationsController < ApplicationController
   end
 
   def new
-    @intermediate_attestation = IntermediateAttestation.new
-    @groups = Group.all
-    @subjects = Subject.all
-    @teachers = User.with_role(:teacher)
+
   end
 
   def edit
-    @subjects = Subject.all
+
   end
 
   def create
     @intermediate_attestation = IntermediateAttestation.new(intermediate_attestation_params)
 
     if @intermediate_attestation.save
-      @intermediate_attestation.associate_students_to_attestation
-
       redirect_to @intermediate_attestation, notice: 'Intermediate attestation was successfully created.'
     else
-      @subjects = Subject.all
       render :new
     end
   end
@@ -66,7 +66,13 @@ class IntermediateAttestationsController < ApplicationController
     @intermediate_attestation = IntermediateAttestation.find(params[:id])
   end
 
+  def set_collections
+    @groups = Group.all
+    @subjects = Subject.all
+    @teachers = User.with_role(:teacher)
+  end
+
   def intermediate_attestation_params
-    params.require(:intermediate_attestation).permit(:name, :date, :assessment_type, :subject_id)
+    params.require(:intermediate_attestation).permit(:name, :date, :assessment_type, :subject_id, :teacher_id, group_ids: [])
   end
 end

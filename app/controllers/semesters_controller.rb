@@ -2,7 +2,8 @@ class SemestersController < ApplicationController
   before_action :set_semester, only: %i[show edit update destroy]
   load_and_authorize_resource
   def index
-    @pagy, @semesters = pagy(Semester.all, items: 10)
+    @q = Semester.ransack(params[:q])
+    @pagy, @semesters = pagy(@q.result, items: 10) 
   end
 
   def show; end

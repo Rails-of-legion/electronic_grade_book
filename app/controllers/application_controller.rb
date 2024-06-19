@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.admin?
-      admin_root_path
+      user_path(resource)
     elsif resource.teacher?
       user_path(resource)
     elsif resource.student?
@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
   def default_title
     action_name.humanize
   end

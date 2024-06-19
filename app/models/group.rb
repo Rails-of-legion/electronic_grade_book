@@ -4,7 +4,10 @@ class Group < ApplicationRecord
   has_many :record_books, dependent: :destroy
   has_many :groups_intermediate_attestations, dependent: :destroy
   has_many :intermediate_attestations, through: :groups_intermediate_attestations, dependent: :destroy
+
   validates :name, presence: true, length: { minimum: 2 }
+  validates :curator_id, presence: true
+  validates :form_of_education, presence: true
 
   def self.ransackable_associations(_auth_object = nil)
     %w[curator record_books]

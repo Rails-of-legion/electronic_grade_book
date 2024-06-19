@@ -14,7 +14,10 @@
             <% end %>        
             <li class="list-group-item"><strong><%= t('users.status') %> :</strong> <%= @user.status %></li>
             <li class="list-group-item"><strong><%= t('users.date_of_birth') %> :</strong> <%= @user.date_of_birth %></li>      
-          </ul>    
+          </ul>  
+          <% if current_user.admin? && current_user != @user %>
+             <%= link_to t('users.back_to_users'), users_path, class: "btn btn-secondary mb-3" %>
+          <% end %>
         </div>  
       </div>
       <div>
@@ -33,9 +36,10 @@
             <ul class="list-group">
               <% @notificationsUser.each do |notification| %>
                 <% if notification.status == false %>
-                  <li class="list-group-item">
-                    <%= Notification.find(notification.notification_id).message %>
-                    <%= button_to t('users.lern'), mark_as_read_notification_path(notification), method: :patch, class: "btn btn-link" %>
+                  <li class="list-group-item d-flex align-items-center">
+                    <span class="ms-2"><%= Notification.find(notification.notification_id).message %></span>
+                    <span class="badge bg-primary rounded-pill ms-auto"><%= Notification.find(notification.notification_id).date %></span>
+                    <%= button_to t('users.lern'), mark_as_read_notification_path(notification.notification_id), method: :patch, class: "btn btn-link ms-2" %>
                   </li>
                 <% end %>
               <% end %>
@@ -47,12 +51,13 @@
           <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#readNotifications">
               <%= t('users.read_notifications') %>
           </button>
-          <div class="collapse" id="readNotifications">
+           <div class="collapse" id="readNotifications">
             <ul class="list-group">
               <% @notificationsUser.each do |notification| %>
                 <% if notification.status == true %>
-                  <li class="list-group-item">
-                    <%= Notification.find(notification.notification_id).message %>
+                  <li class="list-group-item d-flex align-items-center">
+                    <span class="ms-2"><%= Notification.find(notification.notification_id).message %></span>
+                    <span class="badge bg-primary rounded-pill ms-auto"><%= Notification.find(notification.notification_id).date %></span>
                   </li>
                 <% end %>
               <% end %>

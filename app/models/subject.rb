@@ -15,16 +15,16 @@ class Subject < ApplicationRecord
     %w[created_at description id name updated_at]
   end
 
-  def self.ransackable_associations(auth_object = nil)
-    [
-      "grades",
-      "intermediate_attestations",
-      "semesters",
-      "semesters_subjects",
-      "specialities_subjects",
-      "specializations",
-      "teachers",
-      "teachers_subjects"
+  def self.ransackable_associations(_auth_object = nil)
+    %w[
+      grades
+      intermediate_attestations
+      semesters
+      semesters_subjects
+      specialities_subjects
+      specializations
+      teachers
+      teachers_subjects
     ]
   end
 end

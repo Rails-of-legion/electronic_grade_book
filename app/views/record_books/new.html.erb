@@ -1,5 +1,9 @@
-<h1>New Record Book</h1>
-
-<%= render 'form', record_book: @record_book %> 
-
-<%= link_to 'Back', record_books_path, class: 'btn btn-light' %>
+<div class="container mt-5"> 
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="text-center mb-4"><%= @record_book.new_record? ? t('record_books.new_record_book') : t('record_books.edit_record_book') %></h1>
+      
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

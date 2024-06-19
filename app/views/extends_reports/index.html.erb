@@ -1,31 +1,18 @@
-<h1 class="text-center mb-4"><%= t('extends_reports.list') %></h1>
-
-<div class="container">
-  <style>
-    .no-bold th a {
-      font-weight: normal;
-    }
-  </style>
-  <table class="table table-striped">
-    <thead class="thead-light">
-      <tr>
-        <th><%= t('extends_reports.name') %></th>
-        <th colspan="3"></th>
-      </tr>
-      </thead>
-    <tbody class="no-bold">
-        <tr>
-          <th><%= link_to t('extends_reports.intermediate_attestation'), intermediate_attestations_path %></th>
-          </tr>
-          <tr>
-          <th><%= link_to t('extends_reports.individual_report'), new_individual_report_path %></th>
-          </tr>
-          <tr>
-          <th><%= link_to t('extends_reports.mark_report'), new_marks_report_path %></th>
-          </tr>
-          <tr>
-          <th><%= link_to t('extends_reports.attestation_retake_report'), select_attestation_retake_reports_path %></th>
-          </tr>
-    </tbody>
-  </table>
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= t('extends_reports.reports') %></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center"><%= t('extends_reports.reports') %></h1>
+      <div class="d-flex justify-content-around mt-4">
+        <%= link_to t('extends_reports.interim_certification'), intermediate_attestations_path, class: "btn btn-primary" %>
+        <%= link_to t('extends_reports.individual_report'), new_individual_report_path, class: "btn btn-primary" %>
+        <%= link_to t('extends_reports.progress_report'), new_marks_report_path, class: "btn btn-primary #{request.fullpath == new_marks_report_path ? 'active' : ''}" %>
+        <%= link_to t('extends_reports.certification_retake_report'), select_attestation_retake_reports_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </body>
+</html>

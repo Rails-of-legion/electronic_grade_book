@@ -2,14 +2,11 @@ class GroupsController < ApplicationController
   before_action :set_group, only: %i[show edit update destroy]
   load_and_authorize_resource
 
-  # GET /groups
-  def index
-    if params[:specialization_id].present?
-      @pagy, @groups = pagy(Group.where(specialization_id: params[:specialization_id]), items: 10)
-    else
-      @pagy, @groups = pagy(Group.all, items: 10)
-    end
 
+  def index
+    @q = Group.ransack(params[:q])
+    @pagy, @groups = pagy(@q.result.includes(:specialization, :curator), items: 10)
+    
     respond_to do |format|
       format.html
       format.json { render json: @groups }
@@ -34,7 +31,7 @@ class GroupsController < ApplicationController
 
     if @month && @subject
       start_date = Date.new(Time.current.year, @month, 1)
-      end_date = start_date.end_of_month
+      start_date.end_of_month
 
       @record_books = RecordBook.where(group_id: @group.id)
 
@@ -88,8 +85,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
   end
 
-
   def group_params
-    params.require(:group).permit(:name, :curator_id)
+    params.require(:group).permit(:name, :curator_id, :specialization_id, :form_of_education)
   end
 end

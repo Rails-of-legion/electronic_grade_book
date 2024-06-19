@@ -1,25 +1,63 @@
-<%= form_with(model: @notification) do |form| %>
-  <div class="field">
-    <%= form.label :message %>
-    <%= form.text_area :message %>
-  </div>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-9">
+      <div class="card shadow-sm">
+       
+        <div class="card-body">
+          <%= form_with(model: @notification, local: true, data: { turbo: false }) do |form| %>
+            <%= render 'shared/errors', object: @notification %>
 
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_field :date %>
-  </div>
+            <div class="form-group row mb-3">
+              <label for="<%= form.object_name %>_message" class="col-sm-3 col-form-label text-right">
+                <%= t('notifications.message') %>:
+              </label>
+              <div class="col-sm-9">
+                <%= form.text_area :message, class: "form-control", rows: 3 %>
+              </div>
+            </div>
 
-  <div class="field">
-    <%= form.label :read_status %>
-    <%= form.text_area :read_status %>
-  </div>
+            <div class="form-group row mb-3">
+              <label for="<%= form.object_name %>_date" class="col-sm-3 col-form-label text-right">
+                <%= t('notifications.date') %>:
+              </label>
+              <div class="col-sm-9">
+                <%= form.date_field :date, class: "form-control" %>
+              </div>
+            </div>
 
-  <div class="field">
-    <%= form.label :user_id, "User" %>
-    <%= form.collection_select :user_id, User.all, :id, :name %>
-  </div>
+            <div class="form-group row mb-3">
+              <label for="<%= form.object_name %>_user_ids" class="col-sm-3 col-form-label text-right">
+                <%= t('users.users') %>:
+              </label>
+              <div class="col-sm-9">
+                <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
+                  <table class="table table-sm table-bordered">
+                    <tbody>
+                      <%= form.collection_check_boxes :user_ids, @users, :id, :name, { prompt: t('notifications.select_user') }, { class: "form-check" } do |b| %>
+                        <tr>
+                          <td class="form-check d-flex align-items-center ml-5">
+                            <%= b.check_box %>
+                            <label class="form-check-label" for="<%= b.object.id %>" style="margin-left: 10px;">
+                              <%= b.text %>
+                            </label>
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
 
-  <div class="actions">
-    <%= form.submit %>
+            <div class="form-group row">
+              <div class="col-sm-9 offset-sm-3 d-flex justify-content-between">
+                <%= form.submit (@notification.new_record? ? t('notifications.create_notification') : t('notifications.edit_notification')), class: "btn btn-primary" %>
+                <%= link_to t('common.back'), notifications_path, class: "btn btn-secondary" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-<% end %>
+</div>
