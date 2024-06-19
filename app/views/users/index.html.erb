@@ -26,8 +26,8 @@
           <tbody>
             <% @users.each do |user| %>
               <tr>
-                <td><%= user.first_name %></td>
                 <td><%= user.last_name %></td>
+                <td><%= user.first_name %></td>
                 <td><%= user.middle_name %></td>
                 <td><%= user.email.gsub('@', '<br />@')&.html_safe %></td> 
                 <td><%= user.phone_number %></td>
@@ -37,8 +37,7 @@
                     <%= link_to t('common.show'), user_path(user), class: 'btn btn-primary btn-sm' %>
                     <% if current_user.has_role?(:admin) %>
                       <%= link_to t('common.edit'), edit_user_path(user), class: 'btn btn-secondary btn-sm' %>
-                      <%= link_to t('common.delete'), user_path(user), method: :delete, data: { confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm' %>
-                    <% end %>
+                      <%= link_to t('common.delete'), user_path(user), data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm' %>                    <% end %>
                   </div>
                 </td>
               </tr>
