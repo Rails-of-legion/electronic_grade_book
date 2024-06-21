@@ -76,6 +76,8 @@ ru:
     new: "Добавить пользователя"
     edit: "Изменить пользователя"
     back_to_users: "Вернуться к пользователям"
+    forgot_your_password: "Забыли пароль?"
+    reset_password_instructions: "Отправить инструкции"
   
   subjects:
     subjects: "Предметы"
