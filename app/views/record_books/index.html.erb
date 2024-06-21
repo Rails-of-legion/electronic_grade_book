@@ -1,138 +1,146 @@
 <% if RecordBook.exists? %>
-  <% if @record_books.present? %>
-    <div class="container">
-      <div class="row mb-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h1><%= t('record_books.title') %></h1>
-          <% if current_user.admin? %>
-            <%= link_to t('common.add'), new_record_book_path, class: 'btn btn-primary' %>
-          <% end %>
-        </div>
-      </div>
+ <% if @record_books.present? %>
+   <div class="container">
+       <div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: 20px;">
+         <h1><%= t('record_books.title') %></h1>
+         <% if current_user.admin? %>
+           <%= link_to t('common.add'), new_record_book_path, class: 'btn btn-primary' %>
+         <% end %>
+       </div>
 
-      <div class="row mb-4">
-        <div class="col-md-9">
-          <table class="table table-striped">
-            <thead class="thead-light">
-              <tr>
-                <th><%= t('record_books.student') %></th>
-                <th><%= t('record_books.custom_number') %></th>
-                <th><%= t('record_books.specialization') %></th>
-                <th><%= t('record_books.group') %></th>
-                <th><%= t('record_books.retake_count') %></th>
-                <% if current_user.admin? %>
-                  <th class="text-right"><%= t('common.actions') %></th>
-                <% end %>
-              </tr>
-            </thead>
-            <tbody>
-              <% @record_books.each do |record_book| %>
-                <tr>
-                  <td><%= record_book.user.name %></td>
-                  <td><%= record_book.custom_number %></td>
-                  <td><%= record_book.specialization.name %></td>
-                  <td><%= record_book.group.name %></td>
-                  <td><%= record_book.retake_count %></td>
-                  <% if current_user.admin? %>
-                    <td class="text-right">
-                      <%= link_to t('common.show'), record_book_path(record_book), class: 'btn btn-sm btn-outline-primary' %>
-                      <%= link_to t('common.edit'), edit_record_book_path(record_book), class: 'btn btn-sm btn-secondary' %>
-                      <%= link_to t('common.delete'), record_book_path(record_book), data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm' %>
-                    </td>
-                  <% end %>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-          <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
-        </div>
-        <div class="col-md-3">
-          <%= search_form_for @q, class: "form-inline" do |f| %>
-            <div class="form-group mb-2">
-              <%= f.label :custom_number_cont, t('record_books.custom_number') %>
-              <%= f.search_field :custom_number_cont, placeholder: t('record_books.custom_number'), class: "form-control" %>
-            </div>
-            <div class="form-group mb-2">
-              <%= f.label :specialization_name_cont, t('record_books.specialization') %>
-              <%= f.search_field :specialization_name_cont, placeholder: t('record_books.specialization_name'), class: "form-control" %>
-            </div>
-            <div class="form-group mb-2">
-              <%= f.label :group_name_cont, t('record_books.group') %>
-              <%= f.search_field :group_name_cont, placeholder: t('record_books.group_name'), class: "form-control" %>
-            </div>
-            <div class="form-group mt-3">
-              <%= f.submit t('common.search'), class: 'btn btn-primary' %>
-              <%= link_to t('common.reset'), record_books_path, class: "btn btn-secondary" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  <% else %>
-    <div class="container">
-      <div class="row mb-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h1><%= t('record_books.title') %></h1>
-          <% if current_user.admin? %>
-            <%= link_to t('common.add'), new_record_book_path, class: 'btn btn-primary' %>
-          <% end %>
-        </div>
-      </div>
 
-      <div class="row mb-4">
-        <div class="col-md-9">
-          <table class="table table-striped">
-            <thead class="thead-light">
-              <tr>
-                <th><%= t('record_books.student') %></th>
-                <th><%= t('record_books.custom_number') %></th>
-                <th><%= t('record_books.specialization') %></th>
-                <th><%= t('record_books.group') %></th>
-                <th><%= t('record_books.retake_count') %></th>
-                <% if current_user.admin? %>
-                  <th class="text-right"><%= t('common.actions') %></th>
-                <% end %>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="6" class="text-center"><%= t('record_books.no_record_books_found') %></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-md-3">
-          <%= search_form_for @q, class: "form-inline" do |f| %>
-            <div class="form-group mb-2">
-              <%= f.label :custom_number_cont, t('record_books.custom_number') %>
-              <%= f.search_field :custom_number_cont, placeholder: t('record_books.custom_number'), class: "form-control" %>
-            </div>
-            <div class="form-group mb-2">
-              <%= f.label :specialization_name_cont, t('record_books.specialization') %>
-              <%= f.search_field :specialization_name_cont, placeholder: t('record_books.specialization_name'), class: "form-control" %>
-            </div>
-            <div class="form-group mb-2">
-              <%= f.label :group_name_cont, t('record_books.group') %>
-              <%= f.search_field :group_name_cont, placeholder: t('record_books.group_name'), class: "form-control" %>
-            </div>
-            <div class="form-group mt-3">
-              <%= f.submit t('common.search'), class: 'btn btn-primary' %>
-              <%= link_to t('common.reset'), record_books_path, class: "btn btn-secondary" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  <% end %>
+     <div class="row mb-4">
+       <div class="col-md-9">
+         <table class="table table-striped">
+           <thead class="thead-light">
+             <tr>
+               <th><%= t('record_books.student') %></th>
+               <th><%= t('record_books.custom_number') %></th>
+               <th><%= t('record_books.specialization') %></th>
+               <th><%= t('record_books.group') %></th>
+               <th><%= t('record_books.retake_count') %></th>
+               <% if current_user.admin? %>
+                 <th class="text-right "><%= t('common.actions') %></th>
+               <% end %>
+             </tr>
+           </thead>
+           <tbody>
+             <% @record_books.each do |record_book| %>
+               <tr>
+                 <td><%= record_book.user.name %></td>
+                 <td><%= record_book.custom_number %></td>
+                 <td><%= record_book.specialization.name %></td>
+                 <td><%= record_book.group.name %></td>
+                 <td><%= record_book.retake_count %></td>
+                 <% if current_user.admin? %>
+                   <td class="w-10 text-center">
+                       <div>
+                       <%= link_to t('common.show'), record_book_path(record_book), class: 'btn btn-sm btn-primary', style: 'width: 120px;' %>
+                       </div>
+                       <div>
+                       <%= link_to t('common.edit'), edit_record_book_path(record_book), class: 'btn btn-sm btn-secondary btn-block', style: 'width: 120px;' %>
+                       </div>
+                       <div>
+                       <%= link_to t('common.delete'), record_book_path(record_book),
+                       data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm btn-block',
+                       style: 'width: 120px;' %>
+                       </div>
+                   </td>
+                 <% end %>
+               </tr>
+             <% end %>
+           </tbody>
+         </table>
+         <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+       </div>
+       <div class="col-md-3">
+         <%= search_form_for @q, class: "form-inline" do |f| %>
+           <div class="form-group mb-2">
+             <%= f.label :custom_number_cont, t('record_books.custom_number') %>
+             <%= f.search_field :custom_number_cont, placeholder: t('record_books.custom_number'), class: "form-control" %>
+           </div>
+           <div class="form-group mb-2">
+             <%= f.label :specialization_name_cont, t('record_books.specialization') %>
+             <%= f.search_field :specialization_name_cont, placeholder: t('record_books.specialization_name'), class: "form-control" %>
+           </div>
+           <div class="form-group mb-2">
+             <%= f.label :group_name_cont, t('record_books.group') %>
+             <%= f.search_field :group_name_cont, placeholder: t('record_books.group_name'), class: "form-control" %>
+           </div>
+           <div class="form-group mt-3">
+             <%= f.submit t('common.search'), class: 'btn btn-primary' %>
+             <%= link_to t('common.reset'), record_books_path, class: "btn btn-secondary" %>
+           </div>
+         <% end %>
+       </div>
+     </div>
+   </div>
+ <% else %>
+   <div class="container">
+     <div class="row mb-4">
+       <div class="d-flex justify-content-between align-items-center mb-4">
+         <h1><%= t('record_books.title') %></h1>
+         <% if current_user.admin? %>
+           <%= link_to t('common.add'), new_record_book_path, class: 'btn btn-primary' %>
+         <% end %>
+       </div>
+     </div>
+
+
+     <div class="row mb-4">
+       <div class="col-md-9">
+         <table class="table table-striped">
+           <thead class="thead-light">
+             <tr>
+               <th><%= t('record_books.student') %></th>
+               <th><%= t('record_books.custom_number') %></th>
+               <th><%= t('record_books.specialization') %></th>
+               <th><%= t('record_books.group') %></th>
+               <th><%= t('record_books.retake_count') %></th>
+               <% if current_user.admin? %>
+                 <th class="text-right"><%= t('common.actions') %></th>
+               <% end %>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td colspan="6" class="text-center"><%= t('record_books.no_record_books_found') %></td>
+             </tr>
+           </tbody>
+         </table>
+       </div>
+       <div class="col-md-3">
+         <%= search_form_for @q, class: "form-inline" do |f| %>
+           <div class="form-group mb-2">
+             <%= f.label :custom_number_cont, t('record_books.custom_number') %>
+             <%= f.search_field :custom_number_cont, placeholder: t('record_books.custom_number'), class: "form-control" %>
+           </div>
+           <div class="form-group mb-2">
+             <%= f.label :specialization_name_cont, t('record_books.specialization') %>
+             <%= f.search_field :specialization_name_cont, placeholder: t('record_books.specialization_name'), class: "form-control" %>
+           </div>
+           <div class="form-group mb-2">
+             <%= f.label :group_name_cont, t('record_books.group') %>
+             <%= f.search_field :group_name_cont, placeholder: t('record_books.group_name'), class: "form-control" %>
+           </div>
+           <div class="form-group mt-3">
+             <%= f.submit t('common.search'), class: 'btn btn-primary' %>
+             <%= link_to t('common.reset'), record_books_path, class: "btn btn-secondary" %>
+           </div>
+         <% end %>
+       </div>
+     </div>
+   </div>
+ <% end %>
 <% else %>
-  <div class="container mt-5">
-    <div class="alert alert-warning" role="alert">
-      <%= t 'record_books.no_record_books_found' %>
-    </div>
-    <% if can? :create, RecordBook %>
-      <div class="container mt-4">
-        <%= link_to t('record_books.new'), new_record_book_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
-      </div>
-    <% end %>
-  </div>
+ <div class="container mt-5">
+   <div class="alert alert-warning" role="alert">
+     <%= t 'record_books.no_record_books_found' %>
+   </div>
+   <% if can? :create, RecordBook %>
+     <div class="container mt-4">
+       <%= link_to t('record_books.new'), new_record_book_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
+     </div>
+   <% end %>
+ </div>
 <% end %>

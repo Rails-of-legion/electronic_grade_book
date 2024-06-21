@@ -1,7 +1,7 @@
 <% if Semester.exists? %>
   <% if @semesters.present? %>
     <div class="container">
-      <div class="d-flex justify-content-between align-items-center mb-4">
+      <div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: 20px;">
         <h1 class="text-center"><%= t('semesters.semesters') %></h1>
         <% if current_user.admin? %>
           <%= link_to t('common.add'), new_semester_path, class: 'btn btn-primary' %>
@@ -28,10 +28,15 @@
                   <td><%= semester.start_date.strftime("%d.%m.%Y") if semester.start_date.present? %></td>
                   <td><%= semester.end_date.strftime("%d.%m.%Y") if semester.end_date.present? %></td>
                   <% if current_user.admin? %>
-                    <td class="text-right">
-                      <%= link_to t('common.edit'), edit_semester_path(semester), class: 'btn btn-sm btn-secondary' %>
-                      <%= link_to t('common.delete'), semester_path(semester), data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm' %>
-                    </td>
+                    <td class="w-10 text-left">
+                       <div>
+                          <%= link_to t('common.edit'), edit_semester_path(semester), class: 'btn btn-sm btn-secondary', style: 'width: 120px;' %>
+                       </div>
+                       <div>
+                          <%= link_to t('common.delete'), semester_path(semester), 
+                          data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm', style: 'width: 120px;' %>
+                       </div>
+                   </td>
                   <% end %>
                 </tr>
               <% end %>
