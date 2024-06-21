@@ -1,15 +1,44 @@
-<h2><%= t('users.change_your_email') %></h2>
-<%= simple_form_for :user, url: update_email_path do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                label: t('users.new_email'),
-                required: true,
-                autofocus: true,
-                input_html: { type: "users.email" } %>
-  </div>
+<h2 class="card-title text-center"><%= t('users.change_your_email') %></h2>
 
-  <div class="form-actions">
-    <%= f.button :submit, t('users.change_email') %>
-    <%= link_to t('users.back'), user_path(@user) %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+
+          <%= form_with(model: @user, local: true) do |form| %>
+          <%= render 'shared/errors', object: @user %>
+          <%= simple_form_for :user, url: update_email_path do |f| %>
+           
+
+            <div class="form-group row mb-3">
+              <div class="col-sm-3 text-right">
+                <%= f.label :email, class: "col-form-label" do %>
+                  <div><%= t('users.new_email') %>:</div>
+                <% end %>
+              </div>
+              <div class="col-sm-9">
+                <%= f.email_field :email,
+                                  required: true, 
+                                  autofocus: true, 
+                                  class: "form-control" %> 
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-9 offset-sm-3 d-flex justify-content-between">
+                <div>
+                  <%= f.button :submit, t('users.change_email'), class: "btn btn-primary mr-2" %>
+                </div>
+                <div>
+                  <%= link_to t('users.back'), user_path(@user), class: "btn btn-secondary" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-<% end %>
+</div>
