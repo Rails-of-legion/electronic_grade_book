@@ -1,7 +1,7 @@
 <% if Subject.exists? %>
   <% if @subjects.present? %>
     <div class="container">
-      <h1 class="text-center mb-4"><%= t('subjects.subjects') %></h1>
+      <h1 class="text-center mb-4"  style="margin-top: 20px;"><%= t('subjects.subjects') %></h1>
 
       <div class="row mb-3">
         <div class="col-md-4">
@@ -34,15 +34,23 @@
           <% @subjects.each do |subject| %>
             <tr>
               <td><%= subject.name %></td>
-              <td>
-                <%= link_to t('subjects.show'), subject, class: 'btn btn-outline-primary btn-sm' %>
-                <% if can? :edit, subject %>
-                  <%= link_to t('common.edit'), edit_subject_path(subject), class: 'btn btn-secondary btn-sm mr-2' %>
+              <td class="w-15">
+                <div>
+                  <%= link_to t('subjects.show'), subject, class: 'btn btn-primary btn-sm' , style: 'width: 120px;'%>
+                </div>
+                <div>
+                  <% if can? :edit, subject %>
+                   <%= link_to t('common.edit'), edit_subject_path(subject), class: 'btn btn-secondary btn-sm' , style: 'width: 120px;'%>
+                  <% end %>
+                </div>
+                <div>
+                  <% if can? :destroy, subject %>
+                  <%= link_to t('common.delete'), subject_path(subject), 
+                  data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, 
+                  class: 'btn btn-danger btn-sm' , style: 'width: 120px;'%>
                 <% end %>
-                <% if can? :destroy, subject %>
-                  <%= link_to t('common.delete'), subject_path(subject), data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm' %>
-                <% end %>
-              </td>
+                </div>
+                </td>
             </tr>
           <% end %>
         </tbody>
