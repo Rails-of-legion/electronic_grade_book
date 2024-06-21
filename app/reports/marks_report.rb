@@ -46,3 +46,4 @@ class MarksReport
     pdf.render
   end
 end
+
