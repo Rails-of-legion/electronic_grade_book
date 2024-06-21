@@ -4,7 +4,7 @@ class RecordBook < ApplicationRecord
   belongs_to :group, optional: false
   has_many :grades, dependent: :destroy
 
-  validates :custom_number, presence: true
+  validates :custom_number, presence: true, uniqueness: true
 
   def self.ransackable_associations(_auth_object = nil)
     %w[grades intermediate_attestation user group specialization]
