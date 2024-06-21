@@ -4,22 +4,19 @@
       <div class="row mb-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h1><%= t('grades.grades') %></h1>
-          <% if current_user.has_role?(:admin) %>
-            <%= link_to t('common.add'), new_grade_path, class: 'btn btn-primary' %>
-          <% end %>
         </div>
       </div>
 
-      <div class="d-flex justify-content-center">
-        <div class="flex-shrink-1" style="width: 60%;">
+      <div class="row mb-4">
+        <div class="col-md-9">
           <table class="table table-striped mt-3">
-            <thead>
+            <thead class="thead-light">
               <tr>
                 <th><%= t('grades.item') %></th>
                 <th><%= t('grades.grade') %></th>
                 <th><%= t('grades.student') %></th>
                 <% if current_user.has_role?(:admin) %>
-                  <th><%= t('common.actions') %></th>
+                  <th class="text-right"><%= t('common.actions') %></th>
                 <% end %>
               </tr>
             </thead>
@@ -28,9 +25,9 @@
                 <tr>
                   <td><%= grade.subject.name %></td>
                   <td><%= grade.grade %></td>
-                  <td><%= grade.record_book.user.last_name %> <%= grade.record_book.user.first_name %></td>
+                  <td><%= grade.record_book.user.name %>
                   <% if current_user.has_role?(:admin) %>
-                    <td>
+                    <td class="text-right">
                       <%= link_to t('common.show'), grade_path(grade), class: 'btn btn-sm btn-outline-primary' %>
                       <%= link_to t('common.edit'), edit_grade_path(grade), class: 'btn btn-sm btn-outline-secondary' %>
                       <%= button_to t('common.delete'), grade_path(grade), method: :delete, data: { confirm: t('notifications.you_are_sure') }, class: 'btn btn-sm btn-outline-danger' %>
@@ -43,31 +40,23 @@
           <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
         </div>
 
-        <div class="col-md-4 mt-2 ml-4">
-          <%= search_form_for @q do |f| %>
-            <div class="container">
-              <div class="form-row">
-                <div class="col-md-4 mt-4 ml-4">
-                  <%= f.label :subject_name_cont, t('grades.item') %>
-                  <%= f.search_field :subject_name_cont, class: 'form-control' %>
-                </div>
-                <div class="col-md-4 mt-4 ml-4">
-                  <%= f.label :grade_eq, t('grades.grade') %>
-                  <%= f.search_field :grade_eq, class: 'form-control' %>
-                </div>
-                <div class="col-md-4 mt-4 ml-4">
-                  <%= f.label :record_book_user_last_name_cont, t('grades.students_last_name') %>
-                  <%= f.search_field :record_book_user_last_name_cont, class: 'form-control' %>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="col-md-4 mt-4 ml-4">
-                  <%= f.submit t('common.search'), class: 'btn btn-primary' %>
-                </div>
-                <div class="col-md-4 mt-4 ml-4">
-                  <%= link_to t('common.reset'), grades_path, class: "btn btn-secondary" %>
-                </div>
-              </div>
+        <div class="col-md-3">
+          <%= search_form_for @q, class: "form-inline" do |f| %>
+            <div class="form-group mb-2">
+              <%= f.label :subject_name_cont, t('grades.item') %>
+              <%= f.search_field :subject_name_cont, class: 'form-control' %>
+            </div>
+            <div class="form-group mb-2">
+              <%= f.label :grade_eq, t('grades.grade') %>
+              <%= f.search_field :grade_eq, class: 'form-control' %>
+            </div>
+            <div class="form-group mb-2">
+              <%= f.label :record_book_user_last_name_cont, t('grades.students_last_name') %>
+              <%= f.search_field :record_book_user_last_name_cont, class: 'form-control' %>
+            </div>
+            <div class="form-group mt-3">
+              <%= f.submit t('common.search'), class: 'btn btn-primary mr-2' %>
+              <%= link_to t('common.reset'), grades_path, class: "btn btn-secondary" %>
             </div>
           <% end %>
         </div>
@@ -78,22 +67,19 @@
       <div class="row mb-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h1><%= t('grades.grades') %></h1>
-          <% if current_user.has_role?(:admin) %>
-            <%= link_to t('common.add'), new_grade_path, class: 'btn btn-primary' %>
-          <% end %>
         </div>
       </div>
 
-      <div class="d-flex justify-content-center">
-        <div class="flex-shrink-1" style="width: 60%;">
+      <div class="row mb-4">
+        <div class="col-md-9">
           <table class="table table-striped mt-3">
-            <thead>
+            <thead class="thead-light">
               <tr>
                 <th><%= t('grades.item') %></th>
                 <th><%= t('grades.grade') %></th>
                 <th><%= t('grades.student') %></th>
                 <% if current_user.has_role?(:admin) %>
-                  <th><%= t('common.actions') %></th>
+                  <th class="text-right"><%= t('common.actions') %></th>
                 <% end %>
               </tr>
             </thead>
@@ -104,31 +90,23 @@
             </tbody>
           </table>
         </div>
-        <div class="col-md-4 mt-2 ml-4">
-          <%= search_form_for @q do |f| %>
-            <div class="container">
-              <div class="form-row">
-                <div class="col-md-4 mt-4 ml-4">
-                  <%= f.label :subject_name_cont, t('grades.item') %>
-                  <%= f.search_field :subject_name_cont, class: 'form-control' %>
-                </div>
-                <div class="col-md-4 mt-4 ml-4">
-                  <%= f.label :grade_eq, t('grades.grade') %>
-                  <%= f.search_field :grade_eq, class: 'form-control' %>
-                </div>
-                <div class="col-md-4 mt-4 ml-4">
-                  <%= f.label :record_book_user_last_name_cont, t('grades.students_last_name') %>
-                  <%= f.search_field :record_book_user_last_name_cont, class: 'form-control' %>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="col-md-4 mt-4 ml-4">
-                  <%= f.submit t('common.search'), class: 'btn btn-primary' %>
-                </div>
-                <div class="col-md-4 mt-4 ml-4">
-                  <%= link_to t('common.reset'), grades_path, class: "btn btn-secondary" %>
-                </div>
-              </div>
+        <div class="col-md-3">
+          <%= search_form_for @q, class: "form-inline" do |f| %>
+            <div class="form-group mb-2">
+              <%= f.label :subject_name_cont, t('grades.item') %>
+              <%= f.search_field :subject_name_cont, class: 'form-control' %>
+            </div>
+            <div class="form-group mb-2">
+              <%= f.label :grade_eq, t('grades.grade') %>
+              <%= f.search_field :grade_eq, class: 'form-control' %>
+            </div>
+            <div class="form-group mb-2">
+              <%= f.label :record_book_user_last_name_cont, t('grades.students_last_name') %>
+              <%= f.search_field :record_book_user_last_name_cont, class: 'form-control' %>
+            </div>
+            <div class="form-group mt-3">
+              <%= f.submit t('common.search'), class: 'btn btn-primary mr-2' %>
+              <%= link_to t('common.reset'), grades_path, class: "btn btn-secondary" %>
             </div>
           <% end %>
         </div>
@@ -140,10 +118,5 @@
     <div class="alert alert-warning" role="alert">
       <%= t('grades.no_grades_found') %>
     </div>
-    <% if can? :create, Grade %>
-      <div class="container mt-4">
-        <%= link_to t('grades.new'), new_grade_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
-      </div>
-    <% end %>
   </div>
 <% end %>

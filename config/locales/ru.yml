@@ -157,7 +157,7 @@ ru:
     grade: "Оценка"
     item: "Предмет"
     students_last_name: Фамилия студента
-  
+    subject: "Предмет"  
   
   groups:
     name: "Название"

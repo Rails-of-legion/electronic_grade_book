@@ -13,11 +13,13 @@
 
           <% if @grade && @grade.record_book && @grade.record_book.user %>
             <p class="text-center">
-              <%= t('grades.sudent') %> : <%= @grade.record_book.user.last_name %>  <%= @grade.record_book.user.first_name %> 
+              <%= t('grades.sudent') %> : <%= @grade.record_book.user.name %> 
             </p>
           <% end %>
 
           <p class="text-center"><%= t('grades.grade') %> : <%= @grade.grade %></p>
+          <p class="text-center"><%= t('grades.date') %>: <%= @grade.date %></p>
+          <p class="text-center"><%= t('grades.subject') %>: <%= @grade.subject.name %></p>
 
           <% if @grade %>
             <div class="text-center">
