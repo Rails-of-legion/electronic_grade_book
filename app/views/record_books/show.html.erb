@@ -34,7 +34,7 @@
           <% (1..Time.days_in_month(@month.to_i)).each do |day| %>
             <td>
               <% date = Date.new(Time.current.year, @month.to_i, day) %>
-              <% grade = subject.grades.find { |g| g.date == date } %>
+              <% grade = @grades.find { |g| g.subject_id == subject.id && g.date == date } %>
               <% if grade %>
                 <%= grade.grade %>
               <% end %>
