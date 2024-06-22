@@ -1,15 +1,14 @@
 <% if Grade.exists? %>
   <% if @grades.present? %>
     <div class="container">
-      <div class="row mb-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: 20px;">
           <h1><%= t('grades.grades') %></h1>
         </div>
-      </div>
+
 
       <div class="row mb-4">
         <div class="col-md-9">
-          <table class="table table-striped mt-3">
+          <table class="table table-striped">
             <thead class="thead-light">
               <tr>
                 <th><%= t('grades.item') %></th>
@@ -27,11 +26,18 @@
                   <td><%= grade.grade %></td>
                   <td><%= grade.record_book.user.name %>
                   <% if current_user.has_role?(:admin) %>
-                    <td class="text-right">
-                      <%= link_to t('common.show'), grade_path(grade), class: 'btn btn-sm btn-outline-primary' %>
-                      <%= link_to t('common.edit'), edit_grade_path(grade), class: 'btn btn-sm btn-outline-secondary' %>
-                      <%= button_to t('common.delete'), grade_path(grade), method: :delete, data: { confirm: t('notifications.you_are_sure') }, class: 'btn btn-sm btn-outline-danger' %>
-                    </td>
+                    <td class="w-10 text-left">
+                       <div>
+                          <%= link_to t('common.show'), grade_path(grade), class: 'btn btn-sm btn-primary', style: 'width: 120px;'%>
+                       </div>
+                       <div>
+                          <%= link_to t('common.edit'), edit_grade_path(grade), class: 'btn btn-sm btn-secondary', style: 'width: 120px;' %>
+                       </div>
+                       <div>
+                          <%= button_to t('common.delete'), grade_path(grade), method: :delete, 
+                          data: { confirm: t('notifications.you_are_sure') }, class: 'btn btn-sm btn-danger', style: 'width: 120px;' %>
+                       </div>
+                   </td>
                   <% end %>
                 </tr>
               <% end %>
@@ -41,23 +47,24 @@
         </div>
 
         <div class="col-md-3">
-          <%= search_form_for @q, class: "form-inline" do |f| %>
-            <div class="form-group mb-2">
-              <%= f.label :subject_name_cont, t('grades.item') %>
-              <%= f.search_field :subject_name_cont, class: 'form-control' %>
-            </div>
-            <div class="form-group mb-2">
-              <%= f.label :grade_eq, t('grades.grade') %>
-              <%= f.search_field :grade_eq, class: 'form-control' %>
-            </div>
-            <div class="form-group mb-2">
-              <%= f.label :record_book_user_last_name_cont, t('grades.students_last_name') %>
-              <%= f.search_field :record_book_user_last_name_cont, class: 'form-control' %>
-            </div>
-            <div class="form-group mt-3">
-              <%= f.submit t('common.search'), class: 'btn btn-primary mr-2' %>
-              <%= link_to t('common.reset'), grades_path, class: "btn btn-secondary" %>
-            </div>
+          <%= search_form_for @q do |f| %>
+                <div class="form-group mb-2">
+                  <%= f.label :subject_name_cont, t('grades.item') %>
+                  <%= f.search_field :subject_name_cont, class: 'form-control' %>
+                </div>
+                <div class="form-group mb-2">
+                  <%= f.label :grade_eq, t('grades.grade') %>
+                  <%= f.search_field :grade_eq, class: 'form-control' %>
+                </div>
+                <div class="form-group mb-2">
+                  <%= f.label :record_book_user_last_name_cont, t('grades.students_last_name') %>
+                  <%= f.search_field :record_book_user_last_name_cont, class: 'form-control' %>
+                </div>
+                <div class="form-group mb-3">
+                  <%= f.submit t('common.search'), class: 'btn btn-primary' %>
+                  <%= link_to t('common.reset'), grades_path, class: "btn btn-secondary" %>
+                </div>
+              </div>
           <% end %>
         </div>
       </div>

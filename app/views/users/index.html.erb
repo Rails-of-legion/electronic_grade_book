@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: 20px;">
     <h1 class="text-center"><%= t('users.users') %></h1>
     <% if current_user.admin? %>
       <%= link_to t('users.new'), new_user_path, class: 'btn btn-primary' %>
@@ -20,7 +20,7 @@
               <th><%= t('users.email') %></th>
               <th><%= t('users.phone_number') %></th>
               <th><%= t('users.role') %></th>
-              <th></th>
+              <th><%= t('common.actions') %></th>
             </tr>
           </thead>
           <tbody>
@@ -32,13 +32,19 @@
                 <td><%= user.email.gsub('@', '<br />@')&.html_safe %></td> 
                 <td><%= user.phone_number %></td>
                 <td><%= user.roles.map(&:name).join(', ') %></td> 
-                <td class="text-right">
-                  <div class="btn-group d-flex justify-content-center align-items-center" role="group">
-                    <%= link_to t('common.show'), user_path(user), class: 'btn btn-primary btn-sm' %>
-                    <% if current_user.has_role?(:admin) %>
-                      <%= link_to t('common.edit'), edit_user_path(user), class: 'btn btn-secondary btn-sm' %>
-                      <%= link_to t('common.delete'), user_path(user), data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm' %>                    <% end %>
-                  </div>
+                <td class="w-10 text-right">
+                  <div>
+                    <%= link_to t('common.show'), user_path(user), class: 'btn btn-primary btn-sm', style: 'width: 120px;' %>
+                  <div>
+                  <% if current_user.has_role?(:admin) %>
+                    <div>
+                      <%= link_to t('common.edit'), edit_user_path(user), class: 'btn btn-secondary btn-sm', style: 'width: 120px;' %>
+                    <div>
+                    <div>
+                      <%= link_to t('common.delete'), user_path(user), 
+                      data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm', style: 'width: 120px;' %>  
+                    <div>                  
+                  <% end %>
                 </td>
               </tr>
             <% end %>
