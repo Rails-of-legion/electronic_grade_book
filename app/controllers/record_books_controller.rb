@@ -14,6 +14,8 @@ class RecordBooksController < ApplicationController
 
   def show
     @month = params[:month] || Time.zone.today.month
+    @grades = @record_book.grades.where("extract(month from date) = ?", @month)
+    @subjects = @record_book.specialization.subjects
   end
 
   def new

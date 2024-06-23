@@ -76,6 +76,8 @@ ru:
     new: "Добавить пользователя"
     edit: "Изменить пользователя"
     back_to_users: "Вернуться к пользователям"
+    forgot_your_password: "Забыли пароль?"
+    reset_password_instructions: "Отправить инструкции"
   
   subjects:
     subjects: "Предметы"
@@ -157,7 +159,7 @@ ru:
     grade: "Оценка"
     item: "Предмет"
     students_last_name: Фамилия студента
-  
+    subject: "Предмет"  
   
   groups:
     name: "Название"
