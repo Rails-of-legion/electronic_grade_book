@@ -13,11 +13,22 @@ services:
   web:
     build: .
     command: >
-      bash -c "bin/rails db:create db:migrate db:seed && bin/rails server -b 0.0.0.0"
+      bash -c "bin/rails server -b 0.0.0.0"
     volumes:
       - .:/app
     ports:
       - "3000:3000"
+    depends_on:
+      - db
+    networks:
+      - db_network
+
+  migrate:
+    build: .
+    command: >
+      bash -c "./run_migrations.sh"
+    volumes:
+      - .:/app
     depends_on:
       - db
     networks:

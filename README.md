@@ -2,4 +2,6 @@
 
 git clone url
 
+chmod +x run_migrations.sh
+
 sudo docker-compose up
