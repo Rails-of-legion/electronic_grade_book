@@ -1,69 +1,73 @@
-<div class="container">  
-  <h1 class="display-4 text-center mb-4"><%= t('users.personal_profile') %></h1>
-  <div class="card">
-    <div class="card-body">
-      <h2 class="card-title"><%= @user.name %></h2>   
-      <div class="row">    
-        <div class="col-sm-9">      
-          <ul class="list-group list-group-flush">        
-            <li class="list-group-item"><strong><%= t('users.email') %> :</strong> <%= @user.email %></li>                
-            <% if @user.has_role?(:student) && @user.record_book.present? %>        
-              <li class="list-group-item"><strong><%= t('users.specialization') %> :</strong> <%= @user.record_book.specialization.name %></li>
-              <li class="list-group-item"><strong><%= t('users.group') %> :</strong> <%= @user.record_book.group.name %></li>
-              <li class="list-group-item"><%= link_to t('users.record_book'), @user.record_book %></li>  
-            <% end %>        
-            <li class="list-group-item"><strong><%= t('users.status') %> :</strong> <%= @user.status %></li>
-            <li class="list-group-item"><strong><%= t('users.date_of_birth') %> :</strong> <%= @user.date_of_birth %></li>      
-          </ul>  
-          <% if current_user.admin? && current_user != @user %>
-             <%= link_to t('users.back_to_users'), users_path, class: "btn btn-secondary mb-3" %>
-          <% end %>
+<div class="container">
+  <div class="placeholder-header" style="height: 50px; <% if current_user == @user %> display: none; <% end %>"></div>
+    <% if current_user == @user %>
+      <h1 class="display-4 text-center mb-4"><%= t('users.personal_profile') %></h1>
+    <%end%>
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title"><%= @user.name %></h2>   
+        <div class="row">    
+          <div class="col-sm-9">      
+            <ul class="list-group list-group-flush">        
+              <li class="list-group-item"><strong><%= t('users.email') %> :</strong> <%= @user.email %></li>                
+              <% if @user.has_role?(:student) && @user.record_book.present? %>        
+                <li class="list-group-item"><strong><%= t('users.specialization') %> :</strong> <%= @user.record_book.specialization.name %></li>
+                <li class="list-group-item"><strong><%= t('users.group') %> :</strong> <%= @user.record_book.group.name %></li>
+                <li class="list-group-item"><%= link_to t('users.record_book'), @user.record_book %></li>  
+              <% end %>        
+              <li class="list-group-item"><strong><%= t('users.status') %> :</strong> <%= @user.status %></li>
+              <li class="list-group-item"><strong><%= t('users.date_of_birth') %> :</strong> <%= @user.date_of_birth %></li>      
+            </ul>  
+            <% if current_user.admin? && current_user != @user %>
+               <%= link_to t('users.back_to_users'), users_path, class: "btn btn-secondary mb-3" %>
+            <% end %>
+          </div>  
+        </div>
+        <div>
         </div>  
-      </div>
-      <div>
-      </div>  
-      <% if current_user == @user %>
-      <div class="mt-3">
-        <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#notifications">
-            <%= t('users.show_notifications') %>
-        </button>
-        <%= link_to t('users.change_password'), edit_password_path(@user), class: "btn btn-primary" %>
-        <%= link_to t('users.change_email'), edit_email_path(@user), class: "btn btn-secondary" %>
-      </div>
-      <div class="collapse" id="notifications">
-        <div class="card card-body">
-          <% if @notificationsUser.any? { |notification| notification.status == false } %>
-            <ul class="list-group">
-              <% @notificationsUser.each do |notification| %>
-                <% if notification.status == false %>
-                  <li class="list-group-item d-flex align-items-center">
-                    <span class="ms-2"><%= Notification.find(notification.notification_id).message %></span>
-                    <span class="badge bg-primary rounded-pill ms-auto"><%= Notification.find(notification.notification_id).date %></span>
-                    <%= button_to t('users.lern'), mark_as_read_notification_path(notification.notification_id), method: :patch, class: "btn btn-link ms-2" %>
-                  </li>
-                <% end %>
-              <% end %>
-            </ul>
-          <% else %>
-          <p><%= t('users.you_dont_have_any_new_notifications') %></p>
-          <% end %>
-    
-          <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#readNotifications">
-              <%= t('users.read_notifications') %>
+        <% if current_user == @user %>
+        <div class="mt-3">
+          <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#notifications">
+              <%= t('users.show_notifications') %>
           </button>
-           <div class="collapse" id="readNotifications">
-            <ul class="list-group">
-              <% @notificationsUser.each do |notification| %>
-                <% if notification.status == true %>
-                  <li class="list-group-item d-flex align-items-center">
-                    <span class="ms-2"><%= Notification.find(notification.notification_id).message %></span>
-                    <span class="badge bg-primary rounded-pill ms-auto"><%= Notification.find(notification.notification_id).date %></span>
-                  </li>
+          <%= link_to t('users.change_password'), edit_password_path(@user), class: "btn btn-primary" %>
+          <%= link_to t('users.change_email'), edit_email_path(@user), class: "btn btn-secondary" %>
+        </div>
+        <div class="collapse" id="notifications">
+          <div class="card card-body">
+            <% if @notificationsUser.any? { |notification| notification.status == false } %>
+              <ul class="list-group">
+                <% @notificationsUser.each do |notification| %>
+                  <% if notification.status == false %>
+                    <li class="list-group-item d-flex align-items-center">
+                      <span class="ms-2"><%= Notification.find(notification.notification_id).message %></span>
+                      <span class="badge bg-primary rounded-pill ms-auto"><%= Notification.find(notification.notification_id).date %></span>
+                      <%= button_to t('users.lern'), mark_as_read_notification_path(notification.notification_id), method: :patch, class: "btn btn-link ms-2" %>
+                    </li>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </ul>
+              </ul>
+            <% else %>
+            <p><%= t('users.you_dont_have_any_new_notifications') %></p>
+            <% end %>
+
+            <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#readNotifications">
+                <%= t('users.read_notifications') %>
+            </button>
+             <div class="collapse" id="readNotifications">
+              <ul class="list-group">
+                <% @notificationsUser.each do |notification| %>
+                  <% if notification.status == true %>
+                    <li class="list-group-item d-flex align-items-center">
+                      <span class="ms-2"><%= Notification.find(notification.notification_id).message %></span>
+                      <span class="badge bg-primary rounded-pill ms-auto"><%= Notification.find(notification.notification_id).date %></span>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+  </div>
 </div>
