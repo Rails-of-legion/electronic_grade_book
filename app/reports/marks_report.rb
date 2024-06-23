@@ -38,7 +38,7 @@ class MarksReport
     pdf.text '(дата)                                     (подпись)                               (Фамилия, инициалы слушателя)',
              align: :left, size: 11
     pdf.text 'Декан факультета повышения                                                 ', align: :left, size: 11
-    pdf.text "квалификации и переподготовки кадров                      _________________               <u>#{User.first.format_full_name}<u>",
+    pdf.text "квалификации и переподготовки кадров                       _________________               <u>#{User.first.format_full_name}<u>",
              align: :left, inline_format: true, size: 11
 
     pdf.render
