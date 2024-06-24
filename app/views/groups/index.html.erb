@@ -128,11 +128,11 @@
 <% else %>
   <div class="container mt-5">
     <div class="alert alert-warning" role="alert">
-      <%= t 'groups.no_groups_found' %>
+      <%= t ('groups.no_groups_found') %>
     </div>
     <% if can? :create, Group %>
       <div class="container mt-4">
-        <%= link_to t('groups.new'), new_group_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
+        <%= link_to t('groups.new_list'), new_group_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
       </div>
     <% end %>
   </div>
