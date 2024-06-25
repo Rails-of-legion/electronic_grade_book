@@ -9,6 +9,7 @@ export default class extends Controller {
     console.log("Group ID:", this.groupValue);
     console.log("Specialization ID:", this.specializationValue);
     this.fetchSubjects();
+    this.formTeacherTarget.addEventListener('click', this.handleClickOnCell.bind(this));
   }
 
   monthTargetConnected() {
@@ -40,7 +41,7 @@ export default class extends Controller {
         .catch(error => {
           console.error("Error fetching subjects:", error);
         });
-        
+
     } else {
       console.warn("Group ID is not available. Cannot fetch subjects.");
       this.clearSelect(this.subjectTarget);
@@ -63,7 +64,6 @@ export default class extends Controller {
     selectElement.innerHTML = '<option value="">Выберите...</option>';
   }
 
-
   fetchForm() {
     const groupId = this.groupValue
     const month = this.monthTarget.value
@@ -73,10 +73,82 @@ export default class extends Controller {
       fetch(`/groups/${groupId}/form_teacher?month=${month}&subject_id=${subjectId}`)
         .then(response => response.text())
         .then(html => {
-          this.formTeacherTarget.innerHTML = html 
+          this.formTeacherTarget.innerHTML = html
         })
     } else {
-      this.formTeacherTarget.innerHTML = "" 
+      this.formTeacherTarget.innerHTML = ""
     }
   }
+
+  handleClickOnCell(event) {
+    const cell = event.target.closest('td');
+
+    if (cell && !cell.querySelector('input')) {
+      const day = cell.cellIndex;
+      const recordBookId = cell.parentNode.dataset.recordBookId;
+
+      if (day && recordBookId) {
+        this.createGradeInput(cell, recordBookId, day);
+      }
+    }
+  }
+
+  createGradeInput(cell, recordBookId, day) {
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.min = '1';
+    input.max = '5';
+    input.classList.add('form-control', 'grade-input');
+
+    input.addEventListener('blur', () => {
+      this.saveGrade(input.value, recordBookId, day);
+      cell.textContent = input.value ? input.value : '';
+      input.remove();
+    });
+
+    cell.textContent = '';
+    cell.appendChild(input);
+    input.focus();
+  }
+
+  saveGrade(grade, recordBookId, day) {
+    const month = this.monthTarget.value;
+    const subjectId = this.subjectTarget.value;
+    
+    // Убедитесь, что месяц передается правильно (от 0 до 11)
+    const correctMonth = parseInt(month, 10) - 1;
+    
+    // Создаем дату в локальном формате для клиента
+    const date = new Date(new Date().getFullYear(), correctMonth, day).toLocaleDateString();
+    
+    const data = {
+      grade: {
+        date: date,
+        subject_id: subjectId,
+        record_book_id: recordBookId,
+        grade: grade
+      }
+    };
+    
+    fetch('/grades', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Grade saved:', data);
+    })
+    .catch(error => {
+      console.error('Error saving grade:', error);
+    });
+  }  
 }

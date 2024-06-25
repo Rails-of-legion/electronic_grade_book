@@ -6,7 +6,6 @@ class GradesController < ApplicationController
     @q = Grade.ransack(params[:q])
     @pagy, @grades = pagy(@q.result.includes(:record_book, :subject, record_book: :user), items: 10)
   end
-  
 
   def show; end
 
@@ -18,6 +17,7 @@ class GradesController < ApplicationController
 
   def create
     @grade = Grade.new(grade_params)
+    @grade.date = parse_date(grade_params[:date])
 
     respond_to do |format|
       if @grade.save
@@ -31,6 +31,8 @@ class GradesController < ApplicationController
   end
 
   def update
+    @grade.date = parse_date(grade_params[:date])
+
     if @grade.update(grade_params)
       redirect_to @grade, notice: 'Оценка обновлена!'
     else
@@ -51,5 +53,11 @@ class GradesController < ApplicationController
 
   def set_grade
     @grade = Grade.includes(:record_book, :subject).find(params[:id])
+  end
+
+  def parse_date(date_string)
+    Time.zone.parse(date_string)
+  rescue StandardError
+    nil
   end
 end

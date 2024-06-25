@@ -135,11 +135,11 @@
 <% else %>
  <div class="container mt-5">
    <div class="alert alert-warning" role="alert">
-     <%= t 'record_books.no_record_books_found' %>
+     <%= t('record_books.no_record_books_found') %>
    </div>
    <% if can? :create, RecordBook %>
      <div class="container mt-4">
-       <%= link_to t('record_books.new'), new_record_book_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
+       <%= link_to t('record_books.new_record_book'), new_record_book_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
      </div>
    <% end %>
  </div>

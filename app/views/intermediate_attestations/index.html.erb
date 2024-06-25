@@ -146,11 +146,11 @@
 <% else %>
   <div class="container mt-5">
     <div class="alert alert-warning" role="alert">
-      <%= t 'intermediate_attestations.no_intermediate_attestations_found' %>
+      <%= t('intermediate_attestations.no_intermediate_attestations_found') %>
     </div>
     <% if can? :create, IntermediateAttestation %>
       <div class="container mt-4">
-        <%= link_to t('intermediate_attestations.new'), new_intermediate_attestation_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
+        <%= link_to t('intermediate_attestations.new_Intermediate_attestation'), new_intermediate_attestation_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
       </div>
     <% end %>
   </div>

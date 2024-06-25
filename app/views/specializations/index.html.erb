@@ -102,11 +102,11 @@
 <% else %>
   <div class="container mt-5">
     <div class="alert alert-warning" role="alert">
-      <%= t 'specializations.no_specializations_found'%>
+      <%= t ('specializations.no_specializations_found')%>
     </div>
     <% if can? :create, Specialization %>
       <div class="container mt-4">
-        <%= link_to t('specializations.new'), new_specialization_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
+        <%= link_to t('specializations.create_specialization'), new_specialization_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
       </div>
     <% end %>
   </div>
