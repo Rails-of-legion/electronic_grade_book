@@ -2,10 +2,8 @@ class MarksReport
   def self.generate_pdf(record_book_id, retake_count)
     pdf = Prawn::Document.new
     pdf.font_families.update('TimesNewRoman' => {
-                               normal: { file: '/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman.ttf',
-                                         font: 'Times-Roman' },
-                               bold: { file: '/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman_Bold.ttf',
-                                       font: 'Times-Roman,Bold' }
+                               normal: { file: '/app/app/assets/fonts/Inter.ttf' },
+                               bold: { file: '/app/app/assets/fonts/Inter.ttf' }
                              })
 
     pdf.font 'TimesNewRoman'
@@ -40,7 +38,7 @@ class MarksReport
     pdf.text '(дата)                                     (подпись)                               (Фамилия, инициалы слушателя)',
              align: :left, size: 11
     pdf.text 'Декан факультета повышения                                                 ', align: :left, size: 11
-    pdf.text "квалификации и переподготовки кадров                      _________________               <u>#{User.first.format_full_name}<u>",
+    pdf.text "квалификации и переподготовки кадров                       _________________               <u>#{User.first.format_full_name}<u>",
              align: :left, inline_format: true, size: 11
 
     pdf.render
