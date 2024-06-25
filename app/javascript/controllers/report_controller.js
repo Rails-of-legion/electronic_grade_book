@@ -5,15 +5,11 @@ export default class extends Controller {
   static values = { group: Number, specialization: Number }
 
   connect() {
-    console.log("Report controller connected");
-    console.log("Group ID:", this.groupValue);
-    console.log("Specialization ID:", this.specializationValue);
     this.fetchSubjects();
     this.formTeacherTarget.addEventListener('click', this.handleClickOnCell.bind(this));
   }
 
   monthTargetConnected() {
-    console.log("Month target connected");
     this.monthTarget.addEventListener("change", this.fetchSubjects.bind(this))
   }
 
@@ -22,34 +18,23 @@ export default class extends Controller {
   }
 
   fetchSubjects() {
-    console.log("Fetching subjects...");
     const month = this.monthTarget.value;
-    console.log("Selected month:", month);
 
     if (this.groupValue) {
       const url = `/groups/${this.groupValue}/subjects`;
-      console.log("Fetching from URL:", url);
 
       fetch(url)
-        .then((response) => {
-          return response.json();
-        })
+        .then((response) => response.json())
         .then((subjects) => {
-          console.log("Received subjects:", subjects);
           this.populateSelect(this.subjectTarget, subjects);
-        })
-        .catch(error => {
-          console.error("Error fetching subjects:", error);
         });
 
     } else {
-      console.warn("Group ID is not available. Cannot fetch subjects.");
       this.clearSelect(this.subjectTarget);
     }
   }
 
   populateSelect(selectElement, items) {
-    console.log("Populating select element with items:", items);
     selectElement.innerHTML = '<option value="">Выберите...</option>';
     items.forEach((item) => {
       const option = document.createElement('option');
@@ -60,7 +45,6 @@ export default class extends Controller {
   }
 
   clearSelect(selectElement) {
-    console.log("Clearing select element");
     selectElement.innerHTML = '<option value="">Выберите...</option>';
   }
 
@@ -86,22 +70,24 @@ export default class extends Controller {
     if (cell && !cell.querySelector('input')) {
       const day = cell.cellIndex;
       const recordBookId = cell.parentNode.dataset.recordBookId;
+      const existingGrade = cell.textContent.trim();
 
       if (day && recordBookId) {
-        this.createGradeInput(cell, recordBookId, day);
+        this.createGradeInput(cell, recordBookId, day, existingGrade);
       }
     }
   }
 
-  createGradeInput(cell, recordBookId, day) {
+  createGradeInput(cell, recordBookId, day, existingGrade) {
     const input = document.createElement('input');
     input.type = 'number';
     input.min = '1';
     input.max = '5';
     input.classList.add('form-control', 'grade-input');
+    input.value = existingGrade;
 
     input.addEventListener('blur', () => {
-      this.saveGrade(input.value, recordBookId, day);
+      this.saveGrade(input.value, recordBookId, day, existingGrade);
       cell.textContent = input.value ? input.value : '';
       input.remove();
     });
@@ -114,13 +100,9 @@ export default class extends Controller {
   saveGrade(grade, recordBookId, day) {
     const month = this.monthTarget.value;
     const subjectId = this.subjectTarget.value;
-    
-    // Убедитесь, что месяц передается правильно (от 0 до 11)
     const correctMonth = parseInt(month, 10) - 1;
-    
-    // Создаем дату в локальном формате для клиента
     const date = new Date(new Date().getFullYear(), correctMonth, day).toLocaleDateString();
-    
+  
     const data = {
       grade: {
         date: date,
@@ -129,7 +111,31 @@ export default class extends Controller {
         grade: grade
       }
     };
-    
+  
+    // Проверка существующей оценки
+    fetch(`/grades/find`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify({
+        date: date,
+        subject_id: subjectId,
+        record_book_id: recordBookId
+      })
+    })
+      .then(response => response.json())
+      .then(existingGrade => {
+        if (existingGrade) {
+          this.updateGrade(existingGrade.id, data);
+        } else {
+          this.createGrade(data);
+        }
+      });
+  }
+  
+  createGrade(data) {
     fetch('/grades', {
       method: 'POST',
       headers: {
@@ -137,18 +143,49 @@ export default class extends Controller {
         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
       },
       body: JSON.stringify(data)
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+    }).then(response => {
+      if (response.ok) {
+        response.json().then(newGrade => {
+          console.log('Grade created:', newGrade);
+          this.refreshGradeInTable(newGrade);
+        });
       }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Grade saved:', data);
-    })
-    .catch(error => {
-      console.error('Error saving grade:', error);
     });
-  }  
+  }
+  
+  updateGrade(existingGradeId, data) {
+    fetch(`/grades/${existingGradeId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify(data)
+    }).then(response => {
+      if (response.ok) {
+        response.json().then(updatedGrade => {
+          console.log('Grade updated:', updatedGrade);
+          this.refreshGradeInTable(updatedGrade);
+        });
+      }
+    });
+  }
+  
+  refreshGradeInTable(grade) {
+    const cell = this.findCellForGrade(grade);
+    if (cell) {
+      cell.textContent = grade.grade;
+    }
+  }
+  
+  findCellForGrade(grade) {
+    // Логика для поиска ячейки в таблице по дате, subject_id и record_book_id
+    const row = document.querySelector(`tr[data-record-book-id='${grade.record_book_id}']`);
+    if (row) {
+      const date = new Date(grade.date);
+      const day = date.getDate();
+      return row.cells[day];
+    }
+    return null;
+  }
 }
