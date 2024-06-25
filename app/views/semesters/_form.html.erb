@@ -40,7 +40,7 @@
             </div>
 
             <div class="form-group row">
-              <div class="col-sm-9 offset-sm-3 d-flex justify-content-end">
+              <div class="col-sm-9 offset-sm-3 d-flex justify-content-between">
                 <%= f.submit (@semester.new_record? ? t('semesters.create_semester') : t('semesters.edit_semester')), class: "btn btn-primary mr-2" %>
                 <%= link_to t('common.back'), semesters_path, class: "btn btn-secondary" %>
               </div>

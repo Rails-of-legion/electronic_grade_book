@@ -86,7 +86,7 @@
                          <%= link_to t('common.edit'), edit_notification_path(notification), class: 'btn btn-sm btn-secondary', style: 'width: 120px;' %>
                        </div>
                        <div>
-                         <%= button_to t('common.delete'), notification, method: :delete, data: { confirm: t('notifications.you_are_sure') },
+                         <%= link_to t('common.delete'), notification, data: { turbo_method: :delete,  turbo_confirm: t('notifications.you_are_sure') },
                          class: 'btn btn-danger btn-sm', style: 'width: 120px;' %>
                        </div>
                      </div>
