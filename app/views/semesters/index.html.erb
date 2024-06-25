@@ -137,11 +137,11 @@
 <% else %>
   <div class="container mt-5">
     <div class="alert alert-warning" role="alert">
-      <%= t 'semesters.no_semesters_found' %>
+      <%= t('semesters.no_semesters_found') %>
     </div>
     <% if can? :create, Semester %>
       <div class="container mt-4">
-        <%= link_to t('semesters.new'), new_semester_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
+        <%= link_to t('semesters.new_semester'), new_semester_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
       </div>
     <% end %>
   </div>

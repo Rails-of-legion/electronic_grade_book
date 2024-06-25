@@ -26,6 +26,7 @@ ru:
     specialization: "Специализация"
     search: "Поиск"
     show: "Показать"
+    send: "Отправить"
     edit: "Редактировать"
     update: "Обновить"
     delete: "Удалить"
@@ -78,6 +79,13 @@ ru:
     back_to_users: "Вернуться к пользователям"
     forgot_your_password: "Забыли пароль?"
     reset_password_instructions: "Отправить инструкции"
+    resend_unlock_instructions: "Повторно отправить инструкции по разблокировке"
+    set_a_password_and_email_address: "Установите пароль и адрес электронной почты"
+    complete_registration: "Завершить регистрацию"
+    edit_profile: "Редактировать профиль"
+    сhange_your_password: "Изменить свой пароль"
+    resend_confirmation_instructions: "Повторно отправить инструкции по подтверждению"
+
   
   subjects:
     subjects: "Предметы"
@@ -132,6 +140,7 @@ ru:
     select_teacher: "Выберите преподователя"
     edit_intermediate_attestation: "Изменить аттестацию"
     new_Intermediate_attestation: "Добавить аттестацю"
+    no_intermediate_attestations_found: "Промежуточные аттестации не найдены"
   
   
   specializations:
@@ -146,6 +155,7 @@ ru:
     create_specialization: "Добавить специальзацию"
     edit_specialization: "Изменить специальзацию"
     subjects: "Предметы"
+    no_specializations_found: "Специальзации не найденны"
   
   grades:
     grades: "Оценки"
@@ -159,7 +169,8 @@ ru:
     grade: "Оценка"
     item: "Предмет"
     students_last_name: Фамилия студента
-    subject: "Предмет"  
+    subject: "Предмет"
+    no_grades_found: "Оценки не найдены"  
   
   groups:
     name: "Название"
@@ -190,6 +201,7 @@ ru:
     grading: "Выставление оценок"
     select_curator: "Выбрать куратора"
     select_specialization: "Выберите специализацию"
+    no_groups_found: "Группы не найдены"
     
   
   
@@ -211,6 +223,7 @@ ru:
     new_record_book: "Добавить зачетную книгу"
     edit_record_book: "Изменить зачетную книгу"
     create_record_book: "Создать зачетную книгу"
+    no_record_books_found: "Зачетные книжки не найдены"
     
   
   
@@ -262,6 +275,7 @@ ru:
     select_user: "Выберите пользователя"
     create_notification: "Создать пользователя"
     edit_notification: "Изменить пользователя"
+    no_notifications_found: "Уведомления не найденны"
   
   extends_reports: 
     reports: "Отчеты"
@@ -278,6 +292,8 @@ ru:
   about:
     title: "Добро пожаловать на страницу О нас"
     description: "Это статическая страница с информацией о нашем приложении."
+    title_admin: "Добро пожаловать в админ панель!"
+    description_admin: "Это ваша главная страница администратора."
   home:
     title: "Добро пожаловать на Главную страницу"
     description: "Это статическая страница с информацией о нашем приложении."
