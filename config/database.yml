@@ -21,3 +21,5 @@ production:
   database: electronic_grade_book_production
   username: electronic_grade_book
   password: <%= ENV["ELECTRONIC_GRADE_BOOK_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
+  
