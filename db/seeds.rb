@@ -85,3 +85,4 @@ student.add_role(:student)
 puts "Создан студент: #{student.email}"
 
 end
+

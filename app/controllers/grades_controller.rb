@@ -7,6 +7,7 @@ class GradesController < ApplicationController
     @pagy, @grades = pagy(@q.result.includes(:record_book, :subject, record_book: :user), items: 10)
   end
 
+
   def show; end
 
   def new

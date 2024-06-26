@@ -29,6 +29,7 @@ export default class extends Controller {
           this.populateSelect(this.subjectTarget, subjects);
         });
 
+
     } else {
       this.clearSelect(this.subjectTarget);
     }
