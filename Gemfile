@@ -59,6 +59,8 @@ group :development, :test do
 
   gem 'bullet'
 
+  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'main'
+
 end
 
 group :development do
@@ -77,7 +79,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 
-  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'main'
 
   gem 'rspec-rails'
 

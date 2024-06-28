@@ -1,20 +1,15 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: db
-  pool: 5
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
   database: electronic_grade_book_development
-  username: postgres
-  password: password
 
 test:
   <<: *default
   database: electronic_grade_book_test
-  username: postgres
-  password: password
 
 production:
   <<: *default
@@ -22,4 +17,3 @@ production:
   username: electronic_grade_book
   password: <%= ENV["ELECTRONIC_GRADE_BOOK_DATABASE_PASSWORD"] %>
   url: <%= ENV['DATABASE_URL'] %>
-  
