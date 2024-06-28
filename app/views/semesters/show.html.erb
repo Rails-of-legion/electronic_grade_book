@@ -1,21 +1,29 @@
-<div class="container mt-2">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="text-center"><%= t('semesters.details') %></h1>
-    <div>
-      <% if can? :edit, @semester %>
-        <%= link_to t('common.edit'), edit_semester_path(@semester), class: 'btn btn-secondary me-2' %>
-      <% end %>
-      <% if can? :destroy, @semester %>
-        <%= link_to t('common.delete'), semester_path(@semester), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger' %>
-      <% end %>
+<div class="container mt-5">
+
+  <h1 class="text-center mb-4"><%= t('semesters.details') %></h1>
+  
+  <div class="card">
+    <div class="card-body">
+      <div class="mb-3">
+        <p><strong><%= t('semesters.name') %>:</strong> <%= @semester.name %></p>
+        <p><strong><%= t('semesters.start_date') %>:</strong> <%= @semester.start_date %></p>
+        <p><strong><%= t('semesters.end_date') %>:</strong> <%= @semester.end_date %></p>
+      </div>
     </div>
   </div>
 
-  <div class="mb-3">
-    <p><strong><%= t('semesters.name') %>:</strong> <%= @semester.name %></p>
-    <p><strong><%= t('semesters.start_date') %>:</strong> <%= @semester.start_date %></p>
-    <p><strong><%= t('semesters.end_date') %>:</strong> <%= @semester.end_date %></p>
+  <div class="mt-4" role="group">
+
+    <% if can? :edit, @semester %>
+      <%= link_to t('common.edit'), edit_semester_path(@semester), class: 'btn btn-primary' %>
+    <% end %>
+
+     <%= link_to t('semesters.back'), semesters_path, class: 'btn btn-secondary' %>
+
+    <% if can? :destroy, @semester %>
+      <%= link_to t('common.delete'), semester_path(@semester), data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger' %>
+    <% end %>
+    
   </div>
 
-  <%= link_to t('semesters.back'), semesters_path, class: 'btn btn-secondary mb-3' %>
 </div>
