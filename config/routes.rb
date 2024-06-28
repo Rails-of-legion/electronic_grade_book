@@ -38,8 +38,15 @@ Rails.application.routes.draw do
   resources :groups do
     get '/subjects', to: 'subjects#group_subjects', on: :member
     get :form_teacher
+    collection do
+      get 'by_specialization/:id', to: 'groups#by_specialization', as: :by_specialization
+    end
   end
-  resources :specializations
+  resources :specializations do
+    member do
+      get 'groups', to: 'groups#by_specialization'
+    end
+  end
   resources :notifications do
     member do
       patch :mark_as_read

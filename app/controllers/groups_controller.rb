@@ -2,11 +2,10 @@ class GroupsController < ApplicationController
   before_action :set_group, only: %i[show edit update destroy]
   load_and_authorize_resource
 
-
   def index
     @q = Group.ransack(params[:q])
     @pagy, @groups = pagy(@q.result.includes(:specialization, :curator), items: 10)
-    
+
     respond_to do |format|
       format.html
       format.json { render json: @groups }
@@ -77,6 +76,11 @@ class GroupsController < ApplicationController
   def destroy
     @group.destroy
     redirect_to groups_url, notice: 'Group was successfully destroyed.'
+  end
+
+  def by_specialization
+    @groups = Group.where(specialization_id: params[:id])
+    render json: @groups
   end
 
   private
