@@ -6,7 +6,7 @@ class GradesController < ApplicationController
     @q = Grade.ransack(params[:q])
     @pagy, @grades = pagy(@q.result.includes(:record_book, :subject, record_book: :user), items: 10)
   end
-  
+
 
   def show; end
 
@@ -18,6 +18,7 @@ class GradesController < ApplicationController
 
   def create
     @grade = Grade.new(grade_params)
+    @grade.date = parse_date(grade_params[:date])
 
     respond_to do |format|
       if @grade.save
@@ -31,16 +32,28 @@ class GradesController < ApplicationController
   end
 
   def update
-    if @grade.update(grade_params)
-      redirect_to @grade, notice: 'Оценка обновлена!'
-    else
-      render :edit, status: :unprocessable_entity
+    @grade.date = parse_date(grade_params[:date])
+
+    respond_to do |format|
+      if @grade.update(grade_params)
+        format.html { redirect_to @grade, notice: 'Оценка обновлена!' }
+        format.json { render json: @grade, status: :ok }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @grade.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     @grade.destroy
     redirect_to grades_path, notice: 'Оценка удалена!'
+  end
+
+  def find
+    @grade = Grade.find_by(date: parse_date(params[:date]), subject_id: params[:subject_id],
+                           record_book_id: params[:record_book_id])
+    render json: @grade
   end
 
   private
@@ -50,6 +63,12 @@ class GradesController < ApplicationController
   end
 
   def set_grade
-    @grade = Grade.includes(:record_book, :subject).find(params[:id])
+    @grade = Grade.find(params[:id])
+  end
+
+  def parse_date(date_string)
+    Time.zone.parse(date_string)
+  rescue StandardError
+    nil
   end
 end

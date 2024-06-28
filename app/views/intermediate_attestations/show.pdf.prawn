@@ -1,7 +1,7 @@
 prawn_document title: 'Intermediate Attestation Report' do |pdf|
   pdf.font_families.update("TimesNewRoman" => {
-    normal: { file: "/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman.ttf", font: "Times-Roman" },
-    bold: { file: "/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman_Bold.ttf", font: "Times-Roman,Bold" }
+    normal: { file: "/app/app/assets/fonts/Inter.ttf" },
+    bold: { file: "/app/app/assets/fonts/Inter.ttf" }
   })
   pdf.font 'TimesNewRoman', size: 11
   pdf.bounds.add_left_padding(72)
