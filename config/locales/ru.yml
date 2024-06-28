@@ -112,7 +112,7 @@ ru:
     start_date: "Дата начала"
     end_date: "Дата окончания"
     no_semesters_found: "Семестры не найдены"
-    star_date_from: "Дата начала от"
+    start_date_from: "Дата начала от"
     start_date_before: "Дата начала до" 
     end_date_from: "Дата окончания от"
     end_date_before: "Дата окончания до"
@@ -120,6 +120,7 @@ ru:
     new_semester: "Добавить семестр"
     create_semester: "Создать семестр"
     edit_semester: "Изменить семестр"
+    details: "Детали семестра"
   
   
   
