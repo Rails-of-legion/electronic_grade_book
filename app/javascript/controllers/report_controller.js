@@ -88,8 +88,13 @@ export default class extends Controller {
     input.value = existingGrade;
 
     input.addEventListener('blur', () => {
-      this.saveGrade(input.value, recordBookId, day, existingGrade);
-      cell.textContent = input.value ? input.value : '';
+      if (input.value) {
+        this.saveGrade(input.value, recordBookId, day, existingGrade);
+        cell.textContent = input.value;
+      } else {
+        this.deleteGrade(recordBookId, day);
+        cell.textContent = '';
+      }
       input.remove();
     });
 
@@ -98,7 +103,7 @@ export default class extends Controller {
     input.focus();
   }
 
-  saveGrade(grade, recordBookId, day) {
+  saveGrade(grade, recordBookId, day, existingGrade) {
     const month = this.monthTarget.value;
     const subjectId = this.subjectTarget.value;
     const correctMonth = parseInt(month, 10) - 1;
@@ -113,8 +118,7 @@ export default class extends Controller {
       }
     };
   
-    // Проверка существующей оценки
-    fetch(`/grades/find`, {
+    fetch('/grades/find', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -134,6 +138,42 @@ export default class extends Controller {
           this.createGrade(data);
         }
       });
+  }
+
+  deleteGrade(recordBookId, day) {
+    const month = this.monthTarget.value;
+    const subjectId = this.subjectTarget.value;
+    const correctMonth = parseInt(month, 10) - 1;
+    const date = new Date(new Date().getFullYear(), correctMonth, day).toLocaleDateString();
+
+    fetch('/grades/find', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify({
+        date: date,
+        subject_id: subjectId,
+        record_book_id: recordBookId
+      })
+    })
+    .then(response => response.json())
+    .then(existingGrade => {
+      if (existingGrade) {
+        fetch(`/grades/${existingGrade.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+          }
+        }).then(response => {
+          if (response.ok) {
+            console.log('Grade deleted:', existingGrade);
+          }
+        });
+      }
+    });
   }
   
   createGrade(data) {
@@ -171,7 +211,7 @@ export default class extends Controller {
       }
     });
   }
-  
+
   refreshGradeInTable(grade) {
     const cell = this.findCellForGrade(grade);
     if (cell) {
@@ -180,7 +220,6 @@ export default class extends Controller {
   }
   
   findCellForGrade(grade) {
-    // Логика для поиска ячейки в таблице по дате, subject_id и record_book_id
     const row = document.querySelector(`tr[data-record-book-id='${grade.record_book_id}']`);
     if (row) {
       const date = new Date(grade.date);
