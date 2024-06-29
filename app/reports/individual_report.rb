@@ -4,11 +4,15 @@ class IndividualReport
     record_book = RecordBook.includes(:user).find(record_book_id)
 
     Prawn::Document.new do
+      # font_families.update('TimesNewRoman' => {
+      #                        normal: { file: '/app/app/assets/fonts/Inter.ttf',
+      #                                  font: 'Times-Roman' },
+      #                        bold: { file: '/app/app/assets/fonts/Inter.ttf',
+      #                                font: 'Times-Roman,Bold' }
+      #                      })
       font_families.update('TimesNewRoman' => {
-                             normal: { file: '/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman.ttf',
-                                       font: 'Times-Roman' },
-                             bold: { file: '/usr/share/fonts/truetype/msttcorefonts/Times_New_Roman_Bold.ttf',
-                                     font: 'Times-Roman,Bold' }
+                             normal: { file: '/app/app/assets/fonts/Inter.ttf' },
+                             bold: { file: '/app/app/assets/fonts/Inter.ttf' }
                            })
 
       # Установка шрифта и размера
