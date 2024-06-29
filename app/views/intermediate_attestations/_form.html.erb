@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5" data-controller="attestation-form">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card shadow-sm">
@@ -46,7 +46,7 @@
                 <% end %>
               </div>
               <div class="col-sm-9">
-                <%= form.collection_select :subject_id, @subjects, :id, :name, { prompt: t('intermediate_attestations.select_subject') }, class: "form-control" %>
+                <%= form.collection_select :subject_id, [], :id, :name, { prompt: t('intermediate_attestations.select_subject') }, { class: "form-control", data: { target: "attestation-form.subjectSelect" } } %>
               </div>
             </div>
 
@@ -60,7 +60,7 @@
                 <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
                   <table class="table table-sm table-bordered">
                     <tbody>
-                      <%= form.collection_check_boxes :group_ids, @groups, :id, :name, { prompt: t('intermediate_attestations.select_groups') }, { class: "form-check" } do |b| %>
+                      <%= form.collection_check_boxes :group_ids, @groups, :id, :name, { prompt: t('intermediate_attestations.select_groups') }, { class: "form-check", data: { action: "change->attestation-form#fetchSubjects", target: "attestation-form.groupSelect" } } do |b| %>
                         <tr>
                           <td class="form-check d-flex align-items-center ml-5">
                             <%= b.check_box %>

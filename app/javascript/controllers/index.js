@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AttestationFormController from "./attestation_form_controller"
+application.register("attestation-form", AttestationFormController)
+
 import PasswordController from "./password_controller"
 application.register("password", PasswordController)
 

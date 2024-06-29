@@ -1,6 +1,7 @@
 class SubjectsController < ApplicationController
   before_action :set_subject, only: %i[show edit update destroy]
   load_and_authorize_resource
+
   def index
     subjects = current_user.student? ? student_subjects : teacher_subjects
     subjects = search_subjects(subjects)
@@ -53,11 +54,12 @@ class SubjectsController < ApplicationController
   end
 
   def group_subjects
-    group = Group.find(params[:id])
-    @subjects = group.specialization.subjects
+    group_ids = params[:group_ids].split(',')
+    groups = Group.where(id: group_ids)
+    subjects = groups.map(&:specialization).flat_map(&:subjects).uniq
 
     respond_to do |format|
-      format.json { render json: @subjects }
+      format.json { render json: subjects }
     end
   end
 
