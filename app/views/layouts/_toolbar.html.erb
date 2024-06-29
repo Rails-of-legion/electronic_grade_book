@@ -69,7 +69,22 @@
           </li>
         <% end %>
       <% end %>
-    </ul>
+          <li class="dropdown">
+            <%= link_to '#', class: 'nav-link me-1 dropdown-toggle text-white',
+              data: {"bs-toggle": 'dropdown'} do %>
+              <%= tag.div '', class: "flag #{I18n.locale}-flag" %>
+              <%= t I18n.locale %>
+            <% end %>
+            <ul class="dropdown-menu">
+              <% I18n.available_locales.each do |locale| %>
+                <li>
+                    <%= link_to t(locale), url_for(locale: locale),
+                      class: 'dropdown-item' %>
+                </li>
+              <% end %>
+            </ul>
+          </li> 
+      </ul>
   </div>
 </nav>
 
