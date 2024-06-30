@@ -53,13 +53,22 @@ class SubjectsController < ApplicationController
     end
   end
 
-  def group_subjects
+  def group_subjects_spec
     group_ids = params[:group_ids].split(',')
     groups = Group.where(id: group_ids)
     subjects = groups.map(&:specialization).flat_map(&:subjects).uniq
 
     respond_to do |format|
       format.json { render json: subjects }
+    end
+  end
+
+  def group_subjects
+    group = Group.find(params[:id])
+    @subjects = group.specialization.subjects
+
+    respond_to do |format|
+      format.json { render json: @subjects }
     end
   end
 

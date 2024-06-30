@@ -87,14 +87,19 @@ export default class extends Controller {
     input.classList.add('form-control', 'grade-input');
     input.value = existingGrade;
 
-    input.addEventListener('blur', () => {
-      if (input.value) {
-        this.saveGrade(input.value, recordBookId, day, existingGrade);
-        cell.textContent = input.value;
-      } else {
-        this.deleteGrade(recordBookId, day);
-        cell.textContent = '';
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        if (input.value) {
+          this.saveGrade(input.value, recordBookId, day, existingGrade);
+          cell.textContent = input.value;
+        } else {
+          this.deleteGrade(recordBookId, day);
+          cell.textContent = '';
+        }
       }
+    });
+    
+    input.addEventListener('blur', () => {
       input.remove();
     });
 

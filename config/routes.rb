@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   resources :semesters
   resources :subjects do
     collection do
-      get 'group_subjects', to: 'subjects#group_subjects'
+      get 'group_subjects', to: 'subjects#group_subjects_spec'
     end
   end
   resources :groups do

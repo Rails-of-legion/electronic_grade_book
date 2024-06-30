@@ -41,17 +41,6 @@
 
             <div class="form-group row mb-3">
               <div class="col-sm-3 text-right">
-                <%= form.label :subject_id, class: "col-form-label" do %>
-                  <div><%= t('intermediate_attestations.subject') %>:</div>
-                <% end %>
-              </div>
-              <div class="col-sm-9">
-                <%= form.collection_select :subject_id, [], :id, :name, { prompt: t('intermediate_attestations.select_subject') }, { class: "form-control", data: { target: "attestation-form.subjectSelect" } } %>
-              </div>
-            </div>
-
-            <div class="form-group row mb-3">
-              <div class="col-sm-3 text-right">
                 <%= form.label :group_ids, class: "col-form-label" do %>
                   <div><%= t('intermediate_attestations.groups') %>:</div>
                 <% end %>
@@ -71,6 +60,17 @@
                     </tbody>
                   </table>
                 </div>
+              </div>
+            </div>
+
+            <div class="form-group row mb-3">
+              <div class="col-sm-3 text-right">
+                <%= form.label :subject_id, class: "col-form-label" do %>
+                  <div><%= t('intermediate_attestations.subject') %>:</div>
+                <% end %>
+              </div>
+              <div class="col-sm-9">
+                <%= form.collection_select :subject_id, [], :id, :name, { prompt: t('intermediate_attestations.select_subject') }, { class: "form-control", data: { target: "attestation-form.subjectSelect" } } %>
               </div>
             </div>
 
