@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_action :authenticate_user!
 
+  around_action :switch_locale
+
   def after_sign_in_path_for(resource)
     if resource.admin?
       user_path(resource)
@@ -25,5 +27,21 @@ class ApplicationController < ActionController::Base
 
   def access_denied(exception)
     redirect_to root_path, alert: exception.message
+  end
+
+  def switch_locale(&action)
+    locale = locale_from_url || I18n.default_locale
+    I18n.with_locale locale, &action
+  end
+
+  def locale_from_url
+    locale = params[:locale]
+    return locale if I18n.available_locales.map(&:to_s).include?(locale)
+
+    nil
+  end
+
+  def default_url_options
+    { locale: I18n.locale }
   end
 end
