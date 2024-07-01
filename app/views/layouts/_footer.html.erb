@@ -1,24 +1,71 @@
-<!-- app/views/layouts/_footer.html.erb -->
-<footer class="mt-auto bg-light border-top py-3">
-  <div class="container">
-    <div class="row justify-content-center text-center">
-      <div class="col-md-4 mb-3 mb-md-0">
-      <h4 class="fw-bold">Реквизиты</h4>
-      <p>Республиканский институт профессионального образования</p>
-      <p>Адрес: ул. К. Либкнехта, 32, 220004, г. Минск, Беларусь</p>
-      <p>Тел./Факс. + 375 17 215 09 92</p>
-      <p>e-mail: ripo@ripo.by</p>
-      <p>Время работы: с 8.30 до 17.00</p>
-      <p>Выходной: суббота, воскресенье</p>
-      <p>УНП: 100419924, выдан Минский горисполком 26.10.2000</p>
-      <h4 class="fw-bold">Интернет-ресурсы</h4>
-      <ul class="list-unstyled">
-        <li><a href="#">Ссылка 1</a></li>
-        <li><a href="#">Ссылка 2</a></li>
-        <li><a href="#">Ссылка 3</a></li>
-        <li><a href="#">Ссылка 4</a></li>
-      </ul>
-       </div>
+<body>
+  <footer class="mt-auto border-top py-3">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+         <!-- Реквизиты -->
+        <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+          <h5 class="fw-bold">Реквизиты</h5>
+          <p>Республиканский институт профессионального образования</p>
+          <p>Адрес: ул. К. Либкнехта, 32, 220004, г. Минск, Беларусь</p>
+          <p>Тел./Факс: +375 17 215 09 92</p>
+          <p>Email: <a href="mailto:ripo@ripo.by">ripo@ripo.by</a></p>
+          <p>Время работы: с 8.30 до 17.00</p>
+          <p>Выходной: суббота, воскресенье</p>
+          <p>УНП: 100419924, выдан Минский горисполком 26.10.2000</p>
+        </div>
+        <!-- Интернет-ресурсы -->
+        <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+          <h5 class="fw-bold">Интернет-ресурсы</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" target="_blank" rel="noopener noreferrer">Ссылка 1</a></li>
+            <li><a href="#" target="_blank" rel="noopener noreferrer">Ссылка 2</a></li>
+            <li><a href="#" target="_blank" rel="noopener noreferrer">Ссылка 3</a></li>
+            <li><a href="#" target="_blank" rel="noopener noreferrer">Ссылка 4</a></li>
+          </ul>
+        </div>
+        <!-- Время работы -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+          <h5 class="fw-bold">Время работы</h5>
+  
+          <table class="table text-center text-white">
+            <tbody class="font-weight-normal" >
+              <tr>
+                <td>Mon - Thu:</td>
+                <td>8am - 9pm</td>
+              </tr>
+              <tr>
+                <td>Fri - Sat:</td>
+                <td>8am - 1am</td>
+              </tr>
+              <tr>
+                <td>Sunday:</td>
+                <td>9am - 10pm</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    .content {
+      flex: 1;
+    }
+    footer {
+      flex-shrink: 0;
+    }
+  </style>
+</body>
+
