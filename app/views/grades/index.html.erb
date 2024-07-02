@@ -28,13 +28,19 @@
                   <% if current_user.has_role?(:admin) %>
                     <td class="w-10 text-left">
                        <div>
-                          <%= link_to t('common.show'), grade_path(grade), class: 'btn btn-sm btn-primary', style: 'width: 120px;'%>
+                          <%= link_to t('common.show'), grade, class: 'btn btn-sm btn-primary', style: 'width: 120px;'%>
                        </div>
                        <div>
+                          <% if can? :edit, grade %>
                           <%= link_to t('common.edit'), edit_grade_path(grade), class: 'btn btn-sm btn-secondary', style: 'width: 120px;' %>
+                          <% end %>
                        </div>
                        <div>
-                          <%= button_to t('common.delete'), grade_path(grade), data: {turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-sm btn-danger', style: 'width: 120px;' %>
+                          <% if can? :destroy, grade %>
+                          <%= link_to t('common.delete'), grade_path(grade), 
+                          data: {turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, 
+                          class: 'btn btn-sm btn-danger', style: 'width: 120px;' %>
+                          <% end %>
                        </div>
                    </td>
                   <% end %>

@@ -34,6 +34,7 @@
           <% @subjects.each do |subject| %>
             <tr>
               <td><%= subject.name %></td>
+              <% if current_user.has_role?(:admin) %>
               <td class="w-15">
                 <div>
                   <%= link_to t('subjects.show'), subject, class: 'btn btn-primary btn-sm' , style: 'width: 120px;'%>
@@ -48,9 +49,10 @@
                   <%= link_to t('common.delete'), subject_path(subject), 
                   data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, 
                   class: 'btn btn-danger btn-sm' , style: 'width: 120px;'%>
-                <% end %>
+                  <% end %>
                 </div>
-                </td>
+              </td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>
