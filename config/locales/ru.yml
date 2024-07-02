@@ -1,4 +1,38 @@
 ru:
+  activerecord:
+    attributes:
+      user:
+        first_name: Поле "Имя"
+        last_name: Поле "Фамилия"
+        middle_name: Поле "Отчество"
+        email: Поле 'Электронная почта'
+        phone_number: Поле "Номер телефона"
+        password: Поле "Пароль"
+        date_of_birth: Поле "Дата рождения"
+      notification:
+        message: Поле "Сообщение"
+        date: Поле "Дата"
+        users: Поле "Пользователи"
+      specialization:
+        name: Поле "Название"
+      group: 
+        name: Поле "Название"
+        specialization: Поле "Специальность"
+        curator_id: Поле "Преподаватель"
+        form_of_education: Поле "Форма обучения"
+      record_book:
+        user: Поле "Студент"
+        specialization: Поле "Специализация"
+        group: Поле "Группа"
+        custom_number: Поле "Номер"
+      subject:
+        name: Поле "Название"
+        description: Поле "Описание"
+      semester:
+        name: Поле "Название"
+        start_date: Поле "Дата начала"
+        end_date: Поле "Дата окончания"
+      
   en: 'Английский'
   ru: 'Русский'
   
@@ -312,4 +346,3 @@ ru:
     admin: "Администратор"
     teacher: "Учитель"
     student: "Студент"
-  
