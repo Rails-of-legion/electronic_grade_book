@@ -4,14 +4,17 @@
 
 import { application } from "./application"
 
-import SubjectsController from "./subjects_controller"
-application.register("subjects", SubjectsController)
+import AttestationFormController from "./attestation_form_controller"
+application.register("attestation-form", AttestationFormController)
+
+import PasswordController from "./password_controller"
+application.register("password", PasswordController)
+
+import RecordFormController from "./record_form_controller"
+application.register("record-form", RecordFormController)
 
 import ReportController from "./report_controller"
 application.register("report", ReportController)
 
-import GradeFormController from "./grade-form-controller"
-application.register("grade-form", GradeFormController)
-
-import PasswordController from "./password_controller"
-application.register("password", PasswordController)
+import SubjectsController from "./subjects_controller"
+application.register("subjects", SubjectsController)

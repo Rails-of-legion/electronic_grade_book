@@ -15,6 +15,7 @@ en:
   sign_in_with: 'Sign in with %{provider}'
 
   find_user: "Find user"
+  register: "Register"
   first_name: "First name"
   middle_name: "Middle name"
   last_name: "Last name"
@@ -24,6 +25,7 @@ en:
 
   common:
     month: "Month"
+    further: "Further"
     submit: "Submit"
     specialization: "Specialization"
     search: "Search"

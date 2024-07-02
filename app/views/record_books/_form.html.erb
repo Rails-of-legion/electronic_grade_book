@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5" data-controller="record-form">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card shadow-sm">
@@ -25,7 +25,7 @@
                 <% end %>
               </div>
               <div class="col-sm-9">
-                <%= f.collection_select :specialization_id, Specialization.all, :id, :name, { prompt: t('record_books.select_specialization') }, class: "form-control" %>
+                <%= f.collection_select :specialization_id, Specialization.all, :id, :name, { prompt: t('record_books.select_specialization') }, { class: "form-control", data: { action: "change->record-form#fetchGroups", target: "record-form.specializationSelect" } } %>
               </div>
             </div>
 
@@ -36,7 +36,7 @@
                 <% end %>
               </div>
               <div class="col-sm-9">
-                <%= f.collection_select :group_id, Group.all, :id, :name, { prompt: t('record_books.select_group') }, class: "form-control" %>
+                <%= f.collection_select :group_id, [], :id, :name, { prompt: t('record_books.select_group') }, { class: "form-control", data: { target: "record-form.groupSelect" } } %>
               </div>
             </div>
 

@@ -51,7 +51,7 @@
 
             <div class="form-group row">
               <div class="col-sm-9 offset-sm-3 d-flex justify-content-between">
-                <%= form.submit (@notification.new_record? ? t('notifications.create_notification') : t('notifications.edit_notification')), class: "btn btn-primary" %>
+                <%= form.submit (@notification.new_record? ? t('notifications.new_notifications') : t('notifications.change_notifications')), class: "btn btn-primary" %>
                 <%= link_to t('common.back'), notifications_path, class: "btn btn-secondary" %>
               </div>
             </div>

@@ -8,15 +8,12 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  </style>
   </head>
 
   <body>
     <%= render 'layouts/toolbar' %>
     <%= yield %>
-    <%= render 'layouts/footer' %>
-
-    <button onclick="scrollToTop()" id="scrollToTopButton" class="btn btn-primary btn-lg rounded-circle position-fixed bottom-0 end-0 m-4 d-none" title="Наверх">
-    <i class="bi bi-arrow-up"></i>
-    </button>
-    </body>
+   
+  </body>
 </html>

@@ -16,7 +16,6 @@ Rails.application.routes.draw do
     get 'marks_reports/new', to: 'marks_reports#new', as: :new_marks_report
     post 'marks_reports/generate_report', to: 'marks_reports#generate_report', as: :generate_marks_report, defaults: { format: :pdf }
     get 'marks_reports/generate_report_redirect', to: redirect('/marks_reports/new'), as: :generate_marks_report_redirect
-
     resources :users
 
     get "up" => "rails/health#show", as: :rails_health_check
@@ -36,12 +35,23 @@ Rails.application.routes.draw do
 
     resources :users, only: %i[show update edit create new destroy]
     resources :semesters
-    resources :subjects
+    resources :subjects do
+      collection do
+        get 'group_subjects', to: 'subjects#group_subjects_spec'
+      end
+    end
     resources :groups do
       get '/subjects', to: 'subjects#group_subjects', on: :member
       get :form_teacher
+      collection do
+        get 'by_specialization/:id', to: 'groups#by_specialization', as: :by_specialization
+      end
     end
-    resources :specializations
+    resources :specializations do
+      member do
+        get 'groups', to: 'groups#by_specialization'
+      end
+    end
     resources :notifications do
       member do
         patch :mark_as_read
@@ -61,7 +71,5 @@ Rails.application.routes.draw do
     end
 
     get 'about', to: 'home#about', as: :about
-
-   
   end
 end
