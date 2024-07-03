@@ -3,7 +3,7 @@
     <div class="col-md-8">
       <div class="card shadow-sm">
         <div class="card-body">
-          <%= form_with(model: @intermediate_attestation, local: true) do |form| %>
+          <%= form_with model: @intermediate_attestation, data: { turbo: false } do |form| %>
             <%= render 'shared/errors', object: @intermediate_attestation %>
 
             <div class="form-group row mb-3">
