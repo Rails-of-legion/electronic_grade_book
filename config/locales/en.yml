@@ -32,6 +32,11 @@ en:
         name: Field "Name"
         start_date: Field "Start date"
         end_date: Field "End date"
+      intermediate_attestation:
+        subject: Field "Subject"
+        name: Field "Name"
+        assessment_type: Field "Assesment type"
+        teacher: Field "Teacher"
 
   en: 'English'
   ru: 'Russian'
