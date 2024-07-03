@@ -1,4 +1,38 @@
 en:
+  activerecord:
+    attributes:
+      user:
+        first_name: Field "First name"
+        last_name: Field "Last name"
+        middle_name: Field "Middle name"
+        email: Field 'E-mail'
+        phone_number: Field "Phone number"
+        password: Field "Password"
+        date_of_birth: Field "Date of birth"
+      notification:
+        message: Field "Message"
+        date: Field "Date"
+        users: Field "Users"
+      specialization:
+        name: Field "Name"
+      group: 
+        name: Field "Name"
+        specialization: Field "Specialization"
+        curator_id: Field "Curator"
+        form_of_education: Field "Form of education"
+      record_book:
+        user: Field "Student"
+        specialization: Field "Specialization"
+        group: Field "Group"
+        custom_number: Field "Number"
+      subject:
+        name: Field "Name"
+        description: Field "Description"
+      semester:
+        name: Field "Name"
+        start_date: Field "Start date"
+        end_date: Field "End date"
+
   en: 'English'
   ru: 'Russian'
   
