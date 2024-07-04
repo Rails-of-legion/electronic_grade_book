@@ -17,7 +17,7 @@ class SpecialitiesSubjectsController < ApplicationController
     @specialities_subject = SpecialitiesSubject.new(specialities_subject_params)
 
     if @specialities_subject.save
-      redirect_to @specialities_subject, notice: 'Specialities subject was successfully created.'
+      redirect_to @specialities_subject, notice: t('questions.specialities_subject_create_notice')
     else
       render :new
     end
@@ -25,7 +25,7 @@ class SpecialitiesSubjectsController < ApplicationController
 
   def update
     if @specialities_subject.update(specialities_subject_params)
-      redirect_to @specialities_subject, notice: 'Specialities subject was successfully updated.'
+      redirect_to @specialities_subject, notice: t('questions.specialities_subject_update_notice')
     else
       render :edit
     end
@@ -33,7 +33,7 @@ class SpecialitiesSubjectsController < ApplicationController
 
   def destroy
     @specialities_subject.destroy
-    redirect_to specialities_subjects_url, notice: 'Specialities subject was successfully destroyed.'
+    redirect_to specialities_subjects_url, notice: t('questions.specialities_subject_destroy_notice')
   end
 
   private

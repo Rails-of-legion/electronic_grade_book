@@ -45,7 +45,7 @@ class NotificationsController < ApplicationController
           end
         end
 
-        format.html { redirect_to @notification, notice: 'Уведомление успешно создано.' }
+        format.html { redirect_to @notification, notice: t('questions.notifications_create_notice') }
         format.json { render :show, status: :created, location: @notification }
       else
         format.html { render :new }
@@ -63,7 +63,7 @@ class NotificationsController < ApplicationController
       end
   
       respond_to do |format|
-        format.html { redirect_to @notification, notice: 'Уведомление успешно обновлено.' }
+        format.html { redirect_to @notification, notice: t('questions.notifications_update_notice') }
         format.json { render :show, status: :ok, location: @notification }
       end
     else
@@ -77,7 +77,7 @@ class NotificationsController < ApplicationController
   # DELETE /notifications/1
   def destroy
     @notification.destroy
-    redirect_to notifications_url, notice: 'Уведомление было успешно удалено.'
+    redirect_to notifications_url, notice: t('questions.notifications_destroy_notice') 
   end
 
   # POST /notifications/1/mark_as_read
@@ -85,9 +85,9 @@ class NotificationsController < ApplicationController
     @notification_user = NotificationsUser.find_by(notification: @notification, user: current_user)
     if @notification_user
       @notification_user.update(status: true)
-      redirect_to user_path(current_user), notice: 'Уведомление отмечено как прочитанное.'
+      redirect_to user_path(current_user), notice: t('questions.notifications_mark_as_read_notice') 
     else
-      redirect_to notifications_path, alert: 'Уведомление не найдено.'
+      redirect_to notifications_path, alert: t('questions.notifications_mark_as_read_alert') 
     end
   end
 
