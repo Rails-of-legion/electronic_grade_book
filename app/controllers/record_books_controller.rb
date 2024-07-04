@@ -32,7 +32,7 @@ class RecordBooksController < ApplicationController
     authorize! :create, @record_book
 
     if @record_book.save
-      redirect_to @record_book, notice: 'Зачетная книжка успешно создана!'
+      redirect_to @record_book, notice: t('questions.record_books_create_notice')
     else
       render :new, status: :unprocessable_entity
     end
@@ -41,7 +41,7 @@ class RecordBooksController < ApplicationController
   def update
     authorize! :update, @record_book
     if @record_book.update(record_book_params)
-      redirect_to @record_book, notice: 'Зачетная книжка обновлена!'
+      redirect_to @record_book, notice: t('questions.record_books_update_notice')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -50,7 +50,7 @@ class RecordBooksController < ApplicationController
   def destroy
     authorize! :destroy, @record_book
     @record_book.destroy
-    redirect_to record_books_path, notice: 'Зачетная книжка удалена!'
+    redirect_to record_books_path, notice: t('questions.record_books_destroy_notice')
   end
 
   private

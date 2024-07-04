@@ -24,10 +24,10 @@ class SpecializationsController < ApplicationController
   def create
     @specialization = Specialization.new(specialization_params)
     if @specialization.save
-      flash[:notice] = 'Specialization was successfully created.'
+      flash[:notice] = t('questions.specialization_create_notice')
       render :show
     else
-      flash.now[:alert] = 'Failed to create specialization.'
+      flash.now[:alert] = t('questions.specialization_create_alert')
       render :new
     end
   end
@@ -35,10 +35,10 @@ class SpecializationsController < ApplicationController
   # PATCH/PUT /specializations/1
   def update
     if @specialization.update(specialization_params)
-      flash[:notice] = 'Specialization was successfully updated.'
+      flash[:notice] = t('questions.specialization_update_notice')
       render :show
     else
-      flash.now[:alert] = 'Failed to update specialization.'
+      flash.now[:alert] = t('questions.specialization_update_alert')
       render :edit
     end
   end
@@ -46,10 +46,10 @@ class SpecializationsController < ApplicationController
   # DELETE /specializations/1
   def destroy
     if @specialization.destroy
-      flash[:notice] = 'Specialization was successfully destroyed.'
+      flash[:notice] = t('questions.specialization_destroy_notice')
       redirect_to specializations_url
     else
-      flash[:alert] = 'Failed to destroy specialization.'
+      flash[:alert] = t('questions.specialization_destroy_alert')
       redirect_to @specialization
     end
   end

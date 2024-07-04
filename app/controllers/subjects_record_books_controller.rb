@@ -17,7 +17,7 @@ class SubjectsRecordBooksController < ApplicationController
     @subjects_record_book = SubjectsRecordBook.new(subjects_record_book_params)
 
     if @subjects_record_book.save
-      redirect_to @subjects_record_book, notice: 'Subjects record book was successfully created.'
+      redirect_to @subjects_record_book, notice: t('questions.subjects_record_book_create_notice')
     else
       render :new
     end
@@ -25,7 +25,7 @@ class SubjectsRecordBooksController < ApplicationController
 
   def update
     if @subjects_record_book.update(subjects_record_book_params)
-      redirect_to @subjects_record_book, notice: 'Subjects record book was successfully updated.'
+      redirect_to @subjects_record_book, notice: t('questions.subjects_record_books_update_notice')
     else
       render :edit
     end
@@ -33,7 +33,7 @@ class SubjectsRecordBooksController < ApplicationController
 
   def destroy
     @subjects_record_book.destroy
-    redirect_to subjects_record_books_url, notice: 'Subjects record book was successfully destroyed.'
+    redirect_to subjects_record_books_url, notice: t('questions.subjects_record_books_destroy_notice')
   end
 
   private

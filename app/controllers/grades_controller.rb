@@ -21,7 +21,7 @@ class GradesController < ApplicationController
 
     respond_to do |format|
       if @grade.save
-        format.html { redirect_to @grade, notice: 'Оценка успешно создана.' }
+        format.html { redirect_to @grade, notice: t('questions.grades_create_notice') }
         format.json { render json: @grade, status: :created }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -35,7 +35,7 @@ class GradesController < ApplicationController
 
     respond_to do |format|
       if @grade.update(grade_params)
-        format.html { redirect_to @grade, notice: 'Оценка обновлена!' }
+        format.html { redirect_to @grade, notice: t('questions.grades_update_notice') }
         format.json { render json: @grade, status: :ok }
       else
         format.html { render :edit, status: :unprocessable_entity }
