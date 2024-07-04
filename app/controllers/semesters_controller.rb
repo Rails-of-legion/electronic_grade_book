@@ -18,7 +18,7 @@ class SemestersController < ApplicationController
     @semester = Semester.new(semester_params)
 
     if @semester.save
-      redirect_to @semester, notice: 'Semester was successfully created.'
+      redirect_to @semester, notice: t('questions.semester_create_notice')
     else
       render :new, status: :unprocessable_entity
     end
@@ -26,7 +26,7 @@ class SemestersController < ApplicationController
 
   def update
     if @semester.update(semester_params)
-      redirect_to @semester, notice: 'Semester was successfully updated.'
+      redirect_to @semester, notice: t('questions.semester_update_notice')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -34,7 +34,7 @@ class SemestersController < ApplicationController
 
   def destroy
     if @semester.destroy
-      redirect_to semesters_url, notice: 'Semester was successfully destroyed.'
+      redirect_to semesters_url, notice: t('questions.semester_destroy_notice')
     else
       render :show, status: :unprocessable_entity
     end
@@ -45,7 +45,7 @@ class SemestersController < ApplicationController
   def set_semester
     @semester = Semester.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to semesters_url, notice: 'Semester not found.'
+    redirect_to semesters_url, notice: t('questions.semester_not_found_notice')
   end
 
   def semester_params

@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: t('questions.users_create_notice') }
         format.json { render json: @user, status: :created }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     authorize! :update, @user
     if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
+      redirect_to @user, notice: t('questions.users_update_notice')
     else
       render :edit
     end
@@ -60,20 +60,20 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     return if current_user == @user
 
-    redirect_to root_path, alert: 'Access denied!'
+    redirect_to root_path, alert: t('questions.users_edit_password_alert')
   end
 
   def edit_email
     @user = User.find(params[:id])
     return if current_user == @user
 
-    redirect_to root_path, alert: 'Access denied!'
+    redirect_to root_path, alert: t('questions.users_edit_email_alert')
   end
 
   def update_password
     @user = User.find(params[:id])
     if @user.update(edit_password_params)
-      redirect_to user_path(@user), notice: 'Password updated.'
+      redirect_to user_path(@user), notice: t('questions.users_update_password_notice')
     else
       render :edit_password
     end
@@ -82,7 +82,7 @@ class UsersController < ApplicationController
   def update_email
     @user = User.find(params[:id])
     if @user.update(edit_email_params)
-      redirect_to user_path(@user), notice: 'Email updated.'
+      redirect_to user_path(@user), notice: t('questions.users_update_email_notice')
     else
       render :edit_email
     end

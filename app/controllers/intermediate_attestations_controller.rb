@@ -40,7 +40,7 @@ class IntermediateAttestationsController < ApplicationController
     @intermediate_attestation = IntermediateAttestation.new(intermediate_attestation_params)
 
     if @intermediate_attestation.save
-      redirect_to @intermediate_attestation, notice: 'Intermediate attestation was successfully created.'
+      redirect_to @intermediate_attestation, notice: t('questions.intermediate_attestations_create_notice')
     else
       render :new
     end
@@ -48,7 +48,7 @@ class IntermediateAttestationsController < ApplicationController
 
   def update
     if @intermediate_attestation.update(intermediate_attestation_params)
-      redirect_to @intermediate_attestation, notice: 'Intermediate attestation was successfully updated.'
+      redirect_to @intermediate_attestation, notice: t('questions.intermediate_attestations_update_notice')
     else
       @subjects = Subject.all
       render :edit
@@ -57,7 +57,7 @@ class IntermediateAttestationsController < ApplicationController
 
   def destroy
     @intermediate_attestation.destroy
-    redirect_to intermediate_attestations_url, notice: 'Intermediate attestation was successfully destroyed.'
+    redirect_to intermediate_attestations_url, notice: t('questions.intermediate_attestations_update_notice')
   end
 
   private

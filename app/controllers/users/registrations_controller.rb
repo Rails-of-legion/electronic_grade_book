@@ -46,7 +46,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if @user.update(user_params)
       UserMailer.registration_confirmation(@user).deliver_later
       sign_in(@user)
-      redirect_to root_path, notice: 'Registration was successfully'
+      redirect_to root_path, notice: t('questions.register_notice') 
     else
       render :set_password_and_email
     end
@@ -58,7 +58,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if @user && @user[:status].blank?
       render :set_password_and_email, status: :unprocessable_entity
     else
-      flash[:alert] = 'User not found'
+      flash[:alert] = t('questions.register_alert') 
       redirect_to users_search_path
     end
   end
