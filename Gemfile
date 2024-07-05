@@ -107,6 +107,10 @@ gem 'prawn-table'
 
 gem 'prawn-rails'
 
+# caracal
+gem 'caracal'
+gem 'caracal-rails'
+
 gem 'rails-i18n'
 
 gem 'pagy'
