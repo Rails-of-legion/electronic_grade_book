@@ -11,7 +11,8 @@ class User < ApplicationRecord
   validates :phone_number, presence: true
   validates :phone_number, format: { with: /\A(\+375|80)(29|44|25|33)\d{7}\z/,
                                      message: 'неверный формат номера телефона' }
-  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
   validates :date_of_birth, presence: true
   validates :status, inclusion: { in: [true, false] }
 
