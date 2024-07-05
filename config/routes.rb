@@ -30,10 +30,10 @@ Rails.application.routes.draw do
     root "home#home"
     get "users/:id/edit_password", to: "users#edit_password", as: :edit_password
     get "users/:id/edit_email", to: "users#edit_email", as: :edit_email
-    post "users/:id/update_password", to: "users#update_password", as: :update_password
-    post "users/:id/update_email", to: "users#update_email", as: :update_email
+    patch "users/:id/update_password", to: "users#update_password", as: :update_password
+    patch "users/:id/update_email", to: "users#update_email", as: :update_email
 
-    resources :users, only: %i[show update edit create new destroy]
+    resources :users, only: %i[show update edit create new destroy edit_password update_password edit_email update_email]
     resources :semesters
     resources :subjects do
       collection do
@@ -69,6 +69,8 @@ Rails.application.routes.draw do
     resources :individual_reports, only: [:new] do
       post 'generate_report', on: :collection
     end
+
+    get 'reports/generate_interim_report/:intermediate_attestation_id', to: 'reports#generate_interim_report', as: 'generate_interim_report'
 
     get 'about', to: 'home#about', as: :about
   end

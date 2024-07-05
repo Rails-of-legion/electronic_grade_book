@@ -21,5 +21,6 @@
   <div class="mt-4">
     <%= link_to t('intermediate_attestations.back'), intermediate_attestations_path, class: "btn btn-secondary mr-2" %>
     <%= link_to t('intermediate_attestations.download_pdf'), intermediate_attestation_path(@intermediate_attestation, format: "pdf"), class: 'btn btn-primary' %>
+    <%= link_to t('intermediate_attestations.download_docx'), generate_interim_report_path(@intermediate_attestation.id), class: 'btn btn-primary' %>
   </div>
 </div>

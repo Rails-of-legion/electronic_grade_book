@@ -225,6 +225,7 @@ ru:
     select_subject: "Выберите предмет"
     back: "Назад"
     download_pdf: "Скачать PDF"
+    download_docx: "Скачать DOCX"
     back: "Назад"
     no_groups: "Нет групп"
     teacher: "Преподаватель"
