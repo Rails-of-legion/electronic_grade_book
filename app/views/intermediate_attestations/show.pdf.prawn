@@ -1,7 +1,7 @@
 prawn_document title: 'Intermediate Attestation Report' do |pdf|
   pdf.font_families.update("TimesNewRoman" => {
-    normal: { file: "/app/app/assets/fonts/Inter.ttf" },
-    bold: { file: "/app/app/assets/fonts/Inter.ttf" }
+    normal: { file: "app/assets/fonts/Inter.ttf" },
+    bold: { file: "app/assets/fonts/Inter.ttf" }
   })
   pdf.font 'TimesNewRoman', size: 11
   pdf.bounds.add_left_padding(72)
@@ -109,6 +109,4 @@ students_without_grades_count = total_students_count - students_with_grades_coun
               at: [pdf.bounds.width / 2, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :right
-
-
 end

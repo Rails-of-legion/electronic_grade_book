@@ -218,6 +218,7 @@ en:
     select_subject: "Select subject"
     back: "Back"
     download_pdf: "Download PDF"
+    download_docx: "Download DOCX"
     no_groups: "No groups"
     teacher: "Teacher"
     select_teacher: "Select teacher"

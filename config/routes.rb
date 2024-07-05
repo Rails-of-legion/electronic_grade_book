@@ -70,6 +70,8 @@ Rails.application.routes.draw do
       post 'generate_report', on: :collection
     end
 
+    get 'reports/generate_interim_report/:intermediate_attestation_id', to: 'reports#generate_interim_report', as: 'generate_interim_report'
+
     get 'about', to: 'home#about', as: :about
   end
 end
