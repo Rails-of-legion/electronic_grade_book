@@ -5,8 +5,6 @@
       <%= link_to t('users.new'), new_user_path, class: 'btn btn-primary' %>
     <% end %>
   </div>
-  
-
 
   <div class="row mb-4">
     <div class="col-md-9">
@@ -29,9 +27,9 @@
                 <td><%= user.last_name %></td>
                 <td><%= user.first_name %></td>
                 <td><%= user.middle_name %></td>
-                <td><%= user.email.gsub('@', '<br />@')&.html_safe %></td> 
+                <td><%= user.email.gsub('@', '<br />@')&.html_safe %></td>
                 <td><%= user.phone_number %></td>
-                <td><%= user.roles.map(&:name).join(', ') %></td> 
+                <td><%= user.roles.map(&:name).join(', ') %></td>
                 <td class="w-10 text-right">
                   <div>
                     <%= link_to t('common.show'), user_path(user), class: 'btn btn-primary btn-sm', style: 'width: 120px;' %>
@@ -41,9 +39,9 @@
                       <%= link_to t('common.edit'), edit_user_path(user), class: 'btn btn-secondary btn-sm', style: 'width: 120px;' %>
                     <div>
                     <div>
-                      <%= link_to t('common.delete'), user_path(user), 
-                      data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm', style: 'width: 120px;' %>  
-                    <div>                  
+                      <%= link_to t('common.delete'), user_path(user),
+                      data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm', style: 'width: 120px;' %>
+                    <div>
                   <% end %>
                 </td>
               </tr>
@@ -70,15 +68,19 @@
           <%= f.search_field :middle_name_cont, class: "form-control" %>
         </div>
         <div class="form-group mb-2">
-          <%= f.label :email_cont,  t('users.email') %>
+          <%= f.label :email_cont, t('users.email') %>
           <%= f.search_field :email_cont, class: "form-control" %>
         </div>
         <div class="form-group mb-2">
-          <%= f.label :phone_number_cont,  t('users.phone_number') %>
+          <%= f.label :phone_number_cont, t('users.phone_number') %>
           <%= f.search_field :phone_number_cont, class: "form-control" %>
         </div>
+        <div class="form-group mb-2">
+          <%= f.label :roles_id_eq, t('users.role') %>
+          <%= f.select :roles_id_eq, options_from_collection_for_select(Role.all, :id, :name, params.dig(:q, :roles_id_eq)), { include_blank: t('common.all') }, class: "form-control" %>
+        </div>
         <div class="form-group mt-3">
-          <%= f.submit  t('common.search'), class: 'btn btn-primary' %>
+          <%= f.submit t('common.search'), class: 'btn btn-primary' %>
           <%= link_to t('common.reset'), users_path, class: 'btn btn-secondary' %>
         </div>
       <% end %>

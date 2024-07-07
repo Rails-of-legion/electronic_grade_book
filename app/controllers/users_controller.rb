@@ -1,12 +1,23 @@
 class UsersController < ApplicationController
   def index
     @q = User.ransack(params[:q])
-    @pagy, @users = pagy(@q.result(distinct: true), items: 10)
+    @pagy, @users = pagy(@q.result(distinct: true).includes(:roles), items: 10)
+  end
+
+  def show
+    @user = User.find(params[:id])
+    @notificationsUser = NotificationsUser.where(user_id: @user.id)
+    authorize! :read, @user
   end
 
   def new
     @user = User.new
     authorize! :create, @user
+  end
+
+  def edit
+    @user = User.find(params[:id])
+    authorize! :update, @user
   end
 
   def create
@@ -24,19 +35,8 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-    @user = User.find(params[:id])
-    @notificationsUser = NotificationsUser.where(user_id: @user.id)
-    authorize! :read, @user
-  end
-
   def generate_pdf(student)
     IndividualReport.new(student).generate_report
-  end
-
-  def edit
-    @user = User.find(params[:id])
-    authorize! :update, @user
   end
 
   def update
