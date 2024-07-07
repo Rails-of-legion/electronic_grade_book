@@ -10,7 +10,7 @@ class Group < ApplicationRecord
   validates :form_of_education, presence: true
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at curator_id id id_value name specialization_id updated_at]
+    %w[created_at curator_id id id_value name specialization_id updated_at form_of_education]
   end
 
   def self.ransackable_associations(_auth_object = nil)
