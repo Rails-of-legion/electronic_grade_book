@@ -1,5 +1,3 @@
-require 'faker'
-
 def generate_phone_number(codes, prefixes)
   "#{codes.sample}#{prefixes.sample}#{rand.to_s[2..8]}"
 end
@@ -42,46 +40,3 @@ admin2 = User.create!(
 )
 admin2.add_role(:admin)
 puts "Создан пользователь-администратор: #{admin2.email}"
-
-#  Создание преподавателей с ролью "teacher"
-puts "Создание преподавателей..."
-teachers = 1.times.map do
-  first_name = Faker::Name.first_name
-  last_name = Faker::Name.last_name
-  middle_name = Faker::Name.middle_name
-  middle_name = Faker::Name.middle_name while middle_name.length < 3 # Проверяем длину отчества
-
-  teacher = User.create!(
-    first_name: first_name,
-    last_name: last_name,
-    middle_name: middle_name,
-    phone_number: generate_phone_number(codes, prefixes),
-    email: Faker::Internet.email,
-    password: 'password',
-    password_confirmation: 'password',
-    status: true,
-    date_of_birth: Faker::Date.birthday(min_age: 25, max_age: 65)
-  )
-  teacher.add_role(:teacher)
-  puts "Создан преподаватель: #{teacher.email}"
-  teacher
-end
-
-# Создание студентов и зачетных книжек
-puts "Создание студентов и зачетных книжек..."
-3.times do
-  student = User.create!(
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    middle_name: Faker::Name.middle_name,
-    phone_number: generate_phone_number(codes, prefixes),
-    email: Faker::Internet.unique.email,
-    password: 'password',
-    password_confirmation: 'password',
-    status: [true, false].sample,
-    date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 25)
-  )
-  student.add_role(:student)
-  puts "Создан студент: #{student.email}"
-
-end
