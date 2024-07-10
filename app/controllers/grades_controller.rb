@@ -68,8 +68,9 @@ class GradesController < ApplicationController
   end
 
   def parse_date(date_string)
-    Time.zone.parse(date_string)
-  rescue StandardError
+    Date.parse(date_string)
+  rescue ArgumentError
     nil
   end
+  #ABOBA
 end
