@@ -1,8 +1,8 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["month", "subject", "formTeacher"]
-  static values = { group: Number, specialization: Number }
+  static targets = ["month", "subject", "formTeacher"];
+  static values = { group: Number, specialization: Number };
 
   connect() {
     this.fetchSubjects();
@@ -28,8 +28,6 @@ export default class extends Controller {
         .then((subjects) => {
           this.populateSelect(this.subjectTarget, subjects);
         });
-
-
     } else {
       this.clearSelect(this.subjectTarget);
     }
@@ -50,18 +48,18 @@ export default class extends Controller {
   }
 
   fetchForm() {
-    const groupId = this.groupValue
-    const month = this.monthTarget.value
-    const subjectId = this.subjectTarget.value
+    const groupId = this.groupValue;
+    const month = this.monthTarget.value;
+    const subjectId = this.subjectTarget.value;
 
     if (month && subjectId) {
       fetch(`/groups/${groupId}/form_teacher?month=${month}&subject_id=${subjectId}`)
         .then(response => response.text())
         .then(html => {
-          this.formTeacherTarget.innerHTML = html
-        })
+          this.formTeacherTarget.innerHTML = html;
+        });
     } else {
-      this.formTeacherTarget.innerHTML = ""
+      this.formTeacherTarget.innerHTML = "";
     }
   }
 
@@ -69,7 +67,7 @@ export default class extends Controller {
     const cell = event.target.closest('td');
 
     if (cell && !cell.querySelector('input')) {
-      const day = cell.cellIndex;
+      const day = cell.cellIndex + 1; // Adjusted to match day index (1-based)
       const recordBookId = cell.parentNode.dataset.recordBookId;
       const existingGrade = cell.textContent.trim();
 
@@ -98,7 +96,7 @@ export default class extends Controller {
         }
       }
     });
-    
+
     input.addEventListener('blur', () => {
       input.remove();
     });
@@ -111,9 +109,11 @@ export default class extends Controller {
   saveGrade(grade, recordBookId, day, existingGrade) {
     const month = this.monthTarget.value;
     const subjectId = this.subjectTarget.value;
+
+    // Ensure correct month index
     const correctMonth = parseInt(month, 10) - 1;
-    const date = new Date(new Date().getFullYear(), correctMonth, day).toLocaleDateString();
-  
+    const date = new Date(new Date().getFullYear(), correctMonth, day).toISOString();
+
     const data = {
       grade: {
         date: date,
@@ -122,7 +122,7 @@ export default class extends Controller {
         grade: grade
       }
     };
-  
+
     fetch('/grades/find', {
       method: 'POST',
       headers: {
@@ -135,21 +135,23 @@ export default class extends Controller {
         record_book_id: recordBookId
       })
     })
-      .then(response => response.json())
-      .then(existingGrade => {
-        if (existingGrade) {
-          this.updateGrade(existingGrade.id, data);
-        } else {
-          this.createGrade(data);
-        }
-      });
+    .then(response => response.json())
+    .then(existingGrade => {
+      if (existingGrade) {
+        this.updateGrade(existingGrade.id, data);
+      } else {
+        this.createGrade(data);
+      }
+    });
   }
 
   deleteGrade(recordBookId, day) {
     const month = this.monthTarget.value;
     const subjectId = this.subjectTarget.value;
+
+    // Ensure correct month index
     const correctMonth = parseInt(month, 10) - 1;
-    const date = new Date(new Date().getFullYear(), correctMonth, day).toLocaleDateString();
+    const date = new Date(new Date().getFullYear(), correctMonth, day).toISOString();
 
     fetch('/grades/find', {
       method: 'POST',
@@ -180,7 +182,7 @@ export default class extends Controller {
       }
     });
   }
-  
+
   createGrade(data) {
     fetch('/grades', {
       method: 'POST',
@@ -198,7 +200,7 @@ export default class extends Controller {
       }
     });
   }
-  
+
   updateGrade(existingGradeId, data) {
     fetch(`/grades/${existingGradeId}`, {
       method: 'PUT',
@@ -223,7 +225,7 @@ export default class extends Controller {
       cell.textContent = grade.grade;
     }
   }
-  
+
   findCellForGrade(grade) {
     const row = document.querySelector(`tr[data-record-book-id='${grade.record_book_id}']`);
     if (row) {
