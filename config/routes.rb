@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     end
 
     get 'marks_reports/new', to: 'marks_reports#new', as: :new_marks_report
-    post 'marks_reports/generate_report', to: 'marks_reports#generate_report', as: :generate_marks_report, defaults: { format: :pdf }
+    post 'marks_reports/generate_report', to: 'marks_reports#generate_report', as: :generate_marks_report
     get 'marks_reports/generate_report_redirect', to: redirect('/marks_reports/new'), as: :generate_marks_report_redirect
     resources :users
 
@@ -71,8 +71,6 @@ Rails.application.routes.draw do
     end
 
     get 'reports/generate_interim_report/:intermediate_attestation_id', to: 'reports#generate_interim_report', as: 'generate_interim_report'
-
-    get 'individual_docx_reports/generate_individual_report', to: 'individual_docx_reports#generate_individual_report', as: 'generate_individual_report'
 
     get 'about', to: 'home#about', as: :about
   end

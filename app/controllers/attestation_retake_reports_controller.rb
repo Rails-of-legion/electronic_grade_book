@@ -11,15 +11,27 @@ class AttestationRetakeReportsController < ApplicationController
     @passed_students = @grades.select { |grade| grade.grade >= 4 }
     @failed_students = @grades.select { |grade| grade.grade < 3 || grade.grade.nil? }
 
-    pdf = Prawn::Document.new
+    respond_to do |format|
+      format.pdf do
+        pdf_data = generate_pdf_report
+        send_data pdf_data, filename: 'report.pdf', type: 'application/pdf', disposition: 'attachment'
+      end
 
-    # Добавляем настройки для Times New Roman
+      format.docx do
+        docx_data = generate_docx_report
+        send_data docx_data, filename: 'report.docx', type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', disposition: 'attachment'
+      end
+    end
+  end
+
+  private
+
+  def generate_pdf_report
+    pdf = Prawn::Document.new
     pdf.font_families.update('TimesNewRoman' => {
                                normal: { file: 'app/assets/fonts/Inter.ttf' },
                                bold: { file: 'app/assets/fonts/Inter.ttf' }
                              })
-
-    # Установка шрифта и размера
     pdf.font 'TimesNewRoman'
 
     pdf.text 'Учреждение образования', align: :center, size: 11, style: :bold
@@ -66,10 +78,44 @@ class AttestationRetakeReportsController < ApplicationController
 
     pdf.table failed_students_table_data, header: true
 
-    send_data pdf.render, filename: 'report.pdf', type: 'application/pdf', disposition: 'attachment'
+    pdf.render
   end
 
-  private
+  def generate_docx_report
+    Caracal::Document.save("tmp/individual_report.docx") do |doc|
+      doc.p 'Учреждение образования', style: 'heading'
+      doc.p 'РЕСПУБЛИКАНСКИЙ ИНСТИТУТ ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ', style: 'heading'
+
+      doc.p "ЗАЧЕТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ № 1", style: 'heading'
+      doc.p 'аттестации вне учебной группы', style: 'heading'
+
+      doc.p "Отчет по экзамену: #{@exam.name}", size: 20, bold: true
+      doc.p "Название предмета: #{@exam.subject.name}"
+      doc.p "Дата выставления оценки: #{@exam.date}"
+      doc.p "Количество слушателей: #{@grades.count}"
+      doc.p "Преподаватели, закрепленные за экзаменом: #{@exam.teacher.last_name} #{@exam.teacher.first_name}"
+      doc.p "Количество слушателей, которые сдали экзамен: #{@passed_students.count}"
+      doc.p "Количество слушателей, не сдавших экзамен: #{@failed_students.count}"
+      
+      doc.p 'Список студентов, не явившихся или получивших отрицательный балл:', bold: true
+
+      doc.p "Дата выдачи ведомости: #{Time.zone.today.strftime('%d.%m.%Y')}"
+      doc.p 'Ведомость действительна по: ________________'
+      doc.p 'Отметка: ___________________               Дата аттестации: _____________'
+      doc.p 'Подпись преподавателя'
+      doc.p '_________________________           ________________________'
+      doc.p '(подпись)                                     (фамилия, инициалы)'
+      doc.p 'С индивидуальными сроками текущей аттестации ознакомлен'
+      doc.p '___________20___               ______________           _______________________'
+      doc.p '(дата)                           (подпись)                         (Фамилия, инициалы слушателя)'
+      doc.p 'Декан факультета повышения'
+      doc.p "квалификации и переподготовки кадров  _________________    #{User.first.format_full_name}"
+
+      doc.table failed_students_table_data
+    end
+
+    File.read("tmp/individual_report.docx")
+  end
 
   def failed_students_table_data
     [%w[ФИО Оценка]] +
