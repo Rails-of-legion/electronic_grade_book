@@ -1,3 +1,5 @@
+require 'caracal'
+
 class IndividualReport
   def self.generate_pdf(intermediate_attestation_id, record_book_id)
     intermediate_attestation = IntermediateAttestation.find(intermediate_attestation_id)
@@ -66,6 +68,43 @@ class IndividualReport
     end.render
   end
 
+  def self.generate_docx(intermediate_attestation_id, record_book_id)
+    intermediate_attestation = IntermediateAttestation.find(intermediate_attestation_id)
+    record_book = RecordBook.includes(:user).find(record_book_id)
+
+    Caracal::Document.save("tmp/individual_report.docx") do |doc|
+      
+      doc.p 'Учреждение образования', style: 'heading'
+      doc.p 'РЕСПУБЛИКАНСКИЙ ИНСТИТУТ ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ', style: 'heading'
+
+      doc.p "ЗАЧЕТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ № #{intermediate_attestation.id}", style: 'heading'
+      doc.p 'аттестации вне учебной группы', style: 'heading'
+
+      doc.p "Группа № #{record_book.group.name}"
+      doc.p "«#{intermediate_attestation.groups.name} #{intermediate_attestation.groups.name}»"
+      doc.p "Учебная дисциплина: #{intermediate_attestation.subject.name}"
+      doc.p "Форма получения образования: #{intermediate_attestation.groups.name}"
+      doc.p "Форма промежуточной аттестации: #{intermediate_attestation.name}"
+      doc.p 'Всего часов и зачетных единиц по учебной дисциплине: '
+      doc.p "Преподаватель: #{intermediate_attestation.teacher.name}"
+      doc.p "Фамилия, инициалы слушателя: #{record_book.user.name}"
+      doc.p "Дата выдачи ведомости: #{Time.zone.today.strftime('%d.%m.%Y')}"
+      doc.p 'Ведомость действительна по: ________________'
+      doc.p 'Отметка: ___________________               Дата аттестации: _____________'
+      doc.p 'Подпись преподавателя'
+      doc.p '_________________________           ________________________'
+      doc.p '(подпись)                                     (фамилия, инициалы)'
+      doc.p 'С индивидуальными сроками текущей аттестации ознакомлен'
+      doc.p '___________20___       ________________      _______________________'
+      doc.p '(дата)                             (подпись)                    (Фамилия, инициалы слушателя)'
+      doc.p 'Декан факультета повышения квалификации и переподготовки кадров'
+      doc.p "#{User.first.format_full_name}"
+    end
+
+    File.read("tmp/individual_report.docx")
+  end
+end
+
   private
 
   def student_data_table
@@ -76,4 +115,3 @@ class IndividualReport
     # Замените на логику генерации номера документа
     '24-001'
   end
-end

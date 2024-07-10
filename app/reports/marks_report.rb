@@ -43,4 +43,33 @@ class MarksReport
 
     pdf.render
   end
+
+  def self.generate_docx(record_book_id, retake_count)
+    record_book = RecordBook.includes(:user).find(record_book_id)
+    user_name = record_book.user.name
+    average_grade = Grade.where(record_book_id: record_book_id).average(:grade)
+    Caracal::Document.save('tmp/marks_report.docx') do |doc|
+      doc.p 'Отчет о задолженностях', style: 'heading', align: 'center'
+      doc.p 'Учреждение образования', style: 'heading', align: 'center'
+      doc.p 'РЕСПУБЛИКАНСКИЙ ИНСТИТУТ ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ', style: 'heading', align: 'center'
+      doc.p 'ЗАЧЕТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ № 1', style: 'heading', align: 'center'
+      doc.p 'аттестации вне учебной группы', style: 'heading', align: 'center'
+
+      doc.p "Студент #{user_name}", style: 'normal'
+      doc.p "Средний балл студента: #{average_grade}", style: 'normal'
+      doc.p "Количество пересдач: #{retake_count}", style: 'normal'
+
+      doc.p 'Подпись преподавателя', style: 'normal'
+      doc.p '_________________________                                            ______________________ ', style: 'normal'
+      doc.p '(подпись)                                                                                   (фамилия, инициалы)', style: 'normal'
+      doc.p 'С индивидуальными сроками текущей аттестации ознакомлен', style: 'normal'
+      doc.p '___________20___               ______________                               _______________________', style: 'normal'
+      doc.p '(дата)                                     (подпись)                               (Фамилия, инициалы слушателя)', style: 'normal'
+      doc.p 'Декан факультета повышения                                                 ', style: 'normal'
+      doc.p "квалификации и переподготовки кадров                       _________________               #{User.first.format_full_name}", style: 'normal'
+    end
+
+    File.read('tmp/marks_report.docx')
+  end        
 end
+
