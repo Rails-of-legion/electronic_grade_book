@@ -11,8 +11,8 @@ class IndividualReport
       #                                font: 'Times-Roman,Bold' }
       #                      })
       font_families.update('TimesNewRoman' => {
-                             normal: { file: '/app/app/assets/fonts/Inter.ttf' },
-                             bold: { file: '/app/app/assets/fonts/Inter.ttf' }
+                             normal: { file: 'app/assets/fonts/Inter.ttf' },
+                             bold: { file: 'app/assets/fonts/Inter.ttf' }
                            })
 
       # Установка шрифта и размера

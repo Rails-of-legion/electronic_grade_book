@@ -72,6 +72,8 @@ Rails.application.routes.draw do
 
     get 'reports/generate_interim_report/:intermediate_attestation_id', to: 'reports#generate_interim_report', as: 'generate_interim_report'
 
+    get 'individual_docx_reports/generate_individual_report', to: 'individual_docx_reports#generate_individual_report', as: 'generate_individual_report'
+
     get 'about', to: 'home#about', as: :about
   end
 end
