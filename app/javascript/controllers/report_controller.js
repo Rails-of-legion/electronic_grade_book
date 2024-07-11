@@ -81,7 +81,7 @@ export default class extends Controller {
     const input = document.createElement('input');
     input.type = 'number';
     input.min = '1';
-    input.max = '5';
+    input.max = '10';
     input.classList.add('form-control', 'grade-input');
     input.value = existingGrade;
 
