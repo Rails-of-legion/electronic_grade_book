@@ -55,7 +55,7 @@
           <%= search_form_for @q do |f| %>
                 <div class="form-group mb-2">
                   <%= f.label :subject_name_cont, t('grades.item') %>
-                  <%= f.search_field :subject_name_cont, class: 'form-control' %>
+                  <%= f.collection_select :subject_id_eq, Subject.all, :id, :name, { include_blank: t('common.all') }, class: "form-control" %>
                 </div>
                 <div class="form-group mb-2">
                   <%= f.label :grade_eq, t('grades.grade') %>
