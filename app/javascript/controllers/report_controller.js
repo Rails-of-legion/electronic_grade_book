@@ -87,12 +87,15 @@ export default class extends Controller {
 
     input.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
-        if (input.value) {
-          this.saveGrade(input.value, recordBookId, day, existingGrade);
-          cell.textContent = input.value;
-        } else {
+        const grade = input.value.trim();
+        if (grade === "") {
           this.deleteGrade(recordBookId, day);
           cell.textContent = '';
+        } else if (grade >= 1 && grade <= 10) {
+          this.saveGrade(grade, recordBookId, day, existingGrade);
+          cell.textContent = grade;
+        } else {
+          alert('Оценка должна быть от 1 до 10');
         }
       }
     });
@@ -184,6 +187,8 @@ export default class extends Controller {
   }
 
   createGrade(data) {
+    const grade = data.grade.grade;
+    if (grade >= 1 && grade <= 10) {
     fetch('/grades', {
       method: 'POST',
       headers: {
@@ -199,9 +204,14 @@ export default class extends Controller {
         });
       }
     });
+  } else {
+    alert('Оценка должна быть от 1 до 10');
   }
+}
 
   updateGrade(existingGradeId, data) {
+    const grade = data.grade.grade;
+    if (grade >= 1 && grade <= 10) {
     fetch(`/grades/${existingGradeId}`, {
       method: 'PUT',
       headers: {
@@ -217,7 +227,10 @@ export default class extends Controller {
         });
       }
     });
+  } else {
+    alert('Оценка должна быть от 1 до 10');
   }
+}
 
   refreshGradeInTable(grade) {
     const cell = this.findCellForGrade(grade);
