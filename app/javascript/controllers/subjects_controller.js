@@ -38,7 +38,6 @@ export default class extends Controller {
 
     if (groupId) {
       const url = `/record_books.json?group_id=${groupId}`;
-      console.log('if')
       fetch(url)
         .then((response) => response.json())
         .then((recordBooks) => {

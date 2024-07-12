@@ -5,10 +5,10 @@ class RecordBooksController < ApplicationController
   def index
     @q = RecordBook.includes(:user, :specialization, :group).ransack(params[:q])
     @pagy, @record_books = pagy(@q.result, items: 10)
-    
+
     respond_to do |format|
       format.html
-      format.json { render json: @record_books }
+      format.json { render json: @record_books.to_json(include: { user: { only: [:id, :first_name, :last_name, :middle_name] } }) }
     end
   end
 
