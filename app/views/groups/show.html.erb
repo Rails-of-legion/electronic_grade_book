@@ -1,6 +1,6 @@
 <div class="container">
  <div class="d-flex justify-content-between align-items-center mb-4">
-   <h1 class="text-center"><%= t('groups.details') %></h1>
+   <h1 class="text-center"><%= t('groups.grading') %></h1>
    <div>
      <% if can? :edit, @group %>
        <%= link_to t('common.edit'), edit_group_path(@group), class: 'btn btn-secondary me-2' %>
@@ -19,8 +19,6 @@
    <p><strong><%= t('groups.form_of_education') %>:</strong> <%= @group.form_of_education %></p>
  </div>
 
-
- <h1 class="text-center mb-4"><%= t('groups.grading') %></h1>
 
 
  <div data-controller="report"
