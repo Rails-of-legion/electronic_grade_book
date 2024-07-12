@@ -304,7 +304,7 @@ ru:
     custom_number: "Номер" 
     specialization: "Специализация"
     select_specialization: "Выберите специализацию"
-    specialization_name: "Имя специализации"
+    specialization_name: "Название специализации"
     group: "Группа"
     select_group: "Выберите группу"
     group_name: "Название группы"
