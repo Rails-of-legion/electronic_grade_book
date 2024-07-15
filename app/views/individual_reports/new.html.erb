@@ -16,9 +16,9 @@
       <%= select_tag :group_id, 
                      options_for_select([]),
                      class: "form-select", 
-                     data: { action: "change->subjects#updateRecordBooks", subjects_target: "group" } %>
+                     data: { action: "change->subjects#updateRecordBooks change->subjects#updateIntermediateAttestations", subjects_target: "group" } %>
     </div>
-  </div>
+</div>
 
   <div class="form-group row mb-3">
     <%= label_tag :record_book_id, t('record_books.student'), class: "col-sm-2 col-form-label" %>

@@ -6,9 +6,13 @@ class IntermediateAttestationsController < ApplicationController
   def index
     @q = IntermediateAttestation.ransack(params[:q])
     @intermediate_attestations = @q.result(distinct: true).includes(:subject)
-  
+
+    if params[:group_id].present?
+      @intermediate_attestations = @intermediate_attestations.joins(:groups).where(groups: { id: params[:group_id] }).distinct
+    end
+
     @pagy, @intermediate_attestations = pagy(@intermediate_attestations, items: 10)
-  
+
     respond_to do |format|
       format.html
       format.json { render json: @intermediate_attestations }

@@ -50,9 +50,9 @@ export default class extends Controller {
   }
 
   updateIntermediateAttestations() {
-    const specializationId = this.specializationTarget.value;
-    if (specializationId) {
-      const url = `/intermediate_attestations.json?specialization_id=${specializationId}`;
+    const groupId = this.groupTarget.value;
+    if (groupId) {
+      const url = `/intermediate_attestations.json?group_id=${groupId}`;
       fetch(url)
         .then((response) => response.json())
         .then((intermediateAttestations) => {
