@@ -6,6 +6,10 @@ class RecordBooksController < ApplicationController
     @q = RecordBook.includes(:user, :specialization, :group).ransack(params[:q])
     @pagy, @record_books = pagy(@q.result, items: 10)
 
+    if params[:group_id].present?
+      @record_books = @record_books.where(group_id: params[:group_id])
+    end
+
     respond_to do |format|
       format.html
       format.json { render json: @record_books.to_json(include: { user: { only: [:id, :first_name, :last_name, :middle_name] } }) }
