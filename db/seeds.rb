@@ -1,4 +1,4 @@
-=begin
+
 def generate_phone_number(codes, prefixes)
   "#{codes.sample}#{prefixes.sample}#{rand.to_s[2..8]}"
 end
@@ -42,11 +42,11 @@ admin2 = User.create!(
 admin2.add_role(:admin)
 puts "Создан пользователь-администратор: #{admin2.email}"
 
-=end
 
 
 
 
+=begin
 require 'faker'
 
 def generate_phone_number(codes, prefixes)
@@ -200,3 +200,4 @@ puts "Создание семестров..."
   )
   puts "Создан семестр: #{semester.name}"
 end
+=end
