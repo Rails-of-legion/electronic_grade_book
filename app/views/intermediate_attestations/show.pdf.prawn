@@ -37,12 +37,14 @@ students_with_grades = students_in_group.select do |record_book|
   record_book.grades.exists?(subject_id: @intermediate_attestation.subject_id)
 end
 
-table_data = [['№ пп', 'Фамилия, собственное имя, отчество слушателя', 'Отметка', 'Подпись преподавателя']]
+attestation_date = @intermediate_attestation.date 
 
 students_with_grades.each_with_index do |record_book, index|
-  grades = record_book.grades.map(&:grade).join(', ')
-  table_data << [index + 1, record_book.user.name, grades.first, '']
+  filtered_grades = record_book.grades.select { |grade| grade.date.to_date == attestation_date }
+  grades = filtered_grades.map(&:grade).join(', ')
+  table_data << [index + 1, record_book.user.name, grades, '']
 end
+
 
 pdf.table(table_data, header: true)
 pdf.move_down 10
@@ -68,9 +70,18 @@ students_without_grades_count = total_students_count - students_with_grades_coun
 
   pdf.text "Количество студентов, присутствовавших на аттестации: #{students_with_grades_count}"
   pdf.text "Количество слушателей, получивших отметки: #{students_with_grades_count}"
-  table_grades = [['10','','9','','8','','7',''],
-                    ['6','','5','','4','','3',''],
-                    ['2','','1','','','','',''],
+
+  grade_counts = Hash.new(0)
+  students_with_grades.each do |record_book|
+    filtered_grades = record_book.grades.select { |grade| grade.date.to_date == attestation_date }
+    filtered_grades.each do |grade|
+      grade_counts[grade.grade.to_s] += 1
+    end
+  end
+
+  table_grades = [['10', grade_counts['10'],'9', grade_counts['9'],'8', grade_counts['8'],'7', grade_counts['7']],
+                    ['6', grade_counts['6'],'5', grade_counts['5'],'4', grade_counts['4'],'3', grade_counts['3']],
+                    ['2', grade_counts['2'],'1', grade_counts['1'],'','','',''],
                     ['зачтено','','не зачтено','']]
 
   pdf.table(table_grades, width: pdf.bounds.width) do
