@@ -17,14 +17,15 @@ prawn_document title: 'Intermediate Attestation Report' do |pdf|
               at: [pdf.bounds.width / 2, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :right
+              pdf.move_down 15            
   @groups.each do |group|
     pdf.text "Учебная дисциплина, модуль «#{@intermediate_attestation.subject.name}»", align: :justify
-    pdf.text "Группа #{group.name}", align: :justify
-    pdf.text "Форма получения образования #{group.form_of_education}", align: :justify
+    pdf.text "Группа: #{group.name}", align: :justify
+    pdf.text "Форма получения образования: #{group.form_of_education}", align: :justify
   end
-  pdf.text "Форма промежуточной аттестации #{@intermediate_attestation.name}", align: :justify
+  pdf.text "Форма промежуточной аттестации: #{@intermediate_attestation.name}", align: :justify
   pdf.text "Всего часов и зачетных единиц по учебной дисциплине, модулю  1", align: :justify
-  pdf.text "Преподаватель #{@intermediate_attestation.teacher.name}", align: :justify
+  pdf.text "Преподаватель: #{@intermediate_attestation.teacher.name}", align: :justify
 
   table_data = [['№ пп', 'Фамилия, собственное имя, отчество слушателя', 'Отметка', 'Подпись преподавателя']]
 # Получаем список студентов группы
@@ -46,7 +47,14 @@ students_with_grades.each_with_index do |record_book, index|
 end
 
 
-pdf.table(table_data, header: true)
+pdf.table(table_data) do 
+  row(0).font_style = :bold
+  row(0).align = :center
+  column(0).align = :center
+  column(0).width = 30
+  column(2).align = :center
+  column(2).width = 57
+end
 pdf.move_down 10
 
 pdf.move_down 10
@@ -95,29 +103,31 @@ students_without_grades_count = total_students_count - students_with_grades_coun
               at: [0, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :left
+  
+  pdf.text_box "#{@intermediate_attestation.teacher.name}",
+              at: [pdf.bounds.width / 2, pdf.cursor],
+              width: pdf.bounds.width / 2,
+              align: :right
   pdf.move_down 10
   pdf.text_box "                   ______________",
               at: [pdf.bounds.width / 4, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :center
-  pdf.move_down 10
-  pdf.text_box "#{@intermediate_attestation.teacher.name}",
-              at: [pdf.bounds.width / 2, pdf.cursor],
-              width: pdf.bounds.width / 2,
-              align: :right
-
+  
+  pdf.move_down 20
   pdf.text_box "Декан факультета повышения квалификации и переподготовки кадров",
               at: [0, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :left
   pdf.move_down 10
-  pdf.text_box "                   ______________",
-              at: [pdf.bounds.width / 4, pdf.cursor],
-              width: pdf.bounds.width / 2,
-              align: :center
-  pdf.move_down 10
   pdf.text_box "#{User.first.format_full_name}",
               at: [pdf.bounds.width / 2, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :right
+  pdf.move_down 10
+  pdf.text_box "                   ______________",
+              at: [pdf.bounds.width / 4, pdf.cursor],
+              width: pdf.bounds.width / 1.2,
+              align: :center
+
 end

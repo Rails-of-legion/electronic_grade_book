@@ -22,13 +22,14 @@ class ReportsController < ApplicationController
       
 
       intermediate_attestation.groups.each do |group|
-        docx.p "Учебная дисциплина, модуль «#{intermediate_attestation.subject.name}»                                             Дата проведения #{intermediate_attestation.date}"
-        docx.p "Группа #{group.name}"
-        docx.p "Форма получения образования #{group.form_of_education}"
+        docx.p "Дата проведения: #{intermediate_attestation.date}", align: 'right'
+        docx.p "Учебная дисциплина, модуль «#{intermediate_attestation.subject.name}»"
+        docx.p "Группа: #{group.name}"
+        docx.p "Форма получения образования: #{group.form_of_education}"
       end
-      docx.p "Форма промежуточной аттестации #{intermediate_attestation.name}"
+      docx.p "Форма промежуточной аттестации: #{intermediate_attestation.name}"
       docx.p "Всего часов и зачетных единиц по учебной дисциплине, модулю  1"
-      docx.p "Преподаватель #{intermediate_attestation.teacher.name}"
+      docx.p "Преподаватель: #{intermediate_attestation.teacher.name}"
 
       table_data = [['№ пп', 'Фамилия, собственное имя, отчество слушателя', 'Отметка', 'Подпись преподавателя']]
       students_in_group = RecordBook.includes(:group, :user)
@@ -48,9 +49,9 @@ class ReportsController < ApplicationController
       end
 
       docx.table table_data, border_size: 4 do
-        cell_style rows[0], bold: true, height: 500
-        cell_style cols[0], width: 500
-        cell_style cols[2], width: 1200
+        cell_style rows[0], height: 300, align: :center
+        cell_style cols[0], width: 500, align: :center
+        cell_style cols[2], width: 1200, align: :center
       end
 
       students_with_grades_count = RecordBook.joins(:grades)
@@ -86,15 +87,23 @@ class ReportsController < ApplicationController
       docx.p "Количество студентов, не явившихся на аттестацию: #{students_without_grades_count}"
       docx.p " "
 
-      docx.p "Подпись преподавателя                     ___________________                #{intermediate_attestation.teacher.name}", align: 'left'
-   
+      # Подпись преподавателя
+      docx.p do
+        text "Подпись преподавателя", align: 'left'
+        text "                      ___________________                  ", align: 'center'
+        text "#{intermediate_attestation.teacher.name}", align: 'right'
+      end
 
-      docx.p "Декан факультета", align: 'left'
-      docx.p "повышения квалификации и", align: 'left'
-      docx.p "переподготовки кадров                     ___________________                  #{User.first.format_full_name}", align: 'left'
-      
+      docx.p " "
+
+      # Декан факультета
+      docx.p "Декан факультета повышения ", align: 'left'
+      docx.p do
+        text "квалификации и переподготовки кадров", align: 'left'
+        text "                  ___________________                  ", align: 'center'
+        text "#{User.first.format_full_name}", align: 'right'
+      end
     end
-
     temp_file.close
     temp_file.path
   end
