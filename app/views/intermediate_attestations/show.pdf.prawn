@@ -17,14 +17,15 @@ prawn_document title: 'Intermediate Attestation Report' do |pdf|
               at: [pdf.bounds.width / 2, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :right
+              pdf.move_down 15            
   @groups.each do |group|
     pdf.text "Учебная дисциплина, модуль «#{@intermediate_attestation.subject.name}»", align: :justify
-    pdf.text "Группа #{group.name}", align: :justify
-    pdf.text "Форма получения образования #{group.form_of_education}", align: :justify
+    pdf.text "Группа: #{group.name}", align: :justify
+    pdf.text "Форма получения образования: #{group.form_of_education}", align: :justify
   end
-  pdf.text "Форма промежуточной аттестации #{@intermediate_attestation.name}", align: :justify
+  pdf.text "Форма промежуточной аттестации: #{@intermediate_attestation.name}", align: :justify
   pdf.text "Всего часов и зачетных единиц по учебной дисциплине, модулю  1", align: :justify
-  pdf.text "Преподаватель #{@intermediate_attestation.teacher.name}", align: :justify
+  pdf.text "Преподаватель: #{@intermediate_attestation.teacher.name}", align: :justify
 
   table_data = [['№ пп', 'Фамилия, собственное имя, отчество слушателя', 'Отметка', 'Подпись преподавателя']]
 # Получаем список студентов группы
@@ -37,14 +38,23 @@ students_with_grades = students_in_group.select do |record_book|
   record_book.grades.exists?(subject_id: @intermediate_attestation.subject_id)
 end
 
-table_data = [['№ пп', 'Фамилия, собственное имя, отчество слушателя', 'Отметка', 'Подпись преподавателя']]
+attestation_date = @intermediate_attestation.date 
 
 students_with_grades.each_with_index do |record_book, index|
-  grades = record_book.grades.map(&:grade).join(', ')
-  table_data << [index + 1, record_book.user.name, grades.first, '']
+  filtered_grades = record_book.grades.select { |grade| grade.date.to_date == attestation_date }
+  grades = filtered_grades.map(&:grade).join(', ')
+  table_data << [index + 1, record_book.user.name, grades, '']
 end
 
-pdf.table(table_data, header: true)
+
+pdf.table(table_data) do 
+  row(0).font_style = :bold
+  row(0).align = :center
+  column(0).align = :center
+  column(0).width = 30
+  column(2).align = :center
+  column(2).width = 57
+end
 pdf.move_down 10
 
 pdf.move_down 10
@@ -68,9 +78,18 @@ students_without_grades_count = total_students_count - students_with_grades_coun
 
   pdf.text "Количество студентов, присутствовавших на аттестации: #{students_with_grades_count}"
   pdf.text "Количество слушателей, получивших отметки: #{students_with_grades_count}"
-  table_grades = [['10','','9','','8','','7',''],
-                    ['6','','5','','4','','3',''],
-                    ['2','','1','','','','',''],
+
+  grade_counts = Hash.new(0)
+  students_with_grades.each do |record_book|
+    filtered_grades = record_book.grades.select { |grade| grade.date.to_date == attestation_date }
+    filtered_grades.each do |grade|
+      grade_counts[grade.grade.to_s] += 1
+    end
+  end
+
+  table_grades = [['10', grade_counts['10'],'9', grade_counts['9'],'8', grade_counts['8'],'7', grade_counts['7']],
+                    ['6', grade_counts['6'],'5', grade_counts['5'],'4', grade_counts['4'],'3', grade_counts['3']],
+                    ['2', grade_counts['2'],'1', grade_counts['1'],'','','',''],
                     ['зачтено','','не зачтено','']]
 
   pdf.table(table_grades, width: pdf.bounds.width) do
@@ -84,29 +103,31 @@ students_without_grades_count = total_students_count - students_with_grades_coun
               at: [0, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :left
+  
+  pdf.text_box "#{@intermediate_attestation.teacher.name}",
+              at: [pdf.bounds.width / 2, pdf.cursor],
+              width: pdf.bounds.width / 2,
+              align: :right
   pdf.move_down 10
   pdf.text_box "                   ______________",
               at: [pdf.bounds.width / 4, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :center
-  pdf.move_down 10
-  pdf.text_box "#{@intermediate_attestation.teacher.name}",
-              at: [pdf.bounds.width / 2, pdf.cursor],
-              width: pdf.bounds.width / 2,
-              align: :right
-
+  
+  pdf.move_down 20
   pdf.text_box "Декан факультета повышения квалификации и переподготовки кадров",
               at: [0, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :left
   pdf.move_down 10
-  pdf.text_box "                   ______________",
-              at: [pdf.bounds.width / 4, pdf.cursor],
-              width: pdf.bounds.width / 2,
-              align: :center
-  pdf.move_down 10
   pdf.text_box "#{User.first.format_full_name}",
               at: [pdf.bounds.width / 2, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :right
+  pdf.move_down 10
+  pdf.text_box "                   ______________",
+              at: [pdf.bounds.width / 4, pdf.cursor],
+              width: pdf.bounds.width / 1.2,
+              align: :center
+
 end

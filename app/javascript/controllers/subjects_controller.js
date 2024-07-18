@@ -4,6 +4,7 @@ export default class extends Controller {
   static targets = ["specialization", "group", "recordBook", "intermediateAttestation", "user"];
 
   connect() {
+    this.addDefaultOption(this.specializationTarget);
     this.updateGroups();
     this.updateIntermediateAttestations();
   }
@@ -17,7 +18,7 @@ export default class extends Controller {
   updateGroups() {
     const specializationId = this.specializationTarget.value;
     if (specializationId) {
-      const url = `/groups.json?specialization_id=${specializationId}`;
+      const url = `/specializations/${specializationId}/groups.json`;
       fetch(url)
         .then((response) => response.json())
         .then((groups) => {
@@ -30,7 +31,6 @@ export default class extends Controller {
       this.clearSelect(this.recordBookTarget);
     }
   }
-  
 
   updateRecordBooks() {
     console.log("SubjectsController: updating record books");
@@ -38,7 +38,6 @@ export default class extends Controller {
 
     if (groupId) {
       const url = `/record_books.json?group_id=${groupId}`;
-      console.log('if')
       fetch(url)
         .then((response) => response.json())
         .then((recordBooks) => {
@@ -51,9 +50,9 @@ export default class extends Controller {
   }
 
   updateIntermediateAttestations() {
-    const specializationId = this.specializationTarget.value;
-    if (specializationId) {
-      const url = `/intermediate_attestations.json?specialization_id=${specializationId}`;
+    const groupId = this.groupTarget.value;
+    if (groupId) {
+      const url = `/intermediate_attestations.json?group_id=${groupId}`;
       fetch(url)
         .then((response) => response.json())
         .then((intermediateAttestations) => {
@@ -65,8 +64,7 @@ export default class extends Controller {
   }
 
   populateSelect(selectElement, items, nestedKey = null) {
-    selectElement.innerHTML = "";
-    selectElement.innerHTML += `<option value="">Выберите...</option>`; 
+    selectElement.innerHTML = `<option value="">Выберите...</option>`;
     items.forEach((item) => {
       const value = nestedKey ? item[nestedKey].id : item.id;
       const name = nestedKey ? item[nestedKey].name : item.name;
@@ -75,18 +73,26 @@ export default class extends Controller {
   }
 
   populateSelectRecordBook(selectElement, items, nestedKey = null) {
-    selectElement.innerHTML = "";
-    selectElement.innerHTML += `<option value="">Выберите...</option>`; 
+    selectElement.innerHTML = `<option value="">Выберите...</option>`;
     items.forEach((item) => {
-      const user = item.user
+      const user = item.user;
       const value = item.id;
-      const name = user ? ( user.last_name + ' ' + user.first_name  + ' ' + user.middle_name) : "Без пользователя"; 
+      const name = user ? `${user.last_name} ${user.first_name} ${user.middle_name}` : "Без пользователя"; 
       selectElement.innerHTML += `<option value="${value}">${name}</option>`;
     });
-}
-
+  }
 
   clearSelect(selectElement) {
     selectElement.innerHTML = `<option value="">Выберите...</option>`;
+  }
+
+  addDefaultOption(selectElement) {
+    if (!selectElement.querySelector('option[value=""]')) {
+      const defaultOption = document.createElement("option");
+      defaultOption.value = "";
+      defaultOption.textContent = "Выберите...";
+      selectElement.prepend(defaultOption);
+      selectElement.value = "";
+    }
   }
 }
