@@ -1,16 +1,13 @@
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
+ <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
   <style>
   .social-icon {
       font-size: 2rem; /* Увеличивает размер иконок */
     }
+ /* Делает цвет текста серым */
   .container {
-    padding-top: 3rem;
+    padding-top: 3rem; 
     padding-bottom: 3rem;
   }
 
@@ -25,7 +22,7 @@
 
   .card-text {
     font-size: 1rem;
-    color: #6c757d;
+    
   }
 
   .btn-primary {
@@ -46,38 +43,35 @@
   .welcome-card {
     max-width: 600px;
     margin: auto;
-  }
+  } 
   </style>
 </head>
 
 <body>
-  <div class="col-md-6 offset-md-3 mt-5">
-    <h1 class="card-title text-center"><%= t('about.title') %></h1>
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <div class="card-text text-center ">
-          <p>Республиканский институт профессионального образования</p>
-          <p>Адрес: ул. К. Либкнехта, 32, 220004, г. Минск, Беларусь</p>
-          <p>Тел./Факс: +375 17 215 09 92</p>
-          <p>Email: <a href="mailto:ripo@ripo.by">ripo@ripo.by</a></p>
-          <p>Время работы: с 8.30 до 17.00</p>
-          <p>Выходной: суббота, воскресенье</p>
-          <p>УНП: 100419924, выдан Минский горисполком 26.10.2000</p>
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="col-md-5 mt-5">
+      <h1 class="card-title text-center mb-3"><%= t('about.title') %></h1>
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="card-text text-center ">
+            <p>Республиканский институт профессионального образования</p>
+            <p>Адрес: ул. К. Либкнехта, 32, 220004, г. Минск, Беларусь</p>
+            <p>Тел./Факс: +375 17 215 09 92</p>
+            <p>Email: <a href="mailto:ripo@ripo.by">ripo@ripo.by</a></p>
+            <p>Время работы: с 8.30 до 17.00</p>
+            <p>Выходной: суббота, воскресенье</p>
+            <p>УНП: 100419924, выдан Минский горисполком 26.10.2000</p>
+          </div>
         </div>
-      </div>
-      <div class="card-footer">
-        <div class="d-flex justify-content-center w-100">
-          <a href="https://www.youtube.com/channel/UCyoI_3c0BbAyLHMXzG8TaTw" target="_blank" class="mx-5"><i class="bi bi-youtube social-icon"></i></a>
-          <a href="https://t.me/s/uoripo" target="_blank" class="mx-5"><i class="bi bi-telegram social-icon"></i></a>
-          <a href="https://www.instagram.com/ripo.by/" target="_blank" class="mx-5"><i class="bi bi-instagram social-icon"></i></a>
-          <a href="https://www.facebook.com/RIPOofficial/" target="_blank" class="mx-5"><i class="bi bi-facebook social-icon"></i></a>
+        <div class="card-footer">
+          <div class="d-flex justify-content-center w-100">
+            <a href="https://www.youtube.com/channel/UCyoI_3c0BbAyLHMXzG8TaTw" target="_blank" class="mx-auto"><i class="bi bi-youtube social-icon"></i></a>
+            <a href="https://t.me/s/uoripo" target="_blank" class="mx-auto"><i class="bi bi-telegram social-icon"></i></a>
+            <a href="https://www.instagram.com/ripo.by/" target="_blank" class="mx-auto"><i class="bi bi-instagram social-icon"></i></a>
+            <a href="https://www.facebook.com/RIPOofficial/" target="_blank" class="mx-auto"><i class="bi bi-facebook social-icon"></i></a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-    <!-- Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html>

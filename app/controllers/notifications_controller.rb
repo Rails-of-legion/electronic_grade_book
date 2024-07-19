@@ -5,13 +5,14 @@ class NotificationsController < ApplicationController
   # GET /notifications
   def index
     @q = Notification.ransack(params[:q])
-    @notifications = @q.result.includes(:users, :notifications_users)
-
+    @pagy, @notifications = pagy(@q.result(distinct: true).includes(:users, :notifications_users), items: 8)
+    @total_notifications = @q.result(distinct: true).count
+  
     respond_to do |format|
       format.html
       format.json { render json: @notifications }
     end
-  end
+  end  
 
   # GET /notifications/1
   def show
