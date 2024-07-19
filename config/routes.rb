@@ -57,7 +57,11 @@ Rails.application.routes.draw do
         patch :mark_as_read
       end
     end
-    resources :intermediate_attestations
+    resources :intermediate_attestations do
+      member do
+        get 'groups', to: 'intermediate_attestations#groups'
+      end
+    end
     resources :grades do
       collection do
         post 'find'

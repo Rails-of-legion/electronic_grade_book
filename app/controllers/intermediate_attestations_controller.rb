@@ -32,12 +32,17 @@ class IntermediateAttestationsController < ApplicationController
     end
   end
 
-  def new
+  def groups
+    attestation_id = params[:id]
+    @groups = Group.joins(:groups_intermediate_attestations)
+                   .where(groups_intermediate_attestations: { intermediate_attestation_id: attestation_id })
+    render json: @groups
+  end
 
+  def new
   end
 
   def edit
-
   end
 
   def create

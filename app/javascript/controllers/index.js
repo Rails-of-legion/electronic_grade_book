@@ -16,5 +16,8 @@ application.register("record-form", RecordFormController)
 import ReportController from "./report_controller"
 application.register("report", ReportController)
 
+import RetakeController from "./retake_controller"
+application.register("retake", RetakeController)
+
 import SubjectsController from "./subjects_controller"
 application.register("subjects", SubjectsController)
