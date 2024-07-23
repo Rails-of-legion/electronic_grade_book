@@ -68,9 +68,9 @@
              <%= f.search_field :group_name_cont, placeholder: t('record_books.group_name'), class: "form-control" %>
            </div>
            <div class="form-group mb-2">
-                  <%= f.label :record_book_user_last_name_cont, t('grades.sudent') %>
-                  <%= f.search_field :user_last_name_cont, placeholder: t('grades.students_last_name'), class: 'form-control' %>
-                </div>
+              <%= f.label :record_book_user_last_name_cont, t('grades.sudent') %>
+              <%= f.search_field :user_last_name_cont, placeholder: t('grades.students_last_name'), class: 'form-control' %>
+           </div>
            <div class="form-group mt-3">
              <%= f.submit t('common.search'), class: 'btn btn-primary' %>
              <%= link_to t('common.reset'), record_books_path, class: "btn btn-secondary" %>
@@ -126,6 +126,10 @@
            <div class="form-group mb-2">
              <%= f.label :group_name_cont, t('record_books.group') %>
              <%= f.search_field :group_name_cont, placeholder: t('record_books.group_name'), class: "form-control" %>
+           </div>
+            <div class="form-group mb-2">
+              <%= f.label :record_book_user_last_name_cont, t('grades.sudent') %>
+              <%= f.search_field :user_last_name_cont, placeholder: t('grades.students_last_name'), class: 'form-control' %>
            </div>
            <div class="form-group mt-3">
              <%= f.submit t('common.search'), class: 'btn btn-primary' %>
