@@ -7,9 +7,19 @@ class AttestationRetakeReportsController < ApplicationController
   def generate_report
     @exam = IntermediateAttestation.find(params[:exam_id])
     @group = Group.find(params[:group_id])
-    @grades = @exam.grades.includes(record_book: :user).where(record_books: { group_id: @group.id })
-    @passed_students = @grades.select { |grade| grade.grade >= 4 }
-    @failed_students = @grades.select { |grade| grade.grade < 3 || grade.grade.nil? }
+    report_date = @exam.date
+    record_books = RecordBook.where(group_id: @group.id)
+    student_ids_with_record_books = record_books.pluck(:user_id)
+    @grades = Grade.joins(:record_book)
+                   .where(record_books: { group_id: @group.id }, date: report_date, subject_id: @exam.subject_id)
+    student_ids_with_grades = @grades.joins(:record_book).pluck('record_books.user_id').uniq
+    student_ids_without_grades = student_ids_with_record_books - student_ids_with_grades
+    record_books_for_students_without_grades = RecordBook.where(user_id: student_ids_without_grades, group_id: @group.id)
+    @grades += record_books_for_students_without_grades.map do |record_book|
+      Grade.new(record_book: record_book, date: report_date, subject_id: @exam.subject_id, grade: nil)
+    end
+    @passed_students = @grades.select { |grade| grade.grade.to_i >= 4 }
+  @failed_students = @grades.select { |grade| grade.grade.nil? || grade.grade.to_i < 3 }
 
     respond_to do |format|
       format.pdf do
@@ -53,10 +63,10 @@ class AttestationRetakeReportsController < ApplicationController
     pdf.text "Количество слушателей, которые сдали экзамен: #{@passed_students.count}"
     pdf.move_down 10
     pdf.text "Количество слушателей, не сдавших экзамен: #{@failed_students.count}"
-    pdf.move_down 20
-
+    pdf.move_down 10
     pdf.text 'Список студентов, не явившихся или получивших отрицательный балл:', style: :bold
-
+    pdf.table failed_students_table_data, header: true, cell_style: { inline_format: true }
+    pdf.move_down 10                         
     pdf.text "Дата выдачи ведомости: #{Time.zone.today.strftime('%d.%m.%Y')}", align: :left, size: 11
     pdf.text 'Ведомость действительна по: ________________', align: :left, size: 11
     pdf.text 'Отметка: ___________________                                                 Дата аттестации: _____________',
@@ -75,9 +85,6 @@ class AttestationRetakeReportsController < ApplicationController
     pdf.text 'Декан факультета повышения                                                 ', align: :left, size: 11
     pdf.text "квалификации и переподготовки кадров                      _________________               <u>#{User.first.format_full_name}<u>",
              align: :left, inline_format: true, size: 11
-
-    pdf.table failed_students_table_data, header: true
-
     pdf.render
   end
 
@@ -99,6 +106,8 @@ class AttestationRetakeReportsController < ApplicationController
       
       doc.p 'Список студентов, не явившихся или получивших отрицательный балл:', bold: true
 
+      doc.table failed_students_table_data
+      
       doc.p "Дата выдачи ведомости: #{Time.zone.today.strftime('%d.%m.%Y')}"
       doc.p 'Ведомость действительна по: ________________'
       doc.p 'Отметка: ___________________               Дата аттестации: _____________'
@@ -110,8 +119,6 @@ class AttestationRetakeReportsController < ApplicationController
       doc.p '(дата)                           (подпись)                         (Фамилия, инициалы слушателя)'
       doc.p 'Декан факультета повышения'
       doc.p "квалификации и переподготовки кадров  _________________    #{User.first.format_full_name}"
-
-      doc.table failed_students_table_data
     end
 
     File.read("tmp/individual_report.docx")
@@ -121,7 +128,7 @@ class AttestationRetakeReportsController < ApplicationController
     [%w[ФИО Оценка]] +
       @failed_students.map do |grade|
         student = grade.record_book.user
-        ["#{student.last_name} #{student.first_name}", grade.grade || 'Не явился']
+        ["#{student.last_name} #{student.first_name}", grade.grade.nil? ? 'Не явился' : grade.grade]
       end
   end
 end
