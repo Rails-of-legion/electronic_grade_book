@@ -132,6 +132,7 @@ ru:
   
   users:
     users: "Пользователи"
+    user: "Пользовател"
     first_name: "Имя"
     last_name: "Фамилия"
     middle_name: "Отчество"
@@ -141,6 +142,7 @@ ru:
     show: "Показать"
     no_users_found: "Пользователи не найдены"
     personal_profile: "Личный кабинет"
+    personal_profile_users: "Личный кабинет пользователя"
     date_of_birth: "Дата рождения"
     show_notifications: "Показать уведомления"
     change_password: "Сменить пароль"

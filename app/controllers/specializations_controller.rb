@@ -6,7 +6,8 @@ class SpecializationsController < ApplicationController
   # GET /specializations
   def index
     @q = Specialization.ransack(params[:q])
-    @pagy, @specializations = pagy(@q.result.includes(:subjects, :specialities_subjects), items: 10)
+    @pagy, @specializations = pagy(@q.result.includes(:subjects, :specialities_subjects), items: 7)
+    @total_specializations = @q.result(distinct: true).count
   end
 
   # GET /specializations/1

@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
   # GET /notifications
   def index
     @q = Notification.ransack(params[:q])
-    @pagy, @notifications = pagy(@q.result(distinct: true).includes(:users, :notifications_users), items: 8)
+    @pagy, @notifications = pagy(@q.result(distinct: true).includes(:users, :notifications_users), items: 7)
     @total_notifications = @q.result(distinct: true).count
   
     respond_to do |format|

@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   def index
     @q = User.ransack(params[:q])
     @pagy, @users = pagy(@q.result(distinct: true).includes(:roles), items: 7)
+    @total_notifications = @q.result(distinct: true).count
   end
 
   def show

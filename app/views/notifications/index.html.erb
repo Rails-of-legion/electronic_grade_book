@@ -3,42 +3,46 @@
      <!-- Заголовок и кнопка "Добавить уведомление" -->
     <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
       <h1 ><%= t('notifications.notifications') %></h1>
-      <%= link_to t('notifications.new_notifications'), new_notification_path, class: 'btn btn-primary' %>
+      <%= link_to t('common.add'), new_notification_path, class: 'btn btn-primary' %>
     </div>
      <!-- Таблица с уведомлениями -->
-    <div class="row mb-3">
+    <div class="row mb-4">
       <div class="col-md-9">
         <% if @notifications.present? %>
-          <table class="table  table-sm">
+          <table class="table table-sm">
             <thead>
               <tr>
                 <th class="w-50"><%= t('notifications.message') %></th>
                 <th class="w-30"><%= t('notifications.users') %></th>
                 
-                <th class="w-10"><%= t('notifications.date') %></th>
-                <th colspan="3" class="w-10"><%= t('notifications.actions') %></th>
+                <th class="text-center w-10"><%= t('notifications.date') %></th>
+                <th colspan="3" class="text-center w-10"><%= t('notifications.actions') %></th>
               </tr>
             </thead>
             <tbody>
               <% @notifications.each do |notification| %>
                 <tr>
-                  <td><%= notification.message %></td>
+                  <td class="text-justify">
+                    <%= notification.message %>
+                  </td>
                   <td>
                     <% notification.users.each do |user| %>
                       <%= user.name %><br>
-                      <strong>(<%= notification.notifications_users.find_by(user: user)&.status ? 
-                      t('notifications.read') : t('notifications.no_read') %>)</strong>
+                      <strong class="<%= notification.notifications_users.find_by(user: user)&.status ? 'text-success' : 'text-danger' %>">
+                        <%= notification.notifications_users.find_by(user: user)&.status ? t('notifications.read') : t('notifications.no_read') %>
+                      </strong>
                       <br>
                     <% end %>
                   </td>
+
                   
-                  <td class="w-10"><%= notification.date.strftime("%d.%m.%Y") %></td>
-                  <td class="w-10">
-                    <div class="action-btns">
+                  <td class="text-center"><%= notification.date.strftime("%d.%m.%Y") %></td>
+                  <td>
+                    <div class="text-center">
                       <div>
                         <%= link_to t('common.show'), notification, class: 'btn btn-sm btn-primary', style: 'width: 120px;' %>
                       </div>
-                      <div>
+                      <div class="mb-1 mt-1">
                         <%= link_to t('common.edit'), edit_notification_path(notification), class: 'btn btn-sm btn-secondary', style: 'width: 120px;' %>
                       </div>
                       <div>
@@ -51,7 +55,7 @@
               <% end %>
             </tbody>
           </table>
-          <% if @total_notifications > 8  %>
+          <% if @total_notifications > 7  %>
             <%== pagy_bootstrap_nav(@pagy) %>
           <% end %>
         <% else %>
@@ -62,7 +66,7 @@
         <%= search_form_for @q, class: "form-inline" do |f| %>
           <div class="form-group mb-2">
             <%= f.label :message_cont, t('notifications.message'), class: "sr-only" %>
-            <%= f.search_field :message_cont, placeholder: t('notifications.message'), class: "form-control" %>
+            <%= f.search_field :message_cont, class: "form-control" %>
           </div>
           <div class="form-group mb-2">
             <%= f.label :date_gteq, t('notifications.date_greater'), class: "sr-only" %>

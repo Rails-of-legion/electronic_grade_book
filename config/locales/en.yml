@@ -130,6 +130,7 @@ en:
 
   users:
     users: "Users"
+    user: "User"
     first_name: "First name"
     last_name: "Last name"
     middle_name: "Middle name"

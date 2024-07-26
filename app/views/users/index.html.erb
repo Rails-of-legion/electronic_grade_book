@@ -1,89 +1,104 @@
-<div class="container">
-  <div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: 20px;">
-    <h1 class="text-center"><%= t('users.users') %></h1>
-    <% if current_user.admin? %>
-      <%= link_to t('users.new'), new_user_path, class: 'btn btn-primary' %>
-    <% end %>
-  </div>
+<% if User.exists? %>
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+      <h1><%= t('users.users') %></h1>
+      <% if current_user.admin? %>
+        <%= link_to t('common.add'), new_user_path, class: 'btn btn-primary' %>
+      <% end %>
+    </div>
 
-  <div class="row mb-4">
-    <div class="col-md-9">
-      <% if @users.present? %>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th><%= t('users.last_name') %></th>
-              <th><%= t('users.first_name') %></th>
-              <th><%= t('users.middle_name') %></th>
-              <th><%= t('users.email') %></th>
-              <th><%= t('users.phone_number') %></th>
-              <th><%= t('users.role') %></th>
-              <th><%= t('common.actions') %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @users.each do |user| %>
+    <div class="row mb-4">
+      <div class="col-md-9">
+        <% if @users.present? %>
+          <table class="table table-sm">
+            <thead>
               <tr>
-                <td><%= user.last_name %></td>
-                <td><%= user.first_name %></td>
-                <td><%= user.middle_name %></td>
-                <td><%= user.email.gsub('@', '<br />@')&.html_safe %></td>
-                <td><%= user.phone_number %></td>
-                <td><%= user.roles.map(&:name).join(', ') %></td>
-                <td class="w-10 text-right">
-                  <div>
-                    <%= link_to t('common.show'), user_path(user), class: 'btn btn-primary btn-sm', style: 'width: 120px;' %>
-                  <div>
-                  <% if current_user.has_role?(:admin) %>
-                    <div>
-                      <%= link_to t('common.edit'), edit_user_path(user), class: 'btn btn-secondary btn-sm', style: 'width: 120px;' %>
-                    <div>
-                    <div>
-                      <%= link_to t('common.delete'), user_path(user),
-                      data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm', style: 'width: 120px;' %>
-                    <div>
-                  <% end %>
-                </td>
+                <th><%= t('users.last_name') %></th>
+                <th><%= t('users.first_name') %></th>
+                <th><%= t('users.middle_name') %></th>
+                <th><%= t('users.email') %></th>
+                <th><%= t('users.phone_number') %></th>
+                <th class="text-center"><%= t('users.role') %></th>
+                <th class="text-center"><%= t('common.actions') %></th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
-        <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
-      <% else %>
-        <p class="alert alert-info"><%= t('users.no_users_found') %></p>
-      <% end %>
-    </div>
-    <div class="col-md-3">
-      <%= search_form_for @q, class: "form-inline" do |f| %>
-        <div class="form-group mb-2">
-          <%= f.label :last_name_cont, t('users.last_name') %>
-          <%= f.search_field :last_name_cont, class: "form-control" %>
-        </div>
-        <div class="form-group mb-2">
-          <%= f.label :first_name_cont, t('users.first_name') %>
-          <%= f.search_field :first_name_cont, class: "form-control" %>
-        </div>
-        <div class="form-group mb-2">
-          <%= f.label :middle_name_cont, t('users.middle_name') %>
-          <%= f.search_field :middle_name_cont, class: "form-control" %>
-        </div>
-        <div class="form-group mb-2">
-          <%= f.label :email_cont, t('users.email') %>
-          <%= f.search_field :email_cont, class: "form-control" %>
-        </div>
-        <div class="form-group mb-2">
-          <%= f.label :phone_number_cont, t('users.phone_number') %>
-          <%= f.search_field :phone_number_cont, class: "form-control" %>
-        </div>
-        <div class="form-group mb-2">
-          <%= f.label :roles_id_eq, t('users.role') %>
-          <%= f.select :roles_id_eq, options_from_collection_for_select(Role.all, :id, :name, params.dig(:q, :roles_id_eq)), { include_blank: t('common.all') }, class: "form-control" %>
-        </div>
-        <div class="form-group mt-3">
-          <%= f.submit t('common.search'), class: 'btn btn-primary' %>
-          <%= link_to t('common.reset'), users_path, class: 'btn btn-secondary' %>
-        </div>
-      <% end %>
+            </thead>
+            <tbody>
+              <% @users.each do |user| %>
+                <tr>
+                  <td><%= user.last_name %></td>
+                  <td><%= user.first_name %></td>
+                  <td><%= user.middle_name %></td>
+                  <td><%= user.email.gsub('@', '<br />@')&.html_safe %></td>
+                  <td><%= user.phone_number %></td>
+                  <td class="text-center"><%= user.roles.map(&:name).join(', ') %></td>
+                  <td class="w-10 text-center">
+                    <div>
+                      <%= link_to t('common.show'), user_path(user), class: 'btn btn-primary btn-sm', style: 'width: 120px;' %>
+                    <div>
+                    <% if current_user.has_role?(:admin) %>
+                      <div class="mt-1">
+                        <%= link_to t('common.edit'), edit_user_path(user), class: 'btn btn-secondary btn-sm', style: 'width: 120px;' %>
+                      <div>
+                      <div class="mt-1">
+                        <%= link_to t('common.delete'), user_path(user),
+                        data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm', style: 'width: 120px;' %>
+                      <div>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <% if @total_notifications > 7  %>
+            <%== pagy_bootstrap_nav(@pagy) %>
+          <% end %>
+        <% else %>
+          <p class="alert alert-info"><%= t('users.no_users_found') %></p>
+        <% end %>
+      </div>
+      <div class="col-md-3">
+        <%= search_form_for @q, class: "form-inline" do |f| %>
+          <div class="form-group mb-2">
+            <%= f.label :last_name_cont, t('users.last_name') %>
+            <%= f.search_field :last_name_cont, class: "form-control" %>
+          </div>
+          <div class="form-group mb-2">
+            <%= f.label :first_name_cont, t('users.first_name') %>
+            <%= f.search_field :first_name_cont, class: "form-control" %>
+          </div>
+          <div class="form-group mb-2">
+            <%= f.label :middle_name_cont, t('users.middle_name') %>
+            <%= f.search_field :middle_name_cont, class: "form-control" %>
+          </div>
+          <div class="form-group mb-2">
+            <%= f.label :email_cont, t('users.email') %>
+            <%= f.search_field :email_cont, class: "form-control" %>
+          </div>
+          <div class="form-group mb-2">
+            <%= f.label :phone_number_cont, t('users.phone_number') %>
+            <%= f.search_field :phone_number_cont, class: "form-control" %>
+          </div>
+          <div class="form-group mb-2">
+            <%= f.label :roles_id_eq, t('users.role') %>
+            <%= f.select :roles_id_eq, options_from_collection_for_select(Role.all, :id, :name, params.dig(:q, :roles_id_eq)), { include_blank: t('common.all') }, class: "form-control" %>
+          </div>
+          <div class="form-group mt-3">
+            <%= f.submit t('common.search'), class: 'btn btn-primary' %>
+            <%= link_to t('common.reset'), users_path, class: 'btn btn-secondary' %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
+<% else %>
+ <div class="container mt-5">
+   <div class="alert alert-warning" role="alert">
+     <%= t ('users.no_users_found') %>
+   </div>
+   <% if can? :create, Notification %>
+     <div class="container mt-4">
+       <%= link_to t('users.new'), new_notification_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
+     </div>
+   <% end %>
+ </div>
+<% end %>
