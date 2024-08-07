@@ -37,11 +37,28 @@
     max-width: 600px;
     margin: auto;
   }
+
+  .table thead tr {
+     cursor: pointer;
+  }
+        
+          .table tbody.collapse {
+            display: none;
+            transition: max-height 0.5s ease-out;
+            overflow: hidden;
+        }
+        .table tbody.collapsing {
+            transition: max-height 0.5s ease-out;
+        }
+        .table tbody.show {
+            display: table-row-group;
+        }
 </style>
 
 <div class="container py-5">
   <h1 class="display-4 text-center mb-4"><%= t('home.title') %></h1>
-  <p class="lead text-center mb-5"><%= t('home.description') %></p>
+ <p class="lead text-center mb-5"> <%= t('home.description') %></p>
+
 
   <% if user_signed_in? %>
     <div class="card welcome-card shadow-lg">
@@ -52,6 +69,123 @@
         <%= button_to t('home.sign_out'), destroy_user_session_path, method: :delete, class: 'btn btn-danger mt-3' %>
       </div>
     </div>
+    <div class="previous-element-margin">
+         <table class="table">
+            <thead>
+                <tr data-toggle="collapse" data-target="#collapsibleTable" aria-expanded="false" aria-controls="collapsibleTable">
+                    <th class="w-25">Вкладка</th>
+                    <th class="w-75">Описание</th>
+                </tr>
+            </thead>
+            <tbody class="collapse" id="collapsibleTable">
+                <% if current_user.has_role?(:admin) %>
+                    <tr>
+                        <td><%= t('navbar.profile') %></td>
+                        <td>Личный кабинет, в котором пользователь может посмотреть ифнормацию о себе и уведомления, сменить пароль или электронную почту, </td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.notifications') %></td>
+                        <td>Просмотр всех уведомлений, кому они отправлены, статус прочтения, дата. Поиск уведомлений с фильтром, редактирование, создание и удаление уведомлений</td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.users') %></td>
+                        <td>Просмотр полного списка всех пользователей и информации о них, поиск пользователей по различным критериям и создание новых пользователей </td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.specializations') %></td>
+                        <td>Просмотр и поиск всех специализаций, их редактирование, создание и удаление</td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.groups') %></td>
+                        <td>Просмтор и поиск групп и информации о них. Редактрование, создание и удаление групп.</td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.record_books') %></td>
+                        <td>Просмотр и поиск всех зачетных книжек. Редактирование, создание и удаление зачётных книжек  </td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.grades') %></td>
+                        <td>Просмотр и поиск всех оценок. Редактирование, создание и удаление оценок</td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.subjects') %></td>
+                        <td>Просмотр и поиск всех предметов. Редактирование, создание и удаление оценок</td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.intermediate_attestations') %></td>
+                        <td>Просмотр и поиск всех промежуточных аттестаций(название, дата, тип аттестации, предмет, группы для аттестации). Редактирование, создание и удаление промежуточных аттестаций</td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.semesters') %></td>
+                        <td>Просмотр всех семестров(даты начала, конца). Редактирование, удаление, создание новых семестров. Поиск семестров с фильтром</td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.reports') %></td>
+                        <td>Создание отчетов по промежуточной аттестации, создание индивидуального отчета, отчёта успеваемости, отчёта по пересдаче аттестиции в формате pdf или docx</td>
+                    </tr>
+                <% elsif current_user.has_role?(:teacher) %>
+                    <tr>
+                        <td><%= t('navbar.profile') %></td>
+                        <td>Личный кабинет, в котором пользователь может посмотреть ифнормацию о себе и уведомления, сменить пароль или электронную почту</td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.specializations') %></td>
+                        <td>Просмотр и поиск всех специализаций.</td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.groups') %></td>
+                        <td>Просмтор и поиск групп и информации о них. При переходе по номеру группы откроется вкладка выставления оценок</td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.subjects') %></td>
+                        <td>Просмотр и поиск всех предметов</td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.semesters') %></td>
+                        <td>Просмотр всех семестров(даты начала, конца). Поиск семестров с фильтром</td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.reports') %></td>
+                        <td>Создание отчетов по промежуточной аттестации, создание индивидуального отчета, отчёта успеваемости, отчёта по пересдаче аттестиции в формате pdf или docx</td>
+                    </tr>
+                <% elsif current_user.has_role?(:student) %>
+                    <tr>
+                        <td><%= t('navbar.profile') %></td>
+                        <td>Личный кабинет, в котором пользователь может посмотреть ифнормацию о себе и уведомления, сменить пароль или электронную почту</td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.subjects') %></td>
+                        <td>Просмотр и поиск всех предметов  </td>
+                    </tr>
+                    <tr>
+                        <td><%= t('navbar.semesters') %></td>
+                        <td>Просмотр всех семестров(даты начала, конца). Поиск семестров с фильтром</td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tableHeader').on('click', function() {
+                var $tableBody = $('#collapsibleTable');
+                if ($tableBody.hasClass('show')) {
+                    $tableBody.removeClass('show').addClass('collapsing').slideUp(500, function() {
+                        $(this).removeClass('collapsing');
+                    });
+                } else {
+                    $tableBody.addClass('collapsing').slideDown(500, function() {
+                        $(this).removeClass('collapsing').addClass('show');
+                    });
+                }
+            });
+        });
+    </script>
+</div>
   <% else %>
     <div class="d-flex justify-content-center mt-4">
       <%= link_to t('home.sign_in'), new_user_session_path, class: 'btn btn-primary me-2' %>
