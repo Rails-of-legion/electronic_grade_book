@@ -1,7 +1,7 @@
 <% if Specialization.exists? %>
     <div class="container">
       <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
-        <h1 class="text-center"><%= t('specializations.list') %></h1>
+        <h1><%= t('specializations.list') %></h1>
         <% if current_user.admin? %>
           <%= link_to t('common.add'), new_specialization_path, class: 'btn btn-primary' %>
         <% end %>
@@ -49,7 +49,7 @@
           <%= search_form_for @q, class: "form-inline" do |f| %>
             <div class="form-group mb-2">
               <%= f.label :name_cont, t('specializations.name') %>
-              <%= f.search_field :name_cont, placeholder: t('specializations.name'), class: "form-control" %>
+              <%= f.search_field :name_cont, class: "form-control" %>
             </div>
             <div class="form-group mt-3">
               <%= f.submit t('common.search'), class: 'btn btn-primary' %>

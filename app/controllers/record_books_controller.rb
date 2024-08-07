@@ -4,7 +4,8 @@ class RecordBooksController < ApplicationController
 
   def index
     @q = RecordBook.includes(:user, :specialization, :group).ransack(params[:q])
-    @pagy, @record_books = pagy(@q.result, items: 10)
+    @pagy, @record_books = pagy(@q.result, items: 7)
+    @total_record_books = @q.result(distinct: true).count
 
     if params[:group_id].present?
       @record_books = @record_books.where(group_id: params[:group_id])
