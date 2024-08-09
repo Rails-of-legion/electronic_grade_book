@@ -1,28 +1,20 @@
-<div class="container mt-5">
-
-  <h1 class="text-center mb-4"><%= t('subjects.subject') %>: <%= @subject.name %></h1>
-  
+<div class="container mt-4 col-md-8">
+  <h1 class="text-center mb-3"><%= t('subjects.subject') %></h1>
   <div class="card">
     <div class="card-body">
-
-      <p>
-        <strong><%= t('subjects.description') %>:</strong>
-        <%= @subject.description %>
-      </p>
-
+      <p><strong><%= t('subjects.name') %>:</strong> <%= @subject.name %></p>
+      <p><strong><%= t('subjects.description') %>:</strong> <%= @subject.description %></p>
+      <div class="d-flex justify-content-between mt-4" role="group">
+        <div>
+          <% if can? :edit, @subject %> 
+            <%= link_to t('subjects.edit'), edit_subject_path(@subject), class: 'btn btn-primary' %>
+          <% end %>
+          <%= link_to t('subjects.back'), subjects_path, class: 'btn btn-secondary' %>
+        </div>
+        <% if can? :destroy, @subject %> 
+        <%= link_to t('common.delete'), @subject, data: { turbo_method: :delete,  turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger' %>
+        <% end %>
+      </div>
     </div>
   </div>
-
-  <div class="mt-4" role="group">
-
-    <% if can? :edit, @subject %> 
-      <%= link_to t('subjects.edit'), edit_subject_path(@subject), class: 'btn btn-primary' %>
-    <% end %>
-    <%= link_to t('subjects.back'), subjects_path, class: 'btn btn-secondary' %>
-
-    <% if can? :destroy, @subject %> 
-    <%= link_to t('common.delete'), @subject, data: { turbo_method: :delete,  turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger' %>
-    <% end %>
-  </div>
-
 </div>

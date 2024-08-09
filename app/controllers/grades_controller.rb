@@ -4,7 +4,8 @@ class GradesController < ApplicationController
 
   def index
     @q = Grade.ransack(params[:q])
-    @pagy, @grades = pagy(@q.result.includes(:record_book, :subject, record_book: :user), items: 10)
+    @pagy, @grades = pagy(@q.result.includes(:record_book, :subject, record_book: :user), items: 7)
+    @total_grades = @q.result(distinct: true).count
   end
 
   def show; end

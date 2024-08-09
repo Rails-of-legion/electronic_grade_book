@@ -7,18 +7,18 @@
          <p><strong><%= t('notifications.message')%> : </strong> <%= @notification.message %></p>
          <p><strong><%= t('notifications.date')%> : </strong> <%= @notification.date.strftime("%d.%m.%Y") %></p>
          <p>
-          <strong><%= t('notifications.users') %> :</strong>
-          <% if @users.any? %>
-            <%= @users.map do |user|
-                  status = @notification.notifications_users.find_by(user: user)&.status
-                  status_class = status ? 'text-success' : 'text-danger'
-                  status_text = status ? t('notifications.read') : t('notifications.no_read')
-                  "#{user.name} <strong class='#{status_class}'>(#{status_text})</strong>"
-                end.join(', ').html_safe %>
-          <% else %>
-            <%= t('notifications.no_users_for_this_notification') %>
-          <% end %>
-        </p>
+            <strong><%= t('notifications.users') %> :</strong>
+            <% if @users.any? %>
+              <%= @users.map do |user|
+                    status = @notification.notifications_users.find_by(user: user)&.status
+                    status_class = status ? 'text-success' : 'text-danger'
+                    status_text = status ? t('notifications.read') : t('notifications.no_read')
+                    "#{user.name} <strong class='#{status_class}'>(#{status_text})</strong>"
+                  end.join(', ').html_safe %>
+            <% else %>
+              <%= t('notifications.no_users_for_this_notification') %>
+            <% end %>
+          </p>
         <div class="d-flex justify-content-between">
             <div>
               <%= link_to t('common.edit'), edit_notification_path(@notification), class: "btn btn-primary mr-2" %>

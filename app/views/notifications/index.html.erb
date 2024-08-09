@@ -58,7 +58,7 @@
           <% if @total_notifications > 7  %>
             <%== pagy_bootstrap_nav(@pagy) %>
           <% end %>
-        <% else %>
+          <% else %>
           <p class="alert alert-info"><%= t('notifications.no_notifications_found') %></p>
         <% end %>
       </div>
