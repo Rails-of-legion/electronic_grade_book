@@ -1,21 +1,19 @@
 <% if Grade.exists? %>
-  <% if @grades.present? %>
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: 20px;">
-          <h1><%= t('grades.grades') %></h1>
-        </div>
-
-
+      <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+        <h1><%= t('grades.grades') %></h1>
+      </div>
       <div class="row mb-4">
         <div class="col-md-9">
-          <table class="table table-striped">
-            <thead class="thead-light">
+          <% if @grades.present? %>
+          <table class="table table-sm">
+            <thead>
               <tr>
                 <th><%= t('grades.item') %></th>
                 <th><%= t('grades.grade') %></th>
                 <th><%= t('grades.student') %></th>
                 <% if current_user.has_role?(:admin) %>
-                  <th class="text-right"><%= t('common.actions') %></th>
+                  <th class="text-center"><%= t('common.actions') %></th>
                 <% end %>
               </tr>
             </thead>
@@ -26,11 +24,11 @@
                   <td><%= grade.grade %></td>
                   <td><%= grade.record_book.user.name %>
                   <% if current_user.has_role?(:admin) %>
-                    <td class="w-10 text-left">
+                    <td class="text-center">
                        <div>
                           <%= link_to t('common.show'), grade, class: 'btn btn-sm btn-primary', style: 'width: 120px;'%>
                        </div>
-                       <div>
+                       <div class="mt-1 mb-1">
                           <% if can? :edit, grade %>
                           <%= link_to t('common.edit'), edit_grade_path(grade), class: 'btn btn-sm btn-secondary', style: 'width: 120px;' %>
                           <% end %>
@@ -48,7 +46,12 @@
               <% end %>
             </tbody>
           </table>
-          <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+          <% if @total_grades > 7  %>
+            <%== pagy_bootstrap_nav(@pagy) %>
+          <% end %>
+        <% else %>
+          <p class="alert alert-info"><%= t('grades.no_grades_found') %></p>
+        <% end %>
         </div>
 
         <div class="col-md-3">
@@ -74,57 +77,6 @@
         </div>
       </div>
     </div>
-  <% else %>
-    <div class="container">
-      <div class="row mb-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h1><%= t('grades.grades') %></h1>
-        </div>
-      </div>
-
-      <div class="row mb-4">
-        <div class="col-md-9">
-          <table class="table table-striped mt-3">
-            <thead class="thead-light">
-              <tr>
-                <th><%= t('grades.item') %></th>
-                <th><%= t('grades.grade') %></th>
-                <th><%= t('grades.student') %></th>
-                <% if current_user.has_role?(:admin) %>
-                  <th class="text-right"><%= t('common.actions') %></th>
-                <% end %>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="4" class="text-center"><%= t('grades.no_grades_found') %></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-md-3">
-          <%= search_form_for @q, class: "form-inline" do |f| %>
-            <div class="form-group mb-2">
-              <%= f.label :subject_name_cont, t('grades.item') %>
-              <%= f.search_field :subject_name_cont, class: 'form-control' %>
-            </div>
-            <div class="form-group mb-2">
-              <%= f.label :grade_eq, t('grades.grade') %>
-              <%= f.search_field :grade_eq, class: 'form-control' %>
-            </div>
-            <div class="form-group mb-2">
-              <%= f.label :record_book_user_last_name_cont, t('grades.students_last_name') %>
-              <%= f.search_field :record_book_user_last_name_cont, class: 'form-control' %>
-            </div>
-            <div class="form-group mt-3">
-              <%= f.submit t('common.search'), class: 'btn btn-primary mr-2' %>
-              <%= link_to t('common.reset'), grades_path, class: "btn btn-secondary" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  <% end %>
 <% else %>
   <div class="container mt-5">
     <div class="alert alert-warning" role="alert">

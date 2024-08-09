@@ -1,25 +1,25 @@
-<div class="container mt-5">
-
-  <h1 class="text-center mb-4"><%= t('grades.grade') %></h1>
-  
-  <div class="card">
-    <div class="card-body">
-      <% if @grade && @grade.record_book && @grade.record_book.user %>
-        <p>
-           <strong><%= t('grades.sudent') %> </strong> : <%= @grade.record_book.user.name %> 
-        </p>
-      <% end %>
-      <p > <strong><%= t('grades.grade') %> </strong> : <%= @grade.grade %></p>
-      <p > <strong><%= t('grades.date') %> </strong>: <%= @grade.date %></p>
-      <p > <strong><%= t('grades.subject') %> </strong>: <%= @grade.subject.name %></p>
-
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class=" col-md-10">
+      <h1 class="text-center mb-3"><%= t('grades.grade') %></h1>
+      
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <% if @grade && @grade.record_book && @grade.record_book.user %>
+            <p>
+              <strong><%= t('grades.sudent') %> </strong> : <%= @grade.record_book.user.name %> 
+            </p>
+          <% end %>
+          <p > <strong><%= t('grades.grade') %> </strong> : <%= @grade.grade %></p>
+          <p > <strong><%= t('grades.date') %> </strong>: <%= @grade.date %></p>
+          <p > <strong><%= t('grades.subject') %> </strong>: <%= @grade.subject.name %></p>
+          <% if @grade %>
+            <div class="d-flex justify-content-between" role="group">
+              <%= link_to t('common.edit'), edit_grade_path(@grade), class: 'btn btn-primary' %>
+              <%= link_to t('common.back'), grades_path, class: 'btn btn-secondary' %>
+            </div>
+          <% end %>
+        </div>        
     </div>
   </div>
-  <% if @grade %>
-    <div class="mt-4" role="group">
-      <%= link_to t('common.edit'), edit_grade_path(@grade), class: 'btn btn-primary' %>
-      <%= link_to t('common.back'), grades_path, class: 'btn btn-secondary' %>
-    </div>
-  <% end %>
-
 </div>

@@ -1,105 +1,66 @@
 <% if Subject.exists? %>
-  <% if @subjects.present? %>
     <div class="container">
-      <h1 class="text-center mb-4"  style="margin-top: 20px;"><%= t('subjects.subjects') %></h1>
-
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <%= form_tag subjects_path, method: :get do %>
-            <div class="input-group">
-              <%= text_field_tag :search, params[:search], placeholder: t('subjects.search'), class: "form-control" %>
-              <div class="input-group-append" style="margin-left: 10px;">
-                <%= button_tag type: "submit", class: "btn btn-primary", style: "width: 3cm; height: 38px;" do %>
-                  <%= t('subjects.search') %>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-        <% if can? :create, Subject %>
-          <div class="col-md-4 text-right">
-            <%= link_to t('subjects.new'), new_subject_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
-          </div>
-        <% end %>
+      <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+        <h1><%= t('subjects.subjects') %></h1>
+         <%= link_to t('common.add'), new_subject_path, class: "btn btn-primary" %>
       </div>
-
-      <table class="table table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th><%= t('subjects.name') %></th>
-            <th><%= t('subjects.actions') %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @subjects.each do |subject| %>
-            <tr>
-              <td><%= subject.name %></td>
-              <% if current_user.has_role?(:admin) %>
-              <td class="w-15">
-                <div>
-                  <%= link_to t('subjects.show'), subject, class: 'btn btn-primary btn-sm' , style: 'width: 120px;'%>
-                </div>
-                <div>
-                  <% if can? :edit, subject %>
-                   <%= link_to t('common.edit'), edit_subject_path(subject), class: 'btn btn-secondary btn-sm' , style: 'width: 120px;'%>
+      <div class="row mb-4">
+        <div class="col-md-9">
+          <% if @subjects.present? %>
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th class="col-md-4"><%= t('subjects.name') %></th>
+                <th class="col-md-1 text-center"><%= t('subjects.actions') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @subjects.each do |subject| %>
+                <tr>
+                  <td><%= subject.name %></td>
+                  <% if current_user.has_role?(:admin) %>
+                  <td class="text-center">
+                    <div>
+                      <%= link_to t('subjects.show'), subject, class: 'btn btn-primary btn-sm' , style: 'width: 120px;'%>
+                    </div>
+                    <div class="mb-1 mt-1">
+                      <% if can? :edit, subject %>
+                      <%= link_to t('common.edit'), edit_subject_path(subject), class: 'btn btn-secondary btn-sm' , style: 'width: 120px;'%>
+                      <% end %>
+                    </div>
+                    <div>
+                      <% if can? :destroy, subject %>
+                      <%= link_to t('common.delete'), subject_path(subject), 
+                      data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, 
+                      class: 'btn btn-danger btn-sm' , style: 'width: 120px;'%>
+                      <% end %>
+                    </div>
+                  </td>
                   <% end %>
-                </div>
-                <div>
-                  <% if can? :destroy, subject %>
-                  <%= link_to t('common.delete'), subject_path(subject), 
-                  data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, 
-                  class: 'btn btn-danger btn-sm' , style: 'width: 120px;'%>
-                  <% end %>
-                </div>
-              </td>
+                </tr>
               <% end %>
-            </tr>
+            </tbody>
+          </table>
+          <% if @total_subjects > 7  %>
+              <%== pagy_bootstrap_nav(@pagy) %>
+            <% end %>
+          <% else %>
+            <p class="alert alert-info"><%= t('notifications.no_notifications_found') %></p>
           <% end %>
-        </tbody>
-      </table>
-      <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
-    </div>
-  <% else %>
-
-    <div class="container">
-      <h1 class="text-center mb-4"><%= t('subjects.subjects') %></h1>
-
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <%= form_tag subjects_path, method: :get do %>
-            <div class="input-group">
-              <%= text_field_tag :search, params[:search], placeholder: t('subjects.search'), class: "form-control" %>
-              <div class="input-group-append" style="margin-left: 10px;">
-                <%= button_tag type: "submit", class: "btn btn-primary", style: "width: 3cm; height: 38px;" do %>
-                  <%= t('subjects.search') %>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-        <% if can? :create, Subject %>
-          <div class="col-md-4 text-right">
-            <%= link_to t('subjects.new'), new_subject_path, class: "btn btn-primary", style: "width: 7cm; height: 38px;" %>
+      </div>
+      <div class="col-md-3">
+        <%= search_form_for @q, class: "form-inline" do |f| %>
+          <div class="form-group mb-2">
+            <%= f.label :name_cont, t('grades.item') %>
+            <%= f.search_field :name_cont, class: "form-control" %>
           </div>
+          <div class="form-group mt-3">
+            <%= f.submit t('subjects.search'), class: "btn btn-primary" %>
+            <%= link_to t('common.reset'), subjects_path, class: "btn btn-secondary" %> 
+          </div>  
         <% end %>
       </div>
-
-
-      <table class="table table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th><%= t('subjects.name') %></th>
-            <th><%= t('subjects.actions') %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="2" class="text-center"><%= t('subjects.no_subjects_found') %></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
+    </div>   
 <% else %>
   <div class="container mt-5">
     <div class="alert alert-warning" role="alert">
