@@ -35,7 +35,7 @@ en:
       intermediate_attestation:
         subject: Field "Subject"
         name: Field "Name"
-        assessment_type: Field "Assesment type"
+        assessment_type: Field "Assessment type"
         teacher: Field "Teacher"
 
   en: 'English'
