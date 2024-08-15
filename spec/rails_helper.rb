@@ -1,4 +1,13 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter '/bin/'
+  add_filter '/db/'
+  add_filter '/spec/'
+end
+SimpleCov.minimum_coverage 90
+
+require 'devise'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
@@ -8,7 +17,7 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'factory_bot_rails'
 require 'rails-controller-testing'
-require 'simplecov'
+
 
 SimpleCov.start 'rails'
 Rails::Controller::Testing.install

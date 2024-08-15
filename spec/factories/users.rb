@@ -16,7 +16,7 @@ FactoryBot.define do
     end
 
     after(:create) do |user, evaluator|
-      role = create(:role, evaluator.role_name)
+      role = Role.find_or_create_by(name: evaluator.role_name)
       user.roles << role
     end
 
@@ -27,7 +27,7 @@ FactoryBot.define do
     trait :as_teacher do
       role_name { 'teacher' }
     end
-    
+
     trait :as_admin do
       role_name { 'admin' }
     end
