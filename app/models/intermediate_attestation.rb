@@ -1,5 +1,6 @@
+# app/models/intermediate_attestation.rb
 class IntermediateAttestation < ApplicationRecord
-  belongs_to :subject, optional: false
+  belongs_to :subject
   belongs_to :teacher, class_name: 'User'
   has_many :groups_intermediate_attestations, dependent: :destroy
   has_many :groups, through: :groups_intermediate_attestations, dependent: :destroy
@@ -7,7 +8,6 @@ class IntermediateAttestation < ApplicationRecord
   has_many :record_books
 
   validates :name, :date, :assessment_type, presence: true
-
 
   ransacker :date_gteq do |parent|
     parent.table[:date].gteq(parent.value.to_date)
