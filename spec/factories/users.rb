@@ -27,6 +27,7 @@ FactoryBot.define do
     trait :as_teacher do
       role_name { 'teacher' }
     end
+    
     trait :as_admin do
       role_name { 'admin' }
     end
