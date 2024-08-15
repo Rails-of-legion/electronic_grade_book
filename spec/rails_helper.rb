@@ -7,7 +7,10 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 require 'shoulda/matchers'
 require 'factory_bot_rails'
-
+require 'rails-controller-testing'
+require 'simplecov'
+SimpleCov.start 'rails'
+Rails::Controller::Testing.install
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
@@ -49,6 +52,8 @@ RSpec.configure do |config|
   config.include Shoulda::Matchers::ActiveRecord, type: :model
 
   config.include FactoryBot::Syntax::Methods
+
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
