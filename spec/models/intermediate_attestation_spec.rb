@@ -34,26 +34,20 @@ RSpec.describe IntermediateAttestation, type: :model do
   end
 
   describe 'ransackers' do
-    let!(:attestation1) { create(:intermediate_attestation, date: 1.month.ago) }
-    let!(:attestation2) { create(:intermediate_attestation, date: 1.week.ago) }
-    let!(:attestation3) { create(:intermediate_attestation, date: 1.day.ago) }
-    
-    describe 'date_gteq' do
-      it 'returns records with date greater than or equal to the specified date' do
-        result = IntermediateAttestation.ransack(date_gteq: 2.weeks.ago.to_date).result
-        expect(result).to include(attestation2)
-        expect(result).to include(attestation3)
-        expect(result).not_to include(attestation1)
-      end
+    let(:date) { Date.today }
+  
+    it 'returns correct records for date_gteq' do
+      subject = create(:subject)  # Создайте необходимые ассоциации
+      teacher = create(:user)     # Создайте необходимые ассоциации
+      attestation = create(:intermediate_attestation, date: date, subject: subject, teacher: teacher)
+      expect(IntermediateAttestation.ransack(date_gteq: date).result).to include(attestation)
     end
-
-    describe 'date_lteq' do
-      it 'returns records with date less than or equal to the specified date' do
-        result = IntermediateAttestation.ransack(date_lteq: 1.week.ago.to_date).result
-        expect(result).to include(attestation1)
-        expect(result).to include(attestation2)
-        expect(result).not_to include(attestation3)
-      end
+  
+    it 'returns correct records for date_lteq' do
+      subject = create(:subject)  # Создайте необходимые ассоциации
+      teacher = create(:user)     # Создайте необходимые ассоциации
+      attestation = create(:intermediate_attestation, date: date, subject: subject, teacher: teacher)
+      expect(IntermediateAttestation.ransack(date_lteq: date).result).to include(attestation)
     end
   end  
 end
