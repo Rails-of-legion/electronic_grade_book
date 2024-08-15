@@ -58,11 +58,12 @@ class NotificationsController < ApplicationController
   # PATCH/PUT /notifications/1
   def update
     if @notification.update(notification_params)
-      @notification.notifications_users.destroy_all
-      params[:notification][:user_ids].each do |user_id|
-        NotificationsUser.create(notification: @notification, user_id: user_id)
+      if params[:notification][:user_ids].present?
+        @notification.notifications_users.destroy_all
+        params[:notification][:user_ids].each do |user_id|
+          NotificationsUser.create(notification: @notification, user_id: user_id)
+        end
       end
-  
       respond_to do |format|
         format.html { redirect_to @notification, notice: t('questions.notifications_update_notice') }
         format.json { render :show, status: :ok, location: @notification }
