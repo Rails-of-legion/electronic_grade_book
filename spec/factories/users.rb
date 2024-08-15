@@ -3,7 +3,7 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name  { Faker::Name.last_name }
     middle_name { Faker::Name.middle_name }
-    phone_number { Faker::PhoneNumber.phone_number }
+    phone_number { "+375#{['29', '44', '25', '33'].sample}#{Faker::Number.number(digits: 7)}" }
     date_of_birth { Faker::Date.birthday(min_age: 18, max_age: 65) }
     status { true }
     email { Faker::Internet.unique.email }
