@@ -4,8 +4,9 @@ class IntermediateAttestation < ApplicationRecord
   has_many :groups_intermediate_attestations, dependent: :destroy
   has_many :groups, through: :groups_intermediate_attestations, dependent: :destroy
   has_many :grades, foreign_key: :subject_id
+  has_many :record_books
 
-  validates :name, :assessment_type, presence: true
+  validates :name, :date, :assessment_type, presence: true
 
 
   ransacker :date_gteq do |parent|
