@@ -17,8 +17,10 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'factory_bot_rails'
 require 'rails-controller-testing'
-Rails::Controller::Testing.install
 
+
+SimpleCov.start 'rails'
+Rails::Controller::Testing.install
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
