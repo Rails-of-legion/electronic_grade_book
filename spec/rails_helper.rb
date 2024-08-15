@@ -9,6 +9,7 @@ require 'shoulda/matchers'
 require 'factory_bot_rails'
 require 'rails-controller-testing'
 require 'simplecov'
+
 SimpleCov.start 'rails'
 Rails::Controller::Testing.install
 Shoulda::Matchers.configure do |config|

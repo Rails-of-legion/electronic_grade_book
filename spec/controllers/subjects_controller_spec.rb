@@ -98,7 +98,7 @@ RSpec.describe SubjectsController, type: :controller do
         expect(subject.reload.name).to eq('Updated Subject Name')
       end
 
-      it 'redirects to the subject page' do
+      it 'redirect to the subject page' do
         expect(response).to redirect_to(subject_path(subject))
       end
     end
