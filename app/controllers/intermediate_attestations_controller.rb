@@ -11,7 +11,8 @@ class IntermediateAttestationsController < ApplicationController
       @intermediate_attestations = @intermediate_attestations.joins(:groups).where(groups: { id: params[:group_id] }).distinct
     end
 
-    @pagy, @intermediate_attestations = pagy(@intermediate_attestations, items: 10)
+    @pagy, @intermediate_attestations = pagy(@intermediate_attestations, items: 7)
+    @total_intermediate_attestations = @q.result(distinct: true).count
 
     respond_to do |format|
       format.html

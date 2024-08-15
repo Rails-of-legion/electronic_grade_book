@@ -1,7 +1,7 @@
-<div class="container">
-  <h1 class="text-center mb-4"><%= t('intermediate_attestations.details') %></h1>
-
-  <div class="card">
+<div class="container justify-content-center col-md-8 mt-4">
+  <h1 class="text-center mb-3"><%= t('intermediate_attestations.details') %></h1>
+  
+  <div class="card shadow-sm">
     <div class="card-body">
       <p><strong><%= t('intermediate_attestations.name') %> :</strong> <%= @intermediate_attestation.name %></p>
       <p><strong><%= t('intermediate_attestations.date') %> :</strong> <%= @intermediate_attestation.date %></p>
@@ -14,13 +14,13 @@
         <% else %>
           <%= t('intermediate_attestations.no_groups') %>
         <% end %>
-      </p> 
-    </div>
-  </div>
+      </p>
 
-  <div class="mt-4">
-    <%= link_to t('intermediate_attestations.back'), intermediate_attestations_path, class: "btn btn-secondary mr-2" %>
-    <%= link_to t('intermediate_attestations.download_pdf'), intermediate_attestation_path(@intermediate_attestation, format: "pdf"), class: 'btn btn-primary' %>
-    <%= link_to t('intermediate_attestations.download_docx'), generate_interim_report_path(@intermediate_attestation.id), class: 'btn btn-primary' %>
+      <div>
+        <%= link_to t('intermediate_attestations.back'), intermediate_attestations_path, class: "btn btn-secondary mr-2" %>
+        <%= link_to t('intermediate_attestations.download_pdf'), intermediate_attestation_path(@intermediate_attestation, format: "pdf"), class: 'btn btn-primary' %>
+        <%= link_to t('intermediate_attestations.download_docx'), generate_interim_report_path(@intermediate_attestation.id), class: 'btn btn-primary' %>
+      </div> 
+    </div>
   </div>
 </div>

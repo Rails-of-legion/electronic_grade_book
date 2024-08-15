@@ -6,8 +6,11 @@ class SubjectsController < ApplicationController
     subjects = current_user.student? ? student_subjects : teacher_subjects
     subjects = search_subjects(subjects)
 
-    @pagy, @subjects = pagy(subjects, items: 10)
+    @q = subjects.ransack(params[:q])
+    @pagy, @subjects = pagy(@q.result(distinct: true), items: 7)
     nil unless current_user.teacher?
+
+    @total_subjects = @q.result(distinct: true).count
   end
 
   def show; end

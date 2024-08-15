@@ -3,7 +3,8 @@ class SemestersController < ApplicationController
   load_and_authorize_resource
   def index
     @q = Semester.ransack(params[:q])
-    @pagy, @semesters = pagy(@q.result, items: 10) 
+    @pagy, @semesters = pagy(@q.result, items: 7) 
+    @total_semesters = @q.result(distinct: true).count
   end
 
   def show; end

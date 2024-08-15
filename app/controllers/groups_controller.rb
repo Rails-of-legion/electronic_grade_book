@@ -4,7 +4,8 @@ class GroupsController < ApplicationController
 
   def index
     @q = Group.ransack(params[:q])
-    @pagy, @groups = pagy(@q.result.includes(:specialization, :curator), items: 10)
+    @pagy, @groups = pagy(@q.result.includes(:specialization, :curator), items: 7)
+    @total_groups = @q.result(distinct: true).count
 
     respond_to do |format|
       format.html

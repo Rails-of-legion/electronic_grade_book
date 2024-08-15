@@ -11,7 +11,7 @@ RSpec.describe Specialization do
 
     it 'returns an error message' do
       subject.valid?
-      expect(subject.errors[:name]).to include("can't be blank")
+      expect(subject.errors[:name]).to include("не может быть пустым")
     end
   end
 
@@ -24,7 +24,7 @@ RSpec.describe Specialization do
 
     it 'returns an error message' do
       subject.valid?
-      expect(subject.errors[:name]).to include('has already been taken')
+      expect(subject.errors[:name]).to include('уже существует')
     end
   end
 
@@ -37,7 +37,24 @@ RSpec.describe Specialization do
 
     it 'returns an error message' do
       subject.valid?
-      expect(subject.errors[:name]).to include('has already been taken')
+      expect(subject.errors[:name]).to include('уже существует')
+    end
+  end
+  describe 'associations' do
+    it { is_expected.to have_many(:specialities_subjects).dependent(:destroy) }
+    it { is_expected.to have_many(:subjects).through(:specialities_subjects) }
+    it { is_expected.to have_many(:record_books).dependent(:destroy) }
+    it { is_expected.to have_many(:groups).dependent(:destroy) }
+  end
+  describe '.ransackable_attributes' do
+    it 'returns correct attributes for ransack' do
+      expect(Specialization.ransackable_attributes).to match_array(%w[created_at id id_value name updated_at])
+    end
+  end
+
+  describe '.ransackable_associations' do
+    it 'returns correct associations for ransack' do
+      expect(Specialization.ransackable_associations).to match_array([:subjects, :groups, :record_books])
     end
   end
 end

@@ -35,7 +35,7 @@ en:
       intermediate_attestation:
         subject: Field "Subject"
         name: Field "Name"
-        assessment_type: Field "Assesment type"
+        assessment_type: Field "Assessment type"
         teacher: Field "Teacher"
 
   en: 'English'
@@ -130,6 +130,7 @@ en:
 
   users:
     users: "Users"
+    user: "User"
     first_name: "First name"
     last_name: "Last name"
     middle_name: "Middle name"
@@ -198,11 +199,8 @@ en:
     start_date: "Start date"
     end_date: "End date"
     no_semesters_found: "No semesters found"
-    start_date_from: "Start date from"
-    start_date_before: "Start date before"
-    end_date_from: "End date from"
-    end_date_before: "End date before"
-    edit_semester: "Edit semester"
+    start_date_from: "Start date"
+    end_date_from: "End date"
     new_semester: "New semester"
     create_semester: "Create semester"
     details: "Semester details"

@@ -83,6 +83,10 @@ group :test do
   gem 'rspec-rails'
 
   gem 'shoulda-matchers'
+
+  gem 'rails-controller-testing'
+
+  gem 'simplecov', require: false
 end
 
 gem 'sassc-rails'

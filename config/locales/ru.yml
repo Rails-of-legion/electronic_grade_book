@@ -132,6 +132,7 @@ ru:
   
   users:
     users: "Пользователи"
+    user: "Пользовател"
     first_name: "Имя"
     last_name: "Фамилия"
     middle_name: "Отчество"
@@ -141,6 +142,7 @@ ru:
     show: "Показать"
     no_users_found: "Пользователи не найдены"
     personal_profile: "Личный кабинет"
+    personal_profile_users: "Личный кабинет пользователя"
     date_of_birth: "Дата рождения"
     show_notifications: "Показать уведомления"
     change_password: "Сменить пароль"
@@ -202,10 +204,10 @@ ru:
     start_date: "Дата начала"
     end_date: "Дата окончания"
     no_semesters_found: "Семестры не найдены"
-    start_date_from: "Дата начала от"
-    start_date_before: "Дата начала до" 
-    end_date_from: "Дата окончания от"
-    end_date_before: "Дата окончания до"
+    start_date_from: "Дата начала"
+     
+    end_date_from: "Дата окончания"
+    
     edit_semester: "Изменить семестр"
     new_semester: "Добавить семестр"
     create_semester: "Создать семестр"
@@ -257,7 +259,7 @@ ru:
     value: "Значение"
     successfully_created: "Создать"
     actions: "Действия"
-    sudent: "Студент"
+    student: "Студент"
     grade: "Оценка"
     item: "Предмет"
     students_last_name: "Фамилия студента"

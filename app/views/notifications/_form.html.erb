@@ -1,8 +1,7 @@
-<div class="container mt-5">
+<div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-9">
+    <div class="col-md-10">
       <div class="card shadow-sm">
-       
         <div class="card-body">
           <%= form_with(model: @notification, local: true, data: { turbo: false }) do |form| %>
             <%= render 'shared/errors', object: @notification %>
