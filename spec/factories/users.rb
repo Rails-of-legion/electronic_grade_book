@@ -10,17 +10,25 @@ FactoryBot.define do
     password { 'password' }
     password_confirmation { 'password' }
 
+    transient do
+      role_name { 'student' }
+    end
+
     after(:create) do |user, evaluator|
-      role = create(:role, evaluator.role_name)
+      role = Role.find_or_create_by(name: evaluator.role_name)
       user.roles << role
     end
 
-    transient do
+    trait :as_student do
       role_name { 'student' }
     end
 
     trait :as_teacher do
       role_name { 'teacher' }
+    end
+
+    trait :as_admin do
+      role_name { 'admin' }
     end
   end
 end
