@@ -5,4 +5,7 @@ class SpecialitiesSubject < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     %w[created_at id id_value specialization_id subject_id updated_at]
   end
+  def self.ransackable_associations(_auth_object = nil)
+    %w[specialization subject]
+  end
 end

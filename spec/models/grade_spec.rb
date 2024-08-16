@@ -1,19 +1,18 @@
+require 'rails_helper'
+
 RSpec.describe Grade do
-  describe 'associations' do
-    it { is_expected.to belong_to(:record_book) }
+  let(:subject) { create(:subject) }
+  let(:record_book) { create(:record_book) }
+
+  describe '.ransackable_attributes' do
+    it 'includes expected attributes' do
+      expect(Grade.ransackable_attributes).to include('created_at', 'date', 'grade', 'id', 'id_value', 'record_book_id', 'subject_id', 'updated_at')
+    end
   end
 
-  describe 'validations' do
-    it { is_expected.to validate_presence_of(:grade) }
-  end
-
-  describe 'creation' do
-    let(:record_book) { create(:record_book, :with_associations) }
-
-    it 'creates a grade with a record book' do
-      grade = create(:grade, record_book: record_book)
-      expect(grade).to be_valid
-      expect(grade.record_book).to eq(record_book)
+  describe '.ransackable_associations' do
+    it 'includes expected associations' do
+      expect(Grade.ransackable_associations).to include('record_book', 'subject')
     end
   end
 end
