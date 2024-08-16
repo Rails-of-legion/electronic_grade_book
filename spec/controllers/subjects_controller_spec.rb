@@ -66,10 +66,10 @@ RSpec.describe SubjectsController, type: :controller do
         sign_in teacher
       end
 
-      it 'denies access' do
-        expect {
-          get :edit, params: { id: subject.id }
-        }.to raise_error(CanCan::AccessDenied)
+      it 'redirects to root_path with an alert' do
+        delete :destroy, params: { id: subject.id }
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq('You are not authorized to access this page.')
       end
     end
 
@@ -78,10 +78,10 @@ RSpec.describe SubjectsController, type: :controller do
         sign_in student
       end
 
-      it 'denies access' do
-        expect {
-          get :edit, params: { id: subject.id }
-        }.to raise_error(CanCan::AccessDenied)
+      it 'redirects to root_path with an alert' do
+        delete :destroy, params: { id: subject.id }
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq('You are not authorized to access this page.')
       end
     end
   end
@@ -108,10 +108,10 @@ RSpec.describe SubjectsController, type: :controller do
         sign_in teacher
       end
 
-      it 'denies access' do
-        expect {
-          patch :update, params: { id: subject.id, subject: valid_attributes }
-        }.to raise_error(CanCan::AccessDenied)
+      it 'redirects to root_path with an alert' do
+        delete :destroy, params: { id: subject.id }
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq('You are not authorized to access this page.')
       end
     end
 
@@ -120,10 +120,10 @@ RSpec.describe SubjectsController, type: :controller do
         sign_in student
       end
 
-      it 'denies access' do
-        expect {
-          patch :update, params: { id: subject.id, subject: valid_attributes }
-        }.to raise_error(CanCan::AccessDenied)
+      it 'redirects to root_path with an alert' do
+        delete :destroy, params: { id: subject.id }
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq('You are not authorized to access this page.')
       end
     end
   end
@@ -150,10 +150,10 @@ RSpec.describe SubjectsController, type: :controller do
         sign_in teacher
       end
 
-      it 'denies access' do
-        expect {
-          delete :destroy, params: { id: subject.id }
-        }.to raise_error(CanCan::AccessDenied)
+      it 'redirects to root_path with an alert' do
+        delete :destroy, params: { id: subject.id }
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq('You are not authorized to access this page.')
       end
     end
 
@@ -162,10 +162,10 @@ RSpec.describe SubjectsController, type: :controller do
         sign_in student
       end
 
-      it 'denies access' do
-        expect {
-          delete :destroy, params: { id: subject.id }
-        }.to raise_error(CanCan::AccessDenied)
+      it 'redirects to root_path with an alert' do
+        delete :destroy, params: { id: subject.id }
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq('You are not authorized to access this page.')
       end
     end
   end
@@ -202,6 +202,106 @@ RSpec.describe SubjectsController, type: :controller do
       it 'assigns the requested subject to @subject' do
         get :show, params: { id: subject.id }
         expect(assigns(:subject)).to eq(subject)
+      end
+    end
+  end
+  describe 'GET #new' do
+    context 'when user is an admin' do
+      before do
+        sign_in admin
+        get :new
+      end
+
+      it 'assigns a new subject to @subject' do
+        expect(assigns(:subject)).to be_a_new(Subject)
+      end
+
+      it 'renders the new template' do
+        expect(response).to render_template(:new)
+      end
+    end
+
+    context 'when user is a teacher' do
+      before do
+        sign_in teacher
+      end
+
+      it 'redirects to root_path with an alert' do
+        delete :destroy, params: { id: subject.id }
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq('You are not authorized to access this page.')
+      end
+    end
+
+    context 'when user is a student' do
+      before do
+        sign_in student
+      end
+
+      it 'redirects to root_path with an alert' do
+        delete :destroy, params: { id: subject.id }
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq('You are not authorized to access this page.')
+      end
+    end
+  end
+  describe 'POST #create' do
+    let(:valid_attributes) { attributes_for(:subject) }
+    let(:invalid_attributes) { { name: '' } }
+
+    context 'when user is an admin' do
+      before do
+        sign_in admin
+      end
+
+      context 'with valid attributes' do
+        it 'creates a new subject' do
+          expect {
+            post :create, params: { subject: valid_attributes }
+          }.to change(Subject, :count).by(1)
+        end
+
+        it 'redirects to the created subject' do
+          post :create, params: { subject: valid_attributes }
+          expect(response).to redirect_to(subject_path(assigns(:subject)))
+        end
+      end
+
+      context 'with invalid attributes' do
+        it 'does not create a new subject' do
+          expect {
+            post :create, params: { subject: invalid_attributes }
+          }.not_to change(Subject, :count)
+        end
+
+        it 're-renders the new template' do
+          post :create, params: { subject: invalid_attributes }
+          expect(response).to render_template(:new)
+        end
+      end
+    end
+
+    context 'when user is a teacher' do
+      before do
+        sign_in teacher
+      end
+
+      it 'redirects to root_path with an alert' do
+        delete :destroy, params: { id: subject.id }
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq('You are not authorized to access this page.')
+      end
+    end
+
+    context 'when user is a student' do
+      before do
+        sign_in student
+      end
+
+      it 'redirects to root_path with an alert' do
+        delete :destroy, params: { id: subject.id }
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq('You are not authorized to access this page.')
       end
     end
   end
