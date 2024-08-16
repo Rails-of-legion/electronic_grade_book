@@ -1,9 +1,13 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'simplecov'
 SimpleCov.start 'rails' do
-  add_filter '/bin/'
-  add_filter '/db/'
-  add_filter '/spec/'
+  # Исключить каталог spec/models
+  add_filter '/app/jobs/'
+  add_filter '/app/channels/'
+  # Исключить другой каталог
+  # add_filter '/lib/'
+  # Исключить конкретный файл
+  # add_filter '/app/services/some_service.rb'
 end
 SimpleCov.minimum_coverage 90
 
