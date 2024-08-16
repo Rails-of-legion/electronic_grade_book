@@ -395,6 +395,7 @@
       },
       "/home/pl1tz/electronic_grade_book/app/models/intermediate_attestation.rb": {
         "lines": [
+          null,
           1,
           1,
           1,
@@ -404,6 +405,9 @@
           1,
           null,
           1,
+          null,
+          1,
+          0,
           null,
           null,
           1,
@@ -411,19 +415,15 @@
           null,
           null,
           1,
-          0,
           null,
-          null,
-          1,
-          null,
-          0,
+          13,
           null,
           null,
           null,
           null,
           null,
           1,
-          0,
+          3,
           null,
           null
         ]
@@ -716,6 +716,18 @@
           1,
           null,
           0,
+          null
+        ]
+      },
+      "/home/pl1tz/electronic_grade_book/app/models/groups_intermediate_attestation.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          0,
+          null,
           null
         ]
       },
@@ -2371,20 +2383,6 @@
         "branches": {
         }
       },
-      "/home/pl1tz/electronic_grade_book/app/models/groups_intermediate_attestation.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
       "/home/pl1tz/electronic_grade_book/app/reports/marks_report.rb": {
         "lines": [
           0,
@@ -2467,6 +2465,6 @@
         }
       }
     },
-    "timestamp": 1723734268
+    "timestamp": 1723747419
   }
 }
