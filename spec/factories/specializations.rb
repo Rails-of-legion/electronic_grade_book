@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :specialization do
-    name { Faker::Job.field }
+    name { Faker::Educator.subject }
   end
 end
