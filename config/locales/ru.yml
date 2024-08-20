@@ -233,7 +233,7 @@ ru:
     teacher: "Преподаватель"
     select_teacher: "Выберите преподавателя"
     edit_intermediate_attestation: "Изменить аттестацию"
-    new_Intermediate_attestation: "Добавить аттестацю"
+    new_Intermediate_attestation: "Добавить аттестацию"
     no_intermediate_attestations_found: "Промежуточные аттестации не найдены"
   
   
