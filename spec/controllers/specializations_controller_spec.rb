@@ -206,7 +206,7 @@ RSpec.describe SpecializationsController, type: :controller do
 
         it 'sets a flash notice' do
           patch :update, params: { id: specialization.id, specialization: new_attributes }
-          expect(flash[:notice]).to eq("Специализация обновлена")
+          expect(flash[:notice]).to eq(I18n.t('questions.specialization_update_notice'))
         end
       end
 
@@ -226,7 +226,7 @@ RSpec.describe SpecializationsController, type: :controller do
 
         it 'sets a flash alert' do
           patch :update, params: { id: specialization.id, specialization: invalid_attributes }
-          expect(flash.now[:alert]).to eq("Ошибка обновления специализации")
+          expect(flash.now[:alert]).to eq(I18n.t('questions.specialization_update_alert'))
         end
       end
     end
@@ -246,7 +246,7 @@ RSpec.describe SpecializationsController, type: :controller do
       it 'redirects to the specializations list' do
         delete :destroy, params: { id: specialization.id }
         expect(response).to redirect_to(specializations_url)
-        expect(flash[:notice]).to eq("Специализация была удалена")
+        expect(flash[:notice]).to eq(I18n.t('questions.specialization_destroy_notice'))
       end
     end
 
