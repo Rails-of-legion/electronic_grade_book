@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :subject do
-    name { Faker::Educator.subject }
+    name { "Subject #{SecureRandom.hex(3)}" }
     description { Faker::Lorem.paragraph }
   end
 end

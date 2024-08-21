@@ -3,6 +3,7 @@ class Grade < ApplicationRecord
   belongs_to :record_book
 
   validates :grade, presence: true
+  validates :subject, presence: true 
 
   before_save :set_is_retake
 
