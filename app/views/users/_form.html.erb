@@ -67,7 +67,8 @@
                   <%= form.label :password, t('users.password'), class: "col-form-label" %>
                 </div>
                 <div class="col-sm-9">
-                  <%= form.text_field :password, class: 'form-control', placeholder: 'ivan123456'%>
+                  <%= form.text_field :password, class: 'form-control',
+                    value: 'password' %>
                 </div>
               </div>
             </div>
@@ -78,7 +79,7 @@
                   <%= form.label :password_confirmation, t('users.password_confirmation'), class: "col-form-label" %>
                 </div>
                 <div class="col-sm-9">
-                  <%= form.text_field :password_confirmation, class: 'form-control', placeholder: 'ivan123456' %>
+                  <%= form.text_field :password_confirmation, class: 'form-control', value: 'password'  %>
                 </div>
               </div>
             </div>
