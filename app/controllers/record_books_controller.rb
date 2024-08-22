@@ -37,7 +37,7 @@ class RecordBooksController < ApplicationController
     authorize! :create, @record_book
 
     if @record_book.save
-      redirect_to @record_book, notice: t('questions.record_books_create_notice')
+      redirect_to @record_book, notice: I18n.t('questions.record_books_create_notice')
     else
       render :new, status: :unprocessable_entity
     end
