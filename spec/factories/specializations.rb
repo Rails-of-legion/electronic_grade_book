@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :specialization do
-    name { Faker::Educator.subject }
+    sequence(:name) { |n| "#{Faker::Educator.subject} #{n}" }
   end
 end

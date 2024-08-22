@@ -69,9 +69,10 @@ class GradesController < ApplicationController
   end
 
   def parse_date(date_string)
+    return nil if date_string.nil?
     Date.parse(date_string)
   rescue ArgumentError
     nil
   end
-  #ABOBA
+  
 end
