@@ -1,7 +1,5 @@
 class RecordBook < ApplicationRecord
-  belongs_to :user, class_name: 'User', optional: false
-  belongs_to :teacher, class_name: 'User', optional: false
-  belongs_to :intermediate_attestation, optional: false
+  belongs_to :user, optional: false
   belongs_to :specialization, optional: false
   belongs_to :group, optional: false
   has_many :grades, dependent: :destroy
