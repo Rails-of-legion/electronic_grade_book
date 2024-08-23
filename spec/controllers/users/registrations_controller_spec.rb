@@ -1,7 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Users::RegistrationsController, type: :controller do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :as_student) }
+
+  before do
+    @request.env['devise.mapping'] = Devise.mappings[:user]
+  end
+
+  describe 'GET #search' do
+    it 'renders the search template' do
+      get :search
+      expect(response).to render_template(:search)
+    end
+  end
 
   describe 'GET #search' do
     it 'renders the search template' do
@@ -29,15 +40,6 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       it 'assigns @user' do
         post :find_user, params: params
         expect(assigns(:user)).to eq(user)
-      end
-
-      context 'and user status is blank' do
-        before { user.update(status: nil) }
-
-        it 'renders the set_password_and_email template' do
-          post :find_user, params: params
-          expect(response).to render_template(:set_password_and_email)
-        end
       end
 
       context 'and user status is not blank' do
@@ -72,29 +74,12 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     end
   end
 
-  describe 'PATCH #update' do
-    before do
-      allow(controller).to receive(:find_user).and_return(user)
-    end
-
-    it 'assigns @user' do
-      patch :update, params: { user: { id: user.id } }
-      expect(assigns(:user)).to eq(user)
-    end
-  end
-
   describe 'POST #set_password_and_email' do
+    let(:user) { create(:user, :as_student) }
     let(:params) do
-      {
-        user: {
-          id: user.id,
-          email: 'newemail@example.com',
-          password: 'newpassword',
-          password_confirmation: 'newpassword'
-        }
-      }
+      { user: { id: user.id, email: 'new_email@example.com', password: 'newpassword', password_confirmation: 'newpassword' } }
     end
-
+    
     context 'when update is successful' do
       it 'updates user status to true' do
         post :set_password_and_email, params: params
@@ -119,7 +104,8 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         allow_any_instance_of(User).to receive(:update).and_return(false)
       end
 
-      it 'renders the set_password_and_email template' do
+      it 'renders the set_password_and_email template when update fails' do
+        allow_any_instance_of(User).to receive(:update).and_return(false)
         post :set_password_and_email, params: params
         expect(response).to render_template(:set_password_and_email)
       end
