@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-body">
           <%= simple_form_for grade, html: { class: 'form-horizontal' } do |f| %>
-            <%= f.input :grade, label: t('grades.grade'), required: true, wrapper: :horizontal_form, input_html: { class: 'form-control' } %>
+            <%= f.input :grade, label: t('grades.grade'), required: true, wrapper: :horizontal_form, input_html: { class: 'form-control', min: 1, max: 10, step: 1 } %>
             <%= f.input :date, as: :string, label: t('grades.date'), required: true, wrapper: :horizontal_form, input_html: { class: 'form-control datepicker' } %>
             <%= f.input :subject_id, collection: Subject.all, label: t('grades.subject'), required: true, wrapper: :horizontal_form, input_html: { class: 'form-control' } %>
             <div class="form-group row">
