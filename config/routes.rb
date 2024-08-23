@@ -8,9 +8,10 @@ Rails.application.routes.draw do
     }
 
     devise_scope :user do
-      get 'users/search', to: 'users/registrations#search'
+      get 'users/search', to: 'users/registrations#search', as: :users_search
       post 'users/find_user', to: 'users/registrations#find_user'
       put 'users/set_password_and_email', to: 'users/registrations#set_password_and_email'
+      patch 'users/:id', to: 'users/registrations#update', as: :update_user_registration
     end
 
     get 'marks_reports/new', to: 'marks_reports#new', as: :new_marks_report

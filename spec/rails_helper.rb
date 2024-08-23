@@ -60,7 +60,9 @@ RSpec.configure do |config|
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
   ]
-
+  config.before(:each) do
+    ActiveJob::Base.queue_adapter = :test
+  end
   config.include FactoryBot::Syntax::Methods
 
   config.include Shoulda::Matchers::ActiveRecord, type: :model
