@@ -112,7 +112,7 @@
                   <%= form.label :roles, t('users.role'), class: "col-form-label" %>
                 </div>
                 <div class="col-sm-9">
-                  <%= form.collection_check_boxes :role_ids, Role.all, :id, :name do |b| %>
+                  <%= form.collection_check_boxes :role_ids, Role.select('distinct on (name) *').sort, :id, :name do |b| %>
                     <div class="form-check">
                       <%= b.check_box class: "form-check-input" %>
                       <%= b.label class: "form-check-label" %>

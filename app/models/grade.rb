@@ -3,7 +3,8 @@ class Grade < ApplicationRecord
   belongs_to :record_book
 
   validates :grade, presence: true
-  validates :subject, presence: true 
+  validates :subject, presence: true
+  validates :grade, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 10, only_integer: true }
 
   before_save :set_is_retake
 
