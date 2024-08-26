@@ -12,9 +12,8 @@
                   <div><%= t('record_books.student') %>:</div> 
                 <% end %>
               </div>
-
               <div class="col-sm-9">
-                <%= f.collection_select :user_id, User.with_role(:student), :id, :name, { prompt: t('record_books.select_student') }, { class: "form-control" } %>
+                <%= f.select :user_id, User.with_role(:student).map { |user| [ "#{user.name} (#{user.date_of_birth&.strftime('%d.%m.%Y')})", user.id ] }, { prompt: t('record_books.select_student') }, { class: "form-control" } %>
               </div>
             </div>
 
