@@ -3,7 +3,7 @@ prawn_document title: 'Intermediate Attestation Report' do |pdf|
     normal: { file: "app/assets/fonts/Inter.ttf" },
     bold: { file: "app/assets/fonts/Inter.ttf" }
   })
-  pdf.font 'TimesNewRoman', size: 11
+  pdf.font 'TimesNewRoman', size: 10
   pdf.bounds.add_left_padding(72)
   pdf.text "Учреждение образования", align: :center, style: :bold
   pdf.text "РЕСПУБЛИКАНСКИЙ ИНСТИТУТ ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ", align: :center, style: :bold
@@ -87,9 +87,9 @@ students_without_grades_count = total_students_count - students_with_grades_coun
     end
   end
 
-  table_grades = [['10', grade_counts['10'],'9', grade_counts['9'],'8', grade_counts['8'],'7', grade_counts['7']],
-                    ['6', grade_counts['6'],'5', grade_counts['5'],'4', grade_counts['4'],'3', grade_counts['3']],
-                    ['2', grade_counts['2'],'1', grade_counts['1'],'','','',''],
+  table_grades = [['10 (десять)', grade_counts['10'],'9 (девять)', grade_counts['9'],'8 (восемь)', grade_counts['8'],'7 (семь)', grade_counts['7']],
+                    ['6 (шесть)', grade_counts['6'],'5 (пять)', grade_counts['5'],'4 (четыре)', grade_counts['4'],'3 (три)', grade_counts['3']],
+                    ['2 (два)', grade_counts['2'],'1 (один)', grade_counts['1'],'','','',''],
                     ['зачтено','','не зачтено','']]
 
   pdf.table(table_grades, width: pdf.bounds.width) do
