@@ -23,12 +23,12 @@ class ReportsController < ApplicationController
 
       intermediate_attestation.groups.each do |group|
         docx.p "Дата проведения: #{intermediate_attestation.date}", align: 'right'
-        docx.p "Учебная дисциплина, модуль «#{intermediate_attestation.subject.name}»"
         docx.p "Группа: #{group.name}"
+        docx.p "Учебная дисциплина, модуль: «#{intermediate_attestation.subject.name}»"
         docx.p "Форма получения образования: #{group.form_of_education}"
       end
       docx.p "Форма промежуточной аттестации: #{intermediate_attestation.name}"
-      docx.p "Всего часов и зачетных единиц по учебной дисциплине, модулю  1"
+      docx.p "Всего часов и зачетных единиц по учебной дисциплине, модулю: "
       docx.p "Преподаватель: #{intermediate_attestation.teacher.name}"
 
       table_data = [['№ пп', 'Фамилия, собственное имя, отчество слушателя', 'Отметка', 'Подпись преподавателя']]
@@ -75,9 +75,9 @@ class ReportsController < ApplicationController
     end
   end
 
-  table_grades = [['10', grade_counts['10'],'9', grade_counts['9'],'8', grade_counts['8'],'7', grade_counts['7']],
-                    ['6', grade_counts['6'],'5', grade_counts['5'],'4', grade_counts['4'],'3', grade_counts['3']],
-                    ['2', grade_counts['2'],'1', grade_counts['1'],'','','',''],
+  table_grades = [['10 (десять)', grade_counts['10'],'9 (девять)', grade_counts['9'],'8 (восемь)', grade_counts['8'],'7 (семь)', grade_counts['7']],
+                    ['6 (шесть)', grade_counts['6'],'5 (пять)', grade_counts['5'],'4 (четыре)', grade_counts['4'],'3 (три)', grade_counts['3']],
+                    ['2 (два)', grade_counts['2'],'1 (один)', grade_counts['1'],'','','',''],
                       ['зачтено','','не зачтено','']]
  
       docx.table table_grades, border_size: 8 do
