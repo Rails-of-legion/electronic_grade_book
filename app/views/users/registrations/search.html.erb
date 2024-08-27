@@ -13,48 +13,108 @@
       <h2 class="text-center"><%= t('step_1') %></h2>
     </div>
     <div class="card-body">
-      <%= simple_form_for :user, url: users_find_user_path, html: { class: 'form-horizontal' } do |f| %>
+      <div id="fill-fields-hint" class="hint-message">
+        <i class="material-icons"><%= t('users.info') %></i>
+        <span><%= t('users.fill_all_fields') %></span>
+      </div>
+      <%= simple_form_for :user, url: users_find_user_path, html: { class: 'form-horizontal', id: 'registration-form' } do |f| %>
         <div class="form-inputs">
           <div class="form-group row">
             <%= f.label :first_name, t('first_name'), class: 'col-sm-3 col-form-label' %>
             <div class="col-sm-9">
-              <%= f.input :first_name, input_html: { class: 'form-control' }, label: false %>
+              <%= f.input :first_name, required: true, input_html: { class: 'form-control', required: true }, label: false %>
             </div>
           </div>
 
           <div class="form-group row">
             <%= f.label :middle_name, t('middle_name'), class: 'col-sm-3 col-form-label' %>
             <div class="col-sm-9">
-              <%= f.input :middle_name, input_html: { class: 'form-control' }, label: false %>
+              <%= f.input :middle_name, input_html: { class: 'form-control', required: true }, label: false %>
             </div>
           </div>
 
           <div class="form-group row">
             <%= f.label :last_name, t('last_name'), class: 'col-sm-3 col-form-label' %>
             <div class="col-sm-9">
-              <%= f.input :last_name, input_html: { class: 'form-control' }, label: false %>
+              <%= f.input :last_name, required: true, input_html: { class: 'form-control', required: true }, label: false %>
             </div>
           </div>
 
           <div class="form-group row">
             <%= f.label :date_of_birth, t('date_of_birth'), class: 'col-sm-3 col-form-label' %>
             <div class="col-sm-9">
-              <%= f.input :date_of_birth, as: :date, input_html: { class: 'form-control' }, start_year: Date.today.year - 90, end_year: Date.today.year - 12, label: false %>
+              <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 12, required: true, input_html: { required: true }, label: false %>
             </div>
           </div>
 
           <div class="form-group row">
             <%= f.label :phone_number, t('phone_number'), class: 'col-sm-3 col-form-label' %>
             <div class="col-sm-9">
-              <%= f.input :phone_number, input_html: { class: 'form-control' }, label: false %>
+              <%= f.input :phone_number, required: true, input_html: { class: 'form-control', required: true }, label: false %>
             </div>
           </div>
 
           <div class="form-actions mt-4 text-center">
-            <%= f.button :submit, t('common.further'), class: "btn btn-primary" %>
+            <%= f.button :submit, t('common.further'), class: "btn btn-primary", id: "submit-button", disabled: true %>
           </div>
         </div>
       <% end %>
     </div>
   </div>
 </div>
+
+<div id="hint-message" style="">
+  Please fill in all required fields.
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('registration-form');
+  const submitButton = document.getElementById('submit-button');
+  const hintMessage = document.getElementById('fill-fields-hint');
+  const inputs = form.querySelectorAll('input[required], select[required]');
+
+  function checkInputs() {
+    let allFilled = true;
+    
+    inputs.forEach(function(input) {
+      if (input.tagName === 'SELECT') {
+        if (input.value === '') {
+          allFilled = false;
+        }
+      } else if (!input.value.trim()) {
+        allFilled = false;
+      }
+    });
+
+    submitButton.disabled = !allFilled;
+    toggleHintMessage(allFilled);
+  }
+
+  function toggleHintMessage(allFilled) {
+    if (allFilled) {
+      hintMessage.style.display = 'none';
+    } else {
+      hintMessage.style.display = 'block';
+    }
+  }
+
+  inputs.forEach(function(input) {
+    input.addEventListener('input', checkInputs);
+    input.addEventListener('change', checkInputs);
+  });
+
+  // Initial check
+  checkInputs();
+});
+</script>
+
+<style>
+.hint-message {
+  display: block;
+  position: absolute;
+  left: 43%;
+  top: 20%;
+}
+
+</style>

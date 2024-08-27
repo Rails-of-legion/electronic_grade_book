@@ -33,6 +33,7 @@ ru:
         start_date: Поле "Дата начала"
         end_date: Поле "Дата окончания"
       intermediate_attestation:
+      
         subject: Поле "Предмет"
         name: Поле "Название"
         assessment_type: Поле "Тип аттестации"
@@ -80,7 +81,7 @@ ru:
     notifications_destroy_notice: "Уведомление было удалено"
     notifications_mark_as_read_notice: "Уведомление отмечено как прочитанное"
     notifications_mark_as_read_alert: "Уведомление не найдено"
-    record_books_create_notice: "Зачетная книжка успешно создана"
+    record_books_create_notice: "Зачетая книжка успешно создана"
     record_books_update_notice: "Зачетная книжка обновлена"
     record_books_destroy_notice: "Зачетная книжка удалена"
     semesters_create_notice: "Семестр успешно создан"
@@ -152,7 +153,7 @@ ru:
     record_book: "Зачетная книжка"
     status: "Статус"
     you_dont_have_any_new_notifications: "У вас нет новых уведомлений"
-    read_notifications: "Прочитанные уведомления"
+    read_notifications: "Прочитанне уведомления"
     email: "Электронная почта"
     change_your_email: "Изменить электронную почту"
     new_email: "Новая электронная почта"
@@ -177,7 +178,8 @@ ru:
     edit_profile: "Редактировать профиль"
     сhange_your_password: "Изменить свой пароль"
     resend_confirmation_instructions: "Повторно отправить инструкции по подтверждению"
-
+    fill_all_fields: "Пожалуйста, заполните все поля"
+    info: "Инфо:"
   
   subjects:
     subjects: "Предметы"
@@ -187,7 +189,7 @@ ru:
     show: "Показать"
     no_subjects_found: "Предметы не найдены"
     back: "Назад"
-    subject: "Предмет"
+    subject: "редмет"
     description: "Описание"
     back: "Назад"
     create_subject: "Создать"
