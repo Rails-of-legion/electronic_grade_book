@@ -1,0 +1,10 @@
+table > tbody > tr > td > input::-webkit-outer-spin-button,
+table > tbody > tr > td > input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+table > tbody > tr > td > input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
