@@ -40,7 +40,7 @@ class IndividualReport
         text "Форма получения образования: #{record_book.group.form_of_education}", align: :left, size: 11
         text "Форма промежуточной аттестации: #{intermediate_attestation.name}", align: :left, size: 11
         # Объем дисциплины
-        text 'Всего часов и зачетных единиц по учебной дисциплине: ', align: :left, size: 11
+        text "Всего часов и зачетных единиц по учебной дисциплине: #{intermediate_attestation.subject.hours}/#{intermediate_attestation.subject.credit_units}", align: :left, size: 11
         # Преподаватель (заглушка, замените на данные из базы)
         text "Преподаватель: #{intermediate_attestation.teacher.name}", align: :left, size: 11
         text "Фамилия, инициалы слушателя: #{record_book.user.name}", align: :left, size: 11
