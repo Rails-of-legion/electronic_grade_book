@@ -21,6 +21,10 @@ export default class extends Controller {
         .then(data => {
           const groups = data;
           this.populateSelect(this.groupSelectTarget, groups);
+          const selectedGroupId = this.groupSelectTarget.getAttribute('data-selected-group-id');
+          if (selectedGroupId) {
+            this.groupSelectTarget.value = selectedGroupId;
+          }
         })
         .catch(error => {
           console.error('Error fetching groups:', error);
