@@ -18,7 +18,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     year = params[:user][:'date_of_birth(1i)'].to_i
     month = params[:user][:'date_of_birth(2i)'].to_i
     day = params[:user][:'date_of_birth(3i)'].to_i
-    date_of_birth = Date.new(year, month, day)
+
+    begin
+      date_of_birth = Date.new(year, month, day)
+    rescue ArgumentError
+      flash[:error] = t('questions.invalid_date_format')
+      redirect_to users_search_path 
+      return # Stop further processing
+    end
 
     @user = User.find_by(
       first_name: params[:user][:first_name],
@@ -37,7 +44,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
-    @user = find_user
+    @user = User.find(params[:id])
+    
+    if @user.update(user_params)
+      # Successful update logic
+
+      redirect_to users_path, notice: 'User updated successfully.'
+    else
+      # Log errors for debugging
+      Rails.logger.debug "User errors: #{@user.errors.full_messages}"
+      render :edit # Render the edit form again
+    end
   end
 
   def set_password_and_email
@@ -55,15 +72,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def search_user
-    if @user && @user[:status].blank?
-      render :set_password_and_email, status: :unprocessable_entity
+    if @user 
+      if @user[:status].blank?
+        render :set_password_and_email, status: :unprocessable_entity
+      else
+        # User found, but likely already registered
+        flash[:alert] = t('questions.user_already_exists')  # Customize message
+        redirect_to edit_user_registration_path(@user) # Redirect to edit
+      end
     else
+      # No user found 
       flash[:alert] = t('questions.register_alert') 
       redirect_to users_search_path
     end
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :status)
+    params.require(:user).permit(:first_name, :last_name, :middle_name, :phone_number, :email, :password, :password_confirmation, :status, :date_of_birth, role_ids: [])
   end
 end
