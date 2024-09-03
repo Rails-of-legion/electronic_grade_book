@@ -26,7 +26,11 @@ class ApplicationController < ActionController::Base
   end
 
   def access_denied(exception)
-    redirect_to root_path, alert: exception.message
+    respond_to do |format|
+      format.html { render file: "#{Rails.root}/public/403.html", status: :forbidden, layout: false }
+      format.json { render json: { error: exception.message }, status: :forbidden }
+      format.any { head :forbidden }
+    end
   end
 
   def switch_locale(&action)
@@ -45,6 +49,6 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale }
   end
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_path, alert: exception.message
+    access_denied(exception)
   end
 end
