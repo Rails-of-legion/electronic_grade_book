@@ -1,6 +1,8 @@
 class Subject < ApplicationRecord
   validates :name, presence: true, length: { minimum: 3 }
   validates :description, presence: true
+  validates :hours, presence: true
+  validates :credit_units, presence: true
 
   has_many :semesters_subjects, dependent: :destroy
   has_many :semesters, through: :semesters_subjects, dependent: :destroy

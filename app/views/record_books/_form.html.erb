@@ -35,7 +35,7 @@
                 <% end %>
               </div>
               <div class="col-sm-9">
-                <%= f.collection_select :group_id, [], :id, :name, { prompt: t('record_books.select_group') }, { class: "form-control", data: { target: "record-form.groupSelect" } } %>
+                <%= f.collection_select :group_id, @record_book.specialization&.groups || [], :id, :name, { prompt: t('record_books.select_group') }, { class: "form-control", data: { target: "record-form.groupSelect", "selected-group-id": @record_book.group_id } } %>
               </div>
             </div>
 
