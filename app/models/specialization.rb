@@ -5,7 +5,7 @@ class Specialization < ApplicationRecord
   has_many :groups, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
-
+  validates :index, presence: true
 
   def self.ransackable_associations(auth_object = nil)
     [:subjects, :groups, :record_books] 

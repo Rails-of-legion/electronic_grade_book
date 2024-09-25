@@ -22,7 +22,7 @@
             <tbody>
               <% @specializations.each do |specialization| %>
                 <tr>
-                  <td class="col-9" ><%= link_to specialization.name, specialization_path(specialization) %></td>
+                  <td class="col-9" >(<%=(specialization.index)%>) <%= link_to specialization.name, specialization_path(specialization) %> </td>
                   <% if current_user.admin? %>
                     <td class="text-center col-3">
                       <div>

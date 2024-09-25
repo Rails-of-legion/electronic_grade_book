@@ -15,6 +15,7 @@ en:
         users: Field "Users"
       specialization:
         name: Field "Name"
+        index: Field "Group index"
       group: 
         name: Field "Name"
         specialization: Field "Specialization"
@@ -231,6 +232,7 @@ en:
     list: "Specializations"
     details: "Specialization details"
     groups: "Groups"
+    no_subjects: "No subjects in this specialization yet"
     no_groups: "No groups for this specialization yet"
     back: "Back"
     new_specialization: "New specialization"
@@ -238,6 +240,7 @@ en:
     create_specialization: "Create specialization"
     subjects: "Subjects"
     no_specializations_found: "No specializations found"
+    index: "Index group"
 
   grades:
     grades: "Grades"
