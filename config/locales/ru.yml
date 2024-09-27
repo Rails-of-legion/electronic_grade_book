@@ -109,6 +109,11 @@ ru:
     users_update_password_notice: "Пароль обновлен"
     users_update_email_notice: "Электронная почта обновлена"
 
+  roles:
+    admin: "Администратор"
+    teacher: "Преподаватель"
+    student: " Студент"
+ 
   common:
     month: "Месяц"
     further: "Далее"
