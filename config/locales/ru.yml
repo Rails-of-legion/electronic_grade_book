@@ -28,7 +28,8 @@ ru:
         custom_number: Поле "Номер"
       subject:
         name: Поле "Название"
-        description: Поле "Описание"
+        description: Поле "Описание" 
+        hours: Полк "Часы"
       semester:
         name: Поле "Название"
         start_date: Поле "Дата начала"
@@ -198,6 +199,7 @@ ru:
     new: "Создать дисциплину"
     hours: "Всего часов"
     units: "Зачетные единицы"
+    profiling: "Профилизация"
   
   semesters:
     name: "Название"
