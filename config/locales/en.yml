@@ -28,7 +28,7 @@ en:
         custom_number: Field "Number"
       subject:
         name: Field "Name"
-        description: Field "Description"
+        description: Field "Description"        
       semester:
         name: Field "Name"
         start_date: Field "Start date"
@@ -197,6 +197,10 @@ en:
     create_subject: "Create subject"
     edit_subject: "Edit subject"
     new: "New subject"
+    profiling: "Profiling"
+    upload_file: "Upload File"
+    choose_file: "Choose File"
+    no_file_chosen: "No file chosen"
 
   semesters:
     name: "Name"

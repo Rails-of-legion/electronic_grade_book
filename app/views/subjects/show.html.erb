@@ -6,6 +6,7 @@
       <p><strong><%= t('subjects.hours') %>:</strong> <%= @subject.hours %></p>
       <p><strong><%= t('subjects.units') %>:</strong> <%= @subject.credit_units %></p>
       <p><strong><%= t('subjects.description') %>:</strong> <%= @subject.description %></p>
+      <p><strong><%= t('subjects.profiling') %>:</strong> <%= @subject.profiling %></p>
       <div class="d-flex justify-content-between mt-4" role="group">
         <div>
           <% if can? :edit, @subject %> 

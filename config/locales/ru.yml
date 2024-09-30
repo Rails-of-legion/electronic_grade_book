@@ -28,7 +28,9 @@ ru:
         custom_number: Поле "Номер"
       subject:
         name: Поле "Название"
-        description: Поле "Описание"
+        description: Поле "Описание" 
+        hours: Поле "Часы"
+        upload_file: ылаьвлвталвыавы
       semester:
         name: Поле "Название"
         start_date: Поле "Дата начала"
@@ -203,6 +205,10 @@ ru:
     new: "Создать дисциплину"
     hours: "Всего часов"
     units: "Зачетные единицы"
+    profiling: "Профилизация"
+    upload_file: "Загрузите файл"
+    choose_file: "Выбрать файл"
+    no_file_chosen: "Файл не выбран"
   
   semesters:
     name: "Название"
