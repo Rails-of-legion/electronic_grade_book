@@ -30,7 +30,7 @@
                   <td><%= user.middle_name %></td>
                   <td><%= user.email.gsub('@', '<br />@')&.html_safe %></td>
                   <td><%= user.phone_number %></td>
-                  <td class="text-center"><%= user.roles.map(&:name).join(', ') %></td>
+                  <td class="text-center"><%= user.roles.map { |role| t("roles.#{role.name}") }.join(', ') %></td>
                   <td class="w-10 text-center">
                     <div>
                       <%= link_to t('common.show'), user_path(user), class: 'btn btn-primary btn-sm', style: 'width: 120px;' %>

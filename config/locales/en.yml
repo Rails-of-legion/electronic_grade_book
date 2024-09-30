@@ -111,6 +111,11 @@ en:
     users_update_password_notice: "Password was successfully updated"
     users_update_email_notice: "Email was successfully updated"
 
+  roles:
+    admin: "Administrator"
+    teacher: "Teacher"
+    student: "Student"
+
   common:
     month: "Month"
     further: "Further"
