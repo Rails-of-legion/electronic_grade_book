@@ -22,19 +22,25 @@ class SubjectsController < ApplicationController
   def edit; end
 
   def create
-    @subject = Subject.new(subject_params)
-
-    respond_to do |format|
-      if @subject.save
-        format.html { redirect_to subject_url(@subject), notice: t('questions.subjects_create_notice') }
-        format.json { render :show, status: :created, location: @subject }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @subject.errors, status: :unprocessable_entity }
+    if params[:subject][:file].present?
+      file = params[:subject][:file]
+      process_excel_file(file) # Обрабатываем файл
+  
+      # Перенаправление на страницу со всеми предметами
+      redirect_to subjects_path, notice: t('questions.subjects_create_notice')
+    else
+      respond_to do |format|  
+        if @subject.save
+          format.html { redirect_to subject_url(@subject), notice: t('questions.subjects_create_notice') }
+          format.json { render :show, status: :created, location: @subject }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @subject.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
-
+  
   def update
     respond_to do |format|
       if @subject.update(subject_params)
@@ -76,6 +82,25 @@ class SubjectsController < ApplicationController
   end
 
   private
+
+  def process_excel_file(file)
+    spreadsheet = Roo::Spreadsheet.open(file.tempfile)
+  
+    spreadsheet.each_with_index do |row, index|
+      next if index == 0 # Пропускаем заголовок
+  
+      subject = Subject.new
+      subject.name = row[0]          # Имя
+      subject.hours = row[1]         # Часы
+      subject.credit_units = row[2]   # Кредитные единицы
+      subject.description = row[3]    # Описание
+      subject.profiling = row[4]      # Профилирование
+      
+      unless subject.save
+        Rails.logger.error "Ошибка сохранения предмета на строке #{index + 1}: #{subject.errors.full_messages.join(", ")}"
+      end
+    end
+  end
 
   def student_subjects
     record_book = current_user.record_book

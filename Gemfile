@@ -26,6 +26,9 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem 'roo'
+gem 'rubyXL'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -120,3 +123,4 @@ gem 'rails-i18n'
 gem 'pagy'
 
 gem 'ransack'
+

@@ -29,7 +29,8 @@ ru:
       subject:
         name: Поле "Название"
         description: Поле "Описание" 
-        hours: Полк "Часы"
+        hours: Поле "Часы"
+        upload_file: ылаьвлвталвыавы
       semester:
         name: Поле "Название"
         start_date: Поле "Дата начала"
@@ -200,6 +201,9 @@ ru:
     hours: "Всего часов"
     units: "Зачетные единицы"
     profiling: "Профилизация"
+    upload_file: "Загрузите файл"
+    choose_file: "Выбрать файл"
+    no_file_chosen: "Файл не выбран"
   
   semesters:
     name: "Название"

@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       end
     end
     resources :record_books
+    
 
     get 'extends_reports/index'
     resources :individual_reports, only: [:new] do

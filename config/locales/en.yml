@@ -193,6 +193,9 @@ en:
     edit_subject: "Edit subject"
     new: "New subject"
     profiling: "Profiling"
+    upload_file: "Upload File"
+    choose_file: "Choose File"
+    no_file_chosen: "No file chosen"
 
   semesters:
     name: "Name"
