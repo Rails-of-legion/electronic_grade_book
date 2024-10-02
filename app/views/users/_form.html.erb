@@ -86,6 +86,21 @@
             <div class="mb-3">
               <div class="row">
                 <div class="col-sm-3">
+                  <%= form.label :expelled, t('users.activity'), class: "col-form-label" %>
+                </div>
+                <div class="col-sm-9">
+                  <div class="form-check form-switch">
+                    <%= form.hidden_field :expelled, value: false %>
+                    <%= form.check_box :expelled, class: 'form-check-input', value: true %>
+                    <%= form.label :expelled, '', class: 'form-check-label' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="row">
+                <div class="col-sm-3">
                   <%= form.label :status, t('users.status'), class: "col-form-label" %>
                 </div>
                 <div class="col-sm-9">
@@ -121,8 +136,9 @@
               </div>
             </div>
 
+
             <div class="text-center mt-3">
-              <%= form.submit (@user.new_record? ? t('common.create') : t('common.update')), class: "btn btn-primary mr-2" %>
+              <%= form.submit (@user.new_record? ? t('common.create') : t('common.update')), class: "btn btn-primary mr-2", data: { disable_with: (@user.new_record? ? nil : users_path) } %>
               <%= link_to t('common.back'), users_path, class: "btn btn-secondary" %>
             </div>
           </div>

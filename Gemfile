@@ -120,3 +120,10 @@ gem 'rails-i18n'
 gem 'pagy'
 
 gem 'ransack'
+
+gem 'whenever', require: false
+
+gem 'sidekiq'
+
+gem 'foreman'
+

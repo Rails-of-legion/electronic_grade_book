@@ -21,6 +21,8 @@ class User < ApplicationRecord
   has_one :record_book, dependent: :destroy
   has_many :intermediate_attestation, foreign_key: :teacher_id, dependent: :destroy
 
+  before_save :set_expelled_at
+  after_update :schedule_deletion_if_expelled
   def self.ransackable_associations(auth_object = nil)
     super + %w[record_book roles]
   end
@@ -63,4 +65,22 @@ class User < ApplicationRecord
   def format_full_name
     "#{last_name} #{first_name[0]}.#{middle_name[0]}."
   end
+
+  private
+
+  def set_expelled_at
+    if expelled
+      self.expelled_at = Time.zone.now
+    else
+      self.expelled_at = nil
+    end
+  end
+
+  def schedule_deletion_if_expelled
+    if expelled_changed? && expelled
+      DeleteUserJob.set(wait: 1.minute).perform_later(self.id)
+    end
+  end
 end
+
+

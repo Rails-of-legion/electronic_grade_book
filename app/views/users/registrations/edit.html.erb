@@ -1,27 +1,25 @@
-<h2><%= f.submit t('users.edit_profile') %></h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= form_for(resource, as: resource_name, url: update_user_registration_path(resource_name), html: { method: :put }) do |f| %>
+  <h2><%= f.submit t('users.edit_profile') %></h2>
+  
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  
+  <%= f.label :email %>
+  <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
 
-  
-    <%= f.label :password %>
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name, autofocus: true %>
 
-  
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %>
 
-  
-    <%= f.label :current_password %>
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  
+  <%= f.label :password %>
+  <%= f.password_field :password, autocomplete: "new-password" %>
+
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+
+  <%= f.label :current_password %>
+  <%= f.password_field :current_password, autocomplete: "current-password" %>
 
   <div class="actions">
     <%= f.submit t('common.update') %>
