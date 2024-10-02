@@ -15,6 +15,7 @@ ru:
         users: Поле "Пользователи"
       specialization:
         name: Поле "Название"
+        index: Поле "Индекс группы"
       group: 
         name: Поле "Название"
         specialization: Поле "Специальность"
@@ -27,7 +28,9 @@ ru:
         custom_number: Поле "Номер"
       subject:
         name: Поле "Название"
-        description: Поле "Описание"
+        description: Поле "Описание" 
+        hours: Поле "Часы"
+        upload_file: ылаьвлвталвыавы
       semester:
         name: Поле "Название"
         start_date: Поле "Дата начала"
@@ -109,6 +112,11 @@ ru:
     users_update_password_notice: "Пароль обновлен"
     users_update_email_notice: "Электронная почта обновлена"
 
+  roles:
+    admin: "Администратор"
+    teacher: "Преподаватель"
+    student: " Студент"
+ 
   common:
     month: "Месяц"
     further: "Далее"
@@ -197,6 +205,10 @@ ru:
     new: "Создать дисциплину"
     hours: "Всего часов"
     units: "Зачетные единицы"
+    profiling: "Профилизация"
+    upload_file: "Загрузите файл"
+    choose_file: "Выбрать файл"
+    no_file_chosen: "Файл не выбран"
   
   semesters:
     name: "Название"
@@ -245,6 +257,7 @@ ru:
     list: "Специальности"
     details: "Детали Специальности"
     groups: "Группы"
+    no_subjects: "Дисциплин в Специальности пока нет"
     no_groups: "Группы для этой Специальности пока нет"
     back: "Назад"
     new_specialization: "Новая специальность"
@@ -253,6 +266,7 @@ ru:
     edit_specialization: "Изменить специальность"
     subjects: "Дисциплины"
     no_specializations_found: "Специальности не найдены"
+    index: "Индекс группы"
   
   grades:
     grades: "Отметки"

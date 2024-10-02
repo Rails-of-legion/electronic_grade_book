@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.1].define(version: 2024_09_18_000007) do
+=======
+ActiveRecord::Schema[7.1].define(version: 2024_09_27_123221) do
+>>>>>>> 0ce96b833aaf92202dac8c8e774d1e6e41b13754
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -130,6 +134,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_18_000007) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "index", null: false
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -139,6 +144,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_18_000007) do
     t.datetime "updated_at", null: false
     t.integer "hours", null: false
     t.integer "credit_units", null: false
+    t.string "profiling"
   end
 
   create_table "teachers_subjects", force: :cascade do |t|

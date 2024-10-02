@@ -15,6 +15,7 @@ en:
         users: Field "Users"
       specialization:
         name: Field "Name"
+        index: Field "Group index"
       group: 
         name: Field "Name"
         specialization: Field "Specialization"
@@ -27,7 +28,7 @@ en:
         custom_number: Field "Number"
       subject:
         name: Field "Name"
-        description: Field "Description"
+        description: Field "Description"        
       semester:
         name: Field "Name"
         start_date: Field "Start date"
@@ -110,6 +111,11 @@ en:
     users_update_password_notice: "Password was successfully updated"
     users_update_email_notice: "Email was successfully updated"
 
+  roles:
+    admin: "Administrator"
+    teacher: "Teacher"
+    student: "Student"
+
   common:
     month: "Month"
     further: "Further"
@@ -191,6 +197,10 @@ en:
     create_subject: "Create subject"
     edit_subject: "Edit subject"
     new: "New subject"
+    profiling: "Profiling"
+    upload_file: "Upload File"
+    choose_file: "Choose File"
+    no_file_chosen: "No file chosen"
 
   semesters:
     name: "Name"
@@ -231,6 +241,7 @@ en:
     list: "Specializations"
     details: "Specialization details"
     groups: "Groups"
+    no_subjects: "No subjects in this specialization yet"
     no_groups: "No groups for this specialization yet"
     back: "Back"
     new_specialization: "New specialization"
@@ -238,6 +249,7 @@ en:
     create_specialization: "Create specialization"
     subjects: "Subjects"
     no_specializations_found: "No specializations found"
+    index: "Index group"
 
   grades:
     grades: "Grades"

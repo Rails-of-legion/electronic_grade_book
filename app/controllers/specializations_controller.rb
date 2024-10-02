@@ -68,6 +68,6 @@ class SpecializationsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def specialization_params
-    params.require(:specialization).permit(:name, subject_ids: [])
+    params.require(:specialization).permit(:name, :index, subject_ids: [])
   end
 end
