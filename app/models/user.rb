@@ -5,12 +5,12 @@ class User < ApplicationRecord
   validates :first_name, presence: true, length: { minimum: 3, maximum: 50 }
   validates :last_name, presence: true, length: { minimum: 3, maximum: 50 }
   validates :middle_name, presence: true, length: { minimum: 3, maximum: 50 }
-  validates :phone_number, presence: true
-  validates :phone_number, format: { with: /\A(\+375|80)(29|44|25|33)\d{7}\z/,
-                                     message: 'неверный формат номера телефона' }
+  #validates :phone_number, presence: true
+  #validates :phone_number, format: { with: /\A(\+375|80)(29|44|25|33)\d{7}\z/,
+   #                                  message: 'неверный формат номера телефона' }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
-  validates :date_of_birth, presence: true
+  #validates :date_of_birth, presence: true
   validates :status, inclusion: { in: [true, false] }
 
   has_many :curated_groups, class_name: 'Group', foreign_key: 'curator_id', dependent: :destroy

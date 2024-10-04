@@ -18,7 +18,7 @@
                 <li class="list-group-item"><%= link_to t('users.record_book'), @user.record_book %></li>  
               <% end %>        
               <li class="list-group-item"><strong><%= t('users.status') %> :</strong> <%= @user.status %></li>
-              <li class="list-group-item"><strong><%= t('users.date_of_birth') %> :</strong> <%= @user.date_of_birth.strftime("%d.%m.%Y") %></li>      
+               
             </ul>  
             <% if current_user.admin? && current_user != @user %>
                 <%= link_to t('common.back'), users_path, class: "btn btn-secondary mt-2" %>
