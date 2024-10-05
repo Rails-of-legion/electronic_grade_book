@@ -115,7 +115,7 @@ ru:
   roles:
     admin: "Администратор"
     teacher: "Преподаватель"
-    student: " Студент"
+    student: "Студент"
  
   common:
     month: "Месяц"

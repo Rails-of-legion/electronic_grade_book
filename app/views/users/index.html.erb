@@ -17,7 +17,6 @@
                 <th><%= t('users.first_name') %></th>
                 <th><%= t('users.middle_name') %></th>
                 <th><%= t('users.email') %></th>
-                <th><%= t('users.phone_number') %></th>
                 <th class="text-center"><%= t('users.role') %></th>
                 <th class="text-center"><%= t('common.actions') %></th>
               </tr>
@@ -29,7 +28,6 @@
                   <td><%= user.first_name %></td>
                   <td><%= user.middle_name %></td>
                   <td><%= user.email.gsub('@', '<br />@')&.html_safe %></td>
-                  <td><%= user.phone_number %></td>
                   <td class="text-center"><%= user.roles.map { |role| t("roles.#{role.name}") }.join(', ') %></td>
                   <td class="w-10 text-center">
                     <div>
@@ -73,10 +71,6 @@
           <div class="form-group mb-2">
             <%= f.label :email_cont, t('users.email') %>
             <%= f.search_field :email_cont, class: "form-control" %>
-          </div>
-          <div class="form-group mb-2">
-            <%= f.label :phone_number_cont, t('users.phone_number') %>
-            <%= f.search_field :phone_number_cont, class: "form-control" %>
           </div>
           <div class="form-group mb-2">
             <%= f.label :roles_id_eq, t('users.role') %>
