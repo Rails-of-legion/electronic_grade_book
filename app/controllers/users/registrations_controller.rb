@@ -30,24 +30,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def search; end
 
   def find_user
-    year = params[:user][:'date_of_birth(1i)'].to_i
-    month = params[:user][:'date_of_birth(2i)'].to_i
-    day = params[:user][:'date_of_birth(3i)'].to_i
-
-    begin
-      date_of_birth = Date.new(year, month, day)
-    rescue ArgumentError
-      flash[:error] = t('questions.invalid_date_format')
-      redirect_to users_search_path 
-      return
-    end
-
     @user = User.find_by(
       first_name: params[:user][:first_name],
       last_name: params[:user][:last_name],
       middle_name: params[:user][:middle_name],
-      phone_number: params[:user][:phone_number],
-      date_of_birth: date_of_birth
     )
     search_user
   end
@@ -92,6 +78,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :middle_name, :phone_number, :email, :password, :password_confirmation, :status, :expelled, :expelled_at, :date_of_birth, role_ids: [])
+    params.require(:user).permit(:first_name, :last_name, :middle_name, :email, :password, :password_confirmation, :status, :expelled, :expelled_at, role_ids: [])
   end
 end
