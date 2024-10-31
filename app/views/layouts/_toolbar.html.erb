@@ -44,6 +44,9 @@
             <%= link_to t('navbar.users'), users_path, class: "nav-link #{request.fullpath == users_path ? 'active' : ''}" %>
           </li>
           <li class="nav-item">
+            <%= link_to t('navbar.subjects'), subjects_path, class: "nav-link #{request.fullpath == subjects_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
             <%= link_to t('navbar.specializations'), specializations_path, class: "nav-link #{request.fullpath == specializations_path ? 'active' : ''}" %>
           </li>
           <li class="nav-item">
@@ -54,9 +57,6 @@
           </li>
           <li class="nav-item">
             <%= link_to t('navbar.grades'), grades_path, class: "nav-link #{request.fullpath == grades_path ? 'active' : ''}" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to t('navbar.subjects'), subjects_path, class: "nav-link #{request.fullpath == subjects_path ? 'active' : ''}" %>
           </li>
           <li class="nav-item">
             <%= link_to t('navbar.intermediate_attestations'), intermediate_attestations_path, class: "nav-link #{request.fullpath == intermediate_attestations_path ? 'active' : ''}" %>

@@ -13,7 +13,7 @@ prawn_document title: 'Intermediate Attestation Report' do |pdf|
 
   pdf.move_down 10
 
-  pdf.text_box "Дата проведения #{@intermediate_attestation.date}",
+  pdf.text_box "Дата проведения #{@intermediate_attestation.date.strftime('%d.%m.%Y')}",
               at: [pdf.bounds.width / 2, pdf.cursor],
               width: pdf.bounds.width / 2,
               align: :right
@@ -24,7 +24,7 @@ prawn_document title: 'Intermediate Attestation Report' do |pdf|
     pdf.text "Форма получения образования: #{group.form_of_education}", align: :justify
   end
   pdf.text "Форма промежуточной аттестации: #{@intermediate_attestation.name}", align: :justify
-  pdf.text "Всего часов и зачетных единиц по учебной дисциплине, модулю  1", align: :justify
+  pdf.text "Всего часов и зачетных единиц по учебной дисциплине: #{@intermediate_attestation.subject.hours} часов, #{@intermediate_attestation.subject.credit_units} зачетных единиц", align: :justify
   pdf.text "Преподаватель: #{@intermediate_attestation.teacher.name}", align: :justify
 
   table_data = [['№ пп', 'Фамилия, собственное имя, отчество слушателя', 'Отметка', 'Подпись преподавателя']]

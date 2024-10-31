@@ -74,7 +74,7 @@
           </div>
           <div class="form-group mb-2">
             <%= f.label :roles_id_eq, t('users.role') %>
-            <%= f.select :roles_id_eq, options_from_collection_for_select(Role.all, :id, :name, params.dig(:q, :roles_id_eq)), { include_blank: t('common.all') }, class: "form-control" %>
+            <%= f.select :roles_id_eq, options_from_collection_for_select(Role.all, :id, ->(role) { t("roles.#{role.name}") }, params.dig(:q, :roles_id_eq)), { include_blank: t('common.all') }, class: "form-control" %>
           </div>
           <div class="form-group mt-3">
             <%= f.submit t('common.search'), class: 'btn btn-primary' %>

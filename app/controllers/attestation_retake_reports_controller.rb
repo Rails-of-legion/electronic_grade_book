@@ -54,7 +54,7 @@ class AttestationRetakeReportsController < ApplicationController
     pdf.move_down 10
     pdf.text "Название предмета: #{@exam.subject.name}"
     pdf.move_down 10
-    pdf.text "Дата выставления оценки: #{@exam.date}"
+    pdf.text "Дата выставления оценки: #{@exam.date.strftime('%d.%m.%Y')}"
     pdf.move_down 10
     pdf.text "Количество слушателей: #{@grades.count}"
     pdf.move_down 10
@@ -98,7 +98,7 @@ class AttestationRetakeReportsController < ApplicationController
 
       doc.p "Отчет по экзамену: #{@exam.name}", size: 20, bold: true
       doc.p "Название предмета: #{@exam.subject.name}"
-      doc.p "Дата выставления оценки: #{@exam.date}"
+      doc.p "Дата выставления оценки: #{@exam.date.strftime('%d.%m.%Y')}"
       doc.p "Количество слушателей: #{@grades.count}"
       doc.p "Преподаватели, закрепленные за экзаменом: #{@exam.teacher.last_name} #{@exam.teacher.first_name}"
       doc.p "Количество слушателей, которые сдали экзамен: #{@passed_students.count}"
@@ -128,7 +128,7 @@ class AttestationRetakeReportsController < ApplicationController
     [%w[ФИО Оценка]] +
       @failed_students.map do |grade|
         student = grade.record_book.user
-        ["#{student.last_name} #{student.first_name}", grade.grade.nil? ? 'Не явился' : grade.grade]
+        ["#{student.last_name} #{student.first_name} #{student.middle_name}", grade.grade.nil? ? 'Не явился' : grade.grade]
       end
   end
 end
