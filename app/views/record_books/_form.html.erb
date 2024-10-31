@@ -13,7 +13,7 @@
                 <% end %>
               </div>
               <div class="col-sm-9">
-                <%= f.select :user_id, User.with_role(:student).map { |user| [ "#{user.name} ", user.id ] }, { prompt: t('record_books.select_student') }, { class: "form-control" } %>
+                <%= f.select :user_id, User.with_role(:student).map { |user| [ "#{user.name} (#{user.email})", user.id ] }, { prompt: t('record_books.select_student') }, { class: "form-control" } %>
               </div>
             </div>
 

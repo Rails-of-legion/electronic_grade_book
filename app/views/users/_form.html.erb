@@ -58,7 +58,7 @@
                   <%= form.label :password, t('users.password'), class: "col-form-label" %>
                 </div>
                 <div class="col-sm-9">
-                  <%= form.password_field :password, class: 'form-control', placeholder: 'Пароль' %>
+                  <%= form.text_field :password, class: 'form-control', placeholder: 'Пароль' %>
                 </div>
               </div>
             </div>
@@ -69,22 +69,7 @@
                   <%= form.label :password_confirmation, t('users.password_confirmation'), class: "col-form-label" %>
                 </div>
                 <div class="col-sm-9">
-                  <%= form.password_field :password_confirmation, class: 'form-control', placeholder: 'Повторите пароль' %>
-                </div>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <div class="row">
-                <div class="col-sm-3">
-                  <%= form.label :expelled, t('users.activity'), class: "col-form-label" %>
-                </div>
-                <div class="col-sm-9">
-                  <div class="form-check form-switch">
-                    <%= form.hidden_field :expelled, value: false %>
-                    <%= form.check_box :expelled, class: 'form-check-input', value: true %>
-                    <%= form.label :expelled, '', class: 'form-check-label' %>
-                  </div>
+                  <%= form.text_field :password_confirmation, class: 'form-control', placeholder: 'Повторите пароль' %>
                 </div>
               </div>
             </div>

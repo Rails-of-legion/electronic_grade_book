@@ -28,7 +28,7 @@ class ReportsController < ApplicationController
         docx.p "Форма получения образования: #{group.form_of_education}"
       end
       docx.p "Форма промежуточной аттестации: #{intermediate_attestation.name}"
-      docx.p "Всего часов и зачетных единиц по учебной дисциплине, модулю: "
+      docx.p "Всего часов и зачетных единиц по учебной дисциплине: #{intermediate_attestation.subject.hours} часов, #{intermediate_attestation.subject.credit_units} зачетных единиц"
       docx.p "Преподаватель: #{intermediate_attestation.teacher.name}"
 
       table_data = [['№ пп', 'Фамилия, собственное имя, отчество слушателя', 'Отметка', 'Подпись преподавателя']]
@@ -81,7 +81,12 @@ class ReportsController < ApplicationController
                       ['зачтено','','не зачтено','']]
  
       docx.table table_grades, border_size: 8 do
-        cell_style rows[0]
+        rows.each do |row|
+          cell_style row, align: :center
+        end
+        cols.each do |col|
+          cell_style col, align: :center
+        end
       end
 
       docx.p "Количество студентов, не явившихся на аттестацию: #{students_without_grades_count}"
