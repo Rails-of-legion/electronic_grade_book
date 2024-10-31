@@ -28,6 +28,9 @@
             <%= link_to t('navbar.groups'), groups_path, class: "nav-link #{request.fullpath == groups_path ? 'active' : ''}" %>
           </li>
           <li class="nav-item">
+            <%= link_to t('navbar.grades'), grades_path, class: "nav-link #{request.fullpath == grades_path ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
             <%= link_to t('navbar.specializations'), specializations_path, class: "nav-link #{request.fullpath == specializations_path ? 'active' : ''}" %>
           </li>
           <li class="nav-item">
