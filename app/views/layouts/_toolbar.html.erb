@@ -17,7 +17,12 @@
             <%= link_to t('navbar.semesters'), semesters_path, class: "nav-link #{request.fullpath == semesters_path ? 'active' : ''}" %>
           </li>
         <% elsif current_user.has_role?(:teacher) %>
-
+          <li class="nav-item">
+            <%= link_to t('navbar.profile'), user_path(current_user), class: "nav-link #{request.fullpath == user_path(current_user) ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.notifications'), notifications_path, class: "nav-link #{request.fullpath == notifications_path ? 'active' : ''}" %>
+          </li>
           <li class="nav-item">
             <%= link_to t('navbar.subjects'), subjects_path, class: "nav-link #{request.fullpath == subjects_path ? 'active' : ''}" %>
           </li>

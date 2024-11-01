@@ -4,7 +4,6 @@
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
   <div class="d-flex justify-content-between">
-  <%= link_to t('sign_up'), users_search_path() %>
   <%= link_to t('forgot_password'), new_password_path(resource_name) %>  
   </div>
 <% end %>

@@ -33,9 +33,11 @@ class Ability
     cannot :read, User
     can :read, User, id: @user.id
     can :read, IntermediateAttestation
+    can :create, IntermediateAttestation
     can :read, RecordBook
     can :manage, Grade
     can :read, Semester
+    can :read, Notification
     can :read, Subject
     can :group_subjects, Subject
     can :form_teacher, Group
