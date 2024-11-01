@@ -5,7 +5,7 @@ ru:
         first_name: Поле "Имя"
         last_name: Поле "Фамилия"
         middle_name: Поле "Отчество"
-        email: Поле 'Электронная почта'
+        email: Поле "Электронная почта"
         phone_number: Поле "Номер телефона"
         password: Поле "Пароль"
         date_of_birth: Поле "Дата рождения"
@@ -30,7 +30,7 @@ ru:
         name: Поле "Название"
         description: Поле "Описание" 
         hours: Поле "Часы"
-        upload_file: ылаьвлвталвыавы
+        upload_file: Поле "Загрузите файл"
       semester:
         name: Поле "Название"
         start_date: Поле "Дата начала"
@@ -56,10 +56,9 @@ ru:
   unlock_instructions: 'Не получили инструкции по разблокировке?'
   sign_in_with: 'Войти с %{provider}'
 
-
   find_user: "Найти пользователя"
   step_1: "Шаг 1 : Регистрация"
-  step_2: "Швиг 2 : Установите пароль и адрес электронной почты"
+  step_2: "Шаг 2 : Установите пароль и адрес электронной почты"
   first_name: "Имя"
   middle_name: "Отчество"
   last_name: "Фамилия"
@@ -69,7 +68,7 @@ ru:
 
   questions:
     register_notice: "Регистрация прошла успешно"
-    register_alert: "Пользоваатель не найден"
+    register_alert: "Пользователь не найден"
     grades_create_notice: "Отметка успешно создана"
     grades_update_notice: "Отметка обновлена"
     group_create_notice: "Группа успешно создана"
@@ -83,7 +82,7 @@ ru:
     notifications_destroy_notice: "Уведомление было удалено"
     notifications_mark_as_read_notice: "Уведомление отмечено как прочитанное"
     notifications_mark_as_read_alert: "Уведомление не найдено"
-    record_books_create_notice: "Зачетая книжка успешно создана"
+    record_books_create_notice: "Зачетная книжка успешно создана"
     record_books_update_notice: "Зачетная книжка обновлена"
     record_books_destroy_notice: "Зачетная книжка удалена"
     semesters_create_notice: "Этап(сессия) успешно создан"
@@ -140,7 +139,7 @@ ru:
   
   users:
     users: "Пользователи"
-    user: "Пользовател"
+    user: "Пользователь"
     first_name: "Имя"
     last_name: "Фамилия"
     middle_name: "Отчество"
@@ -167,7 +166,7 @@ ru:
     change_email: "Изменить электронную почту"
     change_your_password: "Изменить ваш пароль"
     password: "Пароль"
-    password_confirmation: "Подтвержение пароля"
+    password_confirmation: "Подтверждпение пароля"
     new_password: "Новый пароль"
     confirm_your_new_password: "Подтвердите ваш новый пароль"
     characters_minimum: "минимальное количество символов"
@@ -279,7 +278,7 @@ ru:
     student: "Слушатель"
     grade: "Отметка"
     item: "Дисциплина"
-    students_last_name: "Фамилия Слушательа"
+    students_last_name: "Фамилия Слушателя"
     subject: "Дисциплина"
     no_grades_found: "Отметки не найдены"  
   
@@ -293,8 +292,8 @@ ru:
     select_subject: "Выберите дисциплину"
     add_grade: "Добавить отметку"
     select_day: "Выберите день"
-    select_student: "Выберите Слушательа"
-    student: "Cтуденты"
+    select_student: "Выберите Слушателя"
+    student: "Студенты"
     details: "Информация о группе"
     unassigned: "Не назначен"
     specialization: "Специальность"
@@ -370,7 +369,7 @@ ru:
     change_notifications: "Изменить уведомление"
     message: "Сообщение"
     date: "Дата"
-    read_status: "Cтатус прочтения "
+    read_status: "Статус прочтения"
     users: "Пользователи"
     actions: "Действия"
     read: "Прочитано"
@@ -384,8 +383,8 @@ ru:
     notification_details: "Детали уведомления"
     no_users_for_this_notification: "Нет пользователей для этого уведомления"
     select_user: "Выберите пользователя"
-    create_notification: "Создать пользователя"
-    edit_notification: "Изменить пользователя"
+    create_notification: "Создать уведомление"
+    edit_notification: "Изменить уведомление"
     no_notifications_found: "Уведомления не найдены"
   
   extends_reports: 
