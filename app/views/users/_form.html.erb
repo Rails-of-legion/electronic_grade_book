@@ -96,8 +96,10 @@
                   <%= form.collection_check_boxes :role_ids, Role.all, :id, :name do |b| %>
                     <div class="form-check">
                       <%= b.check_box class: "form-check-input" %>
-                      <%= b.label  class: "form-check-label" %>
-                    </div>
+                      <%= b.label class: "form-check-label", value: b.value do %>
+                        <%= t("roles.#{Role.find(b.value).name}") %> <!-- Перевод роли на русский -->
+                      <% end %>
+                  </div>
                   <% end %>
                 </div>
               </div>

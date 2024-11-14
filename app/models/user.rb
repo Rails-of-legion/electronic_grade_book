@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :subjects, through: :teachers_subjects
   has_one :record_book, dependent: :destroy
   has_many :intermediate_attestation, foreign_key: :teacher_id, dependent: :destroy
+  
 
   before_save :set_expelled_at
   after_update :schedule_deletion_if_expelled
@@ -27,6 +28,7 @@ class User < ApplicationRecord
     super + %w[record_book roles]
   end
 
+  
   def self.ransackable_attributes(_auth_object = nil)
     %w[
       created_at
@@ -65,6 +67,7 @@ class User < ApplicationRecord
   def format_full_name
     "#{last_name} #{first_name[0]}.#{middle_name[0]}."
   end
+
 
   private
 

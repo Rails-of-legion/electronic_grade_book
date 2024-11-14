@@ -17,7 +17,8 @@
                 <th><%= t('users.first_name') %></th>
                 <th><%= t('users.middle_name') %></th>
                 <th><%= t('users.email') %></th>
-                <th class="text-center"><%= t('users.role') %></th>
+                <th><%= t('users.role') %></th>
+                <th><%= t('users.group') %></th>
                 <th class="text-center"><%= t('common.actions') %></th>
               </tr>
             </thead>
@@ -28,19 +29,25 @@
                   <td><%= user.first_name %></td>
                   <td><%= user.middle_name %></td>
                   <td><%= user.email.gsub('@', '<br />@')&.html_safe %></td>
-                  <td class="text-center"><%= user.roles.map { |role| t("roles.#{role.name}") }.join(', ') %></td>
+                  <td><%= user.roles.map { |role| t("roles.#{role.name}") }.join(', ') %></td>
+                  <td>
+                    <%= if user.record_book.present? && user.record_book.group.present? 
+                          then user.record_book.group.name 
+                        else ' Нет группы' 
+                    end %>
+                  </td>
                   <td class="w-10 text-center">
                     <div>
                       <%= link_to t('common.show'), user_path(user), class: 'btn btn-primary btn-sm', style: 'width: 120px;' %>
-                    <div>
+                    </div>
                     <% if current_user.has_role?(:admin) %>
                       <div class="mt-1">
                         <%= link_to t('common.edit'), edit_user_path(user), class: 'btn btn-secondary btn-sm', style: 'width: 120px;' %>
-                      <div>
+                      </div>
                       <div class="mt-1">
                         <%= link_to t('common.delete'), user_path(user),
                         data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger btn-sm', style: 'width: 120px;' %>
-                      <div>
+                      </div>
                     <% end %>
                   </td>
                 </tr>
@@ -72,10 +79,12 @@
             <%= f.label :email_cont, t('users.email') %>
             <%= f.search_field :email_cont, class: "form-control" %>
           </div>
+          
           <div class="form-group mb-2">
             <%= f.label :roles_id_eq, t('users.role') %>
             <%= f.select :roles_id_eq, options_from_collection_for_select(Role.all, :id, ->(role) { t("roles.#{role.name}") }, params.dig(:q, :roles_id_eq)), { include_blank: t('common.all') }, class: "form-control" %>
           </div>
+
           <div class="form-group mt-3">
             <%= f.submit t('common.search'), class: 'btn btn-primary' %>
             <%= link_to t('common.reset'), users_path, class: 'btn btn-secondary' %>
