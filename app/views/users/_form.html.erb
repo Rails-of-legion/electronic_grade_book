@@ -1,4 +1,4 @@
-<%= form_with(model: @user, local: true) do |form| %>
+<%= form_with(model: @user, local: true, data: { controller: "user-form" }) do |form| %>
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-12">
@@ -74,13 +74,13 @@
               </div>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3" style="display: none;">
               <div class="row">
                 <div class="col-sm-3">
                   <%= form.label :status, t('users.status'), class: "col-form-label" %>
                 </div>
                 <div class="col-sm-9">
-                  <%= form.check_box :status, class: 'form-check-input' %>
+                  <%= form.check_box :status, { checked: true }, true, false %>
                 </div>
               </div>
             </div>
@@ -93,18 +93,28 @@
                   <%= form.label :roles, t('users.role'), class: "col-form-label" %>
                 </div>
                 <div class="col-sm-9">
-                  <%= form.collection_check_boxes :role_ids, Role.all, :id, :name do |b| %>
+                  <%= form.collection_radio_buttons :role_ids, Role.all, :id, :name do |b| %>
                     <div class="form-check">
-                      <%= b.check_box class: "form-check-input" %>
+                      <%= b.radio_button class: "form-check-input", id: "role_#{b.value}", data: { target: "user-form.studentRoleCheckbox" } %>
                       <%= b.label class: "form-check-label", value: b.value do %>
-                        <%= t("roles.#{Role.find(b.value).name}") %> <!-- Перевод роли на русский -->
+                        <%= t("roles.#{Role.find(b.value).name}") %>
                       <% end %>
-                  </div>
+                    </div>
                   <% end %>
                 </div>
               </div>
             </div>
 
+            <div class="mb-3" id="group-select" data-target="user-form.groupSelect">
+              <div class="row">
+                <div class="col-sm-3">
+                  <%= form.label :group_id, t('users.group'), class: "col-form-label" %>
+                </div>
+                <div class="col-sm-9">
+                  <%= form.collection_select :group_id, Group.all, :id, :name, { include_blank: true }, class: "form-control" %>
+                </div>
+              </div>
+            </div>
 
             <div class="text-center mt-3">
               <%= form.submit (@user.new_record? ? t('common.create') : t('common.update')), class: "btn btn-primary mr-2", data: { disable_with: (@user.new_record? ? nil : users_path) } %>
