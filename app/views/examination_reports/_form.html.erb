@@ -1,0 +1,156 @@
+<%= form_with model: @examination_report, class: "needs-validation", novalidate: true do |f| %>
+  <div class="container mt-5">
+    <h3 class="text-center mb-4">Учреждение образования</h3>
+    <h3 class="text-center mb-4">«РЕСПУБЛИКАНСКИЙ ИНСТИТУТ ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ»</h3>
+    <h3 class="text-center mb-4">ЗАЧЁТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ №_____</h3>
+    <h3 class="text-center mb-5">аттестации вне учебной группы</h3>
+
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <%= f.label :group, "Группа", class: "form-label" %>
+      </div>
+      <div class="col-md-4">
+        <%= f.select :group, options_for_select(Group.all.map { |rb| ["#{rb.name}, #{rb.form_of_education}", rb.name] }), {}, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <%= f.label :subject, "Дисциплина", class: "form-label" %>
+      </div>
+      <div class="col-md-4">
+        <%= f.select :subject, options_for_select(Subject.all.map { |rb| ["#{rb.name}, часы:#{rb.hours}, зачётных единиц:#{rb.credit_units}", rb.name] }), {}, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <%= f.label :attestation, "Форма промежуточной аттестации:", class: "form-label" %>
+      </div>
+      <div class="col-md-4">
+        <%= f.select :attestation, options_for_select([["Зачёт", 1], ["Экзамен", 2]]), {}, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <%= f.label :teacher, "Преподаватель:", class: "form-label" %>
+      </div>
+      <div class="col-md-4">
+        <%= f.select :teacher, options_for_select(User.with_role(:teacher).map { |user| [user.name, user.name] }), {}, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <%= f.label :student, "Фамилия, инициалы слушателя:", class: "form-label" %>
+      </div>
+      <div class="col-md-4">
+        <%= f.select :student, options_for_select(User.with_role(:student).map { |user| [user.name, user.name] }), {}, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-2">
+        Дата выдачи ведомости
+      </div>
+      <div class="col-md-4">
+        <%= Date.today.strftime("%d.%m.%Y") %>
+        <%= f.hidden_field :date_of_statement, value: Date.today %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <%= f.label :date_until_valid, "Ведомость действительна по", class: "form-label" %>
+      </div>
+      <div class="col-md-4">
+        <%= f.date_field :date_until_valid, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <%= f.label :mark, "Отметка:", class: "form-label" %>
+      </div>
+      <div class="col-md-2">
+        <%= f.select :mark, options_for_select([["Зачтено", 11], ["Не зачтено", 12], ["Не явился", 13], ["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["7", 7], ["8", 8], ["9", 9], ["10", 10]]), {}, class: "form-control" %>
+      </div>
+      <div class="col-md-2">
+        <%= f.date_field :date_of_attestation, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <p class="text-center">
+          Подпись преподавателя
+        </p>
+        <div class="row">
+          <div class="col-6">
+            <p class="text-center">
+              _________________________
+            </p>
+            <p class="text-center">
+              (подпись)
+            </p>
+          </div>
+          <div class="col-6">
+            <p class="text-center">
+              ______________________
+            </p>
+            <p class="text-center">
+              (фамилия, инициалы)
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <p class="text-center">
+          С индивидуальными сроками текущей аттестации ознакомлен
+        </p>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <p class="text-center">
+          ___________20___
+        </p>
+        <p class="text-center">
+          (дата)
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p class="text-center">
+          ______________
+        </p>
+        <p class="text-center">
+          (подпись)
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p class="text-center">
+          ______________________
+        </p>
+        <p class="text-center">
+          (фамилия, инициалы слушателя)
+        </p>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-6">
+          Декан факультета повышения квалификации и переподготовки кадров
+      </div>
+         <div class="col-md-1 mb-3">
+          Ю.Ю.Королев
+        </div>
+      </div>
+      <%= f.submit "Сохранить отчёт", class:'btn btn-primary'%>
+    </div>
+  </div>
+<% end %>

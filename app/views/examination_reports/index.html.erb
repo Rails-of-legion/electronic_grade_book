@@ -1,0 +1,42 @@
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Список зачётно-экзаменационных ведомостей</h1>
+
+<%== pagy_bootstrap_nav @pagy%>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Группа</th>
+        <th>Дисциплина</th>
+        <th>Форма аттестации</th>
+        <th>Преподаватель</th>
+        <th>Слушатель</th>
+        <th>Дата выдачи</th>
+        <th>Действительна до</th>
+        <th colspan="3">Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @examination_reports.each do |report| %>
+        <tr>
+          <td><%= report.id %></td>
+          <td><%= report.group %></td>
+          <td><%= report.subject %></td>
+          <td><%= report.attestation == '1' ? 'Зачёт' : 'Экзамен' %></td>
+          <td><%= report.teacher %></td>
+          <td><%= report.student %></td>
+          <td><%= report.date_of_statement %></td>
+          <td><%= report.date_until_valid %></td>
+          <td><%= link_to 'Показать', examination_report_path(report), class: 'btn btn-primary' %></td>
+          <td><%= link_to 'Редактировать', edit_examination_report_path(report), class: 'btn btn-primary' %></td>
+          <td><%= link_to 'Удалить', examination_report_path(report), data: { turbo_method: :delete, turbo_confirm: t('notifications.you_are_sure') }, class: 'btn btn-danger' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'Создать новый отчет', new_examination_report_path, class: 'btn btn-primary mb-3' %>
+  <%== pagy_bootstrap_nav @pagy%>
+</div>
+
