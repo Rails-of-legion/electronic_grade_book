@@ -1,7 +1,7 @@
 class RecordBook < ApplicationRecord
   belongs_to :user, optional: false
-  belongs_to :specialization, optional: false
   belongs_to :group, optional: false
+  has_one :specialization, through: :group
   has_many :grades, dependent: :destroy
 
   validates :custom_number, presence: true, uniqueness: true

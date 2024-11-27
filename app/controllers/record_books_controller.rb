@@ -61,7 +61,7 @@ class RecordBooksController < ApplicationController
   private
 
   def record_book_params
-    params.require(:record_book).permit(:user_id, :specialization_id, :group_id, :custom_number)
+    params.require(:record_book).permit(:user_id, :group_id, :custom_number)
   end
 
   def set_record_book

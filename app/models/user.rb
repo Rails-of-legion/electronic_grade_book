@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :subjects, through: :teachers_subjects
   has_one :record_book, dependent: :destroy
   has_many :intermediate_attestation, foreign_key: :teacher_id, dependent: :destroy
+  belongs_to :group, optional: true
   
 
   before_save :set_expelled_at

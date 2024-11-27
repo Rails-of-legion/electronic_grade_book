@@ -13,7 +13,7 @@
               <li class="list-group-item"><strong><%= t('users.user') %> : </strong><%= @user.name %></li>        
               <li class="list-group-item"><strong><%= t('users.email') %> :</strong> <%= @user.email %></li>                
               <% if @user.has_role?(:student) && @user.record_book.present? %>        
-                <li class="list-group-item"><strong><%= t('users.specialization') %> :</strong> <%= @user.record_book.specialization.name %></li>
+                <li class="list-group-item"><strong><%= t('users.specialization') %> :</strong> <%= @user.record_book.group.specialization.name %></li>
                 <li class="list-group-item"><strong><%= t('users.group') %> :</strong> <%= @user.record_book.group.name %></li>
                 <li class="list-group-item"><%= link_to t('users.record_book'), @user.record_book %></li>  
               <% end %>        

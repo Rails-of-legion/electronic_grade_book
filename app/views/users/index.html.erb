@@ -29,7 +29,7 @@
                     <td><%= user.first_name %></td>
                     <td><%= user.middle_name %></td>
                     <td><%= user.email.gsub('@', '<br />@')&.html_safe %></td>
-                    <td><%= user.roles.map { |role| t("roles.#{role.name}") }.join(', ') %></td>
+                    <td><%= user.roles.map { |role| t("roles.#{role.name}", default: role.name) }.join(', ') %></td>
                     <td>
                       <%= if user.record_book.present? && user.record_book.group.present? 
                             then user.record_book.group.name 

@@ -13,7 +13,7 @@
                 <% end %>
               </div>
               <div class="col-sm-9">
-                <%= f.text_field :name, class: "form-control" %>
+                <%= f.text_field :name, class: "form-control", id: "group_name" %>
               </div>
             </div>
 
@@ -23,32 +23,88 @@
                   <div><%= t('groups.curator') %>: </div>
                 <% end %>
               </div>
-              <div class="col-sm-9">
+              <div class="col-sm-9">  
                 <%= f.collection_select :curator_id, User.with_role(:teacher), :id, :name, { prompt: t('groups.select_curator') }, { class: "form-control" } %>
               </div>
             </div>
 
             <div class="form-group row mb-3">
               <div class="col-sm-3 text-right">
-                <%= f.label :specialization_id, class: "col-form-label" do %>
-                  <div><%= t('groups.specialization') %>:</div>
-                <% end %>
+                <%= f.label :specialization_id, t('groups.specialization') + ":", class: "col-form-label" %>
               </div>
               <div class="col-sm-9">
-                <%= f.collection_select :specialization_id, Specialization.all, :id, :name, { prompt: t('groups.select_specialization') }, class: "form-control" %>
+               <select id="group_specialization_id" name="group[specialization_id]" class="form-control">
+               <option value="" data-index="">Выберите специализацию</option>
+               <% Specialization.all.each do |s| %>
+                <option value="<%= s.id %>" data-index="<%= s.index %>"><%= s.name %></option>
+               <% end %>
+            </select>
+            
               </div>
             </div>
 
             <div class="form-group row mb-3">
               <div class="col-sm-3 text-right">
-                <%= f.label :form_of_education, class: "col-form-label" do %>
-                  <div><%= t('groups.form_of_education') %>:</div>
-                <% end %>
+                <%= f.label :form_of_education, t('groups.form_of_education') + ":", class: "col-form-label" %>
               </div>
               <div class="col-sm-9">
-                <%= f.text_field :form_of_education, class: "form-control" %>
+                <%= f.select :form_of_education, options_for_select([['Дистанционная', 'Дистанционная'], ['Заочная', 'Заочная'], ['Вечерняя', 'Вечерняя']], selected: @group.form_of_education), {}, class: "form-control" %>
               </div>
             </div>
+
+            <div class="form-group row mb-3">
+              <div class="col-sm-3 text-right">
+                <%= f.label :order_number, t('groups.order_number') + ":", class: "col-form-label" %>
+              </div>
+              <div class="col-sm-9">
+                <%= f.select :order_number, options_for_select((1..10).to_a), {}, class: "form-control" %>
+              </div>
+            </div>
+
+            <div class="form-group row mb-3">
+              <div class="col-sm-3 text-right">
+                <%= f.label :year_of_admission, t('groups.year_of_admission') + ":", class: "col-form-label" %>
+              </div>
+              <div class="col-sm-9">
+                <%= f.select :year_of_admission, options_for_select((Time.zone.now.year.downto(Time.zone.now.year - 9)).to_a), {}, class: "form-control" %>
+              </div>
+            </div>
+
+            <div class="form-group row mb-3">
+              <div class="col-sm-9 offset-sm-3">
+                <button type="button" class="btn btn-info" onclick="updateGroupNumber()">Сгенерировать номер группы</button>
+              </div>
+            </div>
+
+            <script>
+            function updateGroupNumber() {
+
+              const educationForms = {
+                'Дистанционная': 'ДО',
+                'Заочная': '',
+                'Вечерняя': 'в'
+              };      
+
+              var specializationIndex = document.querySelector("#group_specialization_id").selectedOptions[0].dataset.index;
+  
+              var formOfEducation = document.querySelector("#group_form_of_education").value;
+              var orderNumber = document.querySelector("#group_order_number").value;
+              var yearOfAdmission = document.querySelector("#group_year_of_admission").value.slice(-2);
+
+              var formCode = educationForms[formOfEducation] || '';
+
+
+
+              if (formOfEducation === 'Вечерняя') {
+                var groupNumber = `${specializationIndex}-${orderNumber}-${yearOfAdmission}${formCode}`;
+              }
+              else {
+                var groupNumber = `${specializationIndex}${formCode}-${orderNumber}-${yearOfAdmission}`;
+              }
+             
+              document.querySelector("#group_name").value = groupNumber;
+            }
+            </script>
 
             <div class="form-group row">
               <div class="col-sm-9 offset-sm-3 d-flex justify-content-between">

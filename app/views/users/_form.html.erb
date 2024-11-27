@@ -93,9 +93,9 @@
                   <%= form.label :roles, t('users.role'), class: "col-form-label" %>
                 </div>
                 <div class="col-sm-9">
-                  <%= form.collection_radio_buttons :role_ids, Role.all, :id, :name do |b| %>
+                  <%= form.collection_check_boxes :role_ids, Role.all, :id, :name do |b| %>
                     <div class="form-check">
-                      <%= b.radio_button class: "form-check-input", id: "role_#{b.value}", data: { target: "user-form.studentRoleCheckbox" } %>
+                      <%= b.check_box class: "form-check-input", id: "role_#{b.value}", data: { target: "user-form.studentRoleCheckbox" } %>
                       <%= b.label class: "form-check-label", value: b.value do %>
                         <%= t("roles.#{Role.find(b.value).name}") %>
                       <% end %>
@@ -105,14 +105,27 @@
               </div>
             </div>
 
-            <div class="mb-3" id="group-select" data-target="user-form.groupSelect">
-              <div class="row">
-                <div class="col-sm-3">
-                  <%= form.label :group_id, t('users.group'), class: "col-form-label" %>
+            <% if @user.new_record? %>
+              <div class="mb-3" id="group-select" data-target="user-form.groupSelect">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <%= form.label :group_id, t('users.group'), class: "col-form-label" %>
+                  </div>
+                  <div class="col-sm-9">
+                    <%= form.collection_select :group_id, Group.all, :id, :name, { include_blank: true }, class: "form-control" %>
+                  </div>
                 </div>
-                <div class="col-sm-9">
-                  <%= form.collection_select :group_id, Group.all, :id, :name, { include_blank: true }, class: "form-control" %>
-                </div>
+              </div>
+            <% end %>
+            
+            <div class="form-group row mb-3">
+              <div class="col-sm-3 text-right">
+                <%= form.label :file, class: "col-form-label" do %>
+                  <div><%= t('subjects.upload_file') %>:</div> 
+                 <% end %>
+              </div>
+              <div class="col-sm-9">
+                <%= form.file_field :file, class: "form-control" %>
               </div>
             </div>
 

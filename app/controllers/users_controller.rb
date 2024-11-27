@@ -22,16 +22,48 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    authorize! :create, @user
+    if params[:user][:file].present?
+      file = params[:user][:file]
+      process_excel_file_user(file) # Обрабатываем файл
+      # Перенаправление на страницу со всеми пользователями
+    respond_to do |format|  
+      format.html { redirect_to users_path, notice: t('questions.subjects_create_notice') }
+      format.json { head :no_content } # Если нужно, можно вернуть статус 204
+    end  
+    else
+      @user = User.new(user_params)
+      authorize! :create, @user
+      respond_to do |format|
+        if @user.save
+          if @user.has_role?(:student) && params[:user][:group_id].present?
+            group = Group.find_by(id: params[:user][:group_id])
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: t('questions.users_create_notice') }
-        format.json { render json: @user, status: :created }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+            if group
+              record_book = RecordBook.new(
+                user: @user,
+                group: group,
+                custom_number: rand(1000000000..9999999999)
+              )
+
+              if record_book.save
+                format.html { redirect_to @user, notice: t('users.create.success_with_record_book') }
+                format.json { render json: @user, status: :created }
+              else
+                format.html { render :new, alert: t('users.create.failed_to_create_record_book') + record_book.errors.full_messages.join(', ') }
+                format.json { render json: record_book.errors, status: :unprocessable_entity }
+              end
+            else
+              format.html { redirect_to @user, notice: t('questions.users_create_notice') }
+              format.json { render json: @user, status: :created }
+            end
+          else
+            format.html { redirect_to @user, notice: t('questions.users_create_notice') }
+            format.json { render json: @user, status: :created }
+          end
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -89,6 +121,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def select_group
+    session[:group_id] = params[:group_id] if params[:group_id].present?
+    Rails.logger.debug "Group ID set in session: #{session[:group_id]}"
+    redirect_to some_path
+  end
+
   private
 
   def set_notification_user
@@ -109,4 +147,52 @@ class UsersController < ApplicationController
   def edit_email_params
     params.require(:user).permit(:email)
   end
+
+
+  def generate_secure_password
+    length = 12 # Длина пароля
+    lowercase = ('a'..'z').to_a
+    uppercase = ('A'..'Z').to_a
+    digits = ('0'..'9').to_a
+    special_characters = %w[! @  $ % ^ & * ( ) - _ = +]
+
+    # Убедимся, что в пароле есть хотя бы один символ каждого типа
+    password = []
+    password << lowercase.sample
+    password << uppercase.sample
+    password << digits.sample
+    password << special_characters.sample
+
+    # Заполняем оставшуюся часть пароля случайными символами
+    (length - 4).times { password << (lowercase + uppercase + digits + special_characters).sample }
+
+    # Перемешиваем пароль, чтобы символы были в случайном порядке
+    password.shuffle.join
+  end
+
+  def process_excel_file_user(file)
+    spreadsheet = Roo::Spreadsheet.open(file.tempfile)
+  
+    spreadsheet.each_with_index do |row, index|
+      next if index == 0 # Пропускаем заголовок
+  
+      user = User.new
+      user.first_name = row[1]
+      user.last_name = row[0]
+      user.middle_name = row[2]
+      user.email = row[3]
+      user.password = generate_secure_password # Генерируем безопасный пароль
+      user.password_confirmation = user.password
+      user.status = true
+      user.expelled = true
+  
+      if user.save
+        user.add_role(:student) # Присваиваем роль студент
+      else
+        Rails.logger.error "Ошибка сохранения пользователя на строке #{index + 1}: #{user.errors.full_messages.join(", ")}"
+      end
+    end
+  end
+
+
 end
