@@ -4,7 +4,7 @@
       <h1><%= t('users.users') %></h1>
       <% if current_user.admin? %>
       <div>
-        <%= link_to t('common.add'), new_user_path, class: 'btn btn-primary' %>
+        <%= link_to t('common.status'), status_users_path, class: 'btn btn-primary' %>
         <%= link_to t('common.add'), new_user_path, class: 'btn btn-primary' %>
         <%= link_to t('common.export'), export_users_to_xlsx_users_path, class: 'btn btn-primary' %>
         <% end %>

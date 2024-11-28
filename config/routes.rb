@@ -20,8 +20,11 @@ Rails.application.routes.draw do
     resources :users do
       collection do
         get :export_users_to_xlsx
+        get :status
       end
     end
+
+    patch 'users/update_status', to: 'users#update_status', as: :update_status_users
 
     get "up" => "rails/health#show", as: :rails_health_check
 

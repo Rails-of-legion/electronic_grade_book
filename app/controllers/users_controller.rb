@@ -143,7 +143,17 @@ class UsersController < ApplicationController
     # Отправляем файл пользователю
     send_data package.to_stream.read, filename: "users.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   end
+  def status
+    @users = User.all
+  end
 
+  def update_status
+    params[:user].each do |id, user_params|
+      user = User.find(id)
+      user.update(status: user_params[:status] == '1') # Обновляем статус
+    end
+    redirect_to status_users_path, notice: t('users.status_updated')
+  end
   private
 
   def set_notification_user

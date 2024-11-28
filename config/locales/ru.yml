@@ -136,6 +136,8 @@ ru:
     create: "Создать"
     new: "Новый"
     save: "Сохранить"
+    export: "Экспорт"
+    status: "Статус"
   
   
   users:
@@ -187,6 +189,8 @@ ru:
     resend_confirmation_instructions: "Повторно отправить инструкции по подтверждению"
     fill_all_fields: "Пожалуйста, заполните все поля"
     info: "Инфо:"
+    active: "Активен"
+    inactive: "Не активен"
   
   subjects:
     subjects: "Дисциплины"

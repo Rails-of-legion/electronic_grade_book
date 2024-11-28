@@ -1,0 +1,23 @@
+<h1><%= t('users.status') %></h1>
+
+<%= form_with url: update_status_users_path, method: :patch do %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= t('users.name') %></th>
+        <th><%= t('users.status') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.last_name %> <%= user.first_name %> <%= user.middle_name %></td>
+          <td>
+            <%= check_box_tag "user[#{user.id}][status]", 1, user.status %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= submit_tag t('common.save'), class: 'btn btn-success' %>
+<% end %>
