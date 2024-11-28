@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_06_130034) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_28_144154) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -107,7 +107,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_06_130034) do
 
   create_table "record_books", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "specialization_id", null: false
     t.bigint "group_id", null: false
     t.string "custom_number", null: false
     t.datetime "created_at", null: false
@@ -115,7 +114,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_06_130034) do
     t.integer "retake_count", default: 0
     t.index ["custom_number"], name: "index_record_books_on_custom_number", unique: true
     t.index ["group_id"], name: "index_record_books_on_group_id"
-    t.index ["specialization_id"], name: "index_record_books_on_specialization_id"
     t.index ["user_id"], name: "index_record_books_on_user_id"
   end
 
@@ -159,7 +157,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_06_130034) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "index", null: false
+    t.string "index", null: false
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -195,6 +193,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_06_130034) do
     t.datetime "updated_at", null: false
     t.boolean "expelled", default: false
     t.datetime "expelled_at"
+    t.string "save_password"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -219,7 +218,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_06_130034) do
   add_foreign_key "notifications_users", "notifications"
   add_foreign_key "notifications_users", "users"
   add_foreign_key "record_books", "groups"
-  add_foreign_key "record_books", "specializations"
   add_foreign_key "record_books", "users"
   add_foreign_key "semesters_subjects", "semesters"
   add_foreign_key "semesters_subjects", "subjects"

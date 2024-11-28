@@ -94,7 +94,7 @@ class AttestationRetakeReportsController < ApplicationController
       doc.p 'РЕСПУБЛИКАНСКИЙ ИНСТИТУТ ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ', style: 'heading'
 
       doc.p "ЗАЧЕТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ № 1", style: 'heading'
-      doc.p 'аттестации вне учебной группы', style: 'heading'
+      doc.p ' ', style: 'heading'
 
       doc.p "Отчет по экзамену: #{@exam.name}", size: 20, bold: true
       doc.p "Название предмета: #{@exam.subject.name}"

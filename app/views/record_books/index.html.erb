@@ -28,7 +28,7 @@
                <tr>
                  <td><%= record_book.custom_number %></td>
                  <td><%= record_book.user.name %></td>
-                 <td><%= record_book.specialization.name %></td>
+                 <td><%= record_book.group.specialization.name %></td>
                  <td><%= record_book.group.name %></td>
                  <td><%= record_book.retake_count %></td>
                  <% if current_user.admin? %>

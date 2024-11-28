@@ -19,23 +19,12 @@
 
             <div class="form-group row mb-3">
               <div class="col-sm-3 text-right">
-                <%= f.label :specialization_id, class: "col-form-label" do %>
-                  <div><%= t('record_books.specialization') %>:</div>
-                <% end %>
-              </div>
-              <div class="col-sm-9">
-                <%= f.collection_select :specialization_id, Specialization.all, :id, :name, { prompt: t('record_books.select_specialization') }, { class: "form-control", data: { action: "change->record-form#fetchGroups", target: "record-form.specializationSelect" } } %>
-              </div>
-            </div>
-
-            <div class="form-group row mb-3">
-              <div class="col-sm-3 text-right">
                 <%= f.label :group_id, class: "col-form-label" do %>
                   <div><%= t('record_books.group') %>:</div>
                 <% end %>
               </div>
               <div class="col-sm-9">
-                <%= f.collection_select :group_id, @record_book.specialization&.groups || [], :id, :name, { prompt: t('record_books.select_group') }, { class: "form-control", data: { target: "record-form.groupSelect", "selected-group-id": @record_book.group_id } } %>
+                <%= f.collection_select :group_id, Group.all || [], :id, :name, { prompt: t('record_books.select_group') }, { class: "form-control", data: { target: "record-form.groupSelect", "selected-group-id": @record_book.group_id } } %>
               </div>
             </div>
 

@@ -135,6 +135,8 @@ en:
     create: "Create"
     new: "New"
     save: "Save"
+    export: "Export"
+    status: "Status"
 
   users:
     users: "Users"
@@ -182,6 +184,8 @@ en:
     edit_profile: "Edit profile"
     сhange_your_password: "Change your password"
     resend_confirmation_instructions: "Resend confirmation instructions"
+    active: "Active"
+    inactive: "Inactive"
    
   subjects:
     subjects: "Subjects"

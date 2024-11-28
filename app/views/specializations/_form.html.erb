@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="col-sm-9">
-                  <%= f.number_field :index, class: "form-control" %>
+                  <%= f.text_field :index, class: "form-control" %>
                 </div>
               </div>
               
@@ -58,7 +58,7 @@
                 </div>
               </div>
 
-              <div class="form-group row">
+             
               <div class="col-sm-9 offset-sm-3 d-flex justify-content-between">
                 <div>
                     <%= f.submit (@specialization.new_record? ? t('specializations.create_specialization') : t('specializations.edit_specialization')), class: "btn btn-primary mr-2" %>

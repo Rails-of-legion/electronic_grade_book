@@ -17,7 +17,14 @@ Rails.application.routes.draw do
     get 'marks_reports/new', to: 'marks_reports#new', as: :new_marks_report
     post 'marks_reports/generate_report', to: 'marks_reports#generate_report', as: :generate_marks_report
     get 'marks_reports/generate_report_redirect', to: redirect('/marks_reports/new'), as: :generate_marks_report_redirect
-    resources :users
+    resources :users do
+      collection do
+        get :export_users_to_xlsx
+        get :status
+      end
+    end
+
+    patch 'users/update_status', to: 'users#update_status', as: :update_status_users
 
     get "up" => "rails/health#show", as: :rails_health_check
 
@@ -33,7 +40,7 @@ Rails.application.routes.draw do
     get "users/:id/edit_email", to: "users#edit_email", as: :edit_email
     patch "users/:id/update_password", to: "users#update_password", as: :update_password
     patch "users/:id/update_email", to: "users#update_email", as: :update_email
-
+ 
     resources :examination_reports
     resources :users, only: %i[show update edit create new destroy edit_password update_password edit_email update_email]
     resources :semesters

@@ -5,3 +5,4 @@ require_relative "application"
 Rails.application.initialize!
 
 secret_key_base = Rails.application.credentials.secret_key_base
+
