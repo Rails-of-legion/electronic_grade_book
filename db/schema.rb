@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_27_123221) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_06_130034) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "examination_reports", force: :cascade do |t|
+    t.string "group", null: false
+    t.string "subject"
+    t.string "attestation"
+    t.string "teacher"
+    t.string "student"
+    t.date "date_of_statement"
+    t.date "date_until_valid"
+    t.integer "mark"
+    t.date "date_of_attestation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "grades", force: :cascade do |t|
     t.bigint "subject_id", null: false
@@ -57,6 +71,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_27_123221) do
     t.bigint "teacher_id"
     t.index ["subject_id"], name: "index_intermediate_attestations_on_subject_id"
     t.index ["teacher_id"], name: "index_intermediate_attestations_on_teacher_id"
+  end
+
+  create_table "marks_report_es", force: :cascade do |t|
+    t.bigint "groups_id", null: false
+    t.string "student_name"
+    t.string "teacher_name"
+    t.integer "mark"
+    t.string "form_of_inet_attstation"
+    t.string "form_of_education"
+    t.string "subject"
+    t.date "date_of_issuance"
+    t.date "valid_until"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["groups_id"], name: "index_marks_report_es_on_groups_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -186,6 +215,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_27_123221) do
   add_foreign_key "groups_intermediate_attestations", "intermediate_attestations"
   add_foreign_key "intermediate_attestations", "subjects"
   add_foreign_key "intermediate_attestations", "users", column: "teacher_id"
+  add_foreign_key "marks_report_es", "groups", column: "groups_id"
   add_foreign_key "notifications_users", "notifications"
   add_foreign_key "notifications_users", "users"
   add_foreign_key "record_books", "groups"

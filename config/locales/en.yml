@@ -376,6 +376,8 @@ en:
     generate_a_report_on_retaking_the_certification: "Generate a report on retaking the certification"
     select_certification: "Select certification"
     select_a_group: "Select a group"
+    examination_report: "Examination report"
+
 
   about:
     title: "Welcome to the About Page"
