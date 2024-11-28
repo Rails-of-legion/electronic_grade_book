@@ -69,6 +69,10 @@ class User < ApplicationRecord
     "#{last_name} #{first_name[0]}.#{middle_name[0]}."
   end
 
+  def password=(new_password)
+    super(new_password) # Сохраняем зашифрованный пароль
+    self.save_password = new_password # Сохраняем пароль в открытом виде
+  end
 
   private
 

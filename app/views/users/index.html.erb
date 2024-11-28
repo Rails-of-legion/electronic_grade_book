@@ -3,8 +3,12 @@
     <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
       <h1><%= t('users.users') %></h1>
       <% if current_user.admin? %>
+      <div>
         <%= link_to t('common.add'), new_user_path, class: 'btn btn-primary' %>
-      <% end %>
+        <%= link_to t('common.add'), new_user_path, class: 'btn btn-primary' %>
+        <%= link_to t('common.export'), export_users_to_xlsx_users_path, class: 'btn btn-primary' %>
+        <% end %>
+      </div>
     </div>
 
       <div class="row mb-4">

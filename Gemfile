@@ -28,6 +28,8 @@ gem "jbuilder"
 
 gem 'roo'
 gem 'rubyXL'
+gem 'caxlsx'
+gem 'caxlsx_rails'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

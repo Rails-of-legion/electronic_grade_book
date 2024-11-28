@@ -127,6 +127,23 @@ class UsersController < ApplicationController
     redirect_to some_path
   end
 
+  def export_users_to_xlsx
+    @users = User.all
+
+    package = Axlsx::Package.new do |p|
+      p.workbook.add_worksheet(name: "Users") do |sheet|
+        sheet.add_row ["Фамилия", "Имя", "Отчество", "Электронная почта", "Пароль"] # Заголовки столбцов
+
+        @users.each do |user|
+          sheet.add_row [user.last_name, user.first_name, user.middle_name, user.email, user.save_password]
+        end
+      end
+    end
+
+    # Отправляем файл пользователю
+    send_data package.to_stream.read, filename: "users.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  end
+
   private
 
   def set_notification_user
@@ -136,7 +153,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(
       :first_name, :last_name, :middle_name, :email,
-      :password, :password_confirmation, :status, :expelled, :expelled_at, role_ids: []
+      :password, :password_confirmation, :save_password ,:status, :expelled, :expelled_at, role_ids: []
     )
   end
 
