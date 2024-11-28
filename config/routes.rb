@@ -40,9 +40,9 @@ Rails.application.routes.draw do
     get "users/:id/edit_email", to: "users#edit_email", as: :edit_email
     patch "users/:id/update_password", to: "users#update_password", as: :update_password
     patch "users/:id/update_email", to: "users#update_email", as: :update_email
-
-    resources :users, only: %i[show update edit create new destroy edit_password update_password edit_email update_email] 
-
+ 
+    resources :examination_reports
+    resources :users, only: %i[show update edit create new destroy edit_password update_password edit_email update_email]
     resources :semesters
     resources :subjects do
       collection do

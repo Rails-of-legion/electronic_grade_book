@@ -1,0 +1,166 @@
+<div class="container mt-5">
+
+
+<div class="container mt-5"></div>
+    <h3 class="text-center mb-4">Учреждение образования</h3>
+    <h3 class="text-center mb-4">«РЕСПУБЛИКАНСКИЙ ИНСТИТУТ ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ»</h3>
+    <h3 class="text-center mb-4">ЗАЧЁТНО-ЭКЗАМЕНАЦИОННАЯ ВЕДОМОСТЬ №<%= @examination_report.id %></h3>
+    <h3 class="text-center mb-5">аттестации вне учебной группы</h3>
+  <div class="row mb-3">
+    <div class="col-md-2">
+      <strong>Группа:</strong>
+    </div>
+    <div class="col-md-4">
+      <%= @examination_report.group %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-2">
+      <strong>Дисциплина:</strong>
+    </div>
+    <div class="col-md-4">
+      <%= @examination_report.subject %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-2">
+      <strong>Форма промежуточной аттестации:</strong>
+    </div>
+    <div class="col-md-4">
+      <%= @examination_report.attestation == '1' ? 'Зачёт' : 'Экзамен' %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-2">
+      <strong>Преподаватель:</strong>
+    </div>
+    <div class="col-md-4">
+      <%= @examination_report.teacher %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-2">
+      <strong>Фамилия, инициалы слушателя:</strong>
+    </div>
+    <div class="col-md-4">
+      <%= @examination_report.student %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-2">
+      <strong>Дата выдачи ведомости:</strong>
+    </div>
+    <div class="col-md-4">
+      <%= @examination_report.date_of_statement.strftime("%d.%m.%Y") %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-2">
+      <strong>Ведомость действительна по:</strong>
+    </div>
+    <div class="col-md-4">
+      <%= @examination_report.date_until_valid.strftime("%d.%m.%Y") %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-2">
+      <strong>Отметка:</strong>
+    </div>
+    <div class="col-md-4">
+      <% mark_options = [["Зачтено", 11], ["Не зачтено", 12], ["Не явился", 13], ["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["7", 7], ["8", 8], ["9", 9], ["10", 10]] %>
+      <%= mark_options.find { |option| option[1] == @examination_report.mark }[0] %>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-2">
+      <strong>Дата аттестации:</strong>
+    </div>
+    <div class="col-md-4">
+      <%= @examination_report.date_of_attestation.strftime("%d.%m.%Y") %>
+    </div>
+  </div>
+<div class="row mt-5">
+      <div class="col-md-6">
+        <p class="text-center">
+          Подпись преподавателя
+        </p>
+        <div class="row">
+          <div class="col-6">
+            <p class="text-center">
+              _________________________
+            </p>
+            <p class="text-center">
+              (подпись)
+            </p>
+          </div>
+          <div class="col-6">
+            <p class="text-center">
+              ______________________
+            </p>
+            <p class="text-center">
+              (фамилия, инициалы)
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <p class="text-center">
+          С индивидуальными сроками текущей аттестации ознакомлен
+        </p>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <p class="text-center">
+          ___________20___
+        </p>
+        <p class="text-center">
+          (дата)
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p class="text-center">
+          ______________
+        </p>
+        <p class="text-center">
+          (подпись)
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p class="text-center">
+          ______________________
+        </p>
+        <p class="text-center">
+          (фамилия, инициалы слушателя)
+        </p>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-6">
+          Декан факультета повышения квалификации и переподготовки кадров
+      </div>
+         <div class="col-md-1 mb-3">
+          Ю.Ю.Королев
+        </div>
+      </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12 text-center">
+      <%= link_to 'Редактировать', edit_examination_report_path(@examination_report), class: 'btn btn-primary' %>
+      <%= link_to 'Назад', examination_reports_path, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>

@@ -403,6 +403,7 @@ ru:
     generate_a_report_on_retaking_the_certification: "Сформировать отчет по пересдаче аттестации"
     select_certification: "Выберите аттестацию"
     select_a_group: "Выберите группу"
+    examination_report: "Экзаменационная ведомость"
   
   about:
     title: "Добро пожаловать на страницу О нас"
